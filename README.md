@@ -12,7 +12,7 @@ and helpful experience as they become and stay organized.
 This entire application will be built live on [Adam's Twitch channel](https://twitch.tv/adammc331).
 All streams will be recorded and archived on [YouTube](https://youtube.com/AdamMcNeilly) as well.
 
-**NOTE: Once we have a stream history page, we should add that context here as well.**
+You can find the recordings and notes from each stream [here](stream-history.md). 
 
 ## Organization
 
