@@ -1,6 +1,6 @@
 name: Danger Checks
 
-on: pull_request
+on: push
 
 jobs:
   danger:
