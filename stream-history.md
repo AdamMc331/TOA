@@ -16,3 +16,16 @@ YouTube: https://youtu.be/8Umvlpx-Wvg
 Blog: https://androidessence.com/toa-twitch-series
 
 PRs: N/A
+
+## Stream Two - Developer Experience
+
+In this stream, we discuss a number of ways to help dev experience in Android like CI tooling and
+static analysis. 
+
+Date: September 8, 2021
+
+YouTube: **TBD**
+
+PRs:
+  * GitHub Actions: https://github.com/AdamMc331/TOA/pull/27
+  * Danger: https://github.com/AdamMc331/TOA/pull/29
