@@ -31,3 +31,4 @@ PRs:
   * Danger: https://github.com/AdamMc331/TOA/pull/29
   * Ktlint: https://github.com/AdamMc331/TOA/pull/30
   * Detekt: https://github.com/AdamMc331/TOA/pull/31
+  * Git Hooks: https://github.com/AdamMc331/TOA/pull/32
