@@ -32,3 +32,12 @@ PRs:
   * Ktlint: https://github.com/AdamMc331/TOA/pull/30
   * Detekt: https://github.com/AdamMc331/TOA/pull/31
   * Git Hooks: https://github.com/AdamMc331/TOA/pull/32
+
+## Stream Three - Design System
+
+In this stream, we setup a design system for the application.
+
+PRs:
+    * Colors: 
+
+Date: September 22, 2021
