@@ -22,9 +22,7 @@ import com.adammcneilly.toa.ui.theme.TOATheme
  * @param[viewState] The current state of the screen to render.
  */
 @Composable
-fun LoginContent(
-    viewState: LoginViewState,
-) {
+fun LoginContent() {
     Scaffold(
         backgroundColor = MaterialTheme.colors.primary,
     ) {
@@ -70,6 +68,6 @@ private fun EmptyLoginContentPreview() {
     )
 
     TOATheme {
-        LoginContent(viewState)
+        LoginContent()
     }
 }
