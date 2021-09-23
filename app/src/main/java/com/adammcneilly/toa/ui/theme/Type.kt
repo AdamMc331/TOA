@@ -42,5 +42,5 @@ val typography = Typography(
     caption = TextStyle(
         fontFamily = UrbanistRegular,
         fontSize = 12.sp,
-    )
+    ),
 )
