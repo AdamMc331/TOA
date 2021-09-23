@@ -24,7 +24,7 @@ static analysis.
 
 Date: September 8, 2021
 
-YouTube: **TBD**
+YouTube: https://youtu.be/ePpbpLyYI1w
 
 PRs:
   * GitHub Actions: https://github.com/AdamMc331/TOA/pull/27
@@ -35,12 +35,16 @@ PRs:
 
 ## Stream Three - Design System
 
-In this stream, we setup a design system for the application.
+In this stream, we setup a design system for the application. We intended to add the app logo, but 
+due to classic Android Studio issues we pivoted to also including the login UI. 
 
 PRs:
     * Colors: https://github.com/AdamMc331/TOA/pull/35
     * Typography: https://github.com/AdamMc331/TOA/pull/36
     * Buttons: https://github.com/AdamMc331/TOA/pull/37
     * TextField: https://github.com/AdamMc331/TOA/pull/38
+    * Login UI: https://github.com/AdamMc331/TOA/pull/39
 
 Date: September 22, 2021
+
+YouTube: **TBD**
