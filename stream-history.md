@@ -39,5 +39,6 @@ In this stream, we setup a design system for the application.
 
 PRs:
     * Colors: 
+    * Typography:
 
 Date: September 22, 2021
