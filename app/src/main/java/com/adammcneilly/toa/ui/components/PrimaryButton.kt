@@ -18,6 +18,15 @@ import com.adammcneilly.toa.R
 import com.adammcneilly.toa.ui.theme.ButtonShape
 import com.adammcneilly.toa.ui.theme.TOATheme
 
+/**
+ * This is a custom [Button] that provides the shape and styling expected
+ * in the TOA application.
+ *
+ * @param[text] The text inside the button.
+ * @param[onClick] A callback invoked when the user clicks the button.
+ * @param[modifier] An optional [Modifier] to configure this component.
+ * @param[backgroundColor] The color of the button in an enabled state.
+ */
 @Composable
 fun PrimaryButton(
     text: String,
