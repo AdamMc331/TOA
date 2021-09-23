@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -31,10 +30,18 @@ private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
  * This composable maintains the entire screen for handling user login.
  *
  * @param[viewState] The current state of the screen to render.
+ * @param[onUsernameChanged] A callback invoked when the user enters their username.
+ * @param[onPasswordChanged] A callback invoked when the user enters their password.
+ * @param[onLoginClicked] A callback invoked when the user clicks the login button.
+ * @param[onSignUpClicked] A callback invoked when the user clicks the sign up button.
  */
 @Composable
 fun LoginContent(
     viewState: LoginViewState,
+    onUsernameChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onLoginClicked: () -> Unit,
+    onSignUpClicked: () -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colors.background,
@@ -48,44 +55,89 @@ fun LoginContent(
 
             Spacer(modifier = Modifier.weight(1F))
 
-            Image(
-                painterResource(id = R.drawable.ic_toa_checkmark),
-                contentDescription = stringResource(R.string.app_logo_content_description),
-                modifier = Modifier
-                    .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
-            )
+            AppLogo()
 
             Spacer(modifier = Modifier.weight(1F))
 
-            TOATextField(
+            UsernameInput(
                 text = viewState.userName,
-                onTextChanged = {},
-                labelText = stringResource(R.string.username),
+                onTextChanged = onUsernameChanged,
             )
 
             VerticalSpacer(height = 12.dp)
 
-            TOATextField(
+            PasswordInput(
                 text = viewState.password,
-                onTextChanged = {},
-                labelText = stringResource(R.string.password),
+                onTextChanged = onPasswordChanged,
             )
 
             VerticalSpacer(height = 48.dp)
 
-            PrimaryButton(
-                text = stringResource(R.string.log_in),
-                onClick = { /*TODO*/ },
+            LoginButton(
+                onClick = onLoginClicked,
             )
 
             VerticalSpacer(height = 12.dp)
 
-            SecondaryButton(
-                text = stringResource(R.string.sign_up),
-                onClick = { /*TODO*/ },
+            SignUpButton(
+                onClick = onSignUpClicked,
             )
         }
     }
+}
+
+@Composable
+private fun SignUpButton(
+    onClick: () -> Unit,
+) {
+    SecondaryButton(
+        text = stringResource(R.string.sign_up),
+        onClick = onClick,
+    )
+}
+
+@Composable
+private fun LoginButton(
+    onClick: () -> Unit,
+) {
+    PrimaryButton(
+        text = stringResource(R.string.log_in),
+        onClick = onClick,
+    )
+}
+
+@Composable
+fun PasswordInput(
+    text: String,
+    onTextChanged: (String) -> Unit,
+) {
+    TOATextField(
+        text = text,
+        onTextChanged = onTextChanged,
+        labelText = stringResource(R.string.password),
+    )
+}
+
+@Composable
+private fun UsernameInput(
+    text: String,
+    onTextChanged: (String) -> Unit,
+) {
+    TOATextField(
+        text = text,
+        onTextChanged = onTextChanged,
+        labelText = stringResource(R.string.username),
+    )
+}
+
+@Composable
+private fun AppLogo() {
+    Image(
+        painterResource(id = R.drawable.ic_toa_checkmark),
+        contentDescription = stringResource(R.string.app_logo_content_description),
+        modifier = Modifier
+            .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
+    )
 }
 
 @Preview(
@@ -105,6 +157,12 @@ private fun EmptyLoginContentPreview() {
     )
 
     TOATheme {
-        LoginContent(viewState)
+        LoginContent(
+            viewState = viewState,
+            onUsernameChanged = {},
+            onPasswordChanged = {},
+            onLoginClicked = {},
+            onSignUpClicked = {},
+        )
     }
 }
