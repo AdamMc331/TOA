@@ -38,7 +38,8 @@ PRs:
 In this stream, we setup a design system for the application.
 
 PRs:
-    * Colors: 
-    * Typography:
+    * Colors: https://github.com/AdamMc331/TOA/pull/35
+    * Typography: https://github.com/AdamMc331/TOA/pull/36
+    * Buttons: https://github.com/AdamMc331/TOA/pull/37
 
 Date: September 22, 2021
