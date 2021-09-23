@@ -13,14 +13,19 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.ui.components.PrimaryButton
 import com.adammcneilly.toa.ui.components.SecondaryButton
 import com.adammcneilly.toa.ui.components.TOATextField
+import com.adammcneilly.toa.ui.core.VerticalSpacer
 import com.adammcneilly.toa.ui.theme.TOATheme
+
+private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
 
 /**
  * This composable maintains the entire screen for handling user login.
@@ -37,7 +42,7 @@ fun LoginContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(dimensionResource(id = R.dimen.screen_padding)),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
@@ -45,9 +50,9 @@ fun LoginContent(
 
             Image(
                 painterResource(id = R.drawable.ic_toa_checkmark),
-                contentDescription = "App Logo",
+                contentDescription = stringResource(R.string.app_logo_content_description),
                 modifier = Modifier
-                    .fillMaxWidth(0.75F),
+                    .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
             )
 
             Spacer(modifier = Modifier.weight(1F))
@@ -55,28 +60,28 @@ fun LoginContent(
             TOATextField(
                 text = viewState.userName,
                 onTextChanged = {},
-                labelText = "Username",
+                labelText = stringResource(R.string.username),
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            VerticalSpacer(height = 12.dp)
 
             TOATextField(
                 text = viewState.password,
                 onTextChanged = {},
-                labelText = "Password",
+                labelText = stringResource(R.string.password),
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            VerticalSpacer(height = 48.dp)
 
             PrimaryButton(
-                text = "log in",
+                text = stringResource(R.string.log_in),
                 onClick = { /*TODO*/ },
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            VerticalSpacer(height = 12.dp)
 
             SecondaryButton(
-                text = "sign up",
+                text = stringResource(R.string.sign_up),
                 onClick = { /*TODO*/ },
             )
         }
