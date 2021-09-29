@@ -1,4 +1,4 @@
-package com.adammcneilly.toa.ui.theme
+package com.adammcneilly.toa.core.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

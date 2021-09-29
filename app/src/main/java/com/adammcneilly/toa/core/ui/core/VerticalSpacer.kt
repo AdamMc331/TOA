@@ -1,4 +1,4 @@
-package com.adammcneilly.toa.ui.core
+package com.adammcneilly.toa.core.ui.core
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
