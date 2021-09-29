@@ -51,4 +51,6 @@ PRs:
 
 Date: September 22, 2021
 
-YouTube: **TBD**
+YouTube:
+  * Design System: https://youtu.be/ilNi6Pl0FI0
+  * Login UI: https://youtu.be/VvILEVD5zFE
