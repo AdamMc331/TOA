@@ -54,3 +54,13 @@ Date: September 22, 2021
 YouTube:
   * Design System: https://youtu.be/ilNi6Pl0FI0
   * Login UI: https://youtu.be/VvILEVD5zFE
+
+## Stream Four - Login Implementation
+
+In this screen, we design the app architecture and build out the necessary components to power
+our login screen.
+
+Date: September 29, 2021
+
+PRs:
+    * Use Case: 

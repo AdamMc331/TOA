@@ -1,6 +1,6 @@
 @file:Suppress("MagicNumber")
 
-package com.adammcneilly.toa.ui.theme
+package com.adammcneilly.toa.core.ui.theme
 
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
