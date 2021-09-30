@@ -67,6 +67,8 @@ PRs:
   * Use Case: https://github.com/AdamMc331/TOA/pull/40
   * Repository: https://github.com/AdamMc331/TOA/pull/41
   * View State Update: https://github.com/AdamMc331/TOA/pull/42
+  * View Model: https://github.com/AdamMc331/TOA/pull/43
 
 Notes:
+  * https://proandroiddev.com/why-you-need-use-cases-interactors-142e8a6fe576 
   * https://proandroiddev.com/kotlin-extension-functions-more-than-sugar-1f04ca7189ff
