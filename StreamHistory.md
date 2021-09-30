@@ -5,6 +5,7 @@ This page is a recording of all Twitch streams related to the TOA project.
 * [Stream One - Project Creation](#stream-one---project-creation)
 * [Stream Two - Developer Experience](#stream-two---developer-experience)
 * [Stream Three - Design System](#stream-three---design-system)
+* [Stream Four - Login Implementation](#stream-four---login-implementation)
 
 ## Stream One - Project Creation
 
@@ -63,5 +64,6 @@ our login screen.
 Date: September 29, 2021
 
 PRs:
-    * Use Case: 
-    * Repository: 
+  * Use Case: https://github.com/AdamMc331/TOA/pull/40
+  * Repository: https://github.com/AdamMc331/TOA/pull/41
+  * View State Update: https://github.com/AdamMc331/TOA/pull/42
