@@ -63,5 +63,8 @@ our login screen.
 Date: September 29, 2021
 
 PRs:
-    * Use Case: 
-    * Repository: 
+  * Use Case:
+  * Repository: 
+
+Notes:
+  * https://proandroiddev.com/kotlin-extension-functions-more-than-sugar-1f04ca7189ff
