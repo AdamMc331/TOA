@@ -207,6 +207,7 @@ private fun AppLogo() {
     name = "Day Mode - Empty",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@Suppress("UnusedPrivateMember")
 @Composable
 private fun LoginContentPreview(
     @PreviewParameter(LoginViewStateProvider::class)
