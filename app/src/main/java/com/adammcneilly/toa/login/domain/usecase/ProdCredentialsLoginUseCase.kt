@@ -5,6 +5,7 @@ import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.InvalidCredentialsException
 import com.adammcneilly.toa.login.domain.model.LoginResult
 import com.adammcneilly.toa.login.domain.repository.LoginRepository
+import com.adammcneilly.toa.login.domain.repository.TokenRepository
 
 /**
  * A concrete implementation of a [CredentialsLoginUseCase] that will request logging in
@@ -12,6 +13,7 @@ import com.adammcneilly.toa.login.domain.repository.LoginRepository
  */
 class ProdCredentialsLoginUseCase(
     private val loginRepository: LoginRepository,
+    private val tokenRepository: TokenRepository,
 ) : CredentialsLoginUseCase {
 
     override suspend fun invoke(credentials: Credentials): LoginResult {
@@ -19,6 +21,7 @@ class ProdCredentialsLoginUseCase(
 
         return when (repoResult) {
             is Result.Success -> {
+                tokenRepository.storeToken(repoResult.data.token)
                 return LoginResult.Success
             }
             is Result.Error -> {
