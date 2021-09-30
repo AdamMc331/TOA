@@ -11,9 +11,7 @@ class LoginViewModelRobot {
     private lateinit var viewModel: LoginViewModel
 
     fun buildViewModel() = apply {
-        viewModel = LoginViewModel(
-            credentialsLoginUseCase = fakeCredentialsLoginUseCase.mock,
-        )
+        viewModel = LoginViewModel()
     }
 
     fun mockLoginResultForCredentials(

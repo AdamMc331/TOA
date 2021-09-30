@@ -4,13 +4,10 @@ import androidx.lifecycle.ViewModel
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.Email
 import com.adammcneilly.toa.login.domain.model.Password
-import com.adammcneilly.toa.login.domain.usecase.CredentialsLoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class LoginViewModel(
-    private val credentialsLoginUseCase: CredentialsLoginUseCase,
-) : ViewModel() {
+class LoginViewModel : ViewModel() {
 
     private val _viewState: MutableStateFlow<LoginViewState> =
         MutableStateFlow(LoginViewState.Initial)
