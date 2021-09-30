@@ -1,8 +1,11 @@
 package com.adammcneilly.toa.core.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -10,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.core.ui.theme.TextFieldShape
@@ -29,20 +33,36 @@ fun TOATextField(
     onTextChanged: (String) -> Unit,
     labelText: String,
     modifier: Modifier = Modifier,
+    errorMessage: String? = null,
 ) {
-    OutlinedTextField(
-        value = text,
-        onValueChange = onTextChanged,
-        label = {
+    Column {
+        OutlinedTextField(
+            value = text,
+            onValueChange = onTextChanged,
+            label = {
+                Text(
+                    text = labelText,
+                )
+            },
+            shape = TextFieldShape,
+            modifier = modifier
+                .heightIn(dimensionResource(id = R.dimen.text_field_height))
+                .fillMaxWidth(),
+            isError = (errorMessage != null),
+        )
+
+        if (errorMessage != null) {
             Text(
-                text = labelText,
+                text = errorMessage,
+                color = MaterialTheme.colors.error,
+                modifier = Modifier
+                    .padding(
+                        top = 4.dp,
+                        start = 16.dp,
+                    ),
             )
-        },
-        shape = TextFieldShape,
-        modifier = modifier
-            .heightIn(dimensionResource(id = R.dimen.text_field_height))
-            .fillMaxWidth(),
-    )
+        }
+    }
 }
 
 @Preview(
@@ -62,6 +82,29 @@ private fun FilledTOATextFieldPreview() {
                 text = "TOA text field",
                 onTextChanged = {},
                 labelText = "Label",
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "Night Mode - Error",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Preview(
+    name = "Day Mode - Error",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Composable
+@Suppress("UnusedPrivateMember")
+private fun ErrorTOATextFieldPreview() {
+    TOATheme {
+        Surface {
+            TOATextField(
+                text = "TOA text field",
+                onTextChanged = {},
+                labelText = "Label",
+                errorMessage = "Plz enter this",
             )
         }
     }
