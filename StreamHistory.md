@@ -72,3 +72,9 @@ PRs:
 Notes:
   * https://proandroiddev.com/why-you-need-use-cases-interactors-142e8a6fe576 
   * https://proandroiddev.com/kotlin-extension-functions-more-than-sugar-1f04ca7189ff
+  * https://handstandsam.com/2020/06/08/wrapping-mockito-mocks-for-reusability/
+
+YouTube:
+  * Use Cases: https://youtu.be/F4WajzYPh9s
+  * Repository Layer: https://youtu.be/TWeu9fRNPWY
+  * View State: https://youtu.be/3UNa6l0KlcU
