@@ -1,5 +1,6 @@
 package com.adammcneilly.toa.login.ui
 
+import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.login.domain.model.Credentials
 
 /**
@@ -44,7 +45,7 @@ sealed class LoginViewState(
      */
     data class SubmissionError(
         override val credentials: Credentials,
-        val errorMessage: String,
+        val errorMessage: UIText,
     ) : LoginViewState(
         credentials = credentials,
     )

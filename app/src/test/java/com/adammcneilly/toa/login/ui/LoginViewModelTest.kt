@@ -3,6 +3,7 @@ package com.adammcneilly.toa.login.ui
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.Email
 import com.adammcneilly.toa.login.domain.model.Password
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 
@@ -20,37 +21,32 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun testInitialState() {
-        testRobot
-            .buildViewModel()
-            .assertViewState(LoginViewState.Initial)
-    }
+    fun testUpdateCredentials() = runBlockingTest {
+        val testEmail = "testy@mctestface.com"
+        val testPassword = "Hunter2"
 
-    @Test
-    fun testUpdateCredentials() {
-        val credentials = defaultCredentials
+        val initialState = LoginViewState.Initial
+        val emailEnteredState = LoginViewState.Active(
+            credentials = Credentials(email = Email(testEmail))
+        )
+        val emailPasswordEnteredState = LoginViewState.Active(
+            credentials = Credentials(email = Email(testEmail), password = Password(testPassword))
+        )
 
-        testRobot
-            .buildViewModel()
-            .enterEmail(credentials.email.value)
-            .enterPassword(credentials.password.value)
-            .assertViewState(LoginViewState.Active(credentials))
-    }
-
-    @Test
-    fun testInvalidCredentialLogin() {
-        val credentials = defaultCredentials
+        val expectedViewStates = listOf(
+            initialState,
+            emailEnteredState,
+            emailPasswordEnteredState,
+        )
 
         testRobot
             .buildViewModel()
-            .enterEmail(credentials.email.value)
-            .enterPassword(credentials.password.value)
-            .clickLogInButton()
-            .assertViewState(
-                LoginViewState.SubmissionError(
-                    credentials = defaultCredentials,
-                    errorMessage = "",
-                )
+            .assertViewStatesAfterAction(
+                action = {
+                    this.enterEmail(testEmail)
+                    this.enterPassword(testPassword)
+                },
+                viewStates = expectedViewStates,
             )
     }
 }
