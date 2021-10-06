@@ -10,11 +10,6 @@ import org.junit.Test
 class LoginViewModelTest {
     private lateinit var testRobot: LoginViewModelRobot
 
-    private val defaultCredentials = Credentials(
-        Email("testy@mctestface.com"),
-        Password("Hunter2"),
-    )
-
     @Before
     fun setUp() {
         testRobot = LoginViewModelRobot()
