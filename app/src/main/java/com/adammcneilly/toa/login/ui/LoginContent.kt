@@ -28,7 +28,7 @@ import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.components.PrimaryButton
 import com.adammcneilly.toa.core.ui.components.SecondaryButton
 import com.adammcneilly.toa.core.ui.components.TOATextField
-import com.adammcneilly.toa.core.ui.core.VerticalSpacer
+import com.adammcneilly.toa.core.ui.components.VerticalSpacer
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.Email

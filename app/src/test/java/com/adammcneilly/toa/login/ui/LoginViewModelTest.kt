@@ -36,4 +36,21 @@ class LoginViewModelTest {
             .enterPassword(credentials.password.value)
             .assertViewState(LoginViewState.Active(credentials))
     }
+
+    @Test
+    fun testInvalidCredentialLogin() {
+        val credentials = defaultCredentials
+
+        testRobot
+            .buildViewModel()
+            .enterEmail(credentials.email.value)
+            .enterPassword(credentials.password.value)
+            .clickLogInButton()
+            .assertViewState(
+                LoginViewState.SubmissionError(
+                    credentials = defaultCredentials,
+                    errorMessage = "",
+                )
+            )
+    }
 }
