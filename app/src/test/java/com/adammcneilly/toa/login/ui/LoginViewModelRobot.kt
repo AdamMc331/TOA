@@ -12,7 +12,9 @@ class LoginViewModelRobot {
     private lateinit var viewModel: LoginViewModel
 
     fun buildViewModel() = apply {
-        viewModel = LoginViewModel()
+        viewModel = LoginViewModel(
+            credentialsLoginUseCase = fakeCredentialsLoginUseCase.mock,
+        )
     }
 
     fun mockLoginResultForCredentials(
@@ -38,10 +40,6 @@ class LoginViewModelRobot {
         viewModel.signUpButtonClicked()
     }
 
-    fun assertViewState(expectedViewState: LoginViewState) = apply {
-        assertThat(viewModel.viewState.value).isEqualTo(expectedViewState)
-    }
-
     suspend fun assertViewStatesAfterAction(
         action: LoginViewModelRobot.() -> Unit,
         viewStates: List<LoginViewState>,
@@ -52,6 +50,8 @@ class LoginViewModelRobot {
             for (state in viewStates) {
                 assertThat(awaitItem()).isEqualTo(state)
             }
+
+            cancel()
         }
     }
 }

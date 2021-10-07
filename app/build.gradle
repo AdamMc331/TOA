@@ -35,6 +35,7 @@ android {
 
         freeCompilerArgs += [
                 '-Xopt-in=kotlin.time.ExperimentalTime',
+                '-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi',
         ]
     }
     buildFeatures {
