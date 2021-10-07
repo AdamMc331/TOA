@@ -16,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,10 +26,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.ui.components.PrimaryButton
 import com.adammcneilly.toa.core.ui.components.SecondaryButton
 import com.adammcneilly.toa.core.ui.components.TOATextField
-import com.adammcneilly.toa.core.ui.core.VerticalSpacer
+import com.adammcneilly.toa.core.ui.components.VerticalSpacer
+import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.Email
@@ -113,7 +116,7 @@ private fun LogoInputsColumn(
 
         if (viewState is LoginViewState.SubmissionError) {
             Text(
-                text = viewState.errorMessage,
+                text = viewState.errorMessage.getString(LocalContext.current),
                 color = MaterialTheme.colors.error,
                 modifier = Modifier
                     .padding(top = 12.dp),
@@ -239,7 +242,7 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
                 LoginViewState.Submitting(activeCredentials),
                 LoginViewState.SubmissionError(
                     credentials = activeCredentials,
-                    errorMessage = "Something went wrong.",
+                    errorMessage = UIText.StringText("Something went wrong."),
                 ),
                 LoginViewState.InputError(
                     credentials = activeCredentials,

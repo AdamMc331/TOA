@@ -32,6 +32,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
         useIR = true
+
+        freeCompilerArgs += [
+                '-Xopt-in=kotlin.time.ExperimentalTime',
+                '-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi',
+        ]
     }
     buildFeatures {
         compose true
@@ -61,6 +66,7 @@ dependencies {
     testImplementation "io.mockk:mockk:1.12.0"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
     testImplementation "com.google.truth:truth:1.1.3"
+    testImplementation 'app.cash.turbine:turbine:0.6.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
