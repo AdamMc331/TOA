@@ -7,4 +7,5 @@
     <string name="sign_up">sign up</string>
 
     <string name="err_invalid_credentials">Your email and/or password are incorrect.</string>
+    <string name="err_login_failure">There was a problem logging in. Please check your internet connection and try again.</string>
 </resources>

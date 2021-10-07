@@ -54,6 +54,12 @@ class LoginViewModel(
                         errorMessage = UIText.ResourceText(R.string.err_invalid_credentials),
                     )
                 }
+                is LoginResult.Failure.Unknown -> {
+                    LoginViewState.SubmissionError(
+                        credentials = currentCredentials,
+                        errorMessage = UIText.ResourceText(R.string.err_login_failure),
+                    )
+                }
                 else -> _viewState.value
             }
         }
