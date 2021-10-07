@@ -44,13 +44,11 @@ class LoginViewModelTest {
 
         testRobot
             .buildViewModel()
-            .assertViewStatesAfterAction(
-                action = {
-                    enterEmail(testEmail)
-                    enterPassword(testPassword)
-                },
+            .expectViewStates(
                 viewStates = expectedViewStates,
             )
+            .enterEmail(testEmail)
+            .enterPassword(testPassword)
     }
 
     @Test
@@ -91,14 +89,12 @@ class LoginViewModelTest {
                 credentials = completedCredentials,
                 result = LoginResult.Failure.InvalidCredentials,
             )
-            .assertViewStatesAfterAction(
-                action = {
-                    enterEmail(testEmail)
-                    enterPassword(testPassword)
-                    clickLogInButton()
-                },
+            .expectViewStates(
                 viewStates = expectedViewStates,
             )
+            .enterEmail(testEmail)
+            .enterPassword(testPassword)
+            .clickLogInButton()
     }
 
     @Test
@@ -139,13 +135,11 @@ class LoginViewModelTest {
                 credentials = completedCredentials,
                 result = LoginResult.Failure.Unknown,
             )
-            .assertViewStatesAfterAction(
-                action = {
-                    enterEmail(testEmail)
-                    enterPassword(testPassword)
-                    clickLogInButton()
-                },
+            .expectViewStates(
                 viewStates = expectedViewStates,
             )
+            .enterEmail(testEmail)
+            .enterPassword(testPassword)
+            .clickLogInButton()
     }
 }
