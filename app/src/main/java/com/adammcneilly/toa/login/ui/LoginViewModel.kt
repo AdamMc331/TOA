@@ -60,6 +60,9 @@ class LoginViewModel(
                         errorMessage = UIText.ResourceText(R.string.err_login_failure),
                     )
                 }
+                is LoginResult.Failure.EmptyCredentials -> {
+                    loginResult.toLoginViewState(currentCredentials)
+                }
                 else -> _viewState.value
             }
         }
@@ -67,31 +70,6 @@ class LoginViewModel(
 
     fun signUpButtonClicked() {
         TODO()
-    }
-
-    /**
-     * Given some [credentials], ensure that we've been provided valid information that can be used
-     * to login. If not, update our state accordingly, and return whether or not to proceed.
-     */
-    private fun validateCredentials(credentials: Credentials): Boolean {
-        val hasEmail = credentials.email.value.isNotEmpty()
-        val hasPassword = credentials.password.value.isNotEmpty()
-
-        _viewState.value = LoginViewState.Active(
-            credentials = credentials,
-            emailInputErrorMessage = if (hasEmail) {
-                null
-            } else {
-                UIText.ResourceText(R.string.err_empty_email)
-            },
-            passwordInputErrorMessage = if (hasPassword) {
-                null
-            } else {
-                UIText.ResourceText(R.string.err_empty_password)
-            },
-        )
-
-        return hasEmail && hasPassword
     }
 }
 
@@ -101,4 +79,16 @@ private fun Credentials.withUpdatedEmail(email: String): Credentials {
 
 private fun Credentials.withUpdatedPassword(password: String): Credentials {
     return this.copy(password = Password(password))
+}
+
+private fun LoginResult.Failure.EmptyCredentials.toLoginViewState(credentials: Credentials): LoginViewState {
+    return LoginViewState.Active(
+        credentials = credentials,
+        emailInputErrorMessage = UIText.ResourceText(R.string.err_empty_email).takeIf {
+            this.emptyEmail
+        },
+        passwordInputErrorMessage = UIText.ResourceText(R.string.err_empty_password).takeIf {
+            this.emptyPassword
+        },
+    )
 }

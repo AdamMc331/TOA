@@ -149,9 +149,11 @@ class LoginViewModelTest {
 
     @Test
     fun testSubmitWithoutCredentials() = runBlockingTest {
+        val credentials = Credentials()
+
         val initialState = LoginViewState.Initial
         val invalidInputsState = LoginViewState.Active(
-            credentials = Credentials(),
+            credentials = credentials,
             emailInputErrorMessage = UIText.ResourceText(R.string.err_empty_email),
             passwordInputErrorMessage = UIText.ResourceText(R.string.err_empty_password),
         )
@@ -160,6 +162,13 @@ class LoginViewModelTest {
             .buildViewModel()
             .expectViewStates(
                 viewStates = listOf(initialState, invalidInputsState)
+            )
+            .mockLoginResultForCredentials(
+                credentials = credentials,
+                result = LoginResult.Failure.EmptyCredentials(
+                    emptyEmail = true,
+                    emptyPassword = true,
+                )
             )
             .clickLogInButton()
     }

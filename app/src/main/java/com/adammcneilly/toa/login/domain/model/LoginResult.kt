@@ -23,5 +23,14 @@ sealed class LoginResult {
          * This will be returned for any unknown exceptions when attempting to login.
          */
         object Unknown : Failure()
+
+        /**
+         * This will be returned when the user tries to login when either of the input fields
+         * are left empty.
+         */
+        data class EmptyCredentials(
+            val emptyEmail: Boolean,
+            val emptyPassword: Boolean,
+        ) : Failure()
     }
 }
