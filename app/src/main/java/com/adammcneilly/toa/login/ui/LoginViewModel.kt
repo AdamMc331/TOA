@@ -23,17 +23,24 @@ class LoginViewModel(
 
     fun emailChanged(email: String) {
         val currentCredentials = _viewState.value.credentials
+        val currentPasswordErrorMessage =
+            (_viewState.value as? LoginViewState.Active)?.passwordInputErrorMessage
 
         _viewState.value = LoginViewState.Active(
             credentials = currentCredentials.withUpdatedEmail(email),
+            emailInputErrorMessage = null,
+            passwordInputErrorMessage = currentPasswordErrorMessage,
         )
     }
 
     fun passwordChanged(password: String) {
         val currentCredentials = _viewState.value.credentials
+        val currentEmailErrorMessage = (_viewState.value as? LoginViewState.Active)?.emailInputErrorMessage
 
         _viewState.value = LoginViewState.Active(
-            credentials = currentCredentials.withUpdatedPassword(password)
+            credentials = currentCredentials.withUpdatedPassword(password),
+            passwordInputErrorMessage = null,
+            emailInputErrorMessage = currentEmailErrorMessage,
         )
     }
 

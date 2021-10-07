@@ -5,8 +5,6 @@ import com.adammcneilly.toa.fakes.FakeCredentialsLoginUseCase
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.LoginResult
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 class LoginViewModelRobot {
     private val fakeCredentialsLoginUseCase = FakeCredentialsLoginUseCase()
@@ -49,16 +47,18 @@ class LoginViewModelRobot {
      * We should call this near the front of the test, to ensure that every view state we emit
      * can be collected by this.
      */
-    suspend fun expectViewStates(viewStates: List<LoginViewState>) = coroutineScope {
-        launch {
-            viewModel.viewState.test {
-                for (state in viewStates) {
-                    assertThat(awaitItem()).isEqualTo(state)
-                }
+    suspend fun expectViewStates(
+        action: LoginViewModelRobot.() -> Unit,
+        viewStates: List<LoginViewState>,
+    ) = apply {
+        viewModel.viewState.test {
+            action()
 
-                this.cancel()
+            for (state in viewStates) {
+                assertThat(awaitItem()).isEqualTo(state)
             }
+
+            this.cancel()
         }
-        return@coroutineScope this@LoginViewModelRobot
     }
 }
