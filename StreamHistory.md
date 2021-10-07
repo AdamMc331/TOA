@@ -58,7 +58,7 @@ YouTube:
 
 ## Stream Four - Login Implementation
 
-In this screen, we design the app architecture and build out the necessary components to power
+In this stream, we design the app architecture and build out the necessary components to power
 our login screen.
 
 Date: September 29, 2021
@@ -78,3 +78,12 @@ YouTube:
   * Use Cases: https://youtu.be/F4WajzYPh9s
   * Repository Layer: https://youtu.be/TWeu9fRNPWY
   * View State: https://youtu.be/3UNa6l0KlcU
+
+## Stream Five - Login Implementation Continued
+
+In this stream, we continue working on our login screen implementation.
+
+Date: October 6, 2021
+
+PRs:
+  * InvalidCredentials Test: https://github.com/AdamMc331/TOA/pull/45
