@@ -8,4 +8,7 @@
 
     <string name="err_invalid_credentials">Your email and/or password are incorrect.</string>
     <string name="err_login_failure">There was a problem logging in. Please check your internet connection and try again.</string>
+
+    <string name="err_empty_email">Please enter an email.</string>
+    <string name="err_empty_password">Please enter a password.</string>
 </resources>

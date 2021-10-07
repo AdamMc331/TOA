@@ -85,5 +85,8 @@ In this stream, we continue working on our login screen implementation.
 
 Date: October 6, 2021
 
+Notes:
+  * https://github.com/Kotlin/kotlinx.coroutines/issues/1205
+
 PRs:
   * InvalidCredentials Test: https://github.com/AdamMc331/TOA/pull/45
