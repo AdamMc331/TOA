@@ -16,7 +16,6 @@ class ProdCredentialsLoginUseCase(
     private val tokenRepository: TokenRepository,
 ) : CredentialsLoginUseCase {
 
-    @Suppress("ReturnCount")
     override suspend fun invoke(credentials: Credentials): LoginResult {
         val validationResult = validateCredentials(credentials)
 
@@ -24,22 +23,12 @@ class ProdCredentialsLoginUseCase(
             return validationResult
         }
 
-        val emptyEmail = credentials.email.value.isEmpty()
-        val emptyPassword = credentials.password.value.isEmpty()
-
-        if (emptyEmail || emptyPassword) {
-            return LoginResult.Failure.EmptyCredentials(
-                emptyEmail = emptyEmail,
-                emptyPassword = emptyPassword,
-            )
-        }
-
         val repoResult = loginRepository.login(credentials)
 
         return when (repoResult) {
             is Result.Success -> {
                 tokenRepository.storeToken(repoResult.data.token)
-                return LoginResult.Success
+                LoginResult.Success
             }
             is Result.Error -> {
                 loginResultForError(repoResult)
