@@ -16,6 +16,7 @@ class ProdCredentialsLoginUseCase(
     private val tokenRepository: TokenRepository,
 ) : CredentialsLoginUseCase {
 
+    @Suppress("ReturnCount")
     override suspend fun invoke(credentials: Credentials): LoginResult {
         val validationResult = validateCredentials(credentials)
 
