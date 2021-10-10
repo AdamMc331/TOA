@@ -1,6 +1,7 @@
 // https://blog.sebastiano.dev/ooga-chaka-git-hooks-to-enforce-code-quality/
 static def isLinuxOrMacOs() {
     def osName = System.getProperty('os.name').toLowerCase(Locale.ROOT)
+    println osName
     return osName.contains('linux') || osName.contains('mac os') || osName.contains('macos')
 }
 
@@ -10,8 +11,8 @@ task copyGitHooks(type: Copy) {
         include '**/*.sh'
         rename '(.*).sh', '$1'
     }
+    group 'git hooks'
     into "${rootDir}/.git/hooks"
-    onlyIf { isLinuxOrMacOs() }
 }
 
 task installGitHooks(type: Exec) {
