@@ -1,7 +1,6 @@
 // https://blog.sebastiano.dev/ooga-chaka-git-hooks-to-enforce-code-quality/
 static def isLinuxOrMacOs() {
     def osName = System.getProperty('os.name').toLowerCase(Locale.ROOT)
-    println osName
     return osName.contains('linux') || osName.contains('mac os') || osName.contains('macos')
 }
 
