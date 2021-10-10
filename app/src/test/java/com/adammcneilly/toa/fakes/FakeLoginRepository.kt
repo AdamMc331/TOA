@@ -5,6 +5,7 @@ import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.LoginResponse
 import com.adammcneilly.toa.login.domain.repository.LoginRepository
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 
 /**
@@ -20,5 +21,11 @@ class FakeLoginRepository {
         coEvery {
             mock.login(credentials)
         } returns result
+    }
+
+    fun verifyNoLoginCall() {
+        coVerify(exactly = 0) {
+            mock.login(any())
+        }
     }
 }

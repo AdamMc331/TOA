@@ -2,6 +2,8 @@ package com.adammcneilly.toa.core.ui
 
 import android.content.Context
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 
 /**
  * This is a sealed class that contains all of the different ways text can be presented to the UI.
@@ -22,4 +24,12 @@ fun UIText.getString(context: Context): String {
         is UIText.StringText -> this.value
         is UIText.ResourceText -> context.getString(this.value)
     }
+}
+
+/**
+ * A helper function that allows to get strings from a [Composable] context.
+ */
+@Composable
+fun UIText.getString(): String {
+    return this.getString(LocalContext.current)
 }

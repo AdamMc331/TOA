@@ -23,17 +23,24 @@ class LoginViewModel(
 
     fun emailChanged(email: String) {
         val currentCredentials = _viewState.value.credentials
+        val currentPasswordErrorMessage =
+            (_viewState.value as? LoginViewState.Active)?.passwordInputErrorMessage
 
         _viewState.value = LoginViewState.Active(
             credentials = currentCredentials.withUpdatedEmail(email),
+            emailInputErrorMessage = null,
+            passwordInputErrorMessage = currentPasswordErrorMessage,
         )
     }
 
     fun passwordChanged(password: String) {
         val currentCredentials = _viewState.value.credentials
+        val currentEmailErrorMessage = (_viewState.value as? LoginViewState.Active)?.emailInputErrorMessage
 
         _viewState.value = LoginViewState.Active(
-            credentials = currentCredentials.withUpdatedPassword(password)
+            credentials = currentCredentials.withUpdatedPassword(password),
+            passwordInputErrorMessage = null,
+            emailInputErrorMessage = currentEmailErrorMessage,
         )
     }
 
@@ -60,6 +67,9 @@ class LoginViewModel(
                         errorMessage = UIText.ResourceText(R.string.err_login_failure),
                     )
                 }
+                is LoginResult.Failure.EmptyCredentials -> {
+                    loginResult.toLoginViewState(currentCredentials)
+                }
                 else -> _viewState.value
             }
         }
@@ -76,4 +86,16 @@ private fun Credentials.withUpdatedEmail(email: String): Credentials {
 
 private fun Credentials.withUpdatedPassword(password: String): Credentials {
     return this.copy(password = Password(password))
+}
+
+private fun LoginResult.Failure.EmptyCredentials.toLoginViewState(credentials: Credentials): LoginViewState {
+    return LoginViewState.Active(
+        credentials = credentials,
+        emailInputErrorMessage = UIText.ResourceText(R.string.err_empty_email).takeIf {
+            this.emptyEmail
+        },
+        passwordInputErrorMessage = UIText.ResourceText(R.string.err_empty_password).takeIf {
+            this.emptyPassword
+        },
+    )
 }
