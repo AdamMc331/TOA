@@ -6,6 +6,7 @@ This page is a recording of all Twitch streams related to the TOA project.
 * [Stream Two - Developer Experience](#stream-two---developer-experience)
 * [Stream Three - Design System](#stream-three---design-system)
 * [Stream Four - Login Implementation](#stream-four---login-implementation)
+* [Stream Five - Login Implementation Continuted)(#stream-five---login-implementation-continued)
 
 ## Stream One - Project Creation
 
@@ -91,3 +92,5 @@ Notes:
 PRs:
   * InvalidCredentials Test: https://github.com/AdamMc331/TOA/pull/45
   * Login Input Errors: https://github.com/AdamMc331/TOA/pull/46
+
+YouTube: https://youtu.be/mCQfK3J5K5w
