@@ -94,3 +94,12 @@ PRs:
   * Login Input Errors: https://github.com/AdamMc331/TOA/pull/46
 
 YouTube: https://youtu.be/mCQfK3J5K5w
+
+## Stream Six - Dependency Injection Setup
+
+In this stream, we implement the Hilt library and setup dependency injection for the login screen.
+
+Date: October 13, 2021
+
+Notes:
+ * Hilt docs: https://developer.android.com/training/dependency-injection/hilt-android#setup
