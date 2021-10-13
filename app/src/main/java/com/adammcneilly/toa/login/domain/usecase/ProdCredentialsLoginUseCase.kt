@@ -6,12 +6,13 @@ import com.adammcneilly.toa.login.domain.model.InvalidCredentialsException
 import com.adammcneilly.toa.login.domain.model.LoginResult
 import com.adammcneilly.toa.login.domain.repository.LoginRepository
 import com.adammcneilly.toa.login.domain.repository.TokenRepository
+import javax.inject.Inject
 
 /**
  * A concrete implementation of a [CredentialsLoginUseCase] that will request logging in
  * via the [loginRepository].
  */
-class ProdCredentialsLoginUseCase(
+class ProdCredentialsLoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val tokenRepository: TokenRepository,
 ) : CredentialsLoginUseCase {
