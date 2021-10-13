@@ -98,6 +98,8 @@ YouTube: https://youtu.be/mCQfK3J5K5w
 ## Stream Six - Dependency Injection Setup
 
 In this stream, we implement the Hilt library and setup dependency injection for the login screen.
+We also took that implementation and used it to display the LoginScreen when our
+MainActivity starts up. 
 
 Date: October 13, 2021
 
