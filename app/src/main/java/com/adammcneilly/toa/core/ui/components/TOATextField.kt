@@ -12,6 +12,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
@@ -24,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.core.ui.theme.TextFieldShape
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * This is a custom implementation of an [OutlinedTextField] to ensure that it has the TOA branding
@@ -47,6 +50,7 @@ fun TOATextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
     val relocationRequester = remember { RelocationRequester() }
+    val coroutineScope = rememberCoroutineScope()
 
     Column {
         OutlinedTextField(
@@ -63,8 +67,12 @@ fun TOATextField(
                 .fillMaxWidth()
                 .relocationRequester(relocationRequester)
                 .onFocusChanged {
+                    // https://issuetracker.google.com/issues/192043120?pli=1
                     if (it.isFocused) {
-                        relocationRequester.bringIntoView()
+                        coroutineScope.launch {
+                            delay(1000)
+                            relocationRequester.bringIntoView()
+                        }
                     }
                 },
             isError = (errorMessage != null),
