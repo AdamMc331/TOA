@@ -36,6 +36,7 @@ fun TOATextField(
     modifier: Modifier = Modifier,
     errorMessage: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    enabled: Boolean = true,
 ) {
     Column {
         OutlinedTextField(
@@ -52,6 +53,7 @@ fun TOATextField(
                 .fillMaxWidth(),
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
+            enabled = enabled,
         )
 
         if (errorMessage != null) {
