@@ -11,7 +11,12 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.layout.RelocationRequester
+import androidx.compose.ui.layout.relocationRequester
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,6 +34,7 @@ import com.adammcneilly.toa.core.ui.theme.TextFieldShape
  * @param[labelText] The label that shows above the input when focused.
  * @param[modifier] An optional [Modifier] to configure this component.
  */
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TOATextField(
     text: String,
@@ -40,6 +46,8 @@ fun TOATextField(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
+    val relocationRequester = remember { RelocationRequester() }
+
     Column {
         OutlinedTextField(
             value = text,
@@ -52,7 +60,13 @@ fun TOATextField(
             shape = TextFieldShape,
             modifier = modifier
                 .heightIn(dimensionResource(id = R.dimen.text_field_height))
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .relocationRequester(relocationRequester)
+                .onFocusChanged {
+                    if (it.isFocused) {
+                        relocationRequester.bringIntoView()
+                    }
+                },
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,

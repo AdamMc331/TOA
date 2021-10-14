@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -99,12 +98,10 @@ private fun LogoInputsColumn(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
-        Spacer(modifier = Modifier.weight(1F))
-
-        AppLogo()
-
-        Spacer(modifier = Modifier.weight(1F))
+        AppLogo(
+            modifier = Modifier
+                .padding(vertical = 88.dp),
+        )
 
         EmailInput(
             text = viewState.credentials.email.value,
@@ -212,11 +209,13 @@ private fun EmailInput(
 }
 
 @Composable
-private fun AppLogo() {
+private fun AppLogo(
+    modifier: Modifier = Modifier
+) {
     Image(
         painterResource(id = R.drawable.ic_toa_checkmark),
         contentDescription = stringResource(R.string.app_logo_content_description),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
     )
 }
