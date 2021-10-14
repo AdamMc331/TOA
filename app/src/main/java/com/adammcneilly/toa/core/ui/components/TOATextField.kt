@@ -70,6 +70,10 @@ fun TOATextField(
                     // https://issuetracker.google.com/issues/192043120?pli=1
                     if (it.isFocused) {
                         coroutineScope.launch {
+                            // We may want to investigate why we need this to be one whole second.
+                            // The link above has the delay at 300. Maybe this would work on a physical
+                            // device?
+                            @Suppress("MagicNumber")
                             delay(1000)
                             relocationRequester.bringIntoView()
                         }
