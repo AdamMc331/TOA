@@ -1,6 +1,8 @@
 package com.adammcneilly.toa.core.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -11,11 +13,11 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.layout.RelocationRequester
 import androidx.compose.ui.layout.relocationRequester
 import androidx.compose.ui.res.dimensionResource
@@ -25,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.core.ui.theme.TextFieldShape
+import com.google.accompanist.insets.LocalWindowInsets
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -50,7 +53,20 @@ fun TOATextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
     val relocationRequester = remember { RelocationRequester() }
+    val interactionSource = remember { MutableInteractionSource() }
+    val interactionSourceState = interactionSource.collectIsFocusedAsState()
     val coroutineScope = rememberCoroutineScope()
+    val ime = LocalWindowInsets.current.ime
+
+    // https://issuetracker.google.com/issues/192043120?pli=1
+    LaunchedEffect(ime.isVisible, interactionSourceState.value) {
+        if (ime.isVisible && interactionSourceState.value) {
+            coroutineScope.launch {
+                delay(1000)
+                relocationRequester.bringIntoView()
+            }
+        }
+    }
 
     Column {
         OutlinedTextField(
@@ -65,24 +81,12 @@ fun TOATextField(
             modifier = modifier
                 .heightIn(dimensionResource(id = R.dimen.text_field_height))
                 .fillMaxWidth()
-                .relocationRequester(relocationRequester)
-                .onFocusChanged {
-                    // https://issuetracker.google.com/issues/192043120?pli=1
-                    if (it.isFocused) {
-                        coroutineScope.launch {
-                            // We may want to investigate why we need this to be one whole second.
-                            // The link above has the delay at 300. Maybe this would work on a physical
-                            // device?
-                            @Suppress("MagicNumber")
-                            delay(1000)
-                            relocationRequester.bringIntoView()
-                        }
-                    }
-                },
+                .relocationRequester(relocationRequester),
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,
             keyboardOptions = keyboardOptions,
+            interactionSource = interactionSource,
         )
 
         if (errorMessage != null) {
