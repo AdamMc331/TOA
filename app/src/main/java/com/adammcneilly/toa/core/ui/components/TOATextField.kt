@@ -62,6 +62,7 @@ fun TOATextField(
     LaunchedEffect(ime.isVisible, interactionSourceState.value) {
         if (ime.isVisible && interactionSourceState.value) {
             coroutineScope.launch {
+                @Suppress("MagicNumber")
                 delay(1000)
                 relocationRequester.bringIntoView()
             }
