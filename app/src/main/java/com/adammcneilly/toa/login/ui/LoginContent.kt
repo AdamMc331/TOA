@@ -198,7 +198,9 @@ fun PasswordInput(
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.password),
         errorMessage = errorMessage,
-        visualTransformation = PasswordVisualTransformation(),
+        visualTransformation = PasswordVisualTransformation(
+            '-',
+        ),
         enabled = enabled,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
