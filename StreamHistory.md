@@ -6,7 +6,9 @@ This page is a recording of all Twitch streams related to the TOA project.
 * [Stream Two - Developer Experience](#stream-two---developer-experience)
 * [Stream Three - Design System](#stream-three---design-system)
 * [Stream Four - Login Implementation](#stream-four---login-implementation)
-* [Stream Five - Login Implementation Continuted](#stream-five---login-implementation-continued)
+* [Stream Five - Login Implementation Continued](#stream-five---login-implementation-continued)
+* [Stream Six - Dependency Injection Setup](#stream-six---dependency-injection-setup)
+* [Stream Seven - Documentation](#stream-seven---documentation)
 
 ## Stream One - Project Creation
 
@@ -105,3 +107,12 @@ Date: October 13, 2021
 
 Notes:
  * Hilt docs: https://developer.android.com/training/dependency-injection/hilt-android#setup
+
+## Stream Seven - Documentation
+
+In this stream, we document the application architecture to help onboard newcomers to the project.
+
+Date: October 20, 2021
+
+PRs:
+  * Arch diagram: 
