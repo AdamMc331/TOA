@@ -114,6 +114,7 @@ PRs:
   * Login via MainActivity: https://github.com/AdamMc331/TOA/pull/53
   * Handle successful login flow: https://github.com/AdamMc331/TOA/pull/54
   * Handle Disabled Inputs: https://github.com/AdamMc331/TOA/pull/55/
+  * Password input modifications: https://github.com/AdamMc331/TOA/pull/56
 
 ## Stream Seven - Documentation
 
