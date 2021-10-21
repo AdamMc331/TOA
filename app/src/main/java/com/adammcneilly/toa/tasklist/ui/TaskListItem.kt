@@ -40,8 +40,8 @@ fun TaskListItem(
             )
 
             ButtonRow(
-                onRescheduleClicked,
-                onDoneClicked,
+                onRescheduleClicked = onRescheduleClicked,
+                onDoneClicked = onDoneClicked,
             )
         }
     }
