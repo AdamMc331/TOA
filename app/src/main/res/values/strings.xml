@@ -11,4 +11,6 @@
 
     <string name="err_empty_email">Please enter an email.</string>
     <string name="err_empty_password">Please enter a password.</string>
+    <string name="reschedule">reschedule</string>
+    <string name="done">done</string>
 </resources>
