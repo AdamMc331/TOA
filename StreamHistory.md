@@ -81,6 +81,7 @@ YouTube:
   * Use Cases: https://youtu.be/F4WajzYPh9s
   * Repository Layer: https://youtu.be/TWeu9fRNPWY
   * View State: https://youtu.be/3UNa6l0KlcU
+  * View Model: https://youtu.be/pJOHI6Le3BE
 
 ## Stream Five - Login Implementation Continued
 
