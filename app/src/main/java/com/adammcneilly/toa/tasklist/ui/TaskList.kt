@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adammcneilly.toa.R
@@ -17,10 +18,12 @@ fun TaskList(
     tasks: List<Task>,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(dimensionResource(id = R.dimen.list_padding)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
+        modifier = modifier,
     ) {
         items(tasks) { task ->
             TaskListItem(
