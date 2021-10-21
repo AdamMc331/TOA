@@ -1,16 +1,25 @@
 package com.adammcneilly.toa.core.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.RelocationRequester
+import androidx.compose.ui.layout.relocationRequester
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.core.ui.theme.TextFieldShape
+import com.google.accompanist.insets.LocalWindowInsets
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * This is a custom implementation of an [OutlinedTextField] to ensure that it has the TOA branding
@@ -28,6 +40,7 @@ import com.adammcneilly.toa.core.ui.theme.TextFieldShape
  * @param[labelText] The label that shows above the input when focused.
  * @param[modifier] An optional [Modifier] to configure this component.
  */
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TOATextField(
     text: String,
@@ -37,7 +50,25 @@ fun TOATextField(
     errorMessage: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     enabled: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
+    val relocationRequester = remember { RelocationRequester() }
+    val interactionSource = remember { MutableInteractionSource() }
+    val interactionSourceState = interactionSource.collectIsFocusedAsState()
+    val coroutineScope = rememberCoroutineScope()
+    val ime = LocalWindowInsets.current.ime
+
+    // https://issuetracker.google.com/issues/192043120?pli=1
+    LaunchedEffect(ime.isVisible, interactionSourceState.value) {
+        if (ime.isVisible && interactionSourceState.value) {
+            coroutineScope.launch {
+                @Suppress("MagicNumber")
+                delay(1000)
+                relocationRequester.bringIntoView()
+            }
+        }
+    }
+
     Column {
         OutlinedTextField(
             value = text,
@@ -50,10 +81,13 @@ fun TOATextField(
             shape = TextFieldShape,
             modifier = modifier
                 .heightIn(dimensionResource(id = R.dimen.text_field_height))
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .relocationRequester(relocationRequester),
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,
+            keyboardOptions = keyboardOptions,
+            interactionSource = interactionSource,
         )
 
         if (errorMessage != null) {

@@ -1,46 +1,27 @@
 package com.adammcneilly.toa.core.ui.theme
 
 import androidx.compose.material.Typography
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
 import com.adammcneilly.toa.R
 
-private val UrbanistExtraBold = FontFamily(Font(R.font.urbanist_extrabold))
-private val UrbanistSemiBold = FontFamily(Font(R.font.urbanist_semibold))
-private val UrbanistBold = FontFamily(Font(R.font.urbanist_bold))
-private val UrbanistMedium = FontFamily(Font(R.font.urbanist_medium))
-private val UrbanistLight = FontFamily(Font(R.font.urbanist_light))
-private val UrbanistRegular = FontFamily(Font(R.font.urbanist_regular))
+private val UrbanistExtraBold = Font(R.font.urbanist_extrabold, FontWeight.ExtraBold)
+private val UrbanistSemiBold = Font(R.font.urbanist_semibold, FontWeight.SemiBold)
+private val UrbanistBold = Font(R.font.urbanist_bold, FontWeight.Bold)
+private val UrbanistMedium = Font(R.font.urbanist_medium, FontWeight.Medium)
+private val UrbanistLight = Font(R.font.urbanist_light, FontWeight.Light)
+private val UrbanistRegular = Font(R.font.urbanist_regular, FontWeight.Normal)
+
+private val UrbanistFamily = FontFamily(
+    UrbanistExtraBold,
+    UrbanistSemiBold,
+    UrbanistBold,
+    UrbanistMedium,
+    UrbanistLight,
+    UrbanistRegular,
+)
 
 val typography = Typography(
-    h1 = TextStyle(
-        fontFamily = UrbanistExtraBold,
-        fontSize = 40.sp,
-    ),
-    h2 = TextStyle(
-        fontFamily = UrbanistExtraBold,
-        fontSize = 36.sp,
-    ),
-    h3 = TextStyle(
-        fontFamily = UrbanistSemiBold,
-        fontSize = 13.sp,
-    ),
-    subtitle1 = TextStyle(
-        fontFamily = UrbanistMedium,
-        fontSize = 15.sp,
-    ),
-    body1 = TextStyle(
-        fontFamily = UrbanistLight,
-        fontSize = 13.sp,
-    ),
-    button = TextStyle(
-        fontFamily = UrbanistBold,
-        fontSize = 13.sp,
-    ),
-    caption = TextStyle(
-        fontFamily = UrbanistRegular,
-        fontSize = 12.sp,
-    ),
+    defaultFontFamily = UrbanistFamily,
 )

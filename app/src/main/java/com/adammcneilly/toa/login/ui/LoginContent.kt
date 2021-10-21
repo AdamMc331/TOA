@@ -4,11 +4,16 @@ import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -16,9 +21,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -87,19 +94,26 @@ private fun LogoInputsColumn(
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit,
+    contentPadding: PaddingValues = PaddingValues(
+        dimensionResource(id = R.dimen.screen_padding)
+    ),
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.screen_padding)),
+            .padding(
+                start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
+                end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
+            )
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        VerticalSpacer(height = contentPadding.calculateTopPadding())
 
-        Spacer(modifier = Modifier.weight(1F))
-
-        AppLogo()
-
-        Spacer(modifier = Modifier.weight(1F))
+        AppLogo(
+            modifier = Modifier
+                .padding(vertical = 88.dp),
+        )
 
         EmailInput(
             text = viewState.credentials.email.value,
@@ -143,6 +157,8 @@ private fun LogoInputsColumn(
             onClick = onSignUpClicked,
             enabled = viewState.inputsEnabled,
         )
+
+        VerticalSpacer(height = contentPadding.calculateBottomPadding())
     }
 }
 
@@ -182,8 +198,13 @@ fun PasswordInput(
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.password),
         errorMessage = errorMessage,
-        visualTransformation = PasswordVisualTransformation(),
+        visualTransformation = PasswordVisualTransformation(
+            '-',
+        ),
         enabled = enabled,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password,
+        ),
     )
 }
 
@@ -204,11 +225,13 @@ private fun EmailInput(
 }
 
 @Composable
-private fun AppLogo() {
+private fun AppLogo(
+    modifier: Modifier = Modifier
+) {
     Image(
         painterResource(id = R.drawable.ic_toa_checkmark),
         contentDescription = stringResource(R.string.app_logo_content_description),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
     )
 }
