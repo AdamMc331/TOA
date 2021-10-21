@@ -120,7 +120,10 @@ PRs:
 
 In this stream, we document the application architecture to help onboard newcomers to the project.
 
+After documentation we moved into more tinkering and features. 
+
 Date: October 20, 2021
 
 PRs:
   * Arch diagram: https://github.com/AdamMc331/TOA/pull/57
+  * Edge to edge UI:
