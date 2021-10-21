@@ -107,6 +107,7 @@ private fun LogoInputsColumn(
             errorMessage = (viewState as? LoginViewState.Active)
                 ?.emailInputErrorMessage
                 ?.getString(),
+            enabled = viewState.inputsEnabled,
         )
 
         VerticalSpacer(height = 12.dp)
@@ -117,6 +118,7 @@ private fun LogoInputsColumn(
             errorMessage = (viewState as? LoginViewState.Active)
                 ?.passwordInputErrorMessage
                 ?.getString(),
+            enabled = viewState.inputsEnabled,
         )
 
         if (viewState is LoginViewState.SubmissionError) {
@@ -132,14 +134,14 @@ private fun LogoInputsColumn(
 
         LoginButton(
             onClick = onLoginClicked,
-            enabled = viewState.buttonsEnabled,
+            enabled = viewState.inputsEnabled,
         )
 
         VerticalSpacer(height = 12.dp)
 
         SignUpButton(
             onClick = onSignUpClicked,
-            enabled = viewState.buttonsEnabled,
+            enabled = viewState.inputsEnabled,
         )
     }
 }
@@ -173,6 +175,7 @@ fun PasswordInput(
     text: String,
     onTextChanged: (String) -> Unit,
     errorMessage: String?,
+    enabled: Boolean,
 ) {
     TOATextField(
         text = text,
@@ -180,6 +183,7 @@ fun PasswordInput(
         labelText = stringResource(R.string.password),
         errorMessage = errorMessage,
         visualTransformation = PasswordVisualTransformation(),
+        enabled = enabled,
     )
 }
 
@@ -188,12 +192,14 @@ private fun EmailInput(
     text: String,
     onTextChanged: (String) -> Unit,
     errorMessage: String?,
+    enabled: Boolean,
 ) {
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.email),
         errorMessage = errorMessage,
+        enabled = enabled,
     )
 }
 

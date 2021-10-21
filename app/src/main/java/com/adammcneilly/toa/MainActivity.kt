@@ -1,6 +1,7 @@
 package com.adammcneilly.toa
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -14,7 +15,11 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             TOATheme {
-                LoginScreen()
+                LoginScreen(
+                    onLoginCompleted = {
+                        Log.d("MainActivity", "Login has been completed.")
+                    },
+                )
             }
         }
     }
