@@ -104,4 +104,8 @@ MainActivity starts up.
 Date: October 13, 2021
 
 Notes:
- * Hilt docs: https://developer.android.com/training/dependency-injection/hilt-android#setup
+  * Hilt docs: https://developer.android.com/training/dependency-injection/hilt-android#setup
+
+PRs:
+  * Successful Login Flow: https://github.com/AdamMc331/TOA/pull/54/
+  * Handle Disabled Inputs: https://github.com/AdamMc331/TOA/pull/55/
