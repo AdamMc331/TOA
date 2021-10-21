@@ -204,7 +204,7 @@ fun PasswordInput(
         enabled = enabled,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
-        )
+        ),
     )
 }
 

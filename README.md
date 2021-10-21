@@ -7,6 +7,12 @@ arise from tradition todo list applications.
 As we build out this project, our goal will remain on how we can look after users and provide a wholesome
 and helpful experience as they become and stay organized. 
 
+## Getting Started
+
+If you've found this repository for the first time, welcome! Our application uses an MVVM architecture which you can read about [here](documentation/Architecture.md). 
+
+The [documentation folder](documentation) can also serve as a guide to getting familiar with this project. This can help build an understanding before you join a live stream - but if you have any questions, just ask in chat. 
+
 ## Live Streaming
 
 This entire application will be built live on [Adam's Twitch channel](https://twitch.tv/adammc331).
