@@ -121,10 +121,11 @@ PRs:
 
 In this stream, we document the application architecture to help onboard newcomers to the project.
 
-We also began the process of building out the home screen. 
+After documentation we moved into more tinkering and features. We also began the process of building out the home screen. 
 
 Date: October 20, 2021
 
 PRs:
   * Arch diagram: https://github.com/AdamMc331/TOA/pull/57
+  * Edge to edge UI:
   * Task list item: 
