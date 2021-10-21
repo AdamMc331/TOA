@@ -111,3 +111,4 @@ PRs:
   * Hilt: https://github.com/AdamMc331/TOA/pull/52
   * Login via MainActivity: https://github.com/AdamMc331/TOA/pull/53
   * Handle successful login flow: https://github.com/AdamMc331/TOA/pull/54
+  * Handle Disabled Inputs: https://github.com/AdamMc331/TOA/pull/55/

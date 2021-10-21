@@ -7,12 +7,12 @@ import com.adammcneilly.toa.login.domain.model.Credentials
  * A sealed class defining all possible states of our login screen.
  *
  * @property[credentials] The current credentials entered by the user.
- * @property[buttonsEnabled] If true, the buttons on the login screen can accept clicks,
+ * @property[inputsEnabled] If true, the buttons on the login screen can accept clicks,
  * false otherwise.
  */
 sealed class LoginViewState(
     open val credentials: Credentials,
-    open val buttonsEnabled: Boolean = true,
+    open val inputsEnabled: Boolean = true,
 ) {
     /**
      * The initial state of the screen with nothing input.
@@ -39,7 +39,7 @@ sealed class LoginViewState(
         override val credentials: Credentials,
     ) : LoginViewState(
         credentials = credentials,
-        buttonsEnabled = false,
+        inputsEnabled = false,
     )
 
     /**
@@ -54,6 +54,6 @@ sealed class LoginViewState(
 
     object Completed : LoginViewState(
         credentials = Credentials(),
-        buttonsEnabled = false,
+        inputsEnabled = false,
     )
 }
