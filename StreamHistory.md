@@ -81,6 +81,7 @@ YouTube:
   * Use Cases: https://youtu.be/F4WajzYPh9s
   * Repository Layer: https://youtu.be/TWeu9fRNPWY
   * View State: https://youtu.be/3UNa6l0KlcU
+  * View Model: https://youtu.be/pJOHI6Le3BE
 
 ## Stream Five - Login Implementation Continued
 
@@ -120,10 +121,11 @@ PRs:
 
 In this stream, we document the application architecture to help onboard newcomers to the project.
 
-After documentation we moved into more tinkering and features. 
+After documentation we moved into more tinkering and features. We also began the process of building out the home screen. 
 
 Date: October 20, 2021
 
 PRs:
   * Arch diagram: https://github.com/AdamMc331/TOA/pull/57
   * Edge to edge UI:
+  * Task list item: 
