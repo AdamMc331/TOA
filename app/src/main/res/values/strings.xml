@@ -13,4 +13,5 @@
     <string name="err_empty_password">Please enter a password.</string>
     <string name="reschedule">reschedule</string>
     <string name="done">done</string>
+    <string name="add_task">Add Task</string>
 </resources>
