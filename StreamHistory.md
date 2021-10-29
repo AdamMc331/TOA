@@ -9,6 +9,7 @@ This page is a recording of all Twitch streams related to the TOA project.
 * [Stream Five - Login Implementation Continued](#stream-five---login-implementation-continued)
 * [Stream Six - Dependency Injection Setup](#stream-six---dependency-injection-setup)
 * [Stream Seven - Documentation](#stream-seven---documentation)
+* [Stream Eight - Pixel 6 & Material 3](#stream-eight---pixel-6--material-3)
 
 ## Stream One - Project Creation
 
@@ -130,3 +131,11 @@ PRs:
   * Edge to edge UI:
   * Task list item: 
   * Task list:
+
+## Stream Eight - Pixel 6 / Material 3
+
+In this stream, we unboxed the new Pixel 6 Pro and added Material 3 to the application.
+
+Date: October 28, 2021
+
+
