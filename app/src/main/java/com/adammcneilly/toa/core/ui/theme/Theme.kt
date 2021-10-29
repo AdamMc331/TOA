@@ -1,7 +1,7 @@
 package com.adammcneilly.toa.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
@@ -10,15 +10,14 @@ fun TOATheme(
     content: @Composable () -> Unit,
 ) {
     val colors = if (isDark) {
-        darkColorPalette
+        DarkThemeColors
     } else {
-        lightColorPalette
+        LightThemeColors
     }
 
     MaterialTheme(
-        colors = colors,
-        typography = typography,
-        shapes = Shapes,
+        colorScheme = colors,
+        typography = AppTypography,
         content = content
     )
 }

@@ -1,9 +1,9 @@
 package com.adammcneilly.toa.core.ui.components
 
 import android.content.res.Configuration
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
@@ -21,7 +21,7 @@ fun TOATextButton(
     TextButton(onClick) {
         Text(
             text = text.toUpperCase(Locale.current),
-            style = MaterialTheme.typography.caption,
+            style = MaterialTheme.typography.labelSmall,
         )
     }
 }
