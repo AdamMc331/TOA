@@ -1,13 +1,19 @@
 package com.adammcneilly.toa.core.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
 fun TOATheme(
+    isDark: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val colors = lightColorPalette
+    val colors = if (isDark) {
+        darkColorPalette
+    } else {
+        lightColorPalette
+    }
 
     MaterialTheme(
         colors = colors,
