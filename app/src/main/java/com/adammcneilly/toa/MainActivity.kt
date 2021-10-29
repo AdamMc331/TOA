@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
@@ -22,17 +23,9 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val systemUiController = rememberSystemUiController()
-            val useDarkIcons = MaterialTheme.colors.isLight
-
-            SideEffect {
-                systemUiController.setSystemBarsColor(
-                    color = Color.Transparent,
-                    darkIcons = useDarkIcons
-                )
-            }
-
             TOATheme {
+                ConfigureSystemBars()
+
                 ProvideWindowInsets {
                     LoginScreen(
                         onLoginCompleted = {
@@ -41,6 +34,19 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
+        }
+    }
+
+    @Composable
+    private fun ConfigureSystemBars() {
+        val systemUiController = rememberSystemUiController()
+        val useDarkIcons = MaterialTheme.colors.isLight
+
+        SideEffect {
+            systemUiController.setSystemBarsColor(
+                color = Color.Transparent,
+                darkIcons = useDarkIcons
+            )
         }
     }
 }
