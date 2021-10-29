@@ -1,25 +1,22 @@
 package com.adammcneilly.toa.core.ui.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.TextFieldDefaults.outlinedTextFieldColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.RelocationRequester
-import androidx.compose.ui.layout.relocationRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,9 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.core.ui.theme.TextFieldShape
-import com.google.accompanist.insets.LocalWindowInsets
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * This is a custom implementation of an [OutlinedTextField] to ensure that it has the TOA branding
@@ -52,23 +46,6 @@ fun TOATextField(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
-    val relocationRequester = remember { RelocationRequester() }
-    val interactionSource = remember { MutableInteractionSource() }
-    val interactionSourceState = interactionSource.collectIsFocusedAsState()
-    val coroutineScope = rememberCoroutineScope()
-    val ime = LocalWindowInsets.current.ime
-
-    // https://issuetracker.google.com/issues/192043120?pli=1
-    LaunchedEffect(ime.isVisible, interactionSourceState.value) {
-        if (ime.isVisible && interactionSourceState.value) {
-            coroutineScope.launch {
-                @Suppress("MagicNumber")
-                delay(1000)
-                relocationRequester.bringIntoView()
-            }
-        }
-    }
-
     Column {
         OutlinedTextField(
             value = text,
@@ -81,19 +58,18 @@ fun TOATextField(
             shape = TextFieldShape,
             modifier = modifier
                 .heightIn(dimensionResource(id = R.dimen.text_field_height))
-                .fillMaxWidth()
-                .relocationRequester(relocationRequester),
+                .fillMaxWidth(),
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,
             keyboardOptions = keyboardOptions,
-            interactionSource = interactionSource,
+            colors = md3TextFieldColors(),
         )
 
         if (errorMessage != null) {
             Text(
                 text = errorMessage,
-                color = MaterialTheme.colors.error,
+                color = MaterialTheme.colorScheme.error,
                 modifier = Modifier
                     .padding(
                         top = 4.dp,
@@ -103,6 +79,62 @@ fun TOATextField(
         }
     }
 }
+
+@Composable
+private fun md3TextFieldColors(
+    textColor: Color = MaterialTheme.colorScheme.onBackground,
+    disabledTextColor: Color = textColor.copy(ContentAlpha.disabled),
+    backgroundColor: Color = Color.Transparent,
+    cursorColor: Color = MaterialTheme.colorScheme.primary,
+    errorCursorColor: Color = MaterialTheme.colorScheme.error,
+    focusedBorderColor: Color =
+        MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.high),
+    unfocusedBorderColor: Color =
+        MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+    disabledBorderColor: Color = unfocusedBorderColor.copy(alpha = ContentAlpha.disabled),
+    errorBorderColor: Color = MaterialTheme.colorScheme.error,
+    leadingIconColor: Color =
+        MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
+    disabledLeadingIconColor: Color = leadingIconColor.copy(alpha = ContentAlpha.disabled),
+    errorLeadingIconColor: Color = leadingIconColor,
+    trailingIconColor: Color =
+        MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
+    disabledTrailingIconColor: Color = trailingIconColor.copy(alpha = ContentAlpha.disabled),
+    errorTrailingIconColor: Color = MaterialTheme.colorScheme.error,
+    focusedLabelColor: Color =
+        MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.high),
+    unfocusedLabelColor: Color = MaterialTheme.colorScheme.onSurface.copy(
+        ContentAlpha.medium
+    ),
+    disabledLabelColor: Color = unfocusedLabelColor.copy(ContentAlpha.disabled),
+    errorLabelColor: Color = MaterialTheme.colorScheme.error,
+    placeholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(
+        ContentAlpha.medium
+    ),
+    disabledPlaceholderColor: Color = placeholderColor.copy(ContentAlpha.disabled)
+) = outlinedTextFieldColors(
+    textColor,
+    disabledTextColor,
+    backgroundColor,
+    cursorColor,
+    errorCursorColor,
+    focusedBorderColor,
+    unfocusedBorderColor,
+    disabledBorderColor,
+    errorBorderColor,
+    leadingIconColor,
+    disabledLeadingIconColor,
+    errorLeadingIconColor,
+    trailingIconColor,
+    disabledTrailingIconColor,
+    errorTrailingIconColor,
+    focusedLabelColor,
+    unfocusedLabelColor,
+    disabledLabelColor,
+    errorLabelColor,
+    placeholderColor,
+    disabledPlaceholderColor,
+)
 
 @Preview(
     name = "Night Mode - Filled",
