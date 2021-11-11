@@ -16,6 +16,9 @@ buildscript {
 
         // https://github.com/ben-manes/gradle-versions-plugin
         versionsPluginVersion = "0.29.0"
+
+        // https://github.com/Kotlin/kotlinx-kover/releases
+        koverVersion = "0.4.1"
     }
     repositories {
         google()
@@ -31,6 +34,7 @@ buildscript {
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$versionsPluginVersion"
+        classpath "org.jetbrains.kotlinx:kover:$koverVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -44,6 +48,7 @@ subprojects {
     apply from: "../buildscripts/ktlint.gradle"
     apply from: "../buildscripts/detekt.gradle"
     apply from: "../buildscripts/versionsplugin.gradle"
+    apply from: "../buildscripts/kover.gradle"
 }
 
 task clean(type: Delete) {
