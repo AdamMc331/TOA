@@ -138,4 +138,12 @@ In this stream, we unboxed the new Pixel 6 Pro and added Material 3 to the appli
 
 Date: October 28, 2021
 
+* YouTube: 
+
+* PRs:
+
+## Stream Nine - Dev Experience
+
+In this stream, we refactored how dependency versions are managed, and added a plugin to help us identify out of date dependencies.
+
 
