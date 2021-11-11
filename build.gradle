@@ -32,6 +32,7 @@ buildscript {
 }
 
 apply from: "buildscripts/git-hooks.gradle"
+apply from: "buildscripts/versions.gradle"
 
 subprojects {
     apply from: "../buildscripts/ktlint.gradle"
