@@ -146,4 +146,9 @@ Date: October 28, 2021
 
 In this stream, we refactored how dependency versions are managed, and added a plugin to help us identify out of date dependencies.
 
+We also added the Kover plugin for generating test coverage.
+
+Notes:
+* Kover Video: https://www.youtube.com/watch?v=jNu5LY9HIbw
+* Kover Repo: https://github.com/Kotlin/kotlinx-kover
 
