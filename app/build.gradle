@@ -52,6 +52,23 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    testOptions {
+        unitTests.all {
+            kover {
+                enabled = true
+                excludes = [
+                        "dagger.hilt.internal.aggregatedroot.codegen.*",
+                        "hilt_aggregated_deps.*",
+                        "com.adammcneilly.toa.core.di.*",
+                        "com.adammcneilly.toa.core.ui.theme.*",
+                        ".*ComposableSingletons.*",
+                        ".*Hilt.*",
+                        ".*BuildConfig.*",
+                ]
+            }
+        }
+    }
 }
 
 dependencies {
