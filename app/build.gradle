@@ -65,6 +65,7 @@ android {
                         ".*ComposableSingletons.*",
                         ".*Hilt.*",
                         ".*BuildConfig.*",
+                        ".*_Factory.*",
                 ]
             }
         }
