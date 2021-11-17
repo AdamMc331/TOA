@@ -10,6 +10,7 @@ This page is a recording of all Twitch streams related to the TOA project.
 * [Stream Six - Dependency Injection Setup](#stream-six---dependency-injection-setup)
 * [Stream Seven - Documentation](#stream-seven---documentation)
 * [Stream Eight - Pixel 6 & Material 3](#stream-eight---pixel-6--material-3)
+* [Stream Nine - Dev Experience & Kover Plugin](#stream-nine---dev-experience)
 
 ## Stream One - Project Creation
 
@@ -138,15 +139,24 @@ In this stream, we unboxed the new Pixel 6 Pro and added Material 3 to the appli
 
 Date: October 28, 2021
 
-* YouTube: 
+YouTube: https://youtu.be/JGbI32wPR6k
 
-* PRs:
+PRs:
+* Material 3: https://github.com/AdamMc331/TOA/pull/61
 
 ## Stream Nine - Dev Experience
 
 In this stream, we refactored how dependency versions are managed, and added a plugin to help us identify out of date dependencies.
 
 We also added the Kover plugin for generating test coverage.
+
+YouTube:
+* Dependency Updates: https://youtu.be/nCA32eZPS9k
+* Kover Plugin: https://youtu.be/Oa31C5MgWL4
+
+PRs:
+* Dependency Updates: https://github.com/AdamMc331/TOA/pull/62
+* Kover Plugin: https://github.com/AdamMc331/TOA/pull/63
 
 Notes:
 * Kover Video: https://www.youtube.com/watch?v=jNu5LY9HIbw
