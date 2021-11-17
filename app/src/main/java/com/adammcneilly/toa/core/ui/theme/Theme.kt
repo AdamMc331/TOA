@@ -1,9 +1,6 @@
 package com.adammcneilly.toa.core.ui.theme
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.dynamicDarkColorScheme
