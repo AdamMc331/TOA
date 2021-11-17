@@ -1,5 +1,7 @@
 package com.adammcneilly.toa.core.ui.theme
 
+import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -10,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.os.BuildCompat
 
-@RequiresApi(Build.VERSION_CODES.S)
+@SuppressLint("NewApi")
 @Composable
 fun TOATheme(
     isDark: Boolean = isSystemInDarkTheme(),
