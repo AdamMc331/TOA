@@ -9,10 +9,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
-import com.google.accompanist.insets.ui.Scaffold
 
 @Composable
 fun TaskListContent(
@@ -36,7 +37,7 @@ fun TaskListContent(
     onAddButtonClicked: () -> Unit,
 ) {
     if (viewState is TaskListViewState.Loaded) {
-        LoadedTasksContents(
+        LoadedTasksContent(
             viewState,
             onAddButtonClicked,
             onRescheduleClicked,
@@ -45,8 +46,9 @@ fun TaskListContent(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LoadedTasksContents(
+private fun LoadedTasksContent(
     viewState: TaskListViewState.Loaded,
     onAddButtonClicked: () -> Unit,
     onRescheduleClicked: (Task) -> Unit,
