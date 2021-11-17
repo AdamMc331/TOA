@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -127,6 +128,7 @@ private fun AddTaskButton(
 ) {
     FloatingActionButton(
         onClick = onClick,
+        shape = CircleShape,
     ) {
         Icon(
             Icons.Default.Add,
