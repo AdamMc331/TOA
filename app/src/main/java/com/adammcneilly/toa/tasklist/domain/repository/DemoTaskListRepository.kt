@@ -8,6 +8,7 @@ import javax.inject.Inject
 class DemoTaskListRepository @Inject constructor() : TaskListRepository {
 
     override suspend fun fetchAllTasks(): Result<List<Task>> {
+        @Suppress("MagicNumber")
         delay(2_000)
 
         val tasks = (1..10).map { index ->
