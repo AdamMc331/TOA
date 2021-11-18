@@ -164,8 +164,10 @@ Notes:
 
 ## Stream Ten - Task List UI
 
-In this stream, we finished porting over the task list to Material 3.
+In this stream, we finished porting over the task list to Material 3. We also finalized some more view 
+states of the task list screen.
 
 PRs:
 * Material 3: 
+* TaskListViewModel & Loading State: 
 
