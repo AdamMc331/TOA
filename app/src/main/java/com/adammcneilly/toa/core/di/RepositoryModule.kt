@@ -1,9 +1,11 @@
 package com.adammcneilly.toa.core.di
 
-import com.adammcneilly.toa.login.domain.repository.DemoLoginService
-import com.adammcneilly.toa.login.domain.repository.DemoTokenService
+import com.adammcneilly.toa.login.domain.repository.DemoLoginRepository
+import com.adammcneilly.toa.login.domain.repository.DemoTokenRepository
 import com.adammcneilly.toa.login.domain.repository.LoginRepository
 import com.adammcneilly.toa.login.domain.repository.TokenRepository
+import com.adammcneilly.toa.tasklist.domain.repository.DemoTaskListRepository
+import com.adammcneilly.toa.tasklist.domain.repository.TaskListRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,11 +21,16 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindTokenRepository(
-        tokenRepository: DemoTokenService,
+        tokenRepository: DemoTokenRepository,
     ): TokenRepository
 
     @Binds
     abstract fun bindLoginRepository(
-        loginRepository: DemoLoginService,
+        loginRepository: DemoLoginRepository,
     ): LoginRepository
+
+    @Binds
+    abstract fun bindTaskListRepository(
+        taskListRepository: DemoTaskListRepository,
+    ): TaskListRepository
 }

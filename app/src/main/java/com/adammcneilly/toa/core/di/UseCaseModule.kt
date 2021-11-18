@@ -2,6 +2,8 @@ package com.adammcneilly.toa.core.di
 
 import com.adammcneilly.toa.login.domain.usecase.CredentialsLoginUseCase
 import com.adammcneilly.toa.login.domain.usecase.ProdCredentialsLoginUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetAllTasksUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,4 +23,9 @@ abstract class UseCaseModule {
     abstract fun bindCredentialsLoginUseCase(
         credentialsLoginUseCase: ProdCredentialsLoginUseCase,
     ): CredentialsLoginUseCase
+
+    @Binds
+    abstract fun bindGetAllTasksUseCase(
+        getAllTasksUseCase: ProdGetAllTasksUseCase,
+    ): GetAllTasksUseCase
 }
