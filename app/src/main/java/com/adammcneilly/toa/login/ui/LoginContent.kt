@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,6 +32,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.UIText
+import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.components.PrimaryButton
 import com.adammcneilly.toa.core.ui.components.SecondaryButton
 import com.adammcneilly.toa.core.ui.components.TOATextField
@@ -77,7 +77,7 @@ fun LoginContent(
             )
 
             if (viewState is LoginViewState.Submitting) {
-                CircularProgressIndicator(
+                Material3CircularProgressIndicator(
                     modifier = Modifier
                         .wrapContentSize()
                         .align(Alignment.Center),

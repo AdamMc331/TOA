@@ -1,10 +1,13 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -27,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
 
@@ -37,13 +41,30 @@ fun TaskListContent(
     onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit,
 ) {
-    if (viewState is TaskListViewState.Loaded) {
-        LoadedTasksContent(
-            viewState,
-            onAddButtonClicked,
-            onRescheduleClicked,
-            onDoneClicked,
-        )
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        when (viewState) {
+            is TaskListViewState.Loading -> {
+                Material3CircularProgressIndicator(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center),
+                )
+            }
+            is TaskListViewState.Loaded -> {
+                LoadedTasksContent(
+                    viewState,
+                    onAddButtonClicked,
+                    onRescheduleClicked,
+                    onDoneClicked,
+                )
+            }
+            is TaskListViewState.Error -> {
+                // Coming later.
+            }
+        }
     }
 }
 
