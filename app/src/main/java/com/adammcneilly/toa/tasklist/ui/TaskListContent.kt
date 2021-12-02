@@ -33,6 +33,7 @@ import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
+import com.google.accompanist.insets.statusBarsPadding
 
 @Composable
 fun TaskListContent(
@@ -86,7 +87,6 @@ private fun LoadedTasksContent(
             TaskListToolbar()
         }
     ) { paddingValues ->
-
         TaskList(
             tasks = viewState.tasks,
             onRescheduleClicked = onRescheduleClicked,
@@ -107,6 +107,7 @@ private fun TaskListToolbar() {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
+                .statusBarsPadding()
                 .height(toolbarHeight),
         ) {
             IconButton(
