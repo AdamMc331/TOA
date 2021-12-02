@@ -178,4 +178,7 @@ In this stream, we added the Compose Destinations library and setup navigation b
 screen and the task list screen. 
 
 PRs:
- * Navigation: 
+* Navigation: 
+
+Notes:
+* https://github.com/raamcosta/compose-destinations
