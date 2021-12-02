@@ -5,6 +5,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ramcosta.composedestinations.LoginScreenDestination
 import com.ramcosta.composedestinations.TaskListScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -26,7 +27,11 @@ fun LoginScreen(
         coroutineScope.launch {
             viewModel.loginCompletedChannel.receive()
 
-            navigator.navigate(TaskListScreenDestination)
+            navigator.navigate(TaskListScreenDestination) {
+                this.popUpTo(LoginScreenDestination.route) {
+                    this.inclusive = true
+                }
+            }
         }
     }
 
