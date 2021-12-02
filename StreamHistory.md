@@ -171,3 +171,14 @@ PRs:
 * Material 3: 
 * TaskListViewModel & Loading State: 
 * GetAllTasksUseCase: 
+
+## Stream Eleven - Navigation
+
+In this stream, we added the Compose Destinations library and setup navigation between the login
+screen and the task list screen. 
+
+PRs:
+* Navigation: 
+
+Notes:
+* https://github.com/raamcosta/compose-destinations
