@@ -5,11 +5,17 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ramcosta.composedestinations.TaskListScreenDestination
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
+@Destination(
+    start = true,
+)
 @Composable
 fun LoginScreen(
-    onLoginCompleted: () -> Unit,
+    navigator: DestinationsNavigator,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val viewState = viewModel.viewState.collectAsState()
@@ -19,7 +25,8 @@ fun LoginScreen(
     SideEffect {
         coroutineScope.launch {
             viewModel.loginCompletedChannel.receive()
-            onLoginCompleted.invoke()
+
+            navigator.navigate(TaskListScreenDestination)
         }
     }
 

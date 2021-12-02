@@ -11,7 +11,7 @@ ext {
             // https://github.com/google/accompanist/releases
             accompanist          : "0.20.2",
             // https://developer.android.com/jetpack/androidx/releases/compose-material3
-            composeMaterial3     : "1.0.0-alpha01",
+            composeMaterial3     : "1.0.0-alpha02",
             // https://github.com/junit-team/junit4/releases
             junit                : "4.13.2",
             // https://github.com/mockk/mockk/releases
@@ -30,5 +30,9 @@ ext {
             lifecycle            : "2.4.0",
             // https://developer.android.com/jetpack/androidx/releases/activity
             activityCompose      : "1.4.0",
+            // https://github.com/raamcosta/compose-destinations/releases
+            composeDestinations  : "0.9.4-beta",
+            // https://developer.android.com/jetpack/androidx/releases/navigation
+            composeNavigation    : "2.4.0-beta02",
     ]
 }

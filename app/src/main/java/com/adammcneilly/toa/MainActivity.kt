@@ -9,9 +9,9 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.ui.TaskListScreen
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,13 +26,14 @@ class MainActivity : ComponentActivity() {
                 ConfigureSystemBars()
 
                 ProvideWindowInsets {
+                    DestinationsNavHost()
 //                    LoginScreen(
 //                        onLoginCompleted = {
 //                            Log.d("MainActivity", "Login has been completed.")
 //                        },
 //                    )
-
-                    TaskListScreen()
+//
+// //                    TaskListScreen()
                 }
             }
         }
