@@ -1,9 +1,11 @@
 package com.adammcneilly.toa.login.ui
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.LoginScreenDestination
 import com.ramcosta.composedestinations.TaskListScreenDestination
@@ -35,11 +37,19 @@ fun LoginScreen(
         }
     }
 
+    val context = LocalContext.current
+
     LoginContent(
         viewState = viewState.value,
         onEmailChanged = viewModel::emailChanged,
         onPasswordChanged = viewModel::passwordChanged,
         onLoginClicked = viewModel::loginButtonClicked,
-        onSignUpClicked = viewModel::signUpButtonClicked,
+        onSignUpClicked = {
+            Toast.makeText(
+                context,
+                "Not supported.",
+                Toast.LENGTH_SHORT,
+            ).show()
+        },
     )
 }
