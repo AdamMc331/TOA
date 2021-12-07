@@ -3,6 +3,9 @@ package com.adammcneilly.toa
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -11,9 +14,11 @@ import androidx.core.view.WindowCompat
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.ramcosta.composedestinations.DefaultAnimationParams
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +31,16 @@ class MainActivity : ComponentActivity() {
                 ConfigureSystemBars()
 
                 ProvideWindowInsets {
-                    DestinationsNavHost()
+                    DestinationsNavHost(
+                        defaultAnimationParams = DefaultAnimationParams(
+                            enterTransition = {
+                                slideInHorizontally()
+                            },
+                            exitTransition = {
+                                fadeOut()
+                            },
+                        )
+                    )
                 }
             }
         }

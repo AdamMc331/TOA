@@ -179,6 +179,7 @@ screen and the task list screen.
 
 PRs:
 * Navigation: 
+* Animation: 
 
 Notes:
 * https://github.com/raamcosta/compose-destinations

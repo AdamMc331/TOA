@@ -100,6 +100,7 @@ dependencies {
     implementation "androidx.compose.material3:material3:$rootProject.ext.versions.composeMaterial3"
     implementation "io.github.raamcosta.compose-destinations:core:$rootProject.ext.versions.composeDestinations"
     implementation "androidx.navigation:navigation-compose:$rootProject.ext.versions.composeNavigation"
+    implementation "com.google.accompanist:accompanist-navigation-animation:$rootProject.ext.versions.accompanist"
     ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
     testImplementation "junit:junit:$rootProject.ext.versions.junit"
