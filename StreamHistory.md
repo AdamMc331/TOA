@@ -179,6 +179,7 @@ screen and the task list screen. We also looked at adding some unit tests.
 
 PRs:
 * Navigation: 
+* Animation: 
 * VM Unit tests: 
 
 Notes:
