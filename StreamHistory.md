@@ -175,10 +175,11 @@ PRs:
 ## Stream Eleven - Navigation
 
 In this stream, we added the Compose Destinations library and setup navigation between the login
-screen and the task list screen. 
+screen and the task list screen. We also looked at adding some unit tests. 
 
 PRs:
 * Navigation: 
+* VM Unit tests: 
 
 Notes:
 * https://github.com/raamcosta/compose-destinations
