@@ -19,4 +19,16 @@ class DemoTaskListRepository @Inject constructor() : TaskListRepository {
 
         return Result.Success(tasks)
     }
+
+    override suspend fun addTask(task: Task): Result<Unit> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteTask(task: Task): Result<Unit> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun markAsComplete(task: Task): Result<Unit> {
+        TODO("Not yet implemented")
+    }
 }
