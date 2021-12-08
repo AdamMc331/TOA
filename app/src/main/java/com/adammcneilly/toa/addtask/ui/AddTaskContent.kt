@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.core.ui.UIText
@@ -26,6 +27,7 @@ import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicato
 import com.adammcneilly.toa.core.ui.components.PrimaryButton
 import com.adammcneilly.toa.core.ui.components.TOATextField
 import com.adammcneilly.toa.core.ui.components.VerticalSpacer
+import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import java.time.LocalDate
 
@@ -68,6 +70,7 @@ private fun AddTaskInputsColumn(
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.form_spacing)),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TaskDescriptionLabel()
 
@@ -82,6 +85,15 @@ private fun AddTaskInputsColumn(
         TaskDateInput(
             enabled = viewState.inputsEnabled,
         )
+
+        if (viewState is AddTaskViewState.SubmissionError) {
+            Text(
+                text = viewState.errorMessage.getString(),
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier
+                    .padding(top = 12.dp),
+            )
+        }
 
         VerticalSpacer(height = dimensionResource(id = R.dimen.form_spacing))
 
