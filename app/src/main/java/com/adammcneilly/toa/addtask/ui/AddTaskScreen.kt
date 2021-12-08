@@ -11,7 +11,7 @@ import com.adammcneilly.toa.R
 import com.google.accompanist.insets.statusBarsPadding
 import com.ramcosta.composedestinations.annotation.Destination
 
-@Destination(start = true)
+@Destination
 @Composable
 fun AddTaskScreen(
     viewModel: AddTaskViewModel = hiltViewModel(),
