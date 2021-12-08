@@ -37,27 +37,23 @@ fun AddTaskContent(
     onSubmitClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        color = MaterialTheme.colorScheme.background,
+    Box(
+        modifier = modifier,
     ) {
-        Box(
-            modifier = modifier,
-        ) {
-            AddTaskInputsColumn(
-                viewState = viewState,
-                onTaskDescriptionChanged = onTaskDescriptionChanged,
-                onSubmitClicked = onSubmitClicked,
-                modifier = Modifier
-                    .fillMaxWidth(),
-            )
+        AddTaskInputsColumn(
+            viewState = viewState,
+            onTaskDescriptionChanged = onTaskDescriptionChanged,
+            onSubmitClicked = onSubmitClicked,
+            modifier = Modifier
+                .fillMaxWidth(),
+        )
 
-            if (viewState is AddTaskViewState.Submitting) {
-                Material3CircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center),
-                )
-            }
+        if (viewState is AddTaskViewState.Submitting) {
+            Material3CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center),
+            )
         }
     }
 }
@@ -167,15 +163,17 @@ private fun AddTaskContentPreview(
     addTaskViewState: AddTaskViewState,
 ) {
     TOATheme {
-        AddTaskContent(
-            viewState = addTaskViewState,
-            onTaskDescriptionChanged = {},
-            onTaskScheduledDateChanged = {},
-            onSubmitClicked = {},
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(dimensionResource(id = R.dimen.screen_padding)),
-        )
+        Surface {
+            AddTaskContent(
+                viewState = addTaskViewState,
+                onTaskDescriptionChanged = {},
+                onTaskScheduledDateChanged = {},
+                onSubmitClicked = {},
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(dimensionResource(id = R.dimen.screen_padding)),
+            )
+        }
     }
 }
 
