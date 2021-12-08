@@ -23,9 +23,17 @@ fun TOATheme(
         else -> LightThemeColors
     }
 
-    MaterialTheme(
-        colorScheme = colors,
-        typography = AppTypography,
-        content = content
-    )
+    androidx.compose.material.MaterialTheme(
+        colors = if (isDark) {
+            DarkMD2Colors
+        } else {
+            LightMD2Colors
+        }
+    ) {
+        MaterialTheme(
+            colorScheme = colors,
+            typography = AppTypography,
+            content = content
+        )
+    }
 }

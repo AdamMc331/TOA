@@ -11,7 +11,7 @@ import com.adammcneilly.toa.R
 import com.google.accompanist.insets.statusBarsPadding
 import com.ramcosta.composedestinations.annotation.Destination
 
-@Destination
+@Destination(start = true)
 @Composable
 fun AddTaskScreen(
     viewModel: AddTaskViewModel = hiltViewModel(),
@@ -21,7 +21,7 @@ fun AddTaskScreen(
     AddTaskContent(
         viewState = viewState.value,
         onTaskDescriptionChanged = {},
-        onTaskScheduledDateChanged = {},
+        onTaskScheduledDateChanged = viewModel::onTaskScheduledDateChanged,
         onSubmitClicked = {},
         modifier = Modifier
             .fillMaxSize()

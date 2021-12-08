@@ -14,7 +14,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
 @Destination(
-    start = true,
+//    start = true,
 )
 @Composable
 fun LoginScreen(
