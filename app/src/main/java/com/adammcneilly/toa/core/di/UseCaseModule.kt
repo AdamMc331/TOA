@@ -1,5 +1,7 @@
 package com.adammcneilly.toa.core.di
 
+import com.adammcneilly.toa.addtask.domain.usecases.AddTaskUseCase
+import com.adammcneilly.toa.addtask.domain.usecases.ProdAddTaskUseCase
 import com.adammcneilly.toa.login.domain.usecase.CredentialsLoginUseCase
 import com.adammcneilly.toa.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
@@ -28,4 +30,9 @@ abstract class UseCaseModule {
     abstract fun bindGetAllTasksUseCase(
         getAllTasksUseCase: ProdGetAllTasksUseCase,
     ): GetAllTasksUseCase
+
+    @Binds
+    abstract fun bindAddTaskUseCase(
+        addTaskUseCase: ProdAddTaskUseCase,
+    ): AddTaskUseCase
 }
