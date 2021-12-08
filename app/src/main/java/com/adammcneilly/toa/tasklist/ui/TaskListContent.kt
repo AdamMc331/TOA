@@ -85,7 +85,7 @@ private fun LoadedTasksContent(
         },
         topBar = {
             TaskListToolbar()
-        }
+        },
     ) { paddingValues ->
         TaskList(
             tasks = viewState.tasks,
