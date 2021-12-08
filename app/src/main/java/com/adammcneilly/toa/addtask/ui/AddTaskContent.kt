@@ -2,11 +2,17 @@ package com.adammcneilly.toa.addtask.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
@@ -16,6 +22,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.core.ui.UIText
+import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.components.PrimaryButton
 import com.adammcneilly.toa.core.ui.components.TOATextField
 import com.adammcneilly.toa.core.ui.components.VerticalSpacer
@@ -30,6 +37,34 @@ fun AddTaskContent(
     onSubmitClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    Box(
+        modifier = modifier,
+    ) {
+        AddTaskInputsColumn(
+            viewState = viewState,
+            onTaskDescriptionChanged = onTaskDescriptionChanged,
+            onSubmitClicked = onSubmitClicked,
+            modifier = Modifier
+                .fillMaxWidth(),
+        )
+
+        if (viewState is AddTaskViewState.Submitting) {
+            Material3CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center),
+            )
+        }
+    }
+}
+
+@Composable
+private fun AddTaskInputsColumn(
+    viewState: AddTaskViewState,
+    onTaskDescriptionChanged: (String) -> Unit,
+    onSubmitClicked: () -> Unit,
+    modifier: Modifier,
+) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.form_spacing)),
@@ -37,34 +72,47 @@ fun AddTaskContent(
         TaskDescriptionLabel()
 
         TaskDescriptionInput(
-            viewState.taskInput.description,
-            onTaskDescriptionChanged,
+            text = viewState.taskInput.description,
+            onTextChanged = onTaskDescriptionChanged,
+            enabled = viewState.inputsEnabled,
         )
 
         TaskDateLabel()
 
-        TaskDateInput()
+        TaskDateInput(
+            enabled = viewState.inputsEnabled,
+        )
 
         VerticalSpacer(height = dimensionResource(id = R.dimen.form_spacing))
 
-        SubmitButton(onSubmitClicked)
+        SubmitButton(
+            onClick = onSubmitClicked,
+            enabled = viewState.inputsEnabled,
+        )
     }
 }
 
 @Composable
-private fun SubmitButton(onClick: () -> Unit) {
+private fun SubmitButton(
+    onClick: () -> Unit,
+    enabled: Boolean,
+) {
     PrimaryButton(
         text = "Submit",
         onClick = onClick,
+        enabled = enabled,
     )
 }
 
 @Composable
-private fun TaskDateInput() {
+private fun TaskDateInput(
+    enabled: Boolean,
+) {
     TOATextField(
         text = "Today",
         onTextChanged = {},
         labelText = "",
+        enabled = enabled,
     )
 }
 
@@ -81,11 +129,13 @@ private fun TaskDateLabel() {
 private fun TaskDescriptionInput(
     text: String,
     onTextChanged: (String) -> Unit,
+    enabled: Boolean,
 ) {
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = "",
+        enabled = enabled,
     )
 }
 
@@ -119,6 +169,9 @@ private fun AddTaskContentPreview(
                 onTaskDescriptionChanged = {},
                 onTaskScheduledDateChanged = {},
                 onSubmitClicked = {},
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(dimensionResource(id = R.dimen.screen_padding)),
             )
         }
     }
