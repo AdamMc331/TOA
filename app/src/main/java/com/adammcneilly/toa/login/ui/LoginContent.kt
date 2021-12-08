@@ -15,7 +15,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -62,28 +61,24 @@ fun LoginContent(
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit,
 ) {
-    Surface(
-        color = MaterialTheme.colorScheme.background,
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize(),
-        ) {
-            LogoInputsColumn(
-                viewState,
-                onEmailChanged,
-                onPasswordChanged,
-                onLoginClicked,
-                onSignUpClicked,
-            )
+        LogoInputsColumn(
+            viewState,
+            onEmailChanged,
+            onPasswordChanged,
+            onLoginClicked,
+            onSignUpClicked,
+        )
 
-            if (viewState is LoginViewState.Submitting) {
-                Material3CircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center),
-                )
-            }
+        if (viewState is LoginViewState.Submitting) {
+            Material3CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center),
+            )
         }
     }
 }

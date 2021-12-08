@@ -2,7 +2,6 @@ package com.adammcneilly.toa.addtask.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -19,16 +18,14 @@ fun AddTaskScreen(
 ) {
     val viewState = viewModel.viewState.collectAsState()
 
-    Surface {
-        AddTaskContent(
-            viewState = viewState.value,
-            onTaskDescriptionChanged = {},
-            onTaskScheduledDateChanged = {},
-            onSubmitClicked = {},
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(dimensionResource(id = R.dimen.screen_padding))
-                .statusBarsPadding(),
-        )
-    }
+    AddTaskContent(
+        viewState = viewState.value,
+        onTaskDescriptionChanged = {},
+        onTaskScheduledDateChanged = {},
+        onSubmitClicked = {},
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(dimensionResource(id = R.dimen.screen_padding))
+            .statusBarsPadding(),
+    )
 }
