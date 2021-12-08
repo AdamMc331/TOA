@@ -190,4 +190,5 @@ Notes:
 In this stream, we started working on the task management logic and UI.
 
 PRs:
-* Use Cases:
+* Use Cases: 
+* Add Task UI:

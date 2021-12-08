@@ -66,7 +66,8 @@ fun LoginContent(
         color = MaterialTheme.colorScheme.background,
     ) {
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
         ) {
             LogoInputsColumn(
                 viewState,
