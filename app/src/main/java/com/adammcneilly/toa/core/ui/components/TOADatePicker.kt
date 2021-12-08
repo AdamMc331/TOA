@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.DatePickerColors
+import com.vanpra.composematerialdialogs.datetime.date.DatePickerDefaults
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 
@@ -79,6 +81,25 @@ fun TOADatePicker(
             )
         }
     }
+}
+
+@Composable
+private fun md3DatePickerColors(
+    headerBackgroundColor: Color = MaterialTheme.colorScheme.primary,
+    headerTextColor: Color = MaterialTheme.colorScheme.onPrimary,
+    activeBackgroundColor: Color = MaterialTheme.colorScheme.primary,
+    inactiveBackgroundColor: Color = Color.Transparent,
+    activeTextColor: Color = MaterialTheme.colorScheme.onPrimary,
+    inactiveTextColor: Color = MaterialTheme.colorScheme.onBackground,
+): DatePickerColors {
+    return DatePickerDefaults.colors(
+        headerBackgroundColor = headerBackgroundColor,
+        headerTextColor = headerTextColor,
+        activeBackgroundColor = activeBackgroundColor,
+        inactiveBackgroundColor = inactiveBackgroundColor,
+        activeTextColor = activeTextColor,
+        inactiveTextColor = inactiveTextColor,
+    )
 }
 
 @Preview(
