@@ -39,22 +39,35 @@ import com.adammcneilly.toa.core.ui.theme.TextFieldShape
 fun TOATextField(
     text: String,
     onTextChanged: (String) -> Unit,
-    labelText: String,
+    labelText: String?,
     modifier: Modifier = Modifier,
     errorMessage: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    placeholderText: String? = null,
 ) {
+    val labelComposable: (@Composable () -> Unit)? = labelText?.let {
+        @Composable {
+            Text(
+                text = labelText,
+            )
+        }
+    }
+
+    val placeholderComposable: (@Composable () -> Unit)? = placeholderText?.let {
+        @Composable {
+            Text(
+                text = placeholderText,
+            )
+        }
+    }
+
     Column {
         OutlinedTextField(
             value = text,
             onValueChange = onTextChanged,
-            label = {
-                Text(
-                    text = labelText,
-                )
-            },
+            label = labelComposable,
             shape = TextFieldShape,
             modifier = modifier
                 .heightIn(dimensionResource(id = R.dimen.text_field_height))
@@ -64,6 +77,7 @@ fun TOATextField(
             enabled = enabled,
             keyboardOptions = keyboardOptions,
             colors = md3TextFieldColors(),
+            placeholder = placeholderComposable,
         )
 
         if (errorMessage != null) {
@@ -111,7 +125,7 @@ private fun md3TextFieldColors(
     placeholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(
         ContentAlpha.medium
     ),
-    disabledPlaceholderColor: Color = placeholderColor.copy(ContentAlpha.disabled)
+    disabledPlaceholderColor: Color = placeholderColor.copy(ContentAlpha.disabled),
 ) = outlinedTextFieldColors(
     textColor,
     disabledTextColor,
