@@ -21,7 +21,7 @@ fun AddTaskScreen(
     AddTaskContent(
         viewState = viewState.value,
         onTaskDescriptionChanged = {},
-        onTaskScheduledDateChanged = {},
+        onTaskScheduledDateChanged = viewModel::onTaskScheduledDateChanged,
         onSubmitClicked = {},
         modifier = Modifier
             .fillMaxSize()

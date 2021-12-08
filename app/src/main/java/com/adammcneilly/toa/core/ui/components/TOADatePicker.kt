@@ -26,12 +26,16 @@ import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 /**
  * A custom composable that when clicked, launches a date picker.
  */
 @Composable
 fun TOADatePicker(
+    value: LocalDate,
+    onValueChanged: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
     borderColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
     textColor: Color = MaterialTheme.colorScheme.onBackground,
@@ -46,9 +50,10 @@ fun TOADatePicker(
             negativeButton("CANCEL")
         },
     ) {
-        this.datepicker { newDate ->
-            // Coming soon
-        }
+        this.datepicker(
+            initialDate = value,
+            onDateChange = onValueChanged,
+        )
     }
 
     Box(
@@ -68,7 +73,7 @@ fun TOADatePicker(
                 .padding(16.dp),
         ) {
             Text(
-                text = "Today",
+                text = value.toUIString(),
                 color = textColor,
                 modifier = Modifier
                     .weight(1F),
@@ -81,6 +86,11 @@ fun TOADatePicker(
             )
         }
     }
+}
+
+private fun LocalDate.toUIString(): String {
+    val formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
+    return formatter.format(this)
 }
 
 @Preview(
@@ -97,6 +107,8 @@ private fun TOADatePickerPreview() {
     TOATheme {
         Surface {
             TOADatePicker(
+                value = LocalDate.now(),
+                onValueChanged = {},
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
