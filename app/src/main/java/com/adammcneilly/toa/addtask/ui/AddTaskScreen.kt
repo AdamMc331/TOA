@@ -20,7 +20,7 @@ fun AddTaskScreen(
 
     AddTaskContent(
         viewState = viewState.value,
-        onTaskDescriptionChanged = {},
+        onTaskDescriptionChanged = viewModel::onTaskDescriptionChanged,
         onTaskScheduledDateChanged = viewModel::onTaskScheduledDateChanged,
         onSubmitClicked = {},
         modifier = Modifier

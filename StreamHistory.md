@@ -194,6 +194,7 @@ PRs:
 * Add Task UI:
 * Add Task VM & Navigation: 
 * Date Picker:
+* Description Text Handling: 
 
 Notes:
 * https://vanpra.github.io/compose-material-dialogs/DateTimePicker/

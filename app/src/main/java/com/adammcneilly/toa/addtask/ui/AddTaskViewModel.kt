@@ -17,6 +17,17 @@ class AddTaskViewModel @Inject constructor(
         MutableStateFlow(AddTaskViewState.Initial)
     val viewState = _viewState.asStateFlow()
 
+    fun onTaskDescriptionChanged(newDescription: String) {
+        val currentInput = _viewState.value.taskInput
+        val newInput = currentInput.copy(
+            description = newDescription,
+        )
+
+        _viewState.value = AddTaskViewState.Active(
+            taskInput = newInput,
+        )
+    }
+
     fun onTaskScheduledDateChanged(newDate: LocalDate) {
         val currentInput = _viewState.value.taskInput
         val newInput = currentInput.copy(
