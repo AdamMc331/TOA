@@ -2,6 +2,8 @@
 
 This page is a recording of all Twitch streams related to the TOA project.
 
+If you're interested in following along in chronoligical order, check out these streams:
+
 * [Stream One - Project Creation](#stream-one---project-creation)
 * [Stream Two - Developer Experience](#stream-two---developer-experience)
 * [Stream Three - Design System](#stream-three---design-system)
@@ -11,6 +13,9 @@ This page is a recording of all Twitch streams related to the TOA project.
 * [Stream Seven - Documentation](#stream-seven---documentation)
 * [Stream Eight - Pixel 6 & Material 3](#stream-eight---pixel-6--material-3)
 * [Stream Nine - Dev Experience & Kover Plugin](#stream-nine---dev-experience)
+* [Stream Ten - Task List UI](#stream-ten---task-list-ui)
+* [Stream Eleven - Navigation](#stream-eleven---navigation)
+* [Stream Twelve - Task Management Logic & UI](#stream-twelve---task-management)
 
 ## Stream One - Project Creation
 
@@ -168,9 +173,9 @@ In this stream, we finished porting over the task list to Material 3. We also fi
 states of the task list screen.
 
 PRs:
-* Material 3: 
-* TaskListViewModel & Loading State: 
-* GetAllTasksUseCase: 
+* Material 3: https://github.com/AdamMc331/TOA/pull/64
+* TaskListViewModel & Loading State: https://github.com/AdamMc331/TOA/pull/65
+* GetAllTasksUseCase: https://github.com/AdamMc331/TOA/pull/67
 
 ## Stream Eleven - Navigation
 
@@ -178,9 +183,9 @@ In this stream, we added the Compose Destinations library and setup navigation b
 screen and the task list screen. We also looked at adding some unit tests. 
 
 PRs:
-* Navigation: 
-* Animation: 
-* VM Unit tests: 
+* Navigation: https://github.com/AdamMc331/TOA/pull/68
+* Animation: https://github.com/AdamMc331/TOA/pull/69
+* VM Unit tests: https://github.com/AdamMc331/TOA/pull/70
 
 Notes:
 * https://github.com/raamcosta/compose-destinations
@@ -190,11 +195,11 @@ Notes:
 In this stream, we started working on the task management logic and UI.
 
 PRs:
-* Use Cases: 
-* Add Task UI:
-* Add Task VM & Navigation: 
-* Date Picker:
-* Description Text Handling: 
+* Use Cases: https://github.com/AdamMc331/TOA/pull/71
+* Add Task UI: https://github.com/AdamMc331/TOA/pull/72
+* Add Task VM & Navigation: https://github.com/AdamMc331/TOA/pull/73
+* Date Picker: https://github.com/AdamMc331/TOA/pull/74
+* Description Text Handling: https://github.com/AdamMc331/TOA/pull/75
 
 Notes:
 * https://vanpra.github.io/compose-material-dialogs/DateTimePicker/
