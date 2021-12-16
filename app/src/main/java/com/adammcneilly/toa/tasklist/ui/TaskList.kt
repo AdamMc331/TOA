@@ -11,13 +11,10 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.domain.model.Task
 
 @Composable
 fun TaskList(
     tasks: List<TaskDisplayModel>,
-    onRescheduleClicked: (TaskDisplayModel) -> Unit,
-    onDoneClicked: (TaskDisplayModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -28,12 +25,6 @@ fun TaskList(
         items(tasks) { task ->
             TaskListItem(
                 task = task,
-                onRescheduleClicked = {
-                    onRescheduleClicked(task)
-                },
-                onDoneClicked = {
-                    onDoneClicked(task)
-                },
             )
         }
     }
@@ -51,18 +42,17 @@ fun TaskList(
 @Suppress("UnusedPrivateMember")
 private fun TaskListPreview() {
     val tasks = (1..10).map { index ->
-        Task(
+        TaskDisplayModel(
             description = "Test task: $index",
+            scheduledDate = "Today",
+            onRescheduledClicked = {},
+            onDoneClicked = {},
         )
     }
 
     TOATheme {
         TaskList(
-            tasks = tasks.map {
-                it.toDisplayModel()
-            },
-            onRescheduleClicked = {},
-            onDoneClicked = {},
+            tasks = tasks,
         )
     }
 }

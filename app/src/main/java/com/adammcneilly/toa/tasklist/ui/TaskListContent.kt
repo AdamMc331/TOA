@@ -32,14 +32,11 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.google.accompanist.insets.statusBarsPadding
 
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit,
 ) {
     Box(
@@ -58,8 +55,6 @@ fun TaskListContent(
                 LoadedTasksContent(
                     viewState,
                     onAddButtonClicked,
-                    onRescheduleClicked,
-                    onDoneClicked,
                 )
             }
             is TaskListViewState.Error -> {
@@ -74,8 +69,6 @@ fun TaskListContent(
 private fun LoadedTasksContent(
     viewState: TaskListViewState.Loaded,
     onAddButtonClicked: () -> Unit,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit,
 ) {
     Scaffold(
         floatingActionButton = {
@@ -89,8 +82,6 @@ private fun LoadedTasksContent(
     ) { paddingValues ->
         TaskList(
             tasks = viewState.tasks,
-            onRescheduleClicked = onRescheduleClicked,
-            onDoneClicked = onDoneClicked,
             modifier = Modifier
                 .padding(paddingValues),
         )
@@ -171,8 +162,11 @@ private fun AddTaskButton(
 @Suppress("UnusedPrivateMember")
 private fun TaskListContentPreview() {
     val tasks = (1..10).map { index ->
-        Task(
+        TaskDisplayModel(
             description = "Test task: $index",
+            scheduledDate = "Today",
+            onRescheduledClicked = {},
+            onDoneClicked = {},
         )
     }
 
@@ -181,8 +175,6 @@ private fun TaskListContentPreview() {
     TOATheme {
         TaskListContent(
             viewState = viewState,
-            onRescheduleClicked = {},
-            onDoneClicked = {},
             onAddButtonClicked = {},
         )
     }

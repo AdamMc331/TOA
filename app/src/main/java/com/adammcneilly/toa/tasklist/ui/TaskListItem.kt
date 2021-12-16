@@ -17,7 +17,6 @@ import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.components.Material3Card
 import com.adammcneilly.toa.core.ui.components.TOATextButton
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.domain.model.Task
 
 /**
  * This displays a list item for a given [task].
@@ -25,8 +24,6 @@ import com.adammcneilly.toa.tasklist.domain.model.Task
 @Composable
 fun TaskListItem(
     task: TaskDisplayModel,
-    onRescheduleClicked: () -> Unit,
-    onDoneClicked: () -> Unit,
 ) {
     Material3Card {
         Column(
@@ -40,8 +37,8 @@ fun TaskListItem(
             )
 
             ButtonRow(
-                onRescheduleClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked,
+                onRescheduleClicked = task.onRescheduledClicked,
+                onDoneClicked = task.onDoneClicked,
             )
         }
     }
@@ -104,15 +101,16 @@ private fun TaskText(
 @Composable
 @Suppress("UnusedPrivateMember")
 private fun TaskListItemPreview() {
-    val task = Task(
+    val task = TaskDisplayModel(
         description = "Clean my office space.",
+        scheduledDate = "Today",
+        onRescheduledClicked = {},
+        onDoneClicked = {},
     )
 
     TOATheme {
         TaskListItem(
-            task = task.toDisplayModel(),
-            onRescheduleClicked = {},
-            onDoneClicked = {},
+            task = task,
         )
     }
 }
