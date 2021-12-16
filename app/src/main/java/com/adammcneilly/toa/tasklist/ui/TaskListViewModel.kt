@@ -6,8 +6,9 @@ import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
-import com.adammcneilly.toa.tasklist.domain.usecases.RescheduleTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
     private val getAllTasksUseCase: GetAllTasksUseCase,
-    private val rescheduleTaskUseCase: RescheduleTaskUseCase,
+    defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : ViewModel() {
     private val _viewState: MutableStateFlow<TaskListViewState> =
         MutableStateFlow(TaskListViewState.Loading)
@@ -28,7 +29,7 @@ class TaskListViewModel @Inject constructor(
     val viewState: StateFlow<TaskListViewState> = _viewState
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(defaultDispatcher) {
             val getTasksResult = getAllTasksUseCase()
 
             _viewState.value = when (getTasksResult) {
@@ -58,9 +59,7 @@ class TaskListViewModel @Inject constructor(
             description = task.description,
             scheduledDate = friendlyDateFormatter.format(task.scheduledDate),
             onRescheduledClicked = {
-                viewModelScope.launch {
-                    rescheduleTaskUseCase(task.id)
-                }
+                // Coming soon
             },
             onDoneClicked = {
                 // Coming soon

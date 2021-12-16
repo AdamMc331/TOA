@@ -5,6 +5,7 @@ import com.adammcneilly.toa.fakes.FakeTaskListRepository
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetAllTasksUseCase
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 
 class TaskListViewModelRobot {
     private val fakeTaskListRepository = FakeTaskListRepository()
@@ -15,6 +16,7 @@ class TaskListViewModelRobot {
             getAllTasksUseCase = ProdGetAllTasksUseCase(
                 taskListRepository = fakeTaskListRepository.mock,
             ),
+            defaultDispatcher = TestCoroutineDispatcher(),
         )
     }
 
