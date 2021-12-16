@@ -29,8 +29,12 @@ class TaskListViewModel @Inject constructor(
 
             _viewState.value = when (getTasksResult) {
                 is Result.Success -> {
+                    val displayModels = getTasksResult.data.map {
+                        it.toDisplayModel()
+                    }
+
                     TaskListViewState.Loaded(
-                        tasks = getTasksResult.data,
+                        tasks = displayModels,
                     )
                 }
                 is Result.Error -> {

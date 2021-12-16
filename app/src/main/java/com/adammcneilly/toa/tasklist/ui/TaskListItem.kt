@@ -24,7 +24,7 @@ import com.adammcneilly.toa.tasklist.domain.model.Task
  */
 @Composable
 fun TaskListItem(
-    task: Task,
+    task: TaskDisplayModel,
     onRescheduleClicked: () -> Unit,
     onDoneClicked: () -> Unit,
 ) {
@@ -110,7 +110,7 @@ private fun TaskListItemPreview() {
 
     TOATheme {
         TaskListItem(
-            task = task,
+            task = task.toDisplayModel(),
             onRescheduleClicked = {},
             onDoneClicked = {},
         )

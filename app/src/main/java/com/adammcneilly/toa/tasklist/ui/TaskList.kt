@@ -15,9 +15,9 @@ import com.adammcneilly.toa.tasklist.domain.model.Task
 
 @Composable
 fun TaskList(
-    tasks: List<Task>,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit,
+    tasks: List<TaskDisplayModel>,
+    onRescheduleClicked: (TaskDisplayModel) -> Unit,
+    onDoneClicked: (TaskDisplayModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -58,7 +58,9 @@ private fun TaskListPreview() {
 
     TOATheme {
         TaskList(
-            tasks = tasks,
+            tasks = tasks.map {
+                it.toDisplayModel()
+            },
             onRescheduleClicked = {},
             onDoneClicked = {},
         )
