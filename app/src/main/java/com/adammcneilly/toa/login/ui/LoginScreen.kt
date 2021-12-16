@@ -2,19 +2,17 @@ package com.adammcneilly.toa.login.ui
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.LoginScreenDestination
 import com.ramcosta.composedestinations.TaskListScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import kotlinx.coroutines.launch
 
 @Destination(
-//    start = true,
+    start = true,
 )
 @Composable
 fun LoginScreen(
@@ -23,12 +21,8 @@ fun LoginScreen(
 ) {
     val viewState = viewModel.viewState.collectAsState()
 
-    val coroutineScope = rememberCoroutineScope()
-
-    SideEffect {
-        coroutineScope.launch {
-            viewModel.loginCompletedChannel.receive()
-
+    LaunchedEffect(viewState.value) {
+        if (viewState.value is LoginViewState.Completed) {
             navigator.navigate(TaskListScreenDestination) {
                 this.popUpTo(LoginScreenDestination.route) {
                     this.inclusive = true
