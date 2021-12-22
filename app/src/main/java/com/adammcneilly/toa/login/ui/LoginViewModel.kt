@@ -10,7 +10,6 @@ import com.adammcneilly.toa.login.domain.model.LoginResult
 import com.adammcneilly.toa.login.domain.model.Password
 import com.adammcneilly.toa.login.domain.usecase.CredentialsLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,8 +23,6 @@ class LoginViewModel @Inject constructor(
     private val _viewState: MutableStateFlow<LoginViewState> =
         MutableStateFlow(LoginViewState.Initial)
     val viewState: StateFlow<LoginViewState> = _viewState
-
-    val loginCompletedChannel = Channel<Unit>()
 
     fun emailChanged(email: String) {
         val currentCredentials = _viewState.value.credentials
@@ -85,10 +82,6 @@ class LoginViewModel @Inject constructor(
                 loginResult.toLoginViewState(currentCredentials)
             }
             is LoginResult.Success -> {
-                viewModelScope.launch {
-                    loginCompletedChannel.send(Unit)
-                }
-
                 LoginViewState.Completed
             }
         }
