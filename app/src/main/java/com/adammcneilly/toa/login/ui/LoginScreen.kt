@@ -2,7 +2,7 @@ package com.adammcneilly.toa.login.ui
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -21,7 +21,7 @@ fun LoginScreen(
 ) {
     val viewState = viewModel.viewState.collectAsState()
 
-    LaunchedEffect(viewState.value) {
+    DisposableEffect(viewState.value) {
         if (viewState.value is LoginViewState.Completed) {
             navigator.navigate(TaskListScreenDestination) {
                 this.popUpTo(LoginScreenDestination.route) {
@@ -29,6 +29,8 @@ fun LoginScreen(
                 }
             }
         }
+
+        onDispose { }
     }
 
     val context = LocalContext.current
