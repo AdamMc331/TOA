@@ -10,6 +10,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 /**
  * This module is responsible for defining the creation of any repository dependencies used in the
@@ -30,6 +31,7 @@ abstract class RepositoryModule {
     ): LoginRepository
 
     @Binds
+    @Singleton
     abstract fun bindTaskListRepository(
         taskListRepository: DemoTaskListRepository,
     ): TaskListRepository

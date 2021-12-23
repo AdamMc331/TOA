@@ -7,7 +7,7 @@ import com.ramcosta.composedestinations.AddTaskScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination
+@Destination(start = true)
 @Composable
 fun TaskListScreen(
     navigator: DestinationsNavigator,

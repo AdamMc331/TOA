@@ -2,6 +2,7 @@ package com.adammcneilly.toa.tasklist.domain.repository
 
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.tasklist.domain.model.Task
+import kotlinx.coroutines.flow.Flow
 
 /**
  * This is the data contract for any requests to fetch or modify tasks.
@@ -11,7 +12,7 @@ interface TaskListRepository {
     /**
      * Request all of the tasks that have been created for the signed in user.
      */
-    suspend fun fetchAllTasks(): Result<List<Task>>
+    fun fetchAllTasks(): Flow<Result<List<Task>>>
 
     /**
      * Add a new [task] for the signed in user to complete.
