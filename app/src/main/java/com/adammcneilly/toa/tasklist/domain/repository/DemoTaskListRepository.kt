@@ -7,21 +7,23 @@ import javax.inject.Inject
 
 class DemoTaskListRepository @Inject constructor() : TaskListRepository {
 
+    private val tasks = (1..10).map { index ->
+        Task(
+            description = "Test task: $index",
+        )
+    }.toMutableList()
+
     override suspend fun fetchAllTasks(): Result<List<Task>> {
         @Suppress("MagicNumber")
         delay(2_000)
-
-        val tasks = (1..10).map { index ->
-            Task(
-                description = "Test task: $index",
-            )
-        }
 
         return Result.Success(tasks)
     }
 
     override suspend fun addTask(task: Task): Result<Unit> {
-        TODO("Not yet implemented")
+        tasks.add(0, task)
+
+        return Result.Success(Unit)
     }
 
     override suspend fun deleteTask(task: Task): Result<Unit> {
