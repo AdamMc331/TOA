@@ -34,6 +34,7 @@ import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicato
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.google.accompanist.insets.statusBarsPadding
+import java.time.LocalDate
 
 @Composable
 fun TaskListContent(
@@ -172,7 +173,9 @@ private fun AddTaskButton(
 private fun TaskListContentPreview() {
     val tasks = (1..10).map { index ->
         Task(
+            id = "$index",
             description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
         )
     }
 

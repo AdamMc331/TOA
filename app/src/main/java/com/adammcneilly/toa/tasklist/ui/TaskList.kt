@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
+import java.time.LocalDate
 
 @Composable
 fun TaskList(
@@ -52,7 +53,9 @@ fun TaskList(
 private fun TaskListPreview() {
     val tasks = (1..10).map { index ->
         Task(
+            id = "$index",
             description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
         )
     }
 

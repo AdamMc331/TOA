@@ -1,10 +1,10 @@
 package com.adammcneilly.toa.core.di
 
+import com.adammcneilly.toa.core.data.local.RoomTaskListRepository
 import com.adammcneilly.toa.login.domain.repository.DemoLoginRepository
 import com.adammcneilly.toa.login.domain.repository.DemoTokenRepository
 import com.adammcneilly.toa.login.domain.repository.LoginRepository
 import com.adammcneilly.toa.login.domain.repository.TokenRepository
-import com.adammcneilly.toa.tasklist.domain.repository.DemoTaskListRepository
 import com.adammcneilly.toa.tasklist.domain.repository.TaskListRepository
 import dagger.Binds
 import dagger.Module
@@ -33,6 +33,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindTaskListRepository(
-        taskListRepository: DemoTaskListRepository,
+        taskListRepository: RoomTaskListRepository,
     ): TaskListRepository
 }

@@ -18,6 +18,7 @@ import com.adammcneilly.toa.core.ui.components.Material3Card
 import com.adammcneilly.toa.core.ui.components.TOATextButton
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
+import java.time.LocalDate
 
 /**
  * This displays a list item for a given [task].
@@ -105,7 +106,9 @@ private fun TaskText(
 @Suppress("UnusedPrivateMember")
 private fun TaskListItemPreview() {
     val task = Task(
+        id = "test",
         description = "Clean my office space.",
+        scheduledDate = LocalDate.now(),
     )
 
     TOATheme {

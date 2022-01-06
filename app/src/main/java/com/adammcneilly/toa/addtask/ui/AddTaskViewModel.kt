@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,7 +47,9 @@ class AddTaskViewModel @Inject constructor(
 
     fun onSubmitButtonClicked() {
         val taskToCreate = Task(
+            id = UUID.randomUUID().toString(),
             description = _viewState.value.taskInput.description,
+            scheduledDate = _viewState.value.taskInput.scheduledDate,
         )
 
         viewModelScope.launch {

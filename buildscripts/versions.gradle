@@ -34,5 +34,7 @@ ext {
             composeDestinations  : "0.9.4-beta",
             // https://developer.android.com/jetpack/androidx/releases/navigation
             composeNavigation    : "2.4.0-beta02",
+            // https://developer.android.com/jetpack/androidx/releases/room
+            room                 : "2.4.0",
     ]
 }
