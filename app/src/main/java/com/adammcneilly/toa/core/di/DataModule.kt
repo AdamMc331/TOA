@@ -3,6 +3,7 @@ package com.adammcneilly.toa.core.di
 import android.content.Context
 import androidx.room.Room
 import com.adammcneilly.toa.core.data.local.TOADatabase
+import com.adammcneilly.toa.core.data.local.TaskDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +23,12 @@ object DataModule {
             TOADatabase::class.java,
             "toa-database.db",
         ).build()
+    }
+
+    @Provides
+    fun provideTaskDAO(
+        database: TOADatabase,
+    ): TaskDAO {
+        return database.taskDao()
     }
 }

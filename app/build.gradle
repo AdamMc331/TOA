@@ -104,6 +104,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-navigation-animation:$rootProject.ext.versions.accompanist"
     implementation "io.github.vanpra.compose-material-dialogs:datetime:0.6.1"
     implementation "androidx.room:room-runtime:$rootProject.ext.versions.room"
+    implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
     ksp "androidx.room:room-compiler:$rootProject.ext.versions.room"
     ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
