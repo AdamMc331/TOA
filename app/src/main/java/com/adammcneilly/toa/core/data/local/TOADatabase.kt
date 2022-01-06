@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [PersistableTask::class],
     version = 1,
+    exportSchema = true,
 )
 abstract class TOADatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDAO
