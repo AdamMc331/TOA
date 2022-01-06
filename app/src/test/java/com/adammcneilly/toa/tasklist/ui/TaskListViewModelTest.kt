@@ -6,6 +6,7 @@ import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import org.junit.Rule
 import org.junit.Test
+import java.time.LocalDate
 
 class TaskListViewModelTest {
     private val testRobot = TaskListViewModelRobot()
@@ -16,7 +17,9 @@ class TaskListViewModelTest {
     @Test
     fun successfulLoad() {
         val task = Task(
+            id = "Test",
             description = "Test task",
+            scheduledDate = LocalDate.now(),
         )
 
         val taskList = listOf(task)

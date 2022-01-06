@@ -22,9 +22,7 @@ object DataModule {
             applicationContext,
             TOADatabase::class.java,
             "toa-database.db",
-        )
-            .fallbackToDestructiveMigration()
-            .build()
+        ).build()
     }
 
     @Provides

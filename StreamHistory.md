@@ -206,4 +206,8 @@ Notes:
 
 ## Stream Thirteen - Add Task Support
 
-In this stream, we added support for adding a task and seeing it return on the home screen. 
+In this stream, we added support for adding a task and seeing it return on the home screen.
+
+## Stream Fourteen - Persistent Storage
+
+We look at the Room library for persisting data on Android. 
