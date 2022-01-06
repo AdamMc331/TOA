@@ -54,5 +54,6 @@ private fun Task.toPersistableTask(): PersistableTask {
         id = this.id,
         description = this.description,
         scheduledDate = persistedDateFormatter.format(this.scheduledDate),
+        autoMigrationColumn = "",
     )
 }
