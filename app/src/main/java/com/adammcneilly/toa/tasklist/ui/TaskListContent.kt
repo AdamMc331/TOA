@@ -172,6 +172,7 @@ private fun AddTaskButton(
 private fun TaskListContentPreview() {
     val tasks = (1..10).map { index ->
         Task(
+            id = "$index",
             description = "Test task: $index",
         )
     }

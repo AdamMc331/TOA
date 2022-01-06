@@ -105,6 +105,7 @@ private fun TaskText(
 @Suppress("UnusedPrivateMember")
 private fun TaskListItemPreview() {
     val task = Task(
+        id = "test",
         description = "Clean my office space.",
     )
 

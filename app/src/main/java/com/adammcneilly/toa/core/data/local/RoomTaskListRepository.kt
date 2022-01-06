@@ -5,7 +5,6 @@ import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.repository.TaskListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.UUID
 import javax.inject.Inject
 
 class RoomTaskListRepository @Inject constructor(
@@ -39,13 +38,14 @@ class RoomTaskListRepository @Inject constructor(
 
 private fun PersistableTask.toTask(): Task {
     return Task(
+        id = this.id,
         description = this.description,
     )
 }
 
 private fun Task.toPersistableTask(): PersistableTask {
     return PersistableTask(
-        id = UUID.randomUUID().toString(),
+        id = this.id,
         description = this.description,
     )
 }

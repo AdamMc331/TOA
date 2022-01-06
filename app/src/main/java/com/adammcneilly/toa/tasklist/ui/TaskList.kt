@@ -52,6 +52,7 @@ fun TaskList(
 private fun TaskListPreview() {
     val tasks = (1..10).map { index ->
         Task(
+            id = "$index",
             description = "Test task: $index",
         )
     }
