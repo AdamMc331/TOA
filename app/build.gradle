@@ -120,6 +120,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.ext.versions.coroutinesTest"
     testImplementation "com.google.truth:truth:$rootProject.ext.versions.truth"
     testImplementation "app.cash.turbine:turbine:$rootProject.ext.versions.turbine"
+    testImplementation "com.squareup.sqldelight:sqlite-driver:1.5.3"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.versions.androidxTestJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.versions.espresso"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"

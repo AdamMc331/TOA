@@ -18,11 +18,15 @@ class SQLDelightTaskListRepository @Inject constructor(
 ) : TaskListRepository {
 
     override fun fetchAllTasks(): Flow<Result<List<Task>>> {
-        return taskQueries.selectAll().asFlow().mapToList().map { taskList ->
-            val domainTasks = taskList.map(Sqldelight_task::toTask)
+        return taskQueries
+            .selectAll()
+            .asFlow()
+            .mapToList()
+            .map { taskList ->
+                val domainTasks = taskList.map(Sqldelight_task::toTask)
 
-            Result.Success(domainTasks)
-        }
+                Result.Success(domainTasks)
+            }
     }
 
     override suspend fun addTask(task: Task): Result<Unit> {
