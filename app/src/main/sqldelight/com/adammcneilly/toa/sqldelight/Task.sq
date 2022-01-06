@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS sqldelight_task(
+    id TEXT NOT NULL,
+    description TEXT NOT NULL,
+    scheduledDate TEXT NOT NULL, 
+    PRIMARY KEY(id)
+);
+
+selectAll:
+SELECT *
+FROM sqldelight_task;
+
+insertTask:
+INSERT INTO sqldelight_task(id, description, scheduledDate)
+VALUES ?;

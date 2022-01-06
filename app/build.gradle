@@ -4,6 +4,7 @@ plugins {
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
     id "com.google.devtools.ksp" version "1.5.31-1.0.0"
+    id "com.squareup.sqldelight"
 }
 
 kotlin {
@@ -30,6 +31,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
+        }
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
         }
     }
 
@@ -105,6 +110,8 @@ dependencies {
     implementation "io.github.vanpra.compose-material-dialogs:datetime:0.6.1"
     implementation "androidx.room:room-runtime:$rootProject.ext.versions.room"
     implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
+    implementation "com.squareup.sqldelight:android-driver:1.5.3"
+    implementation "com.squareup.sqldelight:coroutines-extensions-jvm:1.5.3"
     ksp "androidx.room:room-compiler:$rootProject.ext.versions.room"
     ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
