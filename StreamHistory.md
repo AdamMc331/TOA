@@ -16,6 +16,8 @@ If you're interested in following along in chronoligical order, check out these 
 * [Stream Ten - Task List UI](#stream-ten---task-list-ui)
 * [Stream Eleven - Navigation](#stream-eleven---navigation)
 * [Stream Twelve - Task Management Logic & UI](#stream-twelve---task-management)
+* [Stream Thirteen - Add Task Support](#stream-thirteen---add-task-support)
+* [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
 
 ## Stream One - Project Creation
 
@@ -177,6 +179,8 @@ PRs:
 * TaskListViewModel & Loading State: https://github.com/AdamMc331/TOA/pull/65
 * GetAllTasksUseCase: https://github.com/AdamMc331/TOA/pull/67
 
+YouTube: https://youtu.be/dY_divcBViI
+
 ## Stream Eleven - Navigation
 
 In this stream, we added the Compose Destinations library and setup navigation between the login
@@ -189,6 +193,8 @@ PRs:
 
 Notes:
 * https://github.com/raamcosta/compose-destinations
+
+YouTube: https://youtu.be/Ag00oxuNCf8
 
 ## Stream Twelve - Task Management
 
@@ -204,10 +210,25 @@ PRs:
 Notes:
 * https://vanpra.github.io/compose-material-dialogs/DateTimePicker/
 
+YouTube: 
+* Domain Logic: https://youtu.be/Ra_vRayFyQk
+* UI: https://youtu.be/iECoFOI5GdA
+* Date Picker: https://youtu.be/nLwo9BUsqO0
+
 ## Stream Thirteen - Add Task Support
 
 In this stream, we added support for adding a task and seeing it return on the home screen.
 
+PRs:
+* https://github.com/AdamMc331/TOA/pull/77
+
+YouTube: https://youtu.be/729JQOr8uX8
+
 ## Stream Fourteen - Persistent Storage
 
-We look at the Room library for persisting data on Android. 
+We look at the Room library for persisting data on Android.
+
+PRs:
+* Room: https://github.com/AdamMc331/TOA/pull/78
+* Room Automigrations (unmerged comparison): https://github.com/AdamMc331/TOA/compare/development...TOA-13/auto_migrations
+* Sqldelight (unmerged comparison): https://github.com/AdamMc331/TOA/compare/development...TOA-13/sqldelight
