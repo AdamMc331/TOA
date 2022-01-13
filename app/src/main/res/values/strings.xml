@@ -14,4 +14,7 @@
     <string name="reschedule">reschedule</string>
     <string name="done">done</string>
     <string name="add_task">Add Task</string>
+
+    <string name="err_empty_task_description">Please enter a description.</string>
+    <string name="err_scheduled_date_in_past">Please select a date today or in the future.</string>
 </resources>
