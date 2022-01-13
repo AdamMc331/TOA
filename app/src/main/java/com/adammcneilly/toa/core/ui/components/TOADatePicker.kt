@@ -50,8 +50,8 @@ fun TOADatePicker(
     MaterialDialog(
         dialogState = dialogState,
         buttons = {
-            positiveButton("OK")
-            negativeButton("CANCEL")
+            positiveButton(stringResource(R.string.ok))
+            negativeButton(stringResource(R.string.cancel))
         },
     ) {
         this.datepicker(
@@ -89,37 +89,55 @@ fun TOADatePicker(
                     dialogState.show()
                 },
         ) {
-            Row(
-                modifier = Modifier
-                    .padding(16.dp),
-            ) {
-                Text(
-                    text = value.toUIString(),
-                    color = textColor,
-                    modifier = Modifier
-                        .weight(1F),
-                )
-
-                Icon(
-                    Icons.Default.DateRange,
-                    contentDescription = stringResource(R.string.select_date_content_description),
-                    tint = iconColorToUse,
-                )
-            }
+            DateAndIcon(
+                value = value,
+                textColor = textColor,
+                iconColorToUse = iconColorToUse,
+            )
         }
 
         if (errorMessage != null) {
-            Text(
-                text = errorMessage,
-                color = MaterialTheme.colorScheme.error,
-                modifier = Modifier
-                    .padding(
-                        top = 4.dp,
-                        start = 16.dp,
-                    ),
-            )
+            ErrorMessage(errorMessage)
         }
     }
+}
+
+@Composable
+private fun DateAndIcon(
+    value: LocalDate,
+    textColor: Color,
+    iconColorToUse: Color,
+) {
+    Row(
+        modifier = Modifier
+            .padding(16.dp),
+    ) {
+        Text(
+            text = value.toUIString(),
+            color = textColor,
+            modifier = Modifier
+                .weight(1F),
+        )
+
+        Icon(
+            Icons.Default.DateRange,
+            contentDescription = stringResource(R.string.select_date_content_description),
+            tint = iconColorToUse,
+        )
+    }
+}
+
+@Composable
+private fun ErrorMessage(errorMessage: String) {
+    Text(
+        text = errorMessage,
+        color = MaterialTheme.colorScheme.error,
+        modifier = Modifier
+            .padding(
+                top = 4.dp,
+                start = 16.dp,
+            ),
+    )
 }
 
 private fun LocalDate.toUIString(): String {

@@ -232,3 +232,10 @@ PRs:
 * Room: https://github.com/AdamMc331/TOA/pull/78
 * Room Automigrations (unmerged comparison): https://github.com/AdamMc331/TOA/compare/development...TOA-13/auto_migrations
 * Sqldelight (unmerged comparison): https://github.com/AdamMc331/TOA/compare/development...TOA-13/sqldelight
+
+## Stream Fifteen - Add Task Input validation
+
+In this stream we added input validation to the add task screen so that we can't enter a task without a description or valid date. 
+
+PRs:
+* Add Task Validation:

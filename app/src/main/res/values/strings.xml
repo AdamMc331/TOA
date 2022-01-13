@@ -20,4 +20,6 @@
     <string name="task_input_placeholder">Clean my office space...</string>
     <string name="select_date_content_description">Select Date</string>
     <string name="submit">Submit</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 </resources>
