@@ -1,6 +1,6 @@
 package com.adammcneilly.toa.addtask.domain.usecases
 
-import com.adammcneilly.toa.core.data.Result
+import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
 import com.adammcneilly.toa.tasklist.domain.model.Task
 
 /**
@@ -8,5 +8,5 @@ import com.adammcneilly.toa.tasklist.domain.model.Task
  */
 interface AddTaskUseCase {
 
-    suspend operator fun invoke(task: Task): Result<Unit>
+    suspend operator fun invoke(task: Task): AddTaskResult
 }
