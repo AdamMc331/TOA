@@ -33,6 +33,9 @@ class AddTaskViewModel @Inject constructor(
 
         _viewState.value = AddTaskViewState.Active(
             taskInput = newInput,
+            descriptionInputErrorMessage = null,
+            scheduledDateInputErrorMessage = (_viewState.value as? AddTaskViewState.Active)
+                ?.scheduledDateInputErrorMessage,
         )
     }
 
@@ -44,6 +47,9 @@ class AddTaskViewModel @Inject constructor(
 
         _viewState.value = AddTaskViewState.Active(
             taskInput = newInput,
+            descriptionInputErrorMessage = (_viewState.value as? AddTaskViewState.Active)
+                ?.descriptionInputErrorMessage,
+            scheduledDateInputErrorMessage = null,
         )
     }
 
