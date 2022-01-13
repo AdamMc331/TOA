@@ -14,4 +14,12 @@
     <string name="reschedule">reschedule</string>
     <string name="done">done</string>
     <string name="add_task">Add Task</string>
+
+    <string name="err_empty_task_description">Please enter a description.</string>
+    <string name="err_scheduled_date_in_past">Please select a date today or in the future.</string>
+    <string name="task_input_placeholder">Clean my office space...</string>
+    <string name="select_date_content_description">Select Date</string>
+    <string name="submit">Submit</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 </resources>

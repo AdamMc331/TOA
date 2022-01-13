@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -83,6 +84,9 @@ private fun AddTaskInputsColumn(
             text = viewState.taskInput.description,
             onTextChanged = onTaskDescriptionChanged,
             enabled = viewState.inputsEnabled,
+            errorMessage = (viewState as? AddTaskViewState.Active)
+                ?.descriptionInputErrorMessage
+                ?.getString(),
         )
 
         TaskDateLabel()
@@ -91,6 +95,9 @@ private fun AddTaskInputsColumn(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduledDateChanged,
             enabled = viewState.inputsEnabled,
+            errorMessage = (viewState as? AddTaskViewState.Active)
+                ?.scheduledDateInputErrorMessage
+                ?.getString(),
         )
 
         if (viewState is AddTaskViewState.SubmissionError) {
@@ -117,7 +124,7 @@ private fun SubmitButton(
     enabled: Boolean,
 ) {
     PrimaryButton(
-        text = "Submit",
+        text = stringResource(R.string.submit),
         onClick = onClick,
         enabled = enabled,
     )
@@ -128,12 +135,14 @@ private fun TaskDateInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
     enabled: Boolean,
+    errorMessage: String?,
 ) {
     TOADatePicker(
         value = value,
         onValueChanged = onValueChanged,
         modifier = Modifier
             .fillMaxWidth(),
+        errorMessage = errorMessage,
     )
 }
 
@@ -151,6 +160,7 @@ private fun TaskDescriptionInput(
     text: String,
     onTextChanged: (String) -> Unit,
     enabled: Boolean,
+    errorMessage: String?,
 ) {
     TOATextField(
         text = text,
@@ -160,7 +170,8 @@ private fun TaskDescriptionInput(
         keyboardOptions = KeyboardOptions.Default.copy(
             capitalization = KeyboardCapitalization.Sentences,
         ),
-        placeholderText = "Clean my office space...",
+        placeholderText = stringResource(R.string.task_input_placeholder),
+        errorMessage = errorMessage,
     )
 }
 

@@ -2,8 +2,10 @@ package com.adammcneilly.toa.addtask.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.adammcneilly.toa.R
+import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
+import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.addtask.domain.usecases.AddTaskUseCase
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +33,9 @@ class AddTaskViewModel @Inject constructor(
 
         _viewState.value = AddTaskViewState.Active(
             taskInput = newInput,
+            descriptionInputErrorMessage = null,
+            scheduledDateInputErrorMessage = (_viewState.value as? AddTaskViewState.Active)
+                ?.scheduledDateInputErrorMessage,
         )
     }
 
@@ -42,6 +47,9 @@ class AddTaskViewModel @Inject constructor(
 
         _viewState.value = AddTaskViewState.Active(
             taskInput = newInput,
+            descriptionInputErrorMessage = (_viewState.value as? AddTaskViewState.Active)
+                ?.descriptionInputErrorMessage,
+            scheduledDateInputErrorMessage = null,
         )
     }
 
@@ -53,13 +61,18 @@ class AddTaskViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            val result = addTaskUseCase(taskToCreate)
+            val result = addTaskUseCase.invoke(taskToCreate)
 
             _viewState.value = when (result) {
-                is Result.Success -> {
+                is AddTaskResult.Success -> {
                     AddTaskViewState.Completed
                 }
-                is Result.Error -> {
+                is AddTaskResult.Failure.InvalidInput -> {
+                    result.toViewState(
+                        taskInput = _viewState.value.taskInput,
+                    )
+                }
+                is AddTaskResult.Failure.Unknown -> {
                     AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,
                         errorMessage = UIText.StringText("Unable to add task."),
@@ -68,4 +81,18 @@ class AddTaskViewModel @Inject constructor(
             }
         }
     }
+}
+
+private fun AddTaskResult.Failure.InvalidInput.toViewState(
+    taskInput: TaskInput,
+): AddTaskViewState {
+    return AddTaskViewState.Active(
+        taskInput = taskInput,
+        descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description).takeIf {
+            this.emptyDescription
+        },
+        scheduledDateInputErrorMessage = UIText.ResourceText(R.string.err_scheduled_date_in_past).takeIf {
+            this.scheduledDateInPast
+        },
+    )
 }
