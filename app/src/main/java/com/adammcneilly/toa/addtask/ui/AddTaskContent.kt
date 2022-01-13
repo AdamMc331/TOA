@@ -95,6 +95,9 @@ private fun AddTaskInputsColumn(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduledDateChanged,
             enabled = viewState.inputsEnabled,
+            errorMessage = (viewState as? AddTaskViewState.Active)
+                ?.scheduledDateInputErrorMessage
+                ?.getString(),
         )
 
         if (viewState is AddTaskViewState.SubmissionError) {
@@ -121,7 +124,7 @@ private fun SubmitButton(
     enabled: Boolean,
 ) {
     PrimaryButton(
-        text = "Submit",
+        text = stringResource(R.string.submit),
         onClick = onClick,
         enabled = enabled,
     )
@@ -132,12 +135,14 @@ private fun TaskDateInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
     enabled: Boolean,
+    errorMessage: String?,
 ) {
     TOADatePicker(
         value = value,
         onValueChanged = onValueChanged,
         modifier = Modifier
             .fillMaxWidth(),
+        errorMessage = errorMessage,
     )
 }
 
