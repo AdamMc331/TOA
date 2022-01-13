@@ -17,4 +17,5 @@
 
     <string name="err_empty_task_description">Please enter a description.</string>
     <string name="err_scheduled_date_in_past">Please select a date today or in the future.</string>
+    <string name="task_input_placeholder">Clean my office space...</string>
 </resources>
