@@ -33,6 +33,7 @@ import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import java.time.LocalDate
 
@@ -152,6 +153,8 @@ private fun AddTaskButton(
     FloatingActionButton(
         onClick = onClick,
         shape = CircleShape,
+        modifier = Modifier
+            .navigationBarsPadding(),
     ) {
         Icon(
             Icons.Default.Add,
