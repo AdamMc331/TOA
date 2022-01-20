@@ -48,25 +48,19 @@ fun TaskListContent(
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        when (viewState) {
-            is TaskListViewState.Loading -> {
-                Material3CircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center),
-                )
-            }
-            is TaskListViewState.Loaded -> {
-                LoadedTasksContent(
-                    viewState,
-                    onAddButtonClicked,
-                    onRescheduleClicked,
-                    onDoneClicked,
-                )
-            }
-            is TaskListViewState.Error -> {
-                // Coming later.
-            }
+        LoadedTasksContent(
+            viewState.tasks,
+            onAddButtonClicked,
+            onRescheduleClicked,
+            onDoneClicked,
+        )
+
+        if (viewState.showLoading) {
+            Material3CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center),
+            )
         }
     }
 }
@@ -74,11 +68,15 @@ fun TaskListContent(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LoadedTasksContent(
-    viewState: TaskListViewState.Loaded,
+    tasks: List<Task>?,
     onAddButtonClicked: () -> Unit,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
 ) {
+    if (tasks == null) {
+        return
+    }
+
     Scaffold(
         floatingActionButton = {
             AddTaskButton(
@@ -90,7 +88,7 @@ private fun LoadedTasksContent(
         },
     ) { paddingValues ->
         TaskList(
-            tasks = viewState.tasks,
+            tasks = tasks,
             onRescheduleClicked = onRescheduleClicked,
             onDoneClicked = onDoneClicked,
             modifier = Modifier
@@ -182,7 +180,10 @@ private fun TaskListContentPreview() {
         )
     }
 
-    val viewState = TaskListViewState.Loaded(tasks)
+    val viewState = TaskListViewState(
+        showLoading = false,
+        tasks = tasks,
+    )
 
     TOATheme {
         TaskListContent(

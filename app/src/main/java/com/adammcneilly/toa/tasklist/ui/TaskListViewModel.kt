@@ -8,7 +8,7 @@ import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -20,10 +20,8 @@ import javax.inject.Inject
 class TaskListViewModel @Inject constructor(
     getAllTasksUseCase: GetAllTasksUseCase,
 ) : ViewModel() {
-    private val _viewState: MutableStateFlow<TaskListViewState> =
-        MutableStateFlow(TaskListViewState.Loading)
-
-    val viewState: StateFlow<TaskListViewState> = _viewState
+    private val _viewState = MutableStateFlow(TaskListViewState())
+    val viewState = _viewState.asStateFlow()
 
     init {
         getAllTasksUseCase()
@@ -36,14 +34,16 @@ class TaskListViewModel @Inject constructor(
     private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState {
         return when (result) {
             is Result.Success -> {
-                TaskListViewState.Loaded(
+                _viewState.value.copy(
                     tasks = result.data,
+                    showLoading = false,
                 )
             }
 
             is Result.Error -> {
-                TaskListViewState.Error(
-                    errorMessage = UIText.StringText("Something went wrong.")
+                _viewState.value.copy(
+                    errorMessage = UIText.StringText("Something went wrong."),
+                    showLoading = false,
                 )
             }
         }

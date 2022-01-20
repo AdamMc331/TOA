@@ -32,7 +32,10 @@ class TaskListViewModelTest {
             .mockAllTasksResult(taskResponse)
             .buildViewModel()
             .assertViewState(
-                expectedViewState = TaskListViewState.Loaded(taskList),
+                expectedViewState = TaskListViewState(
+                    tasks = taskList,
+                    showLoading = false,
+                ),
             )
     }
 
@@ -44,8 +47,9 @@ class TaskListViewModelTest {
             .mockAllTasksResult(taskResult)
             .buildViewModel()
             .assertViewState(
-                expectedViewState = TaskListViewState.Error(
-                    errorMessage = UIText.StringText("Something went wrong.")
+                expectedViewState = TaskListViewState(
+                    errorMessage = UIText.StringText("Something went wrong."),
+                    showLoading = false,
                 )
             )
     }
