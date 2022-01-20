@@ -30,4 +30,12 @@ class TaskListViewModelRobot {
         val actualViewState = viewModel.viewState.value
         assertThat(actualViewState).isEqualTo(expectedViewState)
     }
+
+    fun clickPreviousDateButton() = apply {
+        viewModel.onPreviousDateButtonClicked()
+    }
+
+    fun clickNextDateButton() = apply {
+        viewModel.onNextDateButtonClicked()
+    }
 }

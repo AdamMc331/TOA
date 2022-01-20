@@ -58,4 +58,16 @@ class TaskListViewModel @Inject constructor(
             }
         }
     }
+
+    fun onPreviousDateButtonClicked() {
+        _viewState.value = _viewState.value.copy(
+            selectedDate = _viewState.value.selectedDate.minusDays(1),
+        )
+    }
+
+    fun onNextDateButtonClicked() {
+        _viewState.value = _viewState.value.copy(
+            selectedDate = _viewState.value.selectedDate.plusDays(1),
+        )
+    }
 }

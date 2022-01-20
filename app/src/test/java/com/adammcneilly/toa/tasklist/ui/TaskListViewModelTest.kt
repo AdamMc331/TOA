@@ -43,6 +43,74 @@ class TaskListViewModelTest {
     }
 
     @Test
+    fun clickPreviousDate() {
+        val task = Task(
+            id = "Test",
+            description = "Test task",
+            scheduledDate = LocalDate.now(),
+        )
+
+        val taskList = listOf(task)
+
+        val taskListResult = Result.Success(
+            taskList,
+        )
+
+        val expectedViewState = TaskListViewState(
+            selectedDate = LocalDate.now().minusDays(1),
+            tasks = taskList,
+            showLoading = false,
+        )
+
+        testRobot
+            .mockTasksForDateResult(
+                date = LocalDate.now(),
+                result = Result.Success(emptyList()),
+            )
+            .mockTasksForDateResult(
+                date = LocalDate.now().minusDays(1),
+                result = taskListResult,
+            )
+            .buildViewModel()
+            .clickPreviousDateButton()
+            .assertViewState(expectedViewState)
+    }
+
+    @Test
+    fun clickNextDate() {
+        val task = Task(
+            id = "Test",
+            description = "Test task",
+            scheduledDate = LocalDate.now(),
+        )
+
+        val taskList = listOf(task)
+
+        val taskListResult = Result.Success(
+            taskList,
+        )
+
+        val expectedViewState = TaskListViewState(
+            selectedDate = LocalDate.now().plusDays(1),
+            tasks = taskList,
+            showLoading = false,
+        )
+
+        testRobot
+            .mockTasksForDateResult(
+                date = LocalDate.now(),
+                result = Result.Success(emptyList()),
+            )
+            .mockTasksForDateResult(
+                date = LocalDate.now().plusDays(1),
+                result = taskListResult,
+            )
+            .buildViewModel()
+            .clickNextDateButton()
+            .assertViewState(expectedViewState)
+    }
+
+    @Test
     fun failureLoad() {
         val taskResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
 

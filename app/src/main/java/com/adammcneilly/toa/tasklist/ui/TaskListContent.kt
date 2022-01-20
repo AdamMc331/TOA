@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
+import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.google.accompanist.insets.navigationBarsPadding
@@ -43,16 +44,21 @@ fun TaskListContent(
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit,
+    onPreviousDateButtonClicked: () -> Unit,
+    onNextDateButtonClicked: () -> Unit,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
     ) {
         LoadedTasksContent(
-            viewState.tasks,
-            onAddButtonClicked,
-            onRescheduleClicked,
-            onDoneClicked,
+            tasks = viewState.tasks,
+            selectedDateString = viewState.selectedDateString.getString(),
+            onAddButtonClicked = onAddButtonClicked,
+            onRescheduleClicked = onRescheduleClicked,
+            onDoneClicked = onDoneClicked,
+            onPreviousDateButtonClicked = onPreviousDateButtonClicked,
+            onNextDateButtonClicked = onNextDateButtonClicked,
         )
 
         if (viewState.showLoading) {
@@ -69,9 +75,12 @@ fun TaskListContent(
 @Composable
 private fun LoadedTasksContent(
     tasks: List<Task>?,
+    selectedDateString: String,
     onAddButtonClicked: () -> Unit,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
+    onPreviousDateButtonClicked: () -> Unit,
+    onNextDateButtonClicked: () -> Unit,
 ) {
     if (tasks == null) {
         return
@@ -85,9 +94,9 @@ private fun LoadedTasksContent(
         },
         topBar = {
             TaskListToolbar(
-                onLeftButtonClicked = {},
-                onRightButtonClicked = {},
-                title = "",
+                onLeftButtonClicked = onPreviousDateButtonClicked,
+                onRightButtonClicked = onNextDateButtonClicked,
+                title = selectedDateString,
             )
         },
     ) { paddingValues ->
@@ -199,6 +208,8 @@ private fun TaskListContentPreview() {
             onRescheduleClicked = {},
             onDoneClicked = {},
             onAddButtonClicked = {},
+            onPreviousDateButtonClicked = {},
+            onNextDateButtonClicked = {},
         )
     }
 }
