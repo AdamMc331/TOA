@@ -33,6 +33,11 @@ class TaskListViewModel @Inject constructor(
             }
             .distinctUntilChanged()
             .flatMapLatest { selectedDate ->
+                _viewState.value = _viewState.value.copy(
+                    showLoading = true,
+                    tasks = null,
+                )
+
                 getTasksForDateUseCase.invoke(selectedDate)
             }
             .onEach { result ->

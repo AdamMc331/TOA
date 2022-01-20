@@ -38,6 +38,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import java.time.LocalDate
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
@@ -47,45 +48,6 @@ fun TaskListContent(
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-    ) {
-        LoadedTasksContent(
-            tasks = viewState.tasks,
-            selectedDateString = viewState.selectedDateString.getString(),
-            onAddButtonClicked = onAddButtonClicked,
-            onRescheduleClicked = onRescheduleClicked,
-            onDoneClicked = onDoneClicked,
-            onPreviousDateButtonClicked = onPreviousDateButtonClicked,
-            onNextDateButtonClicked = onNextDateButtonClicked,
-        )
-
-        if (viewState.showLoading) {
-            Material3CircularProgressIndicator(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center),
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun LoadedTasksContent(
-    tasks: List<Task>?,
-    selectedDateString: String,
-    onAddButtonClicked: () -> Unit,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit,
-    onPreviousDateButtonClicked: () -> Unit,
-    onNextDateButtonClicked: () -> Unit,
-) {
-    if (tasks == null) {
-        return
-    }
-
     Scaffold(
         floatingActionButton = {
             AddTaskButton(
@@ -96,17 +58,32 @@ private fun LoadedTasksContent(
             TaskListToolbar(
                 onLeftButtonClicked = onPreviousDateButtonClicked,
                 onRightButtonClicked = onNextDateButtonClicked,
-                title = selectedDateString,
+                title = viewState.selectedDateString.getString(),
             )
         },
     ) { paddingValues ->
-        TaskList(
-            tasks = tasks,
-            onRescheduleClicked = onRescheduleClicked,
-            onDoneClicked = onDoneClicked,
-            modifier = Modifier
-                .padding(paddingValues),
-        )
+        if (viewState.tasks != null) {
+            TaskList(
+                tasks = viewState.tasks,
+                onRescheduleClicked = onRescheduleClicked,
+                onDoneClicked = onDoneClicked,
+                modifier = Modifier
+                    .padding(paddingValues),
+            )
+        }
+
+        if (viewState.showLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+            ) {
+                Material3CircularProgressIndicator(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center),
+                )
+            }
+        }
     }
 }
 
