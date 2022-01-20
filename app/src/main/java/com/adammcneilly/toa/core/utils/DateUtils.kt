@@ -6,6 +6,7 @@ import java.time.LocalDate
  * For this [LocalDate], parse the day of the month and calculate the suffix for that day.
  * Example: 1st, 2nd, 3rd, 4th, etc...
  */
+@Suppress("MagicNumber")
 fun LocalDate.getSuffixForDayOfMonth(): String {
     val dayOfMonth = this.dayOfMonth
 
