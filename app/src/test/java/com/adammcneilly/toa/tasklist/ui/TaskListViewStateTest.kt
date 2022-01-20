@@ -10,6 +10,18 @@ import java.time.format.DateTimeFormatter
 class TaskListViewStateTest {
 
     @Test
+    fun parseDateStringForYesterday() {
+        val yesterday = LocalDate.now().minusDays(1)
+
+        val viewState = TaskListViewState(
+            selectedDate = yesterday,
+        )
+
+        val expectedString = UIText.ResourceText(R.string.yesterday)
+        assertThat(viewState.selectedDateString).isEqualTo(expectedString)
+    }
+
+    @Test
     fun parseDateStringForToday() {
         val today = LocalDate.now()
 
