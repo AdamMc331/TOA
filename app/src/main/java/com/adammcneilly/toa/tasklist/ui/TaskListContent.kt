@@ -84,7 +84,11 @@ private fun LoadedTasksContent(
             )
         },
         topBar = {
-            TaskListToolbar()
+            TaskListToolbar(
+                onLeftButtonClicked = {},
+                onRightButtonClicked = {},
+                title = "",
+            )
         },
     ) { paddingValues ->
         TaskList(
@@ -98,7 +102,11 @@ private fun LoadedTasksContent(
 }
 
 @Composable
-private fun TaskListToolbar() {
+private fun TaskListToolbar(
+    onLeftButtonClicked: () -> Unit,
+    onRightButtonClicked: () -> Unit,
+    title: String,
+) {
     val toolbarHeight = 84.dp
 
     Surface(
@@ -111,7 +119,7 @@ private fun TaskListToolbar() {
                 .height(toolbarHeight),
         ) {
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = onLeftButtonClicked,
             ) {
                 Icon(
                     Icons.Default.KeyboardArrowLeft,
@@ -122,7 +130,7 @@ private fun TaskListToolbar() {
             }
 
             Text(
-                text = "Today",
+                text = title,
                 modifier = Modifier
                     .weight(1F),
                 textAlign = TextAlign.Center,
@@ -131,7 +139,7 @@ private fun TaskListToolbar() {
             )
 
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = onRightButtonClicked,
             ) {
                 Icon(
                     Icons.Default.KeyboardArrowRight,

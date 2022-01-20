@@ -6,13 +6,14 @@ import com.adammcneilly.toa.tasklist.domain.repository.TaskListRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
+import java.time.LocalDate
 
 class FakeTaskListRepository {
     val mock: TaskListRepository = mockk()
 
-    fun mockFetchAllTasksResult(response: Result<List<Task>>) {
+    fun mockTasksForDateResult(date: LocalDate, response: Result<List<Task>>) {
         coEvery {
-            mock.fetchAllTasks()
+            mock.fetchTasksForDate(date)
         } returns flowOf(response)
     }
 }

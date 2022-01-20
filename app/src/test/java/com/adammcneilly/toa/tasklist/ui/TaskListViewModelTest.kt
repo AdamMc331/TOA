@@ -29,7 +29,10 @@ class TaskListViewModelTest {
         )
 
         testRobot
-            .mockAllTasksResult(taskResponse)
+            .mockTasksForDateResult(
+                date = LocalDate.now(),
+                result = taskResponse,
+            )
             .buildViewModel()
             .assertViewState(
                 expectedViewState = TaskListViewState(
@@ -44,7 +47,10 @@ class TaskListViewModelTest {
         val taskResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
 
         testRobot
-            .mockAllTasksResult(taskResult)
+            .mockTasksForDateResult(
+                date = LocalDate.now(),
+                result = taskResult,
+            )
             .buildViewModel()
             .assertViewState(
                 expectedViewState = TaskListViewState(

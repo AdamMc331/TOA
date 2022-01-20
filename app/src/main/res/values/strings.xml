@@ -22,4 +22,7 @@
     <string name="submit">Submit</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
+
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 </resources>
