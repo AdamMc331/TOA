@@ -5,11 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.model.Task
-import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -18,13 +21,20 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
-    getAllTasksUseCase: GetAllTasksUseCase,
+    getTasksForDateUseCase: GetTasksForDateUseCase,
 ) : ViewModel() {
     private val _viewState = MutableStateFlow(TaskListViewState())
     val viewState = _viewState.asStateFlow()
 
     init {
-        getAllTasksUseCase()
+        _viewState
+            .map { viewState ->
+                viewState.selectedDate
+            }
+            .distinctUntilChanged()
+            .flatMapLatest { selectedDate ->
+                getTasksForDateUseCase.invoke(selectedDate)
+            }
             .onEach { result ->
                 _viewState.value = getViewStateForTaskListResult(result)
             }
