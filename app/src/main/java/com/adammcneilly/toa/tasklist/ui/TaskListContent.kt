@@ -109,7 +109,7 @@ private fun TaskListToolbar(
             ) {
                 Icon(
                     Icons.Default.KeyboardArrowLeft,
-                    contentDescription = "TODO:",
+                    contentDescription = stringResource(R.string.view_previous_day_content_description),
                     modifier = Modifier
                         .size(84.dp),
                 )
@@ -129,7 +129,7 @@ private fun TaskListToolbar(
             ) {
                 Icon(
                     Icons.Default.KeyboardArrowRight,
-                    contentDescription = "TODO:",
+                    contentDescription = stringResource(R.string.view_next_day_content_description),
                     modifier = Modifier
                         .size(84.dp),
                 )

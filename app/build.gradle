@@ -117,6 +117,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.versions.androidxTestJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.versions.espresso"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    androidTestImplementation "com.google.truth:truth:$rootProject.ext.versions.truth"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
