@@ -2,6 +2,7 @@ package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.UIText
+import com.adammcneilly.toa.core.utils.getSuffixForDayOfMonth
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import java.time.LocalDate
@@ -54,7 +55,9 @@ class TaskListViewStateTest {
         )
 
         val expectedDateFormat = "MMM dd"
-        val expectedDateString = DateTimeFormatter.ofPattern(expectedDateFormat).format(twoDaysFromNow)
+        val expectedSuffix = twoDaysFromNow.getSuffixForDayOfMonth()
+        val parsedDateString = DateTimeFormatter.ofPattern(expectedDateFormat).format(twoDaysFromNow)
+        val expectedDateString = "$parsedDateString$expectedSuffix"
         val expectedString = UIText.StringText(expectedDateString)
         assertThat(viewState.selectedDateString).isEqualTo(expectedString)
     }
