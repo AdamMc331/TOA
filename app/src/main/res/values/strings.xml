@@ -26,4 +26,6 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="yesterday">Yesterday</string>
+    <string name="view_previous_day_content_description">View Previous Day</string>
+    <string name="view_next_day_content_description">View Next Day</string>
 </resources>
