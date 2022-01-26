@@ -3,6 +3,7 @@ package com.adammcneilly.toa.core.data.local
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.repository.TaskListRepository
+import com.adammcneilly.toa.tasklist.domain.repository.TaskListResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
@@ -17,9 +18,15 @@ class RoomTaskListRepository @Inject constructor(
         return taskDAO
             .fetchAllTasks()
             .map { taskList ->
-                val domainTasks = taskList.map(PersistableTask::toTask)
+                Result.Success(taskList.toDomainTaskList())
+            }
+    }
 
-                Result.Success(domainTasks)
+    override fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult> {
+        return taskDAO
+            .fetchTasksForDate(date.toPersistableDateString())
+            .map { taskList ->
+                Result.Success(taskList.toDomainTaskList())
             }
     }
 
@@ -38,8 +45,16 @@ class RoomTaskListRepository @Inject constructor(
     }
 }
 
+private fun List<PersistableTask>.toDomainTaskList(): List<Task> {
+    return this.map(PersistableTask::toTask)
+}
+
 private const val PERSISTED_DATE_FORMAT = "yyyy-MM-dd"
 private val persistedDateFormatter = DateTimeFormatter.ofPattern(PERSISTED_DATE_FORMAT)
+
+private fun LocalDate.toPersistableDateString(): String {
+    return persistedDateFormatter.format(this)
+}
 
 private fun PersistableTask.toTask(): Task {
     return Task(
@@ -53,6 +68,6 @@ private fun Task.toPersistableTask(): PersistableTask {
     return PersistableTask(
         id = this.id,
         description = this.description,
-        scheduledDate = persistedDateFormatter.format(this.scheduledDate),
+        scheduledDate = this.scheduledDate.toPersistableDateString(),
     )
 }

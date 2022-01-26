@@ -5,11 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.model.Task
-import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -18,15 +21,25 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
-    getAllTasksUseCase: GetAllTasksUseCase,
+    getTasksForDateUseCase: GetTasksForDateUseCase,
 ) : ViewModel() {
-    private val _viewState: MutableStateFlow<TaskListViewState> =
-        MutableStateFlow(TaskListViewState.Loading)
-
-    val viewState: StateFlow<TaskListViewState> = _viewState
+    private val _viewState = MutableStateFlow(TaskListViewState())
+    val viewState = _viewState.asStateFlow()
 
     init {
-        getAllTasksUseCase()
+        _viewState
+            .map { viewState ->
+                viewState.selectedDate
+            }
+            .distinctUntilChanged()
+            .flatMapLatest { selectedDate ->
+                _viewState.value = _viewState.value.copy(
+                    showLoading = true,
+                    tasks = null,
+                )
+
+                getTasksForDateUseCase.invoke(selectedDate)
+            }
             .onEach { result ->
                 _viewState.value = getViewStateForTaskListResult(result)
             }
@@ -36,16 +49,30 @@ class TaskListViewModel @Inject constructor(
     private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState {
         return when (result) {
             is Result.Success -> {
-                TaskListViewState.Loaded(
+                _viewState.value.copy(
                     tasks = result.data,
+                    showLoading = false,
                 )
             }
 
             is Result.Error -> {
-                TaskListViewState.Error(
-                    errorMessage = UIText.StringText("Something went wrong.")
+                _viewState.value.copy(
+                    errorMessage = UIText.StringText("Something went wrong."),
+                    showLoading = false,
                 )
             }
         }
+    }
+
+    fun onPreviousDateButtonClicked() {
+        _viewState.value = _viewState.value.copy(
+            selectedDate = _viewState.value.selectedDate.minusDays(1),
+        )
+    }
+
+    fun onNextDateButtonClicked() {
+        _viewState.value = _viewState.value.copy(
+            selectedDate = _viewState.value.selectedDate.plusDays(1),
+        )
     }
 }

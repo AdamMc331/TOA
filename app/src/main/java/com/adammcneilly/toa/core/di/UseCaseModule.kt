@@ -5,7 +5,9 @@ import com.adammcneilly.toa.addtask.domain.usecases.ProdAddTaskUseCase
 import com.adammcneilly.toa.login.domain.usecase.CredentialsLoginUseCase
 import com.adammcneilly.toa.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetAllTasksUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -35,4 +37,9 @@ abstract class UseCaseModule {
     abstract fun bindAddTaskUseCase(
         addTaskUseCase: ProdAddTaskUseCase,
     ): AddTaskUseCase
+
+    @Binds
+    abstract fun bindGetTasksForDateUseCase(
+        getTasksForDateUseCase: ProdGetTasksForDateUseCase,
+    ): GetTasksForDateUseCase
 }
