@@ -18,6 +18,8 @@ If you're interested in following along in chronoligical order, check out these 
 * [Stream Twelve - Task Management Logic & UI](#stream-twelve---task-management)
 * [Stream Thirteen - Add Task Support](#stream-thirteen---add-task-support)
 * [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
+* [Stream Fifteen - Task Input Validation](#stream-fifteen---add-task-input-validation)
+* [Stream Sixteen - Tasks by Date](#stream-sixteen---tasks-by-date)
 
 ## Stream One - Project Creation
 
@@ -240,3 +242,13 @@ In this stream we added input validation to the add task screen so that we can't
 PRs:
 * Add Task Validation:
 * Add Task Testing: 
+
+## Stream Sixteen - Tasks By Date
+
+In this stream, we modified our task list screen to pull tasks for a specific date, and implemented button click listeners so the user can navigate forward and backward through dates. 
+
+PRs:
+* Fab positioning:
+* Tasks By Date:
+* Tests: 
+
