@@ -62,6 +62,7 @@ class TaskListViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+
     private fun clearTasksAndShowLoading() {
         _viewState.value = _viewState.value.copy(
             showLoading = true,
