@@ -2,8 +2,8 @@ package com.adammcneilly.toa.core.data.local
 
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.tasklist.domain.model.Task
-import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
 import com.adammcneilly.toa.tasklist.domain.repository.TaskListResult
+import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
@@ -22,9 +22,15 @@ class RoomTaskRepository @Inject constructor(
             }
     }
 
-    override fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult> {
+    override fun fetchTasksForDate(
+        date: LocalDate,
+        completed: Boolean,
+    ): Flow<TaskListResult> {
         return taskDAO
-            .fetchTasksForDate(date.toPersistableDateString())
+            .fetchTasksForDate(
+                date.toPersistableDateString(),
+                completed,
+            )
             .map { taskList ->
                 Result.Success(taskList.toDomainTaskList())
             }

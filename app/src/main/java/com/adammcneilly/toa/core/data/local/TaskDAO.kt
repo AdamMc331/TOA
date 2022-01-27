@@ -13,8 +13,11 @@ interface TaskDAO {
     @Query("SELECT * FROM task")
     fun fetchAllTasks(): Flow<List<PersistableTask>>
 
-    @Query("SELECT * FROM task WHERE scheduledDate = :date")
-    fun fetchTasksForDate(date: String): Flow<List<PersistableTask>>
+    @Query("SELECT * FROM task WHERE scheduledDate = :date AND completed = :completed")
+    fun fetchTasksForDate(
+        date: String,
+        completed: Boolean,
+    ): Flow<List<PersistableTask>>
 
     @Insert(
         onConflict = OnConflictStrategy.REPLACE,

@@ -41,7 +41,10 @@ class TaskListViewModel @Inject constructor(
                     tasks = null,
                 )
 
-                getTasksForDateUseCase.invoke(selectedDate)
+                getTasksForDateUseCase.invoke(
+                    date = selectedDate,
+                    completed = true,
+                )
             }
             .onEach { result ->
                 _viewState.value = getViewStateForTaskListResult(result)

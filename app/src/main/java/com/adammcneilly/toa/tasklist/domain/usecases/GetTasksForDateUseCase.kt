@@ -8,5 +8,11 @@ import java.time.LocalDate
  * Fetches all tasks for a given date.
  */
 interface GetTasksForDateUseCase {
-    operator fun invoke(date: LocalDate): Flow<TaskListResult>
+    /**
+     * Fetch tasks for the given [date] that are [completed] or not.
+     */
+    operator fun invoke(
+        date: LocalDate,
+        completed: Boolean,
+    ): Flow<TaskListResult>
 }
