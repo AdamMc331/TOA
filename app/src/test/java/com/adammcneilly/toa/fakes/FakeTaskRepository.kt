@@ -8,7 +8,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDate
 
-class FakeTaskListRepository {
+class FakeTaskRepository {
     val mock: TaskRepository = mockk()
 
     fun mockTasksForDateResult(date: LocalDate, response: Result<List<Task>>) {
