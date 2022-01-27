@@ -10,10 +10,10 @@ import java.time.LocalDate
 interface GetTasksForDateUseCase {
     /**
      * Fetch tasks for the given [date], where the completed property of the task matches the supplied
-     * [completed] argument.
+     * [appendCompletedTasks] argument.
      */
     operator fun invoke(
         date: LocalDate,
-        completed: Boolean,
+        appendCompletedTasks: Boolean,
     ): Flow<TaskListResult>
 }
