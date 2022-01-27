@@ -37,7 +37,7 @@ class TaskListViewModel @Inject constructor(
 
                 getTasksForDateUseCase.invoke(
                     date = selectedDate,
-                    appendCompletedTasks = false,
+                    appendCompletedTasks = true,
                 )
             }
             .onEach { result ->
