@@ -10,7 +10,7 @@ typealias TaskListResult = Result<List<Task>>
 /**
  * This is the data contract for any requests to fetch or modify tasks.
  */
-interface TaskListRepository {
+interface TaskRepository {
 
     /**
      * Request all of the tasks that have been created for the signed in user.

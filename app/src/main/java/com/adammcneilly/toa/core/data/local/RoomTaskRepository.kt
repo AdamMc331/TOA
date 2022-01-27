@@ -2,7 +2,7 @@ package com.adammcneilly.toa.core.data.local
 
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.tasklist.domain.model.Task
-import com.adammcneilly.toa.tasklist.domain.repository.TaskListRepository
+import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
 import com.adammcneilly.toa.tasklist.domain.repository.TaskListResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -10,9 +10,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class RoomTaskListRepository @Inject constructor(
+class RoomTaskRepository @Inject constructor(
     private val taskDAO: TaskDAO,
-) : TaskListRepository {
+) : TaskRepository {
 
     override fun fetchAllTasks(): Flow<Result<List<Task>>> {
         return taskDAO
