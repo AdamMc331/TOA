@@ -37,7 +37,8 @@ class TaskListViewModelTest {
             .buildViewModel()
             .assertViewState(
                 expectedViewState = TaskListViewState(
-                    tasks = taskList,
+                    incompleteTasks = taskList,
+                    completedTasks = taskList,
                     showLoading = false,
                 ),
             )
@@ -60,7 +61,8 @@ class TaskListViewModelTest {
 
         val expectedViewState = TaskListViewState(
             selectedDate = LocalDate.now().minusDays(1),
-            tasks = taskList,
+            incompleteTasks = taskList,
+            completedTasks = taskList,
             showLoading = false,
         )
 
@@ -95,7 +97,8 @@ class TaskListViewModelTest {
 
         val expectedViewState = TaskListViewState(
             selectedDate = LocalDate.now().plusDays(1),
-            tasks = taskList,
+            incompleteTasks = taskList,
+            completedTasks = taskList,
             showLoading = false,
         )
 

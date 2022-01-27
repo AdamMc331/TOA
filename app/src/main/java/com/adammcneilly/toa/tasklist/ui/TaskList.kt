@@ -5,9 +5,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -16,7 +19,8 @@ import java.time.LocalDate
 
 @Composable
 fun TaskList(
-    tasks: List<Task>,
+    incompleteTasks: List<Task>,
+    completedTasks: List<Task>,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     modifier: Modifier = Modifier,
@@ -26,7 +30,27 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier,
     ) {
-        items(tasks) { task ->
+        item {
+            SectionHeader(text = stringResource(R.string.incomplete_tasks_header))
+        }
+
+        items(incompleteTasks) { task ->
+            TaskListItem(
+                task = task,
+                onRescheduleClicked = {
+                    onRescheduleClicked(task)
+                },
+                onDoneClicked = {
+                    onDoneClicked(task)
+                },
+            )
+        }
+
+        item {
+            SectionHeader(text = stringResource(R.string.completed_tasks_header))
+        }
+
+        items(completedTasks) { task ->
             TaskListItem(
                 task = task,
                 onRescheduleClicked = {
@@ -40,6 +64,16 @@ fun TaskList(
     }
 }
 
+@Composable
+private fun SectionHeader(
+    text: String,
+) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.headlineSmall,
+    )
+}
+
 @Preview(
     name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -51,7 +85,7 @@ fun TaskList(
 @Composable
 @Suppress("UnusedPrivateMember")
 private fun TaskListPreview() {
-    val tasks = (1..10).map { index ->
+    val incompleteTasks = (1..5).map { index ->
         Task(
             id = "$index",
             description = "Test task: $index",
@@ -60,9 +94,19 @@ private fun TaskListPreview() {
         )
     }
 
+    val completedTasks = (1..5).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
+            completed = true,
+        )
+    }
+
     TOATheme {
         TaskList(
-            tasks = tasks,
+            incompleteTasks = incompleteTasks,
+            completedTasks = completedTasks,
             onRescheduleClicked = {},
             onDoneClicked = {},
         )

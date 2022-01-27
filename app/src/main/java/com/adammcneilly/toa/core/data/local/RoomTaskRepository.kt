@@ -22,9 +22,15 @@ class RoomTaskRepository @Inject constructor(
             }
     }
 
-    override fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult> {
+    override fun fetchTasksForDate(
+        date: LocalDate,
+        completed: Boolean,
+    ): Flow<TaskListResult> {
         return taskDAO
-            .fetchTasksForDate(date.toPersistableDateString())
+            .fetchTasksForDate(
+                date.toPersistableDateString(),
+                completed,
+            )
             .map { taskList ->
                 Result.Success(taskList.toDomainTaskList())
             }

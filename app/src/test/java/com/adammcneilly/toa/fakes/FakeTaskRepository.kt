@@ -13,7 +13,7 @@ class FakeTaskRepository {
 
     fun mockTasksForDateResult(date: LocalDate, response: Result<List<Task>>) {
         coEvery {
-            mock.fetchTasksForDate(date)
+            mock.fetchTasksForDate(date, any())
         } returns flowOf(response)
     }
 }

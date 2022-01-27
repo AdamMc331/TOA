@@ -28,4 +28,6 @@
     <string name="yesterday">Yesterday</string>
     <string name="view_previous_day_content_description">View Previous Day</string>
     <string name="view_next_day_content_description">View Next Day</string>
+    <string name="incomplete_tasks_header">Incomplete Tasks</string>
+    <string name="completed_tasks_header">Completed Tasks</string>
 </resources>

@@ -20,7 +20,10 @@ interface TaskRepository {
     /**
      * Request all of the tasks that have been created for the supplied [date].
      */
-    fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult>
+    fun fetchTasksForDate(
+        date: LocalDate,
+        completed: Boolean,
+    ): Flow<TaskListResult>
 
     /**
      * Add a new [task] for the signed in user to complete.
