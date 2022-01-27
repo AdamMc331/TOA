@@ -56,6 +56,7 @@ private fun TaskListPreview() {
             id = "$index",
             description = "Test task: $index",
             scheduledDate = LocalDate.now(),
+            completed = false,
         )
     }
 

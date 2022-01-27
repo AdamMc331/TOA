@@ -58,6 +58,7 @@ class AddTaskViewModel @Inject constructor(
             id = UUID.randomUUID().toString(),
             description = _viewState.value.taskInput.description,
             scheduledDate = _viewState.value.taskInput.scheduledDate,
+            completed = false,
         )
 
         viewModelScope.launch {

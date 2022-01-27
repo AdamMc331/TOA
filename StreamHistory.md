@@ -252,3 +252,9 @@ PRs:
 * Tasks By Date:
 * Tests: 
 
+## Stream Seventeen - Marking Tasks As Complete
+
+In this stream, we added more functionality to our task list screen allowing the user to mark tasks as completed.
+
+PRs:
+* Mark task as complete: 

@@ -10,7 +10,7 @@ typealias TaskListResult = Result<List<Task>>
 /**
  * This is the data contract for any requests to fetch or modify tasks.
  */
-interface TaskListRepository {
+interface TaskRepository {
 
     /**
      * Request all of the tasks that have been created for the signed in user.
@@ -33,7 +33,8 @@ interface TaskListRepository {
     suspend fun deleteTask(task: Task): Result<Unit>
 
     /**
-     * Takes the supplied [task] and marks it as completed.
+     * Takes the supplied [task] and updates the backing data set for the task with the same
+     * ID.
      */
-    suspend fun markAsComplete(task: Task): Result<Unit>
+    suspend fun updateTask(task: Task): Result<Unit>
 }

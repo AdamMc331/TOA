@@ -20,6 +20,7 @@ class TaskListViewModelTest {
             id = "Test",
             description = "Test task",
             scheduledDate = LocalDate.now(),
+            completed = false,
         )
 
         val taskList = listOf(task)
@@ -48,6 +49,7 @@ class TaskListViewModelTest {
             id = "Test",
             description = "Test task",
             scheduledDate = LocalDate.now(),
+            completed = false,
         )
 
         val taskList = listOf(task)
@@ -82,6 +84,7 @@ class TaskListViewModelTest {
             id = "Test",
             description = "Test task",
             scheduledDate = LocalDate.now(),
+            completed = false,
         )
 
         val taskList = listOf(task)

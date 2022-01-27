@@ -1,7 +1,7 @@
 package com.adammcneilly.toa.addtask.domain.usecases
 
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
-import com.adammcneilly.toa.fakes.FakeTaskListRepository
+import com.adammcneilly.toa.fakes.FakeTaskRepository
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runBlockingTest
@@ -9,10 +9,10 @@ import org.junit.Test
 import java.time.LocalDate
 
 class ProdAddTaskUseCaseTest {
-    private val fakeTaskListRepository = FakeTaskListRepository()
+    private val fakeTaskRepository = FakeTaskRepository()
 
     private val useCase = ProdAddTaskUseCase(
-        taskListRepository = fakeTaskListRepository.mock,
+        taskRepository = fakeTaskRepository.mock,
     )
 
     @Test
@@ -21,6 +21,7 @@ class ProdAddTaskUseCaseTest {
             id = "Testing",
             description = "",
             scheduledDate = LocalDate.now(),
+            completed = false,
         )
 
         val expectedResult = AddTaskResult.Failure.InvalidInput(
@@ -38,6 +39,7 @@ class ProdAddTaskUseCaseTest {
             id = "Testing",
             description = "Some description",
             scheduledDate = LocalDate.now().minusDays(1),
+            completed = false,
         )
 
         val expectedResult = AddTaskResult.Failure.InvalidInput(

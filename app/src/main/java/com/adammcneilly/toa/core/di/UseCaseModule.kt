@@ -6,8 +6,10 @@ import com.adammcneilly.toa.login.domain.usecase.CredentialsLoginUseCase
 import com.adammcneilly.toa.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetAllTasksUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetTasksForDateUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.ProdMarkTaskAsCompleteUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -42,4 +44,9 @@ abstract class UseCaseModule {
     abstract fun bindGetTasksForDateUseCase(
         getTasksForDateUseCase: ProdGetTasksForDateUseCase,
     ): GetTasksForDateUseCase
+
+    @Binds
+    abstract fun bindMarkTaskAsCompleteUseCase(
+        markTaskAsCompleteUseCase: ProdMarkTaskAsCompleteUseCase,
+    ): MarkTaskAsCompleteUseCase
 }
