@@ -30,11 +30,6 @@ class TaskListViewModel @Inject constructor(
     val viewState = _viewState.asStateFlow()
 
     init {
-        observeIncompleteTasksForSelectedDate()
-        observeCompletedTasksForSelectedDate()
-    }
-
-    private fun observeIncompleteTasksForSelectedDate() {
         _viewState
             .map { viewState ->
                 viewState.selectedDate
@@ -48,65 +43,27 @@ class TaskListViewModel @Inject constructor(
 
                 getTasksForDateUseCase.invoke(
                     date = selectedDate,
-                    completed = false,
                 )
             }
             .onEach { result ->
-                _viewState.value = getViewStateForIncompleteTaskListResult(result)
+                _viewState.value = getViewStateForTaskListResult(result)
             }
             .launchIn(viewModelScope)
     }
 
-    private fun observeCompletedTasksForSelectedDate() {
-        _viewState
-            .map { viewState ->
-                viewState.selectedDate
-            }
-            .distinctUntilChanged()
-            .flatMapLatest { selectedDate ->
-                _viewState.value = _viewState.value.copy(
-                    showLoading = true,
-                    completedTasks = null,
-                )
-
-                getTasksForDateUseCase.invoke(
-                    date = selectedDate,
-                    completed = true,
-                )
-            }
-            .onEach { result ->
-                _viewState.value = getViewStateForCompletedTaskListResult(result)
-            }
-            .launchIn(viewModelScope)
-    }
-
-    private fun getViewStateForIncompleteTaskListResult(result: Result<List<Task>>): TaskListViewState {
+    private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState {
         return when (result) {
             is Result.Success -> {
+                val (complete, incomplete) = result.data.partition { task ->
+                    task.completed
+                }
+
                 _viewState.value.copy(
-                    incompleteTasks = result.data,
+                    incompleteTasks = incomplete,
+                    completedTasks = complete,
                     showLoading = false,
                 )
             }
-
-            is Result.Error -> {
-                _viewState.value.copy(
-                    errorMessage = UIText.StringText("Something went wrong."),
-                    showLoading = false,
-                )
-            }
-        }
-    }
-
-    private fun getViewStateForCompletedTaskListResult(result: Result<List<Task>>): TaskListViewState {
-        return when (result) {
-            is Result.Success -> {
-                _viewState.value.copy(
-                    completedTasks = result.data,
-                    showLoading = false,
-                )
-            }
-
             is Result.Error -> {
                 _viewState.value.copy(
                     errorMessage = UIText.StringText("Something went wrong."),
