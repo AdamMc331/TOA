@@ -10,6 +10,7 @@ import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -30,84 +31,59 @@ class TaskListViewModel @Inject constructor(
     val viewState = _viewState.asStateFlow()
 
     init {
-        observeIncompleteTasksForSelectedDate()
-        observeCompletedTasksForSelectedDate()
-    }
-
-    private fun observeIncompleteTasksForSelectedDate() {
         _viewState
             .map { viewState ->
                 viewState.selectedDate
             }
             .distinctUntilChanged()
             .flatMapLatest { selectedDate ->
-                _viewState.value = _viewState.value.copy(
-                    showLoading = true,
-                    incompleteTasks = null,
-                )
+                clearTasksAndShowLoading()
 
-                getTasksForDateUseCase.invoke(
+                val incompleteTaskFlow = getTasksForDateUseCase.invoke(
                     date = selectedDate,
                     completed = false,
                 )
-            }
-            .onEach { result ->
-                _viewState.value = getViewStateForIncompleteTaskListResult(result)
-            }
-            .launchIn(viewModelScope)
-    }
 
-    private fun observeCompletedTasksForSelectedDate() {
-        _viewState
-            .map { viewState ->
-                viewState.selectedDate
-            }
-            .distinctUntilChanged()
-            .flatMapLatest { selectedDate ->
-                _viewState.value = _viewState.value.copy(
-                    showLoading = true,
-                    completedTasks = null,
-                )
-
-                getTasksForDateUseCase.invoke(
+                val completedTaskFlow = getTasksForDateUseCase.invoke(
                     date = selectedDate,
                     completed = true,
                 )
+
+                incompleteTaskFlow.combine(completedTaskFlow) { incompleteTaskListResult, completedTaskListResult ->
+                    (incompleteTaskListResult to completedTaskListResult)
+                }
             }
-            .onEach { result ->
-                _viewState.value = getViewStateForCompletedTaskListResult(result)
+            .onEach { (incompleteTaskListResult, completedTaskListResult) ->
+                _viewState.value = getViewStateForTaskListResults(
+                    incompleteTaskListResult = incompleteTaskListResult,
+                    completedTaskListResult = completedTaskListResult,
+                )
             }
             .launchIn(viewModelScope)
     }
 
-    private fun getViewStateForIncompleteTaskListResult(result: Result<List<Task>>): TaskListViewState {
-        return when (result) {
-            is Result.Success -> {
-                _viewState.value.copy(
-                    incompleteTasks = result.data,
-                    showLoading = false,
-                )
-            }
-
-            is Result.Error -> {
-                _viewState.value.copy(
-                    errorMessage = UIText.StringText("Something went wrong."),
-                    showLoading = false,
-                )
-            }
-        }
+    private fun clearTasksAndShowLoading() {
+        _viewState.value = _viewState.value.copy(
+            showLoading = true,
+            incompleteTasks = null,
+            completedTasks = null,
+        )
     }
 
-    private fun getViewStateForCompletedTaskListResult(result: Result<List<Task>>): TaskListViewState {
-        return when (result) {
-            is Result.Success -> {
+    private fun getViewStateForTaskListResults(
+        incompleteTaskListResult: Result<List<Task>>,
+        completedTaskListResult: Result<List<Task>>,
+    ): TaskListViewState {
+        return when {
+            incompleteTaskListResult is Result.Success &&
+                completedTaskListResult is Result.Success -> {
                 _viewState.value.copy(
-                    completedTasks = result.data,
+                    incompleteTasks = incompleteTaskListResult.data,
+                    completedTasks = completedTaskListResult.data,
                     showLoading = false,
                 )
             }
-
-            is Result.Error -> {
+            else -> {
                 _viewState.value.copy(
                     errorMessage = UIText.StringText("Something went wrong."),
                     showLoading = false,
