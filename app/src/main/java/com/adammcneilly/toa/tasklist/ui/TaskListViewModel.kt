@@ -66,7 +66,7 @@ class TaskListViewModel @Inject constructor(
             .flatMapLatest { selectedDate ->
                 _viewState.value = _viewState.value.copy(
                     showLoading = true,
-                    incompleteTasks = null,
+                    completedTasks = null,
                 )
 
                 getTasksForDateUseCase.invoke(
@@ -102,7 +102,7 @@ class TaskListViewModel @Inject constructor(
         return when (result) {
             is Result.Success -> {
                 _viewState.value.copy(
-                    completeTasks = result.data,
+                    completedTasks = result.data,
                     showLoading = false,
                 )
             }

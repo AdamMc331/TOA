@@ -62,9 +62,9 @@ fun TaskListContent(
             )
         },
     ) { paddingValues ->
-        if (viewState.incompleteTasks != null && viewState.completeTasks != null) {
+        if (viewState.incompleteTasks != null && viewState.completedTasks != null) {
             TaskList(
-                tasks = viewState.incompleteTasks + viewState.completeTasks,
+                tasks = viewState.incompleteTasks + viewState.completedTasks,
                 onRescheduleClicked = onRescheduleClicked,
                 onDoneClicked = onDoneClicked,
                 modifier = Modifier

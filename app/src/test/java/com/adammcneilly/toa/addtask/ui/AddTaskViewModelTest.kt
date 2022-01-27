@@ -22,6 +22,7 @@ class AddTaskViewModelTest {
             id = "Testing",
             description = "",
             scheduledDate = LocalDate.now(),
+            completed = false,
         )
 
         val useCaseResult = AddTaskResult.Failure.InvalidInput(
@@ -56,6 +57,7 @@ class AddTaskViewModelTest {
             id = "Testing",
             description = "Do something",
             scheduledDate = LocalDate.now().minusDays(1),
+            completed = false,
         )
 
         val useCaseResult = AddTaskResult.Failure.InvalidInput(
