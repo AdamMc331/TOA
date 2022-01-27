@@ -625,6 +625,8 @@ style:
     ignoreEnums: false
     ignoreRanges: false
     ignoreExtensionFunctions: true
+    ignoreAnnotated: ['Preview']
+
   MandatoryBracesIfStatements:
     active: false
   MandatoryBracesLoops:
