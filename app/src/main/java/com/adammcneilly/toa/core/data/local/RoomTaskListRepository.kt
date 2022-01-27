@@ -40,8 +40,10 @@ class RoomTaskListRepository @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun markAsComplete(task: Task): Result<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun updateTask(task: Task): Result<Unit> {
+        taskDAO.updateTask(task.toPersistableTask())
+
+        return Result.Success(Unit)
     }
 }
 
@@ -61,6 +63,7 @@ private fun PersistableTask.toTask(): Task {
         id = this.id,
         description = this.description,
         scheduledDate = LocalDate.parse(this.scheduledDate, persistedDateFormatter),
+        completed = this.completed,
     )
 }
 
@@ -69,5 +72,6 @@ private fun Task.toPersistableTask(): PersistableTask {
         id = this.id,
         description = this.description,
         scheduledDate = this.scheduledDate.toPersistableDateString(),
+        completed = this.completed,
     )
 }

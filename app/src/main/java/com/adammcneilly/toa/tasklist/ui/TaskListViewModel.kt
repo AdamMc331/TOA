@@ -6,6 +6,7 @@ import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -22,6 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
     getTasksForDateUseCase: GetTasksForDateUseCase,
+    private val markTaskAsCompleteUseCase: MarkTaskAsCompleteUseCase,
 ) : ViewModel() {
     private val _viewState = MutableStateFlow(TaskListViewState())
     val viewState = _viewState.asStateFlow()
@@ -74,5 +77,11 @@ class TaskListViewModel @Inject constructor(
         _viewState.value = _viewState.value.copy(
             selectedDate = _viewState.value.selectedDate.plusDays(1),
         )
+    }
+
+    fun onDoneButtonClicked(task: Task) {
+        viewModelScope.launch {
+            markTaskAsCompleteUseCase.invoke(task)
+        }
     }
 }

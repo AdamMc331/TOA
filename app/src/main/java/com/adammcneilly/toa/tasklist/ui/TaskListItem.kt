@@ -109,6 +109,7 @@ private fun TaskListItemPreview() {
         id = "test",
         description = "Clean my office space.",
         scheduledDate = LocalDate.now(),
+        completed = false,
     )
 
     TOATheme {
