@@ -62,9 +62,9 @@ fun TaskListContent(
             )
         },
     ) { paddingValues ->
-        if (viewState.tasks != null) {
+        if (viewState.incompleteTasks != null && viewState.completeTasks != null) {
             TaskList(
-                tasks = viewState.tasks,
+                tasks = viewState.incompleteTasks + viewState.completeTasks,
                 onRescheduleClicked = onRescheduleClicked,
                 onDoneClicked = onDoneClicked,
                 modifier = Modifier
@@ -177,7 +177,7 @@ private fun TaskListContentPreview() {
 
     val viewState = TaskListViewState(
         showLoading = false,
-        tasks = tasks,
+        incompleteTasks = tasks,
     )
 
     TOATheme {

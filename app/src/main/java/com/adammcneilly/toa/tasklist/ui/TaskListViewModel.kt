@@ -23,13 +23,18 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
-    getTasksForDateUseCase: GetTasksForDateUseCase,
+    private val getTasksForDateUseCase: GetTasksForDateUseCase,
     private val markTaskAsCompleteUseCase: MarkTaskAsCompleteUseCase,
 ) : ViewModel() {
     private val _viewState = MutableStateFlow(TaskListViewState())
     val viewState = _viewState.asStateFlow()
 
     init {
+        observeIncompleteTasksForSelectedDate()
+        observeCompletedTasksForSelectedDate()
+    }
+
+    private fun observeIncompleteTasksForSelectedDate() {
         _viewState
             .map { viewState ->
                 viewState.selectedDate
@@ -38,7 +43,30 @@ class TaskListViewModel @Inject constructor(
             .flatMapLatest { selectedDate ->
                 _viewState.value = _viewState.value.copy(
                     showLoading = true,
-                    tasks = null,
+                    incompleteTasks = null,
+                )
+
+                getTasksForDateUseCase.invoke(
+                    date = selectedDate,
+                    completed = false,
+                )
+            }
+            .onEach { result ->
+                _viewState.value = getViewStateForIncompleteTaskListResult(result)
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun observeCompletedTasksForSelectedDate() {
+        _viewState
+            .map { viewState ->
+                viewState.selectedDate
+            }
+            .distinctUntilChanged()
+            .flatMapLatest { selectedDate ->
+                _viewState.value = _viewState.value.copy(
+                    showLoading = true,
+                    incompleteTasks = null,
                 )
 
                 getTasksForDateUseCase.invoke(
@@ -47,16 +75,34 @@ class TaskListViewModel @Inject constructor(
                 )
             }
             .onEach { result ->
-                _viewState.value = getViewStateForTaskListResult(result)
+                _viewState.value = getViewStateForCompletedTaskListResult(result)
             }
             .launchIn(viewModelScope)
     }
 
-    private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState {
+    private fun getViewStateForIncompleteTaskListResult(result: Result<List<Task>>): TaskListViewState {
         return when (result) {
             is Result.Success -> {
                 _viewState.value.copy(
-                    tasks = result.data,
+                    incompleteTasks = result.data,
+                    showLoading = false,
+                )
+            }
+
+            is Result.Error -> {
+                _viewState.value.copy(
+                    errorMessage = UIText.StringText("Something went wrong."),
+                    showLoading = false,
+                )
+            }
+        }
+    }
+
+    private fun getViewStateForCompletedTaskListResult(result: Result<List<Task>>): TaskListViewState {
+        return when (result) {
+            is Result.Success -> {
+                _viewState.value.copy(
+                    completeTasks = result.data,
                     showLoading = false,
                 )
             }
