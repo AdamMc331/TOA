@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -16,7 +17,8 @@ import java.time.LocalDate
 
 @Composable
 fun TaskList(
-    tasks: List<Task>,
+    incompleteTasks: List<Task>,
+    completedTasks: List<Task>,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     modifier: Modifier = Modifier,
@@ -26,7 +28,31 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier,
     ) {
-        items(tasks) { task ->
+        item {
+            Text(
+                text = "Incomplete Tasks",
+            )
+        }
+
+        items(incompleteTasks) { task ->
+            TaskListItem(
+                task = task,
+                onRescheduleClicked = {
+                    onRescheduleClicked(task)
+                },
+                onDoneClicked = {
+                    onDoneClicked(task)
+                },
+            )
+        }
+
+        item {
+            Text(
+                text = "Completed Tasks",
+            )
+        }
+
+        items(completedTasks) { task ->
             TaskListItem(
                 task = task,
                 onRescheduleClicked = {
@@ -51,7 +77,7 @@ fun TaskList(
 @Composable
 @Suppress("UnusedPrivateMember")
 private fun TaskListPreview() {
-    val tasks = (1..10).map { index ->
+    val incompleteTasks = (1..5).map { index ->
         Task(
             id = "$index",
             description = "Test task: $index",
@@ -60,9 +86,19 @@ private fun TaskListPreview() {
         )
     }
 
+    val completedTasks = (1..5).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
+            completed = true,
+        )
+    }
+
     TOATheme {
         TaskList(
-            tasks = tasks,
+            incompleteTasks = incompleteTasks,
+            completedTasks = completedTasks,
             onRescheduleClicked = {},
             onDoneClicked = {},
         )
