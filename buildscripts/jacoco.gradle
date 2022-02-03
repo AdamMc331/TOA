@@ -1,0 +1,56 @@
+apply plugin: "com.hiya.jacoco-android"
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes += [
+            "jdk.internal.*",
+    ]
+}
+
+task combinedJacocoTestReport(
+        type: JacocoReport,
+        dependsOn: ["testDebugUnitTest", "createDebugCoverageReport"],
+) {
+    group = "verification"
+    description = "create code coverage report with ui and unit tests"
+
+    // A collection of files within our own codebase that we want to exclude
+    // from coverage reports.
+    def excludes = [
+            "**/databinding/**",
+    ]
+
+    // Specify the type of jacoco reports that should be created.
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    // generated classes
+    classDirectories.from = fileTree(
+            dir: "$buildDir/intermediates/classes/debug",
+            excludes: excludes
+    ) + fileTree(
+            dir: "$buildDir/tmp/kotlin-classes/debug",
+            excludes: excludes
+    )
+
+    // sources
+    sourceDirectories.from = [
+            android.sourceSets.main.java.srcDirs,
+            "src/main/java"
+    ]
+
+    // Output and existing data
+    // Combine Unit test and Instrumented test reports
+    executionData.from = fileTree(dir: "$buildDir", includes: [
+            // Unit tests coverage data
+            "outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec",
+            // Instrumented tests coverage data
+            "outputs/code_coverage/debugAndroidTest/connected/*coverage.ec"
+    ])
+}
