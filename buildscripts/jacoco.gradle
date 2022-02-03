@@ -61,6 +61,6 @@ task combinedJacocoTestReport(
             // Unit tests coverage data
             "outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec",
             // Instrumented tests coverage data
-            "outputs/code_coverage/debugAndroidTest/connected/*coverage.ec"
+            "outputs/code_coverage/debugAndroidTest/connected/**/*coverage.ec"
     ])
 }
