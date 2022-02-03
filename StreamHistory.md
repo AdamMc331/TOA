@@ -265,7 +265,8 @@ PRs:
 In this stream, we added JaCoCo for recording code coverage and also sending it to Coveralls.
 
 PRs:
-* Code Coverage
+* Code Coverage:
+* Additional Tests:
 
 Notes:
 * Add Jacoco

@@ -16,4 +16,13 @@ class FakeTaskRepository {
             mock.fetchTasksForDate(date, any())
         } returns flowOf(response)
     }
+
+    fun mockUpdateTaskResult(
+        task: Task,
+        response: Result<Unit>,
+    ) {
+        coEvery {
+            mock.updateTask(task)
+        } returns response
+    }
 }
