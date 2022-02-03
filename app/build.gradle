@@ -17,6 +17,9 @@ kotlin {
     }
 }
 
+apply from: "../buildscripts/jacoco.gradle"
+apply from: "../buildscripts/coveralls.gradle"
+
 android {
     compileSdk 31
 
@@ -37,6 +40,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+        debug {
+            testCoverageEnabled true
         }
     }
     compileOptions {
