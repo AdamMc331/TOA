@@ -30,13 +30,16 @@ data class TaskListViewState(
                 isToday -> UIText.ResourceText(R.string.today)
                 isTomorrow -> UIText.ResourceText(R.string.tomorrow)
                 else -> {
-                    val uiDateFormat = "MMM d"
                     val suffix = selectedDate.getSuffixForDayOfMonth()
 
-                    val dateString = DateTimeFormatter.ofPattern(uiDateFormat).format(selectedDate)
+                    val dateString = DateTimeFormatter.ofPattern(DATE_HEADER_FORMAT).format(selectedDate)
 
                     UIText.StringText("$dateString$suffix")
                 }
             }
         }
+
+    companion object {
+        const val DATE_HEADER_FORMAT = "MMM d"
+    }
 }
