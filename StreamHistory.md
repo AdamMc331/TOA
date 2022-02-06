@@ -1,11 +1,12 @@
 # Stream History
 
-This page is a recording of all Twitch streams related to the TOA project.
+This page is a recording of all Twitch streams related to the TOA project. Here are a few helpful sections for categorizing streams, or you can scroll down to see the chronological list.
 
 <details>
     <summary>Streams By Date</summary>
 
-If you're interested in following along in chronoligical order, check out these streams:
+
+The following is a record of all TOA streams in chronological order. 
 
 * [Stream One - Project Creation](#stream-one---project-creation)
 * [Stream Two - Developer Experience](#stream-two---developer-experience)
@@ -25,6 +26,49 @@ If you're interested in following along in chronoligical order, check out these 
 * [Stream Sixteen - Tasks by Date](#stream-sixteen---tasks-by-date)
 * [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
 * [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
+</details>
+
+<details>
+    <summary>Developer Experience Streams</summary>
+
+The following streams touch on topics related to developer experience. 
+
+* [Stream One - Project Creation](#stream-one---project-creation)
+* [Stream Two - Developer Experience](#stream-two---developer-experience)
+* [Stream Three - Design System](#stream-three---design-system)
+* [Stream Seven - Documentation](#stream-seven---documentation)
+* [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
+</details>
+
+<details>
+    <summary>Login Screen</summary>
+
+The following streams include work on our login screen.
+
+* [Stream Four - Login Implementation](#stream-four---login-implementation)
+* [Stream Five - Login Implementation Continued](#stream-five---login-implementation-continued)
+
+</details>
+
+<details>
+    <summary>Task List Screen</summary>
+
+The following streams include work on our task list screen.
+
+* [Stream Ten - Task List UI](#stream-ten---task-list-ui)
+* [Stream Sixteen - Tasks by Date](#stream-sixteen---tasks-by-date)
+* [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
+</details>
+
+<details>
+    <summary>Add Task Screen</summary>
+
+The following streams include work related to the add task screen.
+
+* [Stream Twelve - Task Management Logic & UI](#stream-twelve---task-management)
+* [Stream Thirteen - Add Task Support](#stream-thirteen---add-task-support)
+* [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
+* [Stream Fifteen - Task Input Validation](#stream-fifteen---add-task-input-validation)
 </details>
 
 ## Stream One - Project Creation
