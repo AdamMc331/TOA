@@ -2,6 +2,9 @@
 
 This page is a recording of all Twitch streams related to the TOA project.
 
+<details>
+    <summary>Streams By Date</summary>
+
 If you're interested in following along in chronoligical order, check out these streams:
 
 * [Stream One - Project Creation](#stream-one---project-creation)
@@ -20,6 +23,9 @@ If you're interested in following along in chronoligical order, check out these 
 * [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
 * [Stream Fifteen - Task Input Validation](#stream-fifteen---add-task-input-validation)
 * [Stream Sixteen - Tasks by Date](#stream-sixteen---tasks-by-date)
+* [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
+* [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
+</details>
 
 ## Stream One - Project Creation
 
