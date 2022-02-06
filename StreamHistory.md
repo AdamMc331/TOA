@@ -6,7 +6,7 @@ This page is a recording of all Twitch streams related to the TOA project. Here 
     <summary>Streams By Date</summary>
 
 
-The following is a record of all TOA streams in chronological order. 
+The following is a record of all TOA streams in chronological order.
 
 * [Stream One - Project Creation](#stream-one---project-creation)
 * [Stream Two - Developer Experience](#stream-two---developer-experience)
@@ -45,7 +45,7 @@ The following streams focus on specific hot topics in development, not just a fe
 <details>
     <summary>Developer Experience Streams</summary>
 
-The following streams touch on topics related to developer experience. 
+The following streams touch on topics related to developer experience.
 
 * [Stream One - Project Creation](#stream-one---project-creation)
 * [Stream Two - Developer Experience](#stream-two---developer-experience)
@@ -88,7 +88,7 @@ The following streams include work related to the add task screen.
 ## Stream One - Project Creation
 
 In the very first stream, we discussed the purpose of this project, created a repo,
-and added a number of GitHub issues. 
+and added a number of GitHub issues.
 
 Date: September 1, 2021
 
@@ -101,7 +101,7 @@ PRs: N/A
 ## Stream Two - Developer Experience
 
 In this stream, we discuss a number of ways to help dev experience in Android like CI tooling and
-static analysis. 
+static analysis.
 
 Date: September 8, 2021
 
@@ -110,29 +110,29 @@ YouTube: https://youtu.be/ePpbpLyYI1w
 Blog: https://androidessence.com/essential-dev-experience-concepts-android
 
 PRs:
-  * GitHub Actions: https://github.com/AdamMc331/TOA/pull/27
-  * Danger: https://github.com/AdamMc331/TOA/pull/29
-  * Ktlint: https://github.com/AdamMc331/TOA/pull/30
-  * Detekt: https://github.com/AdamMc331/TOA/pull/31
-  * Git Hooks: https://github.com/AdamMc331/TOA/pull/32
+* GitHub Actions: https://github.com/AdamMc331/TOA/pull/27
+* Danger: https://github.com/AdamMc331/TOA/pull/29
+* Ktlint: https://github.com/AdamMc331/TOA/pull/30
+* Detekt: https://github.com/AdamMc331/TOA/pull/31
+* Git Hooks: https://github.com/AdamMc331/TOA/pull/32
 
 ## Stream Three - Design System
 
-In this stream, we setup a design system for the application. We intended to add the app logo, but 
-due to classic Android Studio issues we pivoted to also including the login UI. 
+In this stream, we setup a design system for the application. We intended to add the app logo, but
+due to classic Android Studio issues we pivoted to also including the login UI.
 
 PRs:
-  * Colors: https://github.com/AdamMc331/TOA/pull/35
-  * Typography: https://github.com/AdamMc331/TOA/pull/36
-  * Buttons: https://github.com/AdamMc331/TOA/pull/37
-  * TextField: https://github.com/AdamMc331/TOA/pull/38
-  * Login UI: https://github.com/AdamMc331/TOA/pull/39
+* Colors: https://github.com/AdamMc331/TOA/pull/35
+* Typography: https://github.com/AdamMc331/TOA/pull/36
+* Buttons: https://github.com/AdamMc331/TOA/pull/37
+* TextField: https://github.com/AdamMc331/TOA/pull/38
+* Login UI: https://github.com/AdamMc331/TOA/pull/39
 
 Date: September 22, 2021
 
 YouTube:
-  * Design System: https://youtu.be/ilNi6Pl0FI0
-  * Login UI: https://youtu.be/VvILEVD5zFE
+* Design System: https://youtu.be/ilNi6Pl0FI0
+* Login UI: https://youtu.be/VvILEVD5zFE
 
 ## Stream Four - Login Implementation
 
@@ -142,21 +142,21 @@ our login screen.
 Date: September 29, 2021
 
 PRs:
-  * Use Case: https://github.com/AdamMc331/TOA/pull/40
-  * Repository: https://github.com/AdamMc331/TOA/pull/41
-  * View State Update: https://github.com/AdamMc331/TOA/pull/42
-  * View Model: https://github.com/AdamMc331/TOA/pull/43
+* Use Case: https://github.com/AdamMc331/TOA/pull/40
+* Repository: https://github.com/AdamMc331/TOA/pull/41
+* View State Update: https://github.com/AdamMc331/TOA/pull/42
+* View Model: https://github.com/AdamMc331/TOA/pull/43
 
 Notes:
-  * https://proandroiddev.com/why-you-need-use-cases-interactors-142e8a6fe576 
-  * https://proandroiddev.com/kotlin-extension-functions-more-than-sugar-1f04ca7189ff
-  * https://handstandsam.com/2020/06/08/wrapping-mockito-mocks-for-reusability/
+* https://proandroiddev.com/why-you-need-use-cases-interactors-142e8a6fe576
+* https://proandroiddev.com/kotlin-extension-functions-more-than-sugar-1f04ca7189ff
+* https://handstandsam.com/2020/06/08/wrapping-mockito-mocks-for-reusability/
 
 YouTube:
-  * Use Cases: https://youtu.be/F4WajzYPh9s
-  * Repository Layer: https://youtu.be/TWeu9fRNPWY
-  * View State: https://youtu.be/3UNa6l0KlcU
-  * View Model: https://youtu.be/pJOHI6Le3BE
+* Use Cases: https://youtu.be/F4WajzYPh9s
+* Repository Layer: https://youtu.be/TWeu9fRNPWY
+* View State: https://youtu.be/3UNa6l0KlcU
+* View Model: https://youtu.be/pJOHI6Le3BE
 
 ## Stream Five - Login Implementation Continued
 
@@ -165,11 +165,11 @@ In this stream, we continue working on our login screen implementation.
 Date: October 6, 2021
 
 Notes:
-  * https://github.com/Kotlin/kotlinx.coroutines/issues/1205
+* https://github.com/Kotlin/kotlinx.coroutines/issues/1205
 
 PRs:
-  * InvalidCredentials Test: https://github.com/AdamMc331/TOA/pull/45
-  * Login Input Errors: https://github.com/AdamMc331/TOA/pull/46
+* InvalidCredentials Test: https://github.com/AdamMc331/TOA/pull/45
+* Login Input Errors: https://github.com/AdamMc331/TOA/pull/46
 
 YouTube: https://youtu.be/mCQfK3J5K5w
 
@@ -183,28 +183,28 @@ around inputs.
 Date: October 13, 2021
 
 Notes:
- * Hilt docs: https://developer.android.com/training/dependency-injection/hilt-android#setup
+* Hilt docs: https://developer.android.com/training/dependency-injection/hilt-android#setup
 
 PRs:
-  * Hilt: https://github.com/AdamMc331/TOA/pull/52
-  * Login via MainActivity: https://github.com/AdamMc331/TOA/pull/53
-  * Handle successful login flow: https://github.com/AdamMc331/TOA/pull/54
-  * Handle Disabled Inputs: https://github.com/AdamMc331/TOA/pull/55/
-  * Password input modifications: https://github.com/AdamMc331/TOA/pull/56
+* Hilt: https://github.com/AdamMc331/TOA/pull/52
+* Login via MainActivity: https://github.com/AdamMc331/TOA/pull/53
+* Handle successful login flow: https://github.com/AdamMc331/TOA/pull/54
+* Handle Disabled Inputs: https://github.com/AdamMc331/TOA/pull/55/
+* Password input modifications: https://github.com/AdamMc331/TOA/pull/56
 
 ## Stream Seven - Documentation
 
 In this stream, we document the application architecture to help onboard newcomers to the project.
 
-After documentation we moved into more tinkering and features. We also began the process of building out the home screen. 
+After documentation we moved into more tinkering and features. We also began the process of building out the home screen.
 
 Date: October 20, 2021
 
 PRs:
-  * Arch diagram: https://github.com/AdamMc331/TOA/pull/57
-  * Edge to edge UI:
-  * Task list item: 
-  * Task list:
+* Arch diagram: https://github.com/AdamMc331/TOA/pull/57
+* Edge to edge UI:
+* Task list item:
+* Task list:
 
 ## Stream Eight - Pixel 6 / Material 3
 
@@ -237,7 +237,7 @@ Notes:
 
 ## Stream Ten - Task List UI
 
-In this stream, we finished porting over the task list to Material 3. We also finalized some more view 
+In this stream, we finished porting over the task list to Material 3. We also finalized some more view
 states of the task list screen.
 
 PRs:
@@ -250,7 +250,7 @@ YouTube: https://youtu.be/dY_divcBViI
 ## Stream Eleven - Navigation
 
 In this stream, we added the Compose Destinations library and setup navigation between the login
-screen and the task list screen. We also looked at adding some unit tests. 
+screen and the task list screen. We also looked at adding some unit tests.
 
 PRs:
 * Navigation: https://github.com/AdamMc331/TOA/pull/68
@@ -276,7 +276,7 @@ PRs:
 Notes:
 * https://vanpra.github.io/compose-material-dialogs/DateTimePicker/
 
-YouTube: 
+YouTube:
 * Domain Logic: https://youtu.be/Ra_vRayFyQk
 * UI: https://youtu.be/iECoFOI5GdA
 * Date Picker: https://youtu.be/nLwo9BUsqO0
@@ -299,39 +299,53 @@ PRs:
 * Room Automigrations (unmerged comparison): https://github.com/AdamMc331/TOA/compare/development...TOA-13/auto_migrations
 * Sqldelight (unmerged comparison): https://github.com/AdamMc331/TOA/compare/development...TOA-13/sqldelight
 
+YouTube:
+* Room: https://youtu.be/nxBA9eaEI3U
+* SQLDelight: https://youtu.be/d2rH-eCihUQ
+
 ## Stream Fifteen - Add Task Input validation
 
-In this stream we added input validation to the add task screen so that we can't enter a task without a description or valid date. 
+In this stream we added input validation to the add task screen so that we can't enter a task without a description or valid date.
 
 PRs:
-* Add Task Validation:
-* Add Task Testing: 
+* Add Task Validation: https://github.com/AdamMc331/TOA/pull/80
+* Add Task Testing: https://github.com/AdamMc331/TOA/pull/81
+
+YouTube:
+* https://youtu.be/n_NEt1go_xY
+
 
 ## Stream Sixteen - Tasks By Date
 
-In this stream, we modified our task list screen to pull tasks for a specific date, and implemented button click listeners so the user can navigate forward and backward through dates. 
+In this stream, we modified our task list screen to pull tasks for a specific date, and implemented button click listeners so the user can navigate forward and backward through dates.
 
 PRs:
-* Fab positioning:
-* Tasks By Date:
-* Tests: 
+* Fab positioning: https://github.com/AdamMc331/TOA/pull/83
+* Tasks By Date: https://github.com/AdamMc331/TOA/pull/85
+* Tests: https://github.com/AdamMc331/TOA/pull/86
+
+YouTube:
+* Filtering: https://youtu.be/mverOPRcSZo
+* Tests: https://youtu.be/12O7qtAyaPc
 
 ## Stream Seventeen - Marking Tasks As Complete
 
 In this stream, we added more functionality to our task list screen allowing the user to mark tasks as completed.
 
 PRs:
-* Mark task as complete: 
-* Showing headers for sections: 
+* Mark task as complete: https://github.com/AdamMc331/TOA/pull/91
+* Showing headers for sections: https://github.com/AdamMc331/TOA/pull/92
+
+YouTube:
+* https://youtu.be/sGjcE4JQ-cc
 
 ## Stream Eighteen - Adding Code Coverage
 
 In this stream, we added JaCoCo for recording code coverage and also sending it to Coveralls.
 
 PRs:
-* Code Coverage:
-* Additional Tests:
+* Code Coverage: https://github.com/AdamMc331/TOA/pull/96
+* Additional Tests: https://github.com/AdamMc331/TOA/pull/97
 
-Notes:
-* Add Jacoco
-* Add Coveralls
+YouTube:
+* Coming Soon
