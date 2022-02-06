@@ -29,6 +29,20 @@ The following is a record of all TOA streams in chronological order.
 </details>
 
 <details>
+    <summary>Hot Topics</summary>
+
+The following streams focus on specific hot topics in development, not just a feature.
+
+* [Stream Three - Design System](#stream-three---design-system)
+* [Stream Six - Dependency Injection Setup](#stream-six---dependency-injection-setup)
+* [Stream Seven - Documentation](#stream-seven---documentation)
+* [Stream Eight - Pixel 6 & Material 3](#stream-eight---pixel-6--material-3)
+* [Stream Eleven - Navigation](#stream-eleven---navigation)
+* [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
+
+</details>
+
+<details>
     <summary>Developer Experience Streams</summary>
 
 The following streams touch on topics related to developer experience. 
