@@ -63,14 +63,21 @@ fun TaskListContent(
         },
     ) { paddingValues ->
         if (!viewState.showLoading) {
-            TaskList(
-                incompleteTasks = viewState.incompleteTasks.orEmpty(),
-                completedTasks = viewState.completedTasks.orEmpty(),
-                onRescheduleClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked,
-                modifier = Modifier
-                    .padding(paddingValues),
-            )
+            if (
+                viewState.incompleteTasks.isNullOrEmpty() &&
+                viewState.completedTasks.isNullOrEmpty()
+            ) {
+                TaskListEmptyState()
+            } else {
+                TaskList(
+                    incompleteTasks = viewState.incompleteTasks.orEmpty(),
+                    completedTasks = viewState.completedTasks.orEmpty(),
+                    onRescheduleClicked = onRescheduleClicked,
+                    onDoneClicked = onDoneClicked,
+                    modifier = Modifier
+                        .padding(paddingValues),
+                )
+            }
         }
 
         if (viewState.showLoading) {
@@ -85,6 +92,23 @@ fun TaskListContent(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun TaskListEmptyState() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        Text(
+            text = stringResource(R.string.no_tasks_scheduled_label),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier
+                .padding(32.dp)
+                .align(Alignment.Center),
+        )
     }
 }
 

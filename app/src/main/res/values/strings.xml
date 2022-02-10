@@ -32,4 +32,5 @@
     <string name="completed_tasks_header">Completed Tasks</string>
     <string name="no_completed_tasks_label">Tasks you\'ve completed will show up here!</string>
     <string name="no_incomplete_tasks_label">You\'ve completed everything you need to do today!</string>
+    <string name="no_tasks_scheduled_label">You have no tasks scheduled for today. Click the button on the bottom right to add one!</string>
 </resources>
