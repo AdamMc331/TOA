@@ -1,6 +1,7 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import java.time.LocalDate
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TaskList(
     incompleteTasks: List<Task>,
@@ -46,7 +48,12 @@ fun TaskList(
                 )
             }
         } else {
-            items(incompleteTasks) { task ->
+            items(
+                items = incompleteTasks,
+                key = {
+                    it.id
+                },
+            ) { task ->
                 TaskListItem(
                     task = task,
                     onRescheduleClicked = {
@@ -56,7 +63,8 @@ fun TaskList(
                         onDoneClicked(task)
                     },
                     modifier = Modifier
-                        .testTag("INCOMPLETE_TASK_${task.id}"),
+                        .testTag("INCOMPLETE_TASK_${task.id}")
+                        .animateItemPlacement(),
                 )
             }
         }
@@ -72,7 +80,12 @@ fun TaskList(
                 )
             }
         } else {
-            items(completedTasks) { task ->
+            items(
+                items = completedTasks,
+                key = {
+                    it.id
+                },
+            ) { task ->
                 TaskListItem(
                     task = task,
                     onRescheduleClicked = {
@@ -82,7 +95,8 @@ fun TaskList(
                         onDoneClicked(task)
                     },
                     modifier = Modifier
-                        .testTag("COMPLETED_TASK_${task.id}"),
+                        .testTag("COMPLETED_TASK_${task.id}")
+                        .animateItemPlacement(),
                 )
             }
         }
@@ -92,8 +106,11 @@ fun TaskList(
 @Composable
 private fun EmptySectionCard(
     text: String,
+    modifier: Modifier = Modifier,
 ) {
-    Material3Card {
+    Material3Card(
+        modifier = modifier,
+    ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
