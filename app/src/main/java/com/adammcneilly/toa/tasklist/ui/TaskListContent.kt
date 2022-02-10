@@ -183,6 +183,7 @@ private fun AddTaskButton(
     }
 }
 
+@Suppress("MagicNumber")
 class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
 
     override val values: Sequence<TaskListViewState>
