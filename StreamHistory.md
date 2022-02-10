@@ -26,6 +26,7 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Sixteen - Tasks by Date](#stream-sixteen---tasks-by-date)
 * [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
 * [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
+* [Stream Nineteen - Task List Empty States](#stream-nineteen---task-list-empty-states)
 </details>
 
 <details>
@@ -72,6 +73,7 @@ The following streams include work on our task list screen.
 * [Stream Ten - Task List UI](#stream-ten---task-list-ui)
 * [Stream Sixteen - Tasks by Date](#stream-sixteen---tasks-by-date)
 * [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
+* [Stream Nineteen - Task List Empty States](#stream-nineteen---task-list-empty-states)
 </details>
 
 <details>
@@ -349,3 +351,13 @@ PRs:
 
 YouTube:
 * Coming Soon
+
+## Stream Nineteen - Task List Empty States
+
+In this stream, we added empty states to our task list screen that show when the user has no incomplete tasks, no completed tasks, or no scheduled tasks at all. 
+
+PRs:
+* Empty states & tests:
+
+YouTube:
+* Coming soon. 
