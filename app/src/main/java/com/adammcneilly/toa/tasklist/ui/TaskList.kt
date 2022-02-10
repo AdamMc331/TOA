@@ -121,8 +121,8 @@ private fun SectionHeader(
 )
 @Composable
 @Suppress("UnusedPrivateMember")
-private fun TaskListPreview() {
-    val incompleteTasks = (1..5).map { index ->
+private fun FullTaskListPreview() {
+    val incompleteTasks = (1..3).map { index ->
         Task(
             id = "$index",
             description = "Test task: $index",
@@ -131,7 +131,7 @@ private fun TaskListPreview() {
         )
     }
 
-    val completedTasks = (1..5).map { index ->
+    val completedTasks = (1..3).map { index ->
         Task(
             id = "$index",
             description = "Test task: $index",
@@ -144,6 +144,87 @@ private fun TaskListPreview() {
         TaskList(
             incompleteTasks = incompleteTasks,
             completedTasks = completedTasks,
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+        )
+    }
+}
+
+@Preview(
+    name = "Night Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Preview(
+    name = "Day Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Composable
+@Suppress("UnusedPrivateMember")
+private fun NoIncompleteTasksListPreview() {
+    val completedTasks = (1..3).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
+            completed = true,
+        )
+    }
+
+    TOATheme {
+        TaskList(
+            incompleteTasks = emptyList(),
+            completedTasks = completedTasks,
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+        )
+    }
+}
+
+@Preview(
+    name = "Night Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Preview(
+    name = "Day Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Composable
+@Suppress("UnusedPrivateMember")
+private fun NoCompletedTasksListPreview() {
+    val incompleteTasks = (1..3).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
+            completed = false,
+        )
+    }
+
+    TOATheme {
+        TaskList(
+            incompleteTasks = incompleteTasks,
+            completedTasks = emptyList(),
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+        )
+    }
+}
+
+@Preview(
+    name = "Night Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Preview(
+    name = "Day Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Composable
+@Suppress("UnusedPrivateMember")
+private fun NoTasksListPreview() {
+    TOATheme {
+        TaskList(
+            incompleteTasks = emptyList(),
+            completedTasks = emptyList(),
             onRescheduleClicked = {},
             onDoneClicked = {},
         )
