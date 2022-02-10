@@ -28,8 +28,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -180,6 +183,58 @@ private fun AddTaskButton(
     }
 }
 
+class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
+
+    override val values: Sequence<TaskListViewState>
+        get() {
+            val incompleteTasks = (1..3).map { index ->
+                Task(
+                    id = "$index",
+                    description = "Test task: $index",
+                    scheduledDate = LocalDate.now(),
+                    completed = false,
+                )
+            }
+
+            val completedTasks = (1..3).map { index ->
+                Task(
+                    id = "$index",
+                    description = "Test task: $index",
+                    scheduledDate = LocalDate.now(),
+                    completed = true,
+                )
+            }
+
+            val loadingState = TaskListViewState(
+                showLoading = true,
+            )
+
+            val taskListState = TaskListViewState(
+                showLoading = false,
+                incompleteTasks = incompleteTasks,
+                completedTasks = completedTasks,
+            )
+
+            val emptyState = TaskListViewState(
+                showLoading = false,
+                incompleteTasks = emptyList(),
+                completedTasks = emptyList(),
+            )
+
+            val errorState = TaskListViewState(
+                showLoading = false,
+                errorMessage = UIText.StringText("Something went wrong"),
+            )
+
+            return sequenceOf(
+                loadingState,
+                taskListState,
+                emptyState,
+                errorState,
+            )
+        }
+}
+
 @Preview(
     name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -190,21 +245,10 @@ private fun AddTaskButton(
 )
 @Composable
 @Suppress("UnusedPrivateMember")
-private fun TaskListContentPreview() {
-    val tasks = (1..10).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
-            completed = false,
-        )
-    }
-
-    val viewState = TaskListViewState(
-        showLoading = false,
-        incompleteTasks = tasks,
-    )
-
+private fun TaskListContentPreview(
+    @PreviewParameter(TaskListViewStateProvider::class)
+    viewState: TaskListViewState,
+) {
     TOATheme {
         TaskListContent(
             viewState = viewState,
