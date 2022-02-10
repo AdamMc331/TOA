@@ -3,6 +3,7 @@ package com.adammcneilly.toa.tasklist.ui
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -11,8 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.ui.components.Material3Card
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.tasklist.domain.model.Task
 import java.time.LocalDate
@@ -34,33 +38,66 @@ fun TaskList(
             SectionHeader(text = stringResource(R.string.incomplete_tasks_header))
         }
 
-        items(incompleteTasks) { task ->
-            TaskListItem(
-                task = task,
-                onRescheduleClicked = {
-                    onRescheduleClicked(task)
-                },
-                onDoneClicked = {
-                    onDoneClicked(task)
-                },
-            )
+        if (incompleteTasks.isEmpty()) {
+            item {
+                EmptySectionCard(
+                    text = stringResource(R.string.no_incomplete_tasks_label),
+                )
+            }
+        } else {
+            items(incompleteTasks) { task ->
+                TaskListItem(
+                    task = task,
+                    onRescheduleClicked = {
+                        onRescheduleClicked(task)
+                    },
+                    onDoneClicked = {
+                        onDoneClicked(task)
+                    },
+                )
+            }
         }
 
         item {
             SectionHeader(text = stringResource(R.string.completed_tasks_header))
         }
 
-        items(completedTasks) { task ->
-            TaskListItem(
-                task = task,
-                onRescheduleClicked = {
-                    onRescheduleClicked(task)
-                },
-                onDoneClicked = {
-                    onDoneClicked(task)
-                },
-            )
+        if (completedTasks.isEmpty()) {
+            item {
+                EmptySectionCard(
+                    text = stringResource(R.string.no_completed_tasks_label),
+                )
+            }
+        } else {
+            items(completedTasks) { task ->
+                TaskListItem(
+                    task = task,
+                    onRescheduleClicked = {
+                        onRescheduleClicked(task)
+                    },
+                    onDoneClicked = {
+                        onDoneClicked(task)
+                    },
+                )
+            }
         }
+    }
+}
+
+@Composable
+private fun EmptySectionCard(
+    text: String,
+) {
+    Material3Card {
+        Text(
+            text = text,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(
+                    vertical = 32.dp,
+                    horizontal = 24.dp,
+                ),
+        )
     }
 }
 
