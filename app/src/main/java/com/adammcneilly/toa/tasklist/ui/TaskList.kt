@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -54,6 +55,8 @@ fun TaskList(
                     onDoneClicked = {
                         onDoneClicked(task)
                     },
+                    modifier = Modifier
+                        .testTag("INCOMPLETE_TASK_${task.id}"),
                 )
             }
         }
@@ -78,6 +81,8 @@ fun TaskList(
                     onDoneClicked = {
                         onDoneClicked(task)
                     },
+                    modifier = Modifier
+                        .testTag("COMPLETED_TASK_${task.id}"),
                 )
             }
         }
