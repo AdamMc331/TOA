@@ -65,7 +65,7 @@ fun TaskListContent(
             )
         },
     ) { paddingValues ->
-        if (!viewState.showLoading) {
+        if (viewState.showTasks) {
             if (
                 viewState.incompleteTasks.isNullOrEmpty() &&
                 viewState.completedTasks.isNullOrEmpty()
