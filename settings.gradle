@@ -1,3 +1,4 @@
 rootProject.name = "TasksOfAffirmation"
 include ':app'
 include ':core-models'
+include ':core-data'
