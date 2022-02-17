@@ -25,6 +25,7 @@ import java.time.LocalDate
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
+@Suppress("LongMethod")
 fun TaskList(
     incompleteTasks: List<Task>,
     completedTasks: List<Task>,
