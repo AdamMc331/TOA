@@ -10,7 +10,7 @@ class FakeAddTaskUseCase {
     val mock: AddTaskUseCase = mockk()
 
     fun mockResultForTask(
-        task: com.adammcneilly.toa.core.models.Task,
+        task: Task,
         result: AddTaskResult
     ) {
         coEvery {

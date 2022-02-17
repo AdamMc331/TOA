@@ -10,7 +10,7 @@ class ProdGetAllTasksUseCase @Inject constructor(
     private val taskRepository: TaskRepository,
 ) : GetAllTasksUseCase {
 
-    override fun invoke(): Flow<Result<List<com.adammcneilly.toa.core.models.Task>>> {
+    override fun invoke(): Flow<Result<List<Task>>> {
         return taskRepository.fetchAllTasks()
     }
 }

@@ -13,7 +13,7 @@ class ProdMarkTaskAsCompleteUseCase @Inject constructor(
     private val taskRepository: TaskRepository,
 ) : MarkTaskAsCompleteUseCase {
 
-    override suspend fun invoke(task: com.adammcneilly.toa.core.models.Task): Result<Unit> {
+    override suspend fun invoke(task: Task): Result<Unit> {
         val completedTask = task.copy(completed = true)
 
         return taskRepository.updateTask(completedTask)

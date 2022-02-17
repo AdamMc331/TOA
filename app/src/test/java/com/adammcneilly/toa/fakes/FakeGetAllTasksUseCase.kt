@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOf
 class FakeGetAllTasksUseCase {
     val mock: GetAllTasksUseCase = mockk()
 
-    fun mockResult(response: Result<List<com.adammcneilly.toa.core.models.Task>>) {
+    fun mockResult(response: Result<List<Task>>) {
         coEvery {
             mock.invoke()
         } returns flowOf(response)

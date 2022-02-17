@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
  * Fetches all tasks that the user has created.
  */
 interface GetAllTasksUseCase {
-    operator fun invoke(): Flow<Result<List<com.adammcneilly.toa.core.models.Task>>>
+    operator fun invoke(): Flow<Result<List<Task>>>
 }

@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter
  */
 data class TaskListViewState(
     val showLoading: Boolean = true,
-    val incompleteTasks: List<com.adammcneilly.toa.core.models.Task>? = null,
-    val completedTasks: List<com.adammcneilly.toa.core.models.Task>? = null,
+    val incompleteTasks: List<Task>? = null,
+    val completedTasks: List<Task>? = null,
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now(),
 ) {

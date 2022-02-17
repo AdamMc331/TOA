@@ -25,7 +25,7 @@ class TaskListViewModelRobot {
 
     fun mockTasksForDateResult(
         date: LocalDate,
-        result: Result<List<com.adammcneilly.toa.core.models.Task>>,
+        result: Result<List<Task>>,
     ) = apply {
         fakeTaskRepository.mockTasksForDateResult(date, result)
     }

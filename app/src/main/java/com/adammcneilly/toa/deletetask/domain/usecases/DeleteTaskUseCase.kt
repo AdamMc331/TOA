@@ -8,5 +8,5 @@ import com.adammcneilly.toa.core.models.Task
  */
 interface DeleteTaskUseCase {
 
-    suspend operator fun invoke(task: com.adammcneilly.toa.core.models.Task): Result<Unit>
+    suspend operator fun invoke(task: Task): Result<Unit>
 }

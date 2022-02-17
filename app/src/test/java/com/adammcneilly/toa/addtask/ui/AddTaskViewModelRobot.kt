@@ -18,7 +18,7 @@ class AddTaskViewModelRobot {
     }
 
     fun mockResultForTask(
-        task: com.adammcneilly.toa.core.models.Task,
+        task: Task,
         result: AddTaskResult
     ) = apply {
         fakeAddTaskUseCase.mockResultForTask(task, result)

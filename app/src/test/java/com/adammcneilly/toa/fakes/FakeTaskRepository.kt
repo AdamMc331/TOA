@@ -11,14 +11,14 @@ import java.time.LocalDate
 class FakeTaskRepository {
     val mock: TaskRepository = mockk()
 
-    fun mockTasksForDateResult(date: LocalDate, response: Result<List<com.adammcneilly.toa.core.models.Task>>) {
+    fun mockTasksForDateResult(date: LocalDate, response: Result<List<Task>>) {
         coEvery {
             mock.fetchTasksForDate(date, any())
         } returns flowOf(response)
     }
 
     fun mockUpdateTaskResult(
-        task: com.adammcneilly.toa.core.models.Task,
+        task: Task,
         response: Result<Unit>,
     ) {
         coEvery {
