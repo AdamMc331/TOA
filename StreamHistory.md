@@ -27,6 +27,7 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
 * [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
 * [Stream Nineteen - Task List Empty States](#stream-nineteen---task-list-empty-states)
+* [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
 </details>
 
 <details>
@@ -40,6 +41,7 @@ The following streams focus on specific hot topics in development, not just a fe
 * [Stream Eight - Pixel 6 & Material 3](#stream-eight---pixel-6--material-3)
 * [Stream Eleven - Navigation](#stream-eleven---navigation)
 * [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
+* [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
 
 </details>
 
@@ -53,6 +55,7 @@ The following streams touch on topics related to developer experience.
 * [Stream Three - Design System](#stream-three---design-system)
 * [Stream Seven - Documentation](#stream-seven---documentation)
 * [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
+* [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
 </details>
 
 <details>
@@ -357,7 +360,28 @@ YouTube:
 In this stream, we added empty states to our task list screen that show when the user has no incomplete tasks, no completed tasks, or no scheduled tasks at all. 
 
 PRs:
-* Empty states & tests:
+* Empty states & tests: https://github.com/AdamMc331/TOA/pull/101
 
 YouTube:
 * Coming soon. 
+
+## Stream Twenty - Multi Module App Structure
+
+In this stream, we began splitting the app into multiple modules that are KMM supported as well.
+
+Resources:
+
+Modularization posts:
+* https://proandroiddev.com/android-modularization-preps-things-to-know-before-modularizing-your-app-deaf795aabec
+* https://jeroenmols.com/blog/2019/03/06/modularizationwhy/
+* https://droidkaigi.github.io/codelab-2020/en/index.html#0
+
+KMM Process:
+* https://kotlinlang.org/docs/multiplatform-mobile-integrate-in-existing-app.html
+
+PRs:
+* core-models module: 
+
+YouTube: Coming Soon
+
+
