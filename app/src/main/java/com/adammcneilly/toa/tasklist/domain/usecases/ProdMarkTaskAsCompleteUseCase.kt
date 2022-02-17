@@ -2,7 +2,7 @@ package com.adammcneilly.toa.tasklist.domain.usecases
 
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
-import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
+import com.adammcneilly.toa.task.api.TaskRepository
 import javax.inject.Inject
 
 /**

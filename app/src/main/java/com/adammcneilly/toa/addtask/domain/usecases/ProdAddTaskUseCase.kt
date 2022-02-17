@@ -3,7 +3,7 @@ package com.adammcneilly.toa.addtask.domain.usecases
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
-import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
+import com.adammcneilly.toa.task.api.TaskRepository
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId

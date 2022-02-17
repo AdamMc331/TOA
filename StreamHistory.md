@@ -380,9 +380,7 @@ KMM Process:
 * https://kotlinlang.org/docs/multiplatform-mobile-integrate-in-existing-app.html
 
 PRs:
-* core-models module: 
-* core-data module: 
+* core-models module:
+* core-data module:
 
 YouTube: Coming Soon
-
-

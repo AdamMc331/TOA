@@ -1,9 +1,8 @@
-package com.adammcneilly.toa.tasklist.domain.repository
+package com.adammcneilly.toa.task.api
 
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
 
 typealias TaskListResult = Result<List<Task>>
 
@@ -18,10 +17,10 @@ interface TaskRepository {
     fun fetchAllTasks(): Flow<TaskListResult>
 
     /**
-     * Request all of the tasks that have been created for the supplied [date].
+     * Request all of the tasks that have been created for the supplied [dateMillis].
      */
     fun fetchTasksForDate(
-        date: LocalDate,
+        dateMillis: Long,
         completed: Boolean,
     ): Flow<TaskListResult>
 

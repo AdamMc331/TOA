@@ -5,7 +5,7 @@ import com.adammcneilly.toa.login.domain.repository.DemoLoginRepository
 import com.adammcneilly.toa.login.domain.repository.DemoTokenRepository
 import com.adammcneilly.toa.login.domain.repository.LoginRepository
 import com.adammcneilly.toa.login.domain.repository.TokenRepository
-import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
+import com.adammcneilly.toa.task.api.TaskRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

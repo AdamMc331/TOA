@@ -2,8 +2,8 @@ package com.adammcneilly.toa.core.data.local
 
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
-import com.adammcneilly.toa.tasklist.domain.repository.TaskListResult
-import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
+import com.adammcneilly.toa.task.api.TaskListResult
+import com.adammcneilly.toa.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.Instant
@@ -25,12 +25,17 @@ class RoomTaskRepository @Inject constructor(
     }
 
     override fun fetchTasksForDate(
-        date: LocalDate,
+        dateMillis: Long,
         completed: Boolean,
     ): Flow<TaskListResult> {
+        val localDate = Instant
+            .ofEpochMilli(dateMillis)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+
         return taskDAO
             .fetchTasksForDate(
-                date.toPersistableDateString(),
+                localDate.toPersistableDateString(),
                 completed,
             )
             .map { taskList ->
