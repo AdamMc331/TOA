@@ -18,6 +18,12 @@ data class TaskListViewState(
     val selectedDate: LocalDate = LocalDate.now(),
 ) {
 
+    /**
+     * As long as we are not in a loading or error scenario, we can show the task list (or empty state).
+     */
+    val showTasks: Boolean
+        get() = !showLoading && errorMessage == null
+
     val selectedDateString: UIText
         get() {
             val today = LocalDate.now()

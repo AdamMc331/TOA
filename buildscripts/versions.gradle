@@ -7,7 +7,7 @@ ext {
             // https://github.com/material-components/material-components-android/releases
             material             : "1.5.0",
             // https://developer.android.com/jetpack/androidx/releases/hilt
-            hiltNavigationCompose: "1.0.0-alpha03",
+            hiltNavigationCompose: "1.0.0",
             // https://github.com/google/accompanist/releases
             accompanist          : "0.21.2-beta",
             // https://developer.android.com/jetpack/androidx/releases/compose-material3
@@ -33,7 +33,7 @@ ext {
             // https://github.com/raamcosta/compose-destinations/releases
             composeDestinations  : "0.9.4-beta",
             // https://developer.android.com/jetpack/androidx/releases/navigation
-            composeNavigation    : "2.4.0-beta02",
+            composeNavigation    : "2.4.0",
             // https://developer.android.com/jetpack/androidx/releases/room
             room                 : "2.4.1",
     ]
