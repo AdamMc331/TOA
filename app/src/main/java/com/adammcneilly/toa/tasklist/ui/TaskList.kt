@@ -18,10 +18,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.components.Material3Card
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.domain.model.Task
-import java.time.LocalDate
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -149,7 +148,7 @@ private fun FullTaskListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
     }
@@ -158,7 +157,7 @@ private fun FullTaskListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = true,
         )
     }
@@ -188,7 +187,7 @@ private fun NoIncompleteTasksListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = true,
         )
     }
@@ -218,7 +217,7 @@ private fun NoCompletedTasksListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
     }

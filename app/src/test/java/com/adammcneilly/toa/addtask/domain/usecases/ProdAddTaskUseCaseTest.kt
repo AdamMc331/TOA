@@ -1,12 +1,14 @@
 package com.adammcneilly.toa.addtask.domain.usecases
 
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.fakes.FakeTaskRepository
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class ProdAddTaskUseCaseTest {
     private val fakeTaskRepository = FakeTaskRepository()
@@ -20,7 +22,9 @@ class ProdAddTaskUseCaseTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
             completed = false,
         )
 
@@ -38,7 +42,11 @@ class ProdAddTaskUseCaseTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "Some description",
-            scheduledDate = LocalDate.now().minusDays(1),
+            scheduledDateMillis = LocalDate.now().minusDays(1)
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli(),
             completed = false,
         )
 

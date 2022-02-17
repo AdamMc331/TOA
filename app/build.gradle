@@ -64,7 +64,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion "1.5.10"
+        kotlinCompilerVersion "1.6.10"
     }
     packagingOptions {
         resources {
@@ -93,6 +93,7 @@ android {
 
 dependencies {
 
+    implementation(project(":core-models"))
     implementation "androidx.core:core-ktx:$rootProject.ext.versions.ktxCore"
     implementation "androidx.appcompat:appcompat:$rootProject.ext.versions.appCompat"
     implementation "com.google.android.material:material:$rootProject.ext.versions.material"

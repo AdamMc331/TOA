@@ -1,9 +1,9 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.utils.getSuffixForDayOfMonth
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter
  */
 data class TaskListViewState(
     val showLoading: Boolean = true,
-    val incompleteTasks: List<Task>? = null,
-    val completedTasks: List<Task>? = null,
+    val incompleteTasks: List<com.adammcneilly.toa.core.models.Task>? = null,
+    val completedTasks: List<com.adammcneilly.toa.core.models.Task>? = null,
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now(),
 ) {

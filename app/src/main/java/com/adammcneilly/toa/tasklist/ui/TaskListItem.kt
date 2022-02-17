@@ -14,11 +14,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.components.Material3Card
 import com.adammcneilly.toa.core.ui.components.TOATextButton
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.domain.model.Task
-import java.time.LocalDate
 
 /**
  * This displays a list item for a given [task].
@@ -111,7 +110,7 @@ private fun TaskListItemPreview() {
     val task = Task(
         id = "test",
         description = "Clean my office space.",
-        scheduledDate = LocalDate.now(),
+        scheduledDateMillis = 0L,
         completed = false,
     )
 

@@ -1,8 +1,8 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.core.data.Result
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.fakes.FakeTaskRepository
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdMarkTaskAsCompleteUseCase
 import com.google.common.truth.Truth.assertThat
@@ -25,7 +25,7 @@ class TaskListViewModelRobot {
 
     fun mockTasksForDateResult(
         date: LocalDate,
-        result: Result<List<Task>>,
+        result: Result<List<com.adammcneilly.toa.core.models.Task>>,
     ) = apply {
         fakeTaskRepository.mockTasksForDateResult(date, result)
     }

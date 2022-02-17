@@ -1,12 +1,14 @@
 package com.adammcneilly.toa.core.data.local
 
 import com.adammcneilly.toa.core.data.Result
-import com.adammcneilly.toa.tasklist.domain.model.Task
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.tasklist.domain.repository.TaskListResult
 import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -68,16 +70,24 @@ private fun PersistableTask.toTask(): Task {
     return Task(
         id = this.id,
         description = this.description,
-        scheduledDate = LocalDate.parse(this.scheduledDate, persistedDateFormatter),
+        scheduledDateMillis = LocalDate.parse(this.scheduledDate, persistedDateFormatter)
+            .atStartOfDay()
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli(),
         completed = this.completed,
     )
 }
 
 private fun Task.toPersistableTask(): PersistableTask {
+    val scheduledDate = Instant.ofEpochMilli(this.scheduledDateMillis)
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate()
+
     return PersistableTask(
         id = this.id,
         description = this.description,
-        scheduledDate = this.scheduledDate.toPersistableDateString(),
+        scheduledDate = scheduledDate.toPersistableDateString(),
         completed = this.completed,
     )
 }

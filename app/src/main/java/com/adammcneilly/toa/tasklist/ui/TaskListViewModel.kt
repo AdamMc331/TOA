@@ -3,8 +3,8 @@ package com.adammcneilly.toa.tasklist.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adammcneilly.toa.core.data.Result
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -80,7 +80,7 @@ class TaskListViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun getViewStateForIncompleteTaskListResult(result: Result<List<Task>>): TaskListViewState {
+    private fun getViewStateForIncompleteTaskListResult(result: Result<List<com.adammcneilly.toa.core.models.Task>>): TaskListViewState {
         return when (result) {
             is Result.Success -> {
                 _viewState.value.copy(
@@ -98,7 +98,7 @@ class TaskListViewModel @Inject constructor(
         }
     }
 
-    private fun getViewStateForCompletedTaskListResult(result: Result<List<Task>>): TaskListViewState {
+    private fun getViewStateForCompletedTaskListResult(result: Result<List<com.adammcneilly.toa.core.models.Task>>): TaskListViewState {
         return when (result) {
             is Result.Success -> {
                 _viewState.value.copy(
@@ -128,7 +128,7 @@ class TaskListViewModel @Inject constructor(
         )
     }
 
-    fun onDoneButtonClicked(task: Task) {
+    fun onDoneButtonClicked(task: com.adammcneilly.toa.core.models.Task) {
         viewModelScope.launch {
             markTaskAsCompleteUseCase.invoke(task)
         }
