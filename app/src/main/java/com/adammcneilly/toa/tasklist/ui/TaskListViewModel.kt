@@ -80,7 +80,7 @@ class TaskListViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun getViewStateForIncompleteTaskListResult(result: Result<List<com.adammcneilly.toa.core.models.Task>>): TaskListViewState {
+    private fun getViewStateForIncompleteTaskListResult(result: Result<List<Task>>): TaskListViewState {
         return when (result) {
             is Result.Success -> {
                 _viewState.value.copy(
@@ -98,7 +98,7 @@ class TaskListViewModel @Inject constructor(
         }
     }
 
-    private fun getViewStateForCompletedTaskListResult(result: Result<List<com.adammcneilly.toa.core.models.Task>>): TaskListViewState {
+    private fun getViewStateForCompletedTaskListResult(result: Result<List<Task>>): TaskListViewState {
         return when (result) {
             is Result.Success -> {
                 _viewState.value.copy(
@@ -128,7 +128,7 @@ class TaskListViewModel @Inject constructor(
         )
     }
 
-    fun onDoneButtonClicked(task: com.adammcneilly.toa.core.models.Task) {
+    fun onDoneButtonClicked(task: Task) {
         viewModelScope.launch {
             markTaskAsCompleteUseCase.invoke(task)
         }
