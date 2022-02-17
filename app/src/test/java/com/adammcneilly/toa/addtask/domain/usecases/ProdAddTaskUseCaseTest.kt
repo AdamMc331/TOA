@@ -2,7 +2,7 @@ package com.adammcneilly.toa.addtask.domain.usecases
 
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
 import com.adammcneilly.toa.core.models.Task
-import com.adammcneilly.toa.fakes.FakeTaskRepository
+import com.adammcneilly.toa.task.api.test.FakeTaskRepository
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
@@ -14,7 +14,7 @@ class ProdAddTaskUseCaseTest {
     private val fakeTaskRepository = FakeTaskRepository()
 
     private val useCase = ProdAddTaskUseCase(
-        taskRepository = fakeTaskRepository.mock,
+        taskRepository = fakeTaskRepository,
     )
 
     @Test

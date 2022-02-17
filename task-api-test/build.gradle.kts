@@ -12,16 +12,14 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "task-api"
+            baseName = "task-api-test"
         }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":core-models"))
-                api(project(":core-data"))
-                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                implementation(project(":task-api"))
             }
         }
         val commonTest by getting {
