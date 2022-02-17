@@ -8,11 +8,11 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.adammcneilly.toa.R
-import com.adammcneilly.toa.tasklist.domain.model.Task
+import com.adammcneilly.toa.core.models.Task
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
+import java.time.ZonedDateTime
 
 class TaskListContentTest {
 
@@ -22,7 +22,9 @@ class TaskListContentTest {
     private val testTask = Task(
         id = "Test ID",
         description = "Test Task",
-        scheduledDate = LocalDate.now(),
+        scheduledDateMillis = ZonedDateTime.now()
+            .toInstant()
+            .toEpochMilli(),
         completed = false,
     )
 

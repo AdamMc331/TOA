@@ -18,3 +18,4 @@ local.properties
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/jarRepositories.xml
 /.idea/.name
+/core-models/build/

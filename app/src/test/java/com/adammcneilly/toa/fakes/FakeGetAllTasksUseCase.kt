@@ -1,7 +1,7 @@
 package com.adammcneilly.toa.fakes
 
 import com.adammcneilly.toa.core.data.Result
-import com.adammcneilly.toa.tasklist.domain.model.Task
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
 import io.mockk.coEvery
 import io.mockk.mockk

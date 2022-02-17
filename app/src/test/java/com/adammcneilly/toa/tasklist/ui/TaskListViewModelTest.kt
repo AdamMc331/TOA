@@ -2,8 +2,8 @@ package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.core.data.Result
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
@@ -19,7 +19,7 @@ class TaskListViewModelTest {
         val task = Task(
             id = "Test",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
 
@@ -49,7 +49,7 @@ class TaskListViewModelTest {
         val task = Task(
             id = "Test",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
 
@@ -85,7 +85,7 @@ class TaskListViewModelTest {
         val task = Task(
             id = "Test",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
 

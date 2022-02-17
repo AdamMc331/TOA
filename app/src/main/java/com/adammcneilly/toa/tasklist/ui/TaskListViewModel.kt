@@ -3,8 +3,8 @@ package com.adammcneilly.toa.tasklist.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adammcneilly.toa.core.data.Result
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

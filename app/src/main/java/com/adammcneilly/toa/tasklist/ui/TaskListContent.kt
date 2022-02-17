@@ -32,14 +32,13 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -192,7 +191,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                 Task(
                     id = "$index",
                     description = "Test task: $index",
-                    scheduledDate = LocalDate.now(),
+                    scheduledDateMillis = 0L,
                     completed = false,
                 )
             }
@@ -201,7 +200,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
                 Task(
                     id = "$index",
                     description = "Test task: $index",
-                    scheduledDate = LocalDate.now(),
+                    scheduledDateMillis = 0L,
                     completed = true,
                 )
             }

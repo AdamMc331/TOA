@@ -1,7 +1,7 @@
 package com.adammcneilly.toa.tasklist.domain.repository
 
 import com.adammcneilly.toa.core.data.Result
-import com.adammcneilly.toa.tasklist.domain.model.Task
+import com.adammcneilly.toa.core.models.Task
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 

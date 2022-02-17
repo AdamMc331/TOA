@@ -51,6 +51,19 @@ buildscript {
 apply from: "buildscripts/git-hooks.gradle"
 apply from: "buildscripts/versions.gradle"
 
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
+        }
+    }
+}
+
 subprojects {
     apply from: "../buildscripts/ktlint.gradle"
     apply from: "../buildscripts/detekt.gradle"

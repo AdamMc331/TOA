@@ -1,9 +1,9 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.utils.getSuffixForDayOfMonth
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

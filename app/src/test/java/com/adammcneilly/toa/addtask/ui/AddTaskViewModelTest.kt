@@ -4,11 +4,13 @@ import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
 import com.adammcneilly.toa.addtask.domain.model.TaskInput
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import org.junit.Rule
 import org.junit.Test
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 
 class AddTaskViewModelTest {
     private val testRobot = AddTaskViewModelRobot()
@@ -21,7 +23,7 @@ class AddTaskViewModelTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
 
@@ -33,7 +35,9 @@ class AddTaskViewModelTest {
         val expectedViewState = AddTaskViewState.Active(
             taskInput = TaskInput(
                 description = taskToSubmit.description,
-                scheduledDate = taskToSubmit.scheduledDate,
+                scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate(),
             ),
             descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description),
             scheduledDateInputErrorMessage = null,
@@ -46,7 +50,7 @@ class AddTaskViewModelTest {
             )
             .buildViewModel()
             .enterDescription(taskToSubmit.description)
-            .selectDate(taskToSubmit.scheduledDate)
+            .selectDate(taskToSubmit.scheduledDateMillis)
             .clickSubmit()
             .assertViewState(expectedViewState)
     }
@@ -56,7 +60,11 @@ class AddTaskViewModelTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "Do something",
-            scheduledDate = LocalDate.now().minusDays(1),
+            scheduledDateMillis = LocalDate.now().minusDays(1)
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli(),
             completed = false,
         )
 
@@ -68,7 +76,9 @@ class AddTaskViewModelTest {
         val expectedViewState = AddTaskViewState.Active(
             taskInput = TaskInput(
                 description = taskToSubmit.description,
-                scheduledDate = taskToSubmit.scheduledDate,
+                scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate(),
             ),
             descriptionInputErrorMessage = null,
             scheduledDateInputErrorMessage = UIText.ResourceText(R.string.err_scheduled_date_in_past),
@@ -81,7 +91,7 @@ class AddTaskViewModelTest {
             )
             .buildViewModel()
             .enterDescription(taskToSubmit.description)
-            .selectDate(taskToSubmit.scheduledDate)
+            .selectDate(taskToSubmit.scheduledDateMillis)
             .clickSubmit()
             .assertViewState(expectedViewState)
     }
