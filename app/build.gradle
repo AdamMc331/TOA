@@ -89,12 +89,19 @@ android {
             }
         }
     }
+
+    sourceSets {
+        test {
+            java.srcDir project(":task-api-test").file("src/commonMain/kotlin")
+        }
+    }
 }
 
 dependencies {
 
     implementation(project(":core-models"))
     implementation(project(":core-data"))
+    implementation(project(":task-api"))
     implementation "androidx.core:core-ktx:$rootProject.ext.versions.ktxCore"
     implementation "androidx.appcompat:appcompat:$rootProject.ext.versions.appCompat"
     implementation "com.google.android.material:material:$rootProject.ext.versions.material"
@@ -121,6 +128,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.ext.versions.coroutinesTest"
     testImplementation "com.google.truth:truth:$rootProject.ext.versions.truth"
     testImplementation "app.cash.turbine:turbine:$rootProject.ext.versions.turbine"
+    testImplementation(project(":task-api-test"))
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.versions.androidxTestJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.versions.espresso"

@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-models" />
+            <option value="$PROJECT_DIR$/task-api" />
+            <option value="$PROJECT_DIR$/task-api-test" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
