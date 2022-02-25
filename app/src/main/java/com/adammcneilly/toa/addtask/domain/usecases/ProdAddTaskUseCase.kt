@@ -29,7 +29,8 @@ class ProdAddTaskUseCase @Inject constructor(
     }
 
     private fun validateInput(task: Task): AddTaskResult.Failure.InvalidInput? {
-        val emptyDescription = task.description.isEmpty()
+        val emptyDescription = task.description.isBlank()
+
         val scheduledDate = Instant
             .ofEpochMilli(task.scheduledDateMillis)
             .atZone(ZoneId.systemDefault())

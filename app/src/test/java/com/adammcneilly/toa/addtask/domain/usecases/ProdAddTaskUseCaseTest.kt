@@ -38,6 +38,26 @@ class ProdAddTaskUseCaseTest {
     }
 
     @Test
+    fun submitWithBlankDescription() = runBlockingTest {
+        val taskToSubmit = Task(
+            id = "Testing",
+            description = "         ",
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
+            completed = false,
+        )
+
+        val expectedResult = AddTaskResult.Failure.InvalidInput(
+            emptyDescription = true,
+            scheduledDateInPast = false,
+        )
+
+        val actualResult = useCase.invoke(taskToSubmit)
+        assertThat(actualResult).isEqualTo(expectedResult)
+    }
+
+    @Test
     fun submitWithScheduledDateInPast() = runBlockingTest {
         val taskToSubmit = Task(
             id = "Testing",
