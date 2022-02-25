@@ -14,13 +14,17 @@ class ProdAddTaskUseCase @Inject constructor(
 ) : AddTaskUseCase {
 
     override suspend fun invoke(task: Task): AddTaskResult {
-        val validationResult = validateInput(task)
+        val sanitizedTask = task.copy(
+            description = task.description.trim(),
+        )
+
+        val validationResult = validateInput(sanitizedTask)
 
         if (validationResult != null) {
             return validationResult
         }
 
-        val result = taskRepository.addTask(task)
+        val result = taskRepository.addTask(sanitizedTask)
 
         return when (result) {
             is Result.Success -> AddTaskResult.Success
