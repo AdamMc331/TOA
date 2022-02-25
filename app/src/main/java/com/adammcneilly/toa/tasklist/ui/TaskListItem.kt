@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.components.Material3Card
@@ -103,6 +104,7 @@ private fun TaskText(
     )
 }
 
+@ExcludeFromJacocoGeneratedReport
 private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
 
     override val values: Sequence<Task>
@@ -135,6 +137,7 @@ private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun TaskListItemPreview(
     @PreviewParameter(TaskPreviewParameterProvider::class)
     task: Task,
