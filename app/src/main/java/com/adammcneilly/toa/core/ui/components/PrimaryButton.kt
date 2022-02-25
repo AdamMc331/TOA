@@ -11,6 +11,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.ButtonShape
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -55,6 +56,7 @@ fun PrimaryButton(
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun PrimaryButtonPreview() {
     TOATheme {
         PrimaryButton(
@@ -74,6 +76,7 @@ private fun PrimaryButtonPreview() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun DisabledPrimaryButtonPreview() {
     TOATheme {
         PrimaryButton(

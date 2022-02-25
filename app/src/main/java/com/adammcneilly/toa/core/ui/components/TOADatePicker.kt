@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.ButtonShape
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -155,6 +156,7 @@ private fun LocalDate.toUIString(): String {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun TOADatePickerPreview() {
     TOATheme {
         Surface {
@@ -179,6 +181,7 @@ private fun TOADatePickerPreview() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun TOADatePickerWithErrorPreview() {
     TOATheme {
         Surface {

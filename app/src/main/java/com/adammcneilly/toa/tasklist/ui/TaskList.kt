@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.components.Material3Card
@@ -143,6 +144,7 @@ private fun SectionHeader(
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun FullTaskListPreview() {
     val incompleteTasks = (1..3).map { index ->
         Task(
@@ -182,6 +184,7 @@ private fun FullTaskListPreview() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun NoIncompleteTasksListPreview() {
     val completedTasks = (1..3).map { index ->
         Task(
@@ -212,6 +215,7 @@ private fun NoIncompleteTasksListPreview() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun NoCompletedTasksListPreview() {
     val incompleteTasks = (1..3).map { index ->
         Task(
@@ -242,6 +246,7 @@ private fun NoCompletedTasksListPreview() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun NoTasksListPreview() {
     TOATheme {
         TaskList(

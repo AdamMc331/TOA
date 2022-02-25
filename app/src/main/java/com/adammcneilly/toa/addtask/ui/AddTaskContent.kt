@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.core.ui.UIText
@@ -194,6 +195,7 @@ private fun TaskDescriptionLabel() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun AddTaskContentPreview(
     @PreviewParameter(AddTaskViewStateProvider::class)
     addTaskViewState: AddTaskViewState,

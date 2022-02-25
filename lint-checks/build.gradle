@@ -1,0 +1,26 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    compileOnly "com.android.tools.lint:lint-api:$rootProject.ext.versions.lint"
+    compileOnly "com.android.tools.lint:lint-checks:$rootProject.ext.versions.lint"
+
+    testImplementation "com.android.tools.lint:lint-tests:$rootProject.ext.versions.lint"
+    testImplementation "junit:junit:$rootProject.ext.versions.junit"
+}
+
+jar {
+    manifest {
+        // Format is
+        // attributes("Lint-Registry-v2": "<fully-qualified-class-name-of-your-issue-registry>")
+        attributes("Lint-Registry-v2": "com.adammcneilly.toa.lint.LintRegistry")
+    }
+}
