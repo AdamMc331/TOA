@@ -392,5 +392,6 @@ In this stream, we accomplished a few misc development tasks for the app.
 
 PRs:
 * Hide buttons for completed tasks: 
+* Hide previews from coverage with custom lint check:
 
 YouTube: Coming Soon

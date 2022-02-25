@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
@@ -242,6 +243,7 @@ private fun AppLogo(
 )
 @Suppress("UnusedPrivateMember")
 @Composable
+@ExcludeFromJacocoGeneratedReport
 private fun LoginContentPreview(
     @PreviewParameter(LoginViewStateProvider::class)
     loginViewState: LoginViewState,
