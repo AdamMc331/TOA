@@ -42,6 +42,7 @@ class MissingExcludePreviewAnnotationDetector : Detector(), Detector.UastScanner
         private const val COMPOSE_PREVIEW_ANNOTATION = "androidx.compose.ui.tooling.preview.Preview"
         private const val EXCLUDE_FROM_JACOCO_ANNOTATION = "com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport"
 
+        @Suppress("MaxLineLength")
         internal val ISSUE_MISSING_EXCLUDE_PREVIEW_ANNOTATION = Issue.create(
             id = "MissingExcludePreviewAnnotation",
             briefDescription = "Jetpack Compose previews should be excluded from JaCoCo Reports.",
