@@ -1,7 +1,10 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasAnyChild
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
@@ -110,10 +113,14 @@ class TaskListContentTest {
 
     @Test
     fun renderWithNoIncompleteTasks() {
+        val completedTask = testTask.copy(
+            completed = true,
+        )
+
         val viewState = TaskListViewState(
             showLoading = false,
             incompleteTasks = emptyList(),
-            completedTasks = listOf(testTask),
+            completedTasks = listOf(completedTask),
         )
 
         composeTestRule.setContent {
@@ -138,13 +145,18 @@ class TaskListContentTest {
         composeTestRule
             .onNodeWithTag(expectedTaskTag)
             .assertIsDisplayed()
+            .assert(!hasAnyChild(hasTestTag("BUTTON_ROW")))
     }
 
     @Test
     fun renderWithNoCompleteTasks() {
+        val incompleteTask = testTask.copy(
+            completed = false,
+        )
+
         val viewState = TaskListViewState(
             showLoading = false,
-            incompleteTasks = listOf(testTask),
+            incompleteTasks = listOf(incompleteTask),
             completedTasks = emptyList(),
         )
 
@@ -170,5 +182,6 @@ class TaskListContentTest {
         composeTestRule
             .onNodeWithTag(expectedTaskTag)
             .assertIsDisplayed()
+            .assert(hasAnyChild(hasTestTag("BUTTON_ROW")))
     }
 }
