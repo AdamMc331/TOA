@@ -385,3 +385,12 @@ PRs:
 * task-api module: 
 
 YouTube: Coming Soon
+
+## Stream Twenty One - Misc Development
+
+In this stream, we accomplished a few misc development tasks for the app. 
+
+PRs:
+* Hide buttons for completed tasks: 
+
+YouTube: Coming Soon
