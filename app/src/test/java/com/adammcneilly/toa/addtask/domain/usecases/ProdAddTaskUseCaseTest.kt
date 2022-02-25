@@ -1,10 +1,12 @@
 package com.adammcneilly.toa.addtask.domain.usecases
 
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
+import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.task.api.test.FakeTaskRepository
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
 import java.time.ZoneId
@@ -22,6 +24,26 @@ class ProdAddTaskUseCaseTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "",
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
+            completed = false,
+        )
+
+        val expectedResult = AddTaskResult.Failure.InvalidInput(
+            emptyDescription = true,
+            scheduledDateInPast = false,
+        )
+
+        val actualResult = useCase.invoke(taskToSubmit)
+        assertThat(actualResult).isEqualTo(expectedResult)
+    }
+
+    @Test
+    fun submitWithBlankDescription() = runBlockingTest {
+        val taskToSubmit = Task(
+            id = "Testing",
+            description = "         ",
             scheduledDateMillis = ZonedDateTime.now()
                 .toInstant()
                 .toEpochMilli(),
@@ -56,6 +78,28 @@ class ProdAddTaskUseCaseTest {
         )
 
         val actualResult = useCase.invoke(taskToSubmit)
+        assertThat(actualResult).isEqualTo(expectedResult)
+    }
+
+    @Test
+    fun submitValidTaskWithExtraWhitespace() = runTest {
+        val inputTask = Task(
+            id = "Some ID",
+            description = "   Testing      ",
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
+            completed = false,
+        )
+
+        val expectedSavedTask = inputTask.copy(
+            description = "Testing",
+        )
+
+        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
+
+        val expectedResult = AddTaskResult.Success
+        val actualResult = useCase.invoke(inputTask)
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 }
