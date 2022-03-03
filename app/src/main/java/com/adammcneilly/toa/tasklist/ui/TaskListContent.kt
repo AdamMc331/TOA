@@ -132,7 +132,8 @@ private fun TaskListToolbar(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .statusBarsPadding()
-                .height(toolbarHeight),
+                .height(toolbarHeight)
+                .adaptiveWidth(),
         ) {
             IconButton(
                 onClick = onLeftButtonClicked,
