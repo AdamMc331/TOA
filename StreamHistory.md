@@ -392,7 +392,21 @@ In this stream, we accomplished a few misc development tasks for the app.
 
 PRs:
 * Hide buttons for completed tasks: 
-* * Sanitizing task input: 
+* Sanitizing task input: 
 * Hide previews from coverage with custom lint check:
 
 YouTube: Coming Soon
+
+## Stream Twenty Two - Adaptive Layouts
+
+In this stream, we looked adaptive layouts in Jetpack Compose and updated some screens accordingly.
+
+Resources:
+
+* https://developer.android.com/jetpack/compose/layouts/adaptive
+
+PRs:
+
+* Adaptive task list screen:
+
+YouTube: Coming Soon. 
