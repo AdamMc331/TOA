@@ -104,7 +104,7 @@ fun TaskListContent(
 private fun TaskListEmptyState() {
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .adaptiveWidth(),
     ) {
         Text(
             text = stringResource(R.string.no_tasks_scheduled_label),
@@ -231,10 +231,10 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
             )
 
             return sequenceOf(
-//                loadingState,
+                loadingState,
                 taskListState,
-//                emptyState,
-//                errorState,
+                emptyState,
+                errorState,
             )
         }
 }
