@@ -35,6 +35,7 @@ import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
+import com.adammcneilly.toa.core.ui.adaptiveWidth
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -78,7 +79,8 @@ fun TaskListContent(
                     onRescheduleClicked = onRescheduleClicked,
                     onDoneClicked = onDoneClicked,
                     modifier = Modifier
-                        .padding(paddingValues),
+                        .padding(paddingValues)
+                        .adaptiveWidth(),
                 )
             }
         }
@@ -190,7 +192,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
         get() {
             val incompleteTasks = (1..3).map { index ->
                 Task(
-                    id = "$index",
+                    id = "INCOMPLETE_TASK_$index",
                     description = "Test task: $index",
                     scheduledDateMillis = 0L,
                     completed = false,
@@ -199,7 +201,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
 
             val completedTasks = (1..3).map { index ->
                 Task(
-                    id = "$index",
+                    id = "COMPLETED_TASK_$index",
                     description = "Test task: $index",
                     scheduledDateMillis = 0L,
                     completed = true,
@@ -245,16 +247,12 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
-    name = "Compact",
-    widthDp = 600,
-)
-@Preview(
     name = "Medium",
-    widthDp = 840,
+    widthDp = 700,
 )
 @Preview(
     name = "Expanded",
-    widthDp = 900,
+    widthDp = 840,
 )
 @Composable
 @Suppress("UnusedPrivateMember")
