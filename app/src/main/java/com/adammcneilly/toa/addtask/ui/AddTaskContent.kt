@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -75,7 +77,8 @@ private fun AddTaskInputsColumn(
     modifier: Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.form_spacing)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -192,6 +195,14 @@ private fun TaskDescriptionLabel() {
 @Preview(
     name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "Medium",
+    widthDp = 700,
+)
+@Preview(
+    name = "Expanded",
+    widthDp = 840,
 )
 @Composable
 @Suppress("UnusedPrivateMember")
