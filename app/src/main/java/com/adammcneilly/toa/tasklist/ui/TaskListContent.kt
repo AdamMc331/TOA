@@ -104,7 +104,7 @@ fun TaskListContent(
 private fun TaskListEmptyState() {
     Box(
         modifier = Modifier
-            .adaptiveWidth(),
+            .fillMaxSize(),
     ) {
         Text(
             text = stringResource(R.string.no_tasks_scheduled_label),
@@ -112,7 +112,8 @@ private fun TaskListEmptyState() {
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier
                 .padding(32.dp)
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .adaptiveWidth(),
         )
     }
 }
