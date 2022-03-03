@@ -35,6 +35,7 @@ import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
+import com.adammcneilly.toa.core.ui.adaptiveWidth
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -78,7 +79,8 @@ fun TaskListContent(
                     onRescheduleClicked = onRescheduleClicked,
                     onDoneClicked = onDoneClicked,
                     modifier = Modifier
-                        .padding(paddingValues),
+                        .padding(paddingValues)
+                        .adaptiveWidth(),
                 )
             }
         }
@@ -110,7 +112,8 @@ private fun TaskListEmptyState() {
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier
                 .padding(32.dp)
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .adaptiveWidth(),
         )
     }
 }
@@ -130,7 +133,8 @@ private fun TaskListToolbar(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .statusBarsPadding()
-                .height(toolbarHeight),
+                .height(toolbarHeight)
+                .adaptiveWidth(),
         ) {
             IconButton(
                 onClick = onLeftButtonClicked,
@@ -190,7 +194,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
         get() {
             val incompleteTasks = (1..3).map { index ->
                 Task(
-                    id = "$index",
+                    id = "INCOMPLETE_TASK_$index",
                     description = "Test task: $index",
                     scheduledDateMillis = 0L,
                     completed = false,
@@ -199,7 +203,7 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
 
             val completedTasks = (1..3).map { index ->
                 Task(
-                    id = "$index",
+                    id = "COMPLETED_TASK_$index",
                     description = "Test task: $index",
                     scheduledDateMillis = 0L,
                     completed = true,
@@ -243,6 +247,14 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
 @Preview(
     name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "Medium",
+    widthDp = 700,
+)
+@Preview(
+    name = "Expanded",
+    widthDp = 840,
 )
 @Composable
 @Suppress("UnusedPrivateMember")
