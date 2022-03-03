@@ -228,10 +228,10 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
             )
 
             return sequenceOf(
-                loadingState,
+//                loadingState,
                 taskListState,
-                emptyState,
-                errorState,
+//                emptyState,
+//                errorState,
             )
         }
 }
@@ -243,6 +243,18 @@ class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
 @Preview(
     name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "Compact",
+    widthDp = 600,
+)
+@Preview(
+    name = "Medium",
+    widthDp = 840,
+)
+@Preview(
+    name = "Expanded",
+    widthDp = 900,
 )
 @Composable
 @Suppress("UnusedPrivateMember")
