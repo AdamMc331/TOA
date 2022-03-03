@@ -1,23 +1,26 @@
 package com.adammcneilly.toa.addtask.ui
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adammcneilly.toa.R
-import com.google.accompanist.insets.statusBarsPadding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.spec.DestinationStyle
 
 /**
- * This destination is used, when we want to show an individual screen that allows
- * the user to create a new task.
+ * This destination is very similar to [AddTaskScreen], but will present the form
+ * to add a task as a Dialog instead.
  */
-@Destination
+@Destination(
+    style = DestinationStyle.Dialog::class,
+)
 @Composable
-fun AddTaskScreen(
+fun AddTaskDialog(
     navigator: DestinationsNavigator,
     viewModel: AddTaskViewModel = hiltViewModel(),
 ) {
@@ -25,8 +28,7 @@ fun AddTaskScreen(
         viewModel = viewModel,
         navigator = navigator,
         modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.screen_padding))
-            .statusBarsPadding()
+            .background(color = MaterialTheme.colorScheme.background)
+            .padding(dimensionResource(id = R.dimen.screen_padding)),
     )
 }

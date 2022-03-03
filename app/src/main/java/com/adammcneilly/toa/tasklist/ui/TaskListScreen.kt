@@ -3,7 +3,7 @@ package com.adammcneilly.toa.tasklist.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ramcosta.composedestinations.AddTaskScreenDestination
+import com.ramcosta.composedestinations.AddTaskDialogDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -20,7 +20,7 @@ fun TaskListScreen(
         onRescheduleClicked = {},
         onDoneClicked = viewModel::onDoneButtonClicked,
         onAddButtonClicked = {
-            navigator.navigate(AddTaskScreenDestination)
+            navigator.navigate(AddTaskDialogDestination)
         },
         onPreviousDateButtonClicked = viewModel::onPreviousDateButtonClicked,
         onNextDateButtonClicked = viewModel::onNextDateButtonClicked,
