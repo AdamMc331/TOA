@@ -408,5 +408,6 @@ Resources:
 PRs:
 
 * Adaptive task list screen:
+* Conditional navigation based on screen size: https://github.com/AdamMc331/TOA/pull/115
 
 YouTube: Coming Soon. 
