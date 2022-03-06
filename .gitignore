@@ -19,3 +19,6 @@ local.properties
 /.idea/jarRepositories.xml
 /.idea/.name
 /core-models/build/
+/core-data/build/
+/task-api/build/
+/task-api-test/build/

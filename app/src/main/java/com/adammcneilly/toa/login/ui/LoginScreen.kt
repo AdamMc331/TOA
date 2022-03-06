@@ -6,8 +6,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ramcosta.composedestinations.LoginScreenDestination
-import com.ramcosta.composedestinations.TaskListScreenDestination
+import com.adammcneilly.toa.destinations.LoginScreenDestination
+import com.adammcneilly.toa.destinations.TaskListScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -23,7 +23,7 @@ fun LoginScreen(
 
     DisposableEffect(viewState.value) {
         if (viewState.value is LoginViewState.Completed) {
-            navigator.navigate(TaskListScreenDestination) {
+            navigator.navigate(TaskListScreenDestination()) {
                 this.popUpTo(LoginScreenDestination.route) {
                     this.inclusive = true
                 }
