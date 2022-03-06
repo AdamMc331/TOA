@@ -28,6 +28,8 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
 * [Stream Nineteen - Task List Empty States](#stream-nineteen---task-list-empty-states)
 * [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
+* [Stream Twenty One - Misc Feature Development](#stream-twenty-one---misc-development)
+* [Stream Twenty Two - Adaptive Layouts](#stream-twenty-two---adaptive-layouts)
 </details>
 
 <details>
@@ -42,6 +44,7 @@ The following streams focus on specific hot topics in development, not just a fe
 * [Stream Eleven - Navigation](#stream-eleven---navigation)
 * [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
 * [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
+* [Stream Twenty Two - Adaptive Layouts](#stream-twenty-two---adaptive-layouts)
 
 </details>
 
@@ -77,6 +80,7 @@ The following streams include work on our task list screen.
 * [Stream Sixteen - Tasks by Date](#stream-sixteen---tasks-by-date)
 * [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
 * [Stream Nineteen - Task List Empty States](#stream-nineteen---task-list-empty-states)
+* [Stream Twenty One - Misc Feature Development](#stream-twenty-one---misc-development)
 </details>
 
 <details>
@@ -88,6 +92,7 @@ The following streams include work related to the add task screen.
 * [Stream Thirteen - Add Task Support](#stream-thirteen---add-task-support)
 * [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
 * [Stream Fifteen - Task Input Validation](#stream-fifteen---add-task-input-validation)
+* [Stream Twenty One - Misc Feature Development](#stream-twenty-one---misc-development)
 </details>
 
 ## Stream One - Project Creation
@@ -197,6 +202,10 @@ PRs:
 * Handle Disabled Inputs: https://github.com/AdamMc331/TOA/pull/55/
 * Password input modifications: https://github.com/AdamMc331/TOA/pull/56
 
+YouTube:
+* DI: https://youtu.be/dvOZep2hCqU
+* Login: https://youtu.be/WnBlasYi6us
+
 ## Stream Seven - Documentation
 
 In this stream, we document the application architecture to help onboard newcomers to the project.
@@ -207,9 +216,11 @@ Date: October 20, 2021
 
 PRs:
 * Arch diagram: https://github.com/AdamMc331/TOA/pull/57
-* Edge to edge UI:
-* Task list item:
-* Task list:
+* Edge to edge UI: https://github.com/AdamMc331/TOA/pull/58
+* Task list item: https://github.com/AdamMc331/TOA/pull/59
+* Task list: https://github.com/AdamMc331/TOA/pull/60
+
+YouTube: https://youtu.be/R_so92qDZ8g
 
 ## Stream Eight - Pixel 6 / Material 3
 
@@ -316,8 +327,7 @@ PRs:
 * Add Task Validation: https://github.com/AdamMc331/TOA/pull/80
 * Add Task Testing: https://github.com/AdamMc331/TOA/pull/81
 
-YouTube:
-* https://youtu.be/n_NEt1go_xY
+YouTube: https://youtu.be/n_NEt1go_xY
 
 
 ## Stream Sixteen - Tasks By Date
@@ -341,8 +351,7 @@ PRs:
 * Mark task as complete: https://github.com/AdamMc331/TOA/pull/91
 * Showing headers for sections: https://github.com/AdamMc331/TOA/pull/92
 
-YouTube:
-* https://youtu.be/sGjcE4JQ-cc
+YouTube: https://youtu.be/sGjcE4JQ-cc
 
 ## Stream Eighteen - Adding Code Coverage
 
@@ -352,8 +361,7 @@ PRs:
 * Code Coverage: https://github.com/AdamMc331/TOA/pull/96
 * Additional Tests: https://github.com/AdamMc331/TOA/pull/97
 
-YouTube:
-* Coming Soon
+YouTube: https://youtu.be/s26bSXp2Tx4
 
 ## Stream Nineteen - Task List Empty States
 
@@ -362,8 +370,7 @@ In this stream, we added empty states to our task list screen that show when the
 PRs:
 * Empty states & tests: https://github.com/AdamMc331/TOA/pull/101
 
-YouTube:
-* Coming soon. 
+YouTube: https://youtu.be/A0GgXIh8Kk8 
 
 ## Stream Twenty - Multi Module App Structure
 
@@ -380,22 +387,25 @@ KMM Process:
 * https://kotlinlang.org/docs/multiplatform-mobile-integrate-in-existing-app.html
 
 PRs:
-* core-models module: 
-* core-data module: 
-* task-api module: 
+* core-models module: https://github.com/AdamMc331/TOA/pull/105
+* core-data module: https://github.com/AdamMc331/TOA/pull/106
+* task-api module: https://github.com/AdamMc331/TOA/pull/107
 
-YouTube: Coming Soon
+YouTube:
+* Design module structure: https://youtu.be/Lfv2jvdlg6M
+* Core models module: https://youtu.be/GdblAMkzXXU
+* Core data & task api modules: https://youtu.be/d5SH9NegeUk
 
 ## Stream Twenty One - Misc Development
 
 In this stream, we accomplished a few misc development tasks for the app. 
 
 PRs:
-* Hide buttons for completed tasks: 
-* Sanitizing task input: 
-* Hide previews from coverage with custom lint check:
+* Hide buttons for completed tasks: https://github.com/AdamMc331/TOA/pull/108
+* Sanitizing task input: https://github.com/AdamMc331/TOA/pull/110
+* Hide previews from coverage with custom lint check: https://github.com/AdamMc331/TOA/pull/112
 
-YouTube: Coming Soon
+YouTube: https://youtu.be/e00U251gmyU
 
 ## Stream Twenty Two - Adaptive Layouts
 
@@ -407,7 +417,7 @@ Resources:
 
 PRs:
 
-* Adaptive task list screen:
+* Adaptive task list screen: https://github.com/AdamMc331/TOA/pull/114
 * Conditional navigation based on screen size: https://github.com/AdamMc331/TOA/pull/115
 
-YouTube: Coming Soon. 
+YouTube: https://youtu.be/Spp9RRm3hIQ
