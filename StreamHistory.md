@@ -425,7 +425,7 @@ YouTube: https://youtu.be/Spp9RRm3hIQ
 ## Stream Twenty Three - ???
 
 PRs:
-* Title change animation:
-* Hide keyboard on task creation: 
+* Title change animation: https://github.com/AdamMc331/TOA/pull/117/
+* Hide keyboard on task creation: https://github.com/AdamMc331/TOA/pull/118/
 
 YouTube: Coming Soon. 
