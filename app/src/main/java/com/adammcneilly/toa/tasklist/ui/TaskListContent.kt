@@ -1,9 +1,11 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import android.content.res.Configuration
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,15 +30,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.models.Task
+import com.adammcneilly.toa.core.ui.UIText
+import com.adammcneilly.toa.core.ui.adaptiveWidth
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,15 +68,23 @@ fun TaskListContent(
             )
         },
     ) { paddingValues ->
-        if (!viewState.showLoading) {
-            TaskList(
-                incompleteTasks = viewState.incompleteTasks.orEmpty(),
-                completedTasks = viewState.completedTasks.orEmpty(),
-                onRescheduleClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked,
-                modifier = Modifier
-                    .padding(paddingValues),
-            )
+        if (viewState.showTasks) {
+            if (
+                viewState.incompleteTasks.isNullOrEmpty() &&
+                viewState.completedTasks.isNullOrEmpty()
+            ) {
+                TaskListEmptyState()
+            } else {
+                TaskList(
+                    incompleteTasks = viewState.incompleteTasks.orEmpty(),
+                    completedTasks = viewState.completedTasks.orEmpty(),
+                    onRescheduleClicked = onRescheduleClicked,
+                    onDoneClicked = onDoneClicked,
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .adaptiveWidth(),
+                )
+            }
         }
 
         if (viewState.showLoading) {
@@ -89,6 +103,24 @@ fun TaskListContent(
 }
 
 @Composable
+private fun TaskListEmptyState() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        Text(
+            text = stringResource(R.string.no_tasks_scheduled_label),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier
+                .padding(32.dp)
+                .align(Alignment.Center)
+                .adaptiveWidth(),
+        )
+    }
+}
+
+@Composable
 private fun TaskListToolbar(
     onLeftButtonClicked: () -> Unit,
     onRightButtonClicked: () -> Unit,
@@ -103,7 +135,8 @@ private fun TaskListToolbar(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .statusBarsPadding()
-                .height(toolbarHeight),
+                .height(toolbarHeight)
+                .adaptiveWidth(),
         ) {
             IconButton(
                 onClick = onLeftButtonClicked,
@@ -116,14 +149,19 @@ private fun TaskListToolbar(
                 )
             }
 
-            Text(
-                text = title,
+            Crossfade(
+                targetState = title,
                 modifier = Modifier
                     .weight(1F),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-            )
+            ) { title ->
+                Text(
+                    text = title,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
 
             IconButton(
                 onClick = onRightButtonClicked,
@@ -156,6 +194,59 @@ private fun AddTaskButton(
     }
 }
 
+@Suppress("MagicNumber")
+class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
+
+    override val values: Sequence<TaskListViewState>
+        get() {
+            val incompleteTasks = (1..3).map { index ->
+                Task(
+                    id = "INCOMPLETE_TASK_$index",
+                    description = "Test task: $index",
+                    scheduledDateMillis = 0L,
+                    completed = false,
+                )
+            }
+
+            val completedTasks = (1..3).map { index ->
+                Task(
+                    id = "COMPLETED_TASK_$index",
+                    description = "Test task: $index",
+                    scheduledDateMillis = 0L,
+                    completed = true,
+                )
+            }
+
+            val loadingState = TaskListViewState(
+                showLoading = true,
+            )
+
+            val taskListState = TaskListViewState(
+                showLoading = false,
+                incompleteTasks = incompleteTasks,
+                completedTasks = completedTasks,
+            )
+
+            val emptyState = TaskListViewState(
+                showLoading = false,
+                incompleteTasks = emptyList(),
+                completedTasks = emptyList(),
+            )
+
+            val errorState = TaskListViewState(
+                showLoading = false,
+                errorMessage = UIText.StringText("Something went wrong"),
+            )
+
+            return sequenceOf(
+                loadingState,
+                taskListState,
+                emptyState,
+                errorState,
+            )
+        }
+}
+
 @Preview(
     name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -164,23 +255,21 @@ private fun AddTaskButton(
     name = "Day Mode",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
+@Preview(
+    name = "Medium",
+    widthDp = 700,
+)
+@Preview(
+    name = "Expanded",
+    widthDp = 840,
+)
 @Composable
 @Suppress("UnusedPrivateMember")
-private fun TaskListContentPreview() {
-    val tasks = (1..10).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
-            completed = false,
-        )
-    }
-
-    val viewState = TaskListViewState(
-        showLoading = false,
-        incompleteTasks = tasks,
-    )
-
+@ExcludeFromJacocoGeneratedReport
+private fun TaskListContentPreview(
+    @PreviewParameter(TaskListViewStateProvider::class)
+    viewState: TaskListViewState,
+) {
     TOATheme {
         TaskListContent(
             viewState = viewState,

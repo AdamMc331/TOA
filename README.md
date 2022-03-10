@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/AdamMc331/TOA/badge.svg)](https://coveralls.io/github/AdamMc331/TOA)
+
 # Tasks Of Affirmation
 
 This is a wholesome todo list application. The purpose of this application is to help users

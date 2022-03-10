@@ -1,11 +1,12 @@
 package com.adammcneilly.toa.tasklist.domain.usecases
 
 import com.adammcneilly.toa.core.data.Result
-import com.adammcneilly.toa.tasklist.domain.repository.TaskListResult
-import com.adammcneilly.toa.tasklist.domain.repository.TaskRepository
+import com.adammcneilly.toa.task.api.TaskListResult
+import com.adammcneilly.toa.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combineTransform
 import java.time.LocalDate
+import java.time.ZoneId
 import javax.inject.Inject
 
 class ProdGetTasksForDateUseCase @Inject constructor(
@@ -15,8 +16,13 @@ class ProdGetTasksForDateUseCase @Inject constructor(
     override fun invoke(
         date: LocalDate,
     ): Flow<TaskListResult> {
-        val incompleteTaskFlow = taskRepository.fetchTasksForDate(date, completed = false)
-        val completedTaskFlow = taskRepository.fetchTasksForDate(date, completed = true)
+        val dateMillis = date.atStartOfDay()
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli()
+
+        val incompleteTaskFlow = taskRepository.fetchTasksForDate(dateMillis, completed = false)
+        val completedTaskFlow = taskRepository.fetchTasksForDate(dateMillis, completed = true)
 
         return incompleteTaskFlow.combineTransform(completedTaskFlow) { incomplete, complete ->
             if (incomplete is Result.Success && complete is Result.Success) {

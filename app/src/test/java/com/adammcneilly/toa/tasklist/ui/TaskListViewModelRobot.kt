@@ -1,8 +1,8 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.fakes.FakeGetTasksForDateUseCase
-import com.adammcneilly.toa.fakes.FakeTaskRepository
-import com.adammcneilly.toa.tasklist.domain.repository.TaskListResult
+import com.adammcneilly.toa.task.api.TaskListResult
+import com.adammcneilly.toa.task.api.test.FakeTaskRepository
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdMarkTaskAsCompleteUseCase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ class TaskListViewModelRobot {
         viewModel = TaskListViewModel(
             getTasksForDateUseCase = fakeGetTasksForDateUseCase,
             markTaskAsCompleteUseCase = ProdMarkTaskAsCompleteUseCase(
-                taskRepository = fakeTaskRepository.mock,
+                taskRepository = fakeTaskRepository,
             )
         )
     }

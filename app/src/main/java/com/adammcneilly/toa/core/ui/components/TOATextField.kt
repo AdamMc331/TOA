@@ -21,6 +21,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.core.ui.theme.TextFieldShape
@@ -160,6 +161,7 @@ private fun md3TextFieldColors(
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun FilledTOATextFieldPreview() {
     TOATheme {
         Surface {
@@ -182,6 +184,7 @@ private fun FilledTOATextFieldPreview() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun ErrorTOATextFieldPreview() {
     TOATheme {
         Surface {
@@ -205,6 +208,7 @@ private fun ErrorTOATextFieldPreview() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
+@ExcludeFromJacocoGeneratedReport
 private fun EmptyTOATextFieldPreview() {
     TOATheme {
         Surface {

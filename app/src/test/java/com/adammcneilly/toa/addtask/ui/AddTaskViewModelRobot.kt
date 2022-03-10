@@ -1,10 +1,11 @@
 package com.adammcneilly.toa.addtask.ui
 
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.fakes.FakeAddTaskUseCase
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import com.google.common.truth.Truth.assertThat
-import java.time.LocalDate
+import java.time.Instant
+import java.time.ZoneId
 
 class AddTaskViewModelRobot {
     private val fakeAddTaskUseCase = FakeAddTaskUseCase()
@@ -30,9 +31,13 @@ class AddTaskViewModelRobot {
     }
 
     fun selectDate(
-        newScheduledDate: LocalDate,
+        newScheduledDate: Long,
     ) = apply {
-        viewModel.onTaskScheduledDateChanged(newScheduledDate)
+        val scheduledDate = Instant.ofEpochMilli(newScheduledDate)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+
+        viewModel.onTaskScheduledDateChanged(scheduledDate)
     }
 
     fun clickSubmit() = apply {

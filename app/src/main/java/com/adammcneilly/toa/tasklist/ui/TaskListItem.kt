@@ -10,15 +10,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.components.Material3Card
 import com.adammcneilly.toa.core.ui.components.TOATextButton
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.adammcneilly.toa.tasklist.domain.model.Task
-import java.time.LocalDate
 
 /**
  * This displays a list item for a given [task].
@@ -28,8 +31,11 @@ fun TaskListItem(
     task: Task,
     onRescheduleClicked: () -> Unit,
     onDoneClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Material3Card {
+    Material3Card(
+        modifier = modifier,
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -40,10 +46,12 @@ fun TaskListItem(
                 task.description,
             )
 
-            ButtonRow(
-                onRescheduleClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked,
-            )
+            if (!task.completed) {
+                ButtonRow(
+                    onRescheduleClicked = onRescheduleClicked,
+                    onDoneClicked = onDoneClicked,
+                )
+            }
         }
     }
 }
@@ -55,6 +63,8 @@ private fun ButtonRow(
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier
+            .testTag("BUTTON_ROW"),
     ) {
         RescheduleButton(onRescheduleClicked)
 
@@ -94,6 +104,29 @@ private fun TaskText(
     )
 }
 
+@ExcludeFromJacocoGeneratedReport
+private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
+
+    override val values: Sequence<Task>
+        get() {
+            val incompleteTask = Task(
+                id = "test",
+                description = "Clean my office space.",
+                scheduledDateMillis = 0L,
+                completed = false,
+            )
+
+            val completedTask = incompleteTask.copy(
+                completed = true,
+            )
+
+            return sequenceOf(
+                incompleteTask,
+                completedTask,
+            )
+        }
+}
+
 @Preview(
     name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -104,14 +137,11 @@ private fun TaskText(
 )
 @Composable
 @Suppress("UnusedPrivateMember")
-private fun TaskListItemPreview() {
-    val task = Task(
-        id = "test",
-        description = "Clean my office space.",
-        scheduledDate = LocalDate.now(),
-        completed = false,
-    )
-
+@ExcludeFromJacocoGeneratedReport
+private fun TaskListItemPreview(
+    @PreviewParameter(TaskPreviewParameterProvider::class)
+    task: Task,
+) {
     TOATheme {
         TaskListItem(
             task = task,

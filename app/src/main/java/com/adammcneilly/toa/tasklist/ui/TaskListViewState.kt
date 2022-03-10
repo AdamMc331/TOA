@@ -1,9 +1,9 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.R
+import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.utils.getSuffixForDayOfMonth
-import com.adammcneilly.toa.tasklist.domain.model.Task
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -18,6 +18,12 @@ data class TaskListViewState(
     val selectedDate: LocalDate = LocalDate.now(),
 ) {
 
+    /**
+     * As long as we are not in a loading or error scenario, we can show the task list (or empty state).
+     */
+    val showTasks: Boolean
+        get() = !showLoading && errorMessage == null
+
     val selectedDateString: UIText
         get() {
             val today = LocalDate.now()
@@ -30,13 +36,16 @@ data class TaskListViewState(
                 isToday -> UIText.ResourceText(R.string.today)
                 isTomorrow -> UIText.ResourceText(R.string.tomorrow)
                 else -> {
-                    val uiDateFormat = "MMM d"
                     val suffix = selectedDate.getSuffixForDayOfMonth()
 
-                    val dateString = DateTimeFormatter.ofPattern(uiDateFormat).format(selectedDate)
+                    val dateString = DateTimeFormatter.ofPattern(DATE_HEADER_FORMAT).format(selectedDate)
 
                     UIText.StringText("$dateString$suffix")
                 }
             }
         }
+
+    companion object {
+        const val DATE_HEADER_FORMAT = "MMM d"
+    }
 }
