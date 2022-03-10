@@ -1,9 +1,11 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import android.content.res.Configuration
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -147,14 +149,19 @@ private fun TaskListToolbar(
                 )
             }
 
-            Text(
-                text = title,
+            Crossfade(
+                targetState = title,
                 modifier = Modifier
                     .weight(1F),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-            )
+            ) { title ->
+                Text(
+                    text = title,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
 
             IconButton(
                 onClick = onRightButtonClicked,
