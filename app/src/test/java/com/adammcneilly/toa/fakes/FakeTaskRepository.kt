@@ -11,9 +11,13 @@ import java.time.LocalDate
 class FakeTaskRepository {
     val mock: TaskRepository = mockk()
 
-    fun mockTasksForDateResult(date: LocalDate, response: Result<List<Task>>) {
+    fun mockTasksForDateResult(
+        date: LocalDate,
+        completed: Boolean,
+        response: Result<List<Task>>
+    ) {
         coEvery {
-            mock.fetchTasksForDate(date, any())
+            mock.fetchTasksForDate(date, completed)
         } returns flowOf(response)
     }
 }

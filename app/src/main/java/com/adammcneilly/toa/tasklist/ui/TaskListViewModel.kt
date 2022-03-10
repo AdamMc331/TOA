@@ -39,6 +39,7 @@ class TaskListViewModel @Inject constructor(
                 _viewState.value = _viewState.value.copy(
                     showLoading = true,
                     incompleteTasks = null,
+                    completedTasks = null,
                 )
 
                 getTasksForDateUseCase.invoke(

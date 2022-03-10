@@ -1,33 +1,32 @@
 package com.adammcneilly.toa.tasklist.ui
 
-import com.adammcneilly.toa.core.data.Result
+import com.adammcneilly.toa.fakes.FakeGetTasksForDateUseCase
 import com.adammcneilly.toa.fakes.FakeTaskRepository
-import com.adammcneilly.toa.tasklist.domain.model.Task
-import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetTasksForDateUseCase
+import com.adammcneilly.toa.tasklist.domain.repository.TaskListResult
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdMarkTaskAsCompleteUseCase
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 class TaskListViewModelRobot {
     private val fakeTaskRepository = FakeTaskRepository()
+    private val fakeGetTasksForDateUseCase = FakeGetTasksForDateUseCase()
     private lateinit var viewModel: TaskListViewModel
 
     fun buildViewModel() = apply {
         viewModel = TaskListViewModel(
-            getTasksForDateUseCase = ProdGetTasksForDateUseCase(
-                taskRepository = fakeTaskRepository.mock,
-            ),
+            getTasksForDateUseCase = fakeGetTasksForDateUseCase,
             markTaskAsCompleteUseCase = ProdMarkTaskAsCompleteUseCase(
                 taskRepository = fakeTaskRepository.mock,
             )
         )
     }
 
-    fun mockTasksForDateResult(
+    fun mockTaskListResultForDate(
         date: LocalDate,
-        result: Result<List<Task>>,
+        result: Flow<TaskListResult>,
     ) = apply {
-        fakeTaskRepository.mockTasksForDateResult(date, result)
+        fakeGetTasksForDateUseCase.mockResultForDate(date, result)
     }
 
     fun assertViewState(expectedViewState: TaskListViewState) = apply {
