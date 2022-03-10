@@ -3,7 +3,9 @@ package com.adammcneilly.toa.addtask.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 /**
@@ -13,6 +15,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
  * This is used to share code that appears in two destinations, the [AddTaskScreen] and
  * [AddTaskDialog].
  */
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddTaskContainer(
     viewModel: AddTaskViewModel,
@@ -20,9 +23,12 @@ fun AddTaskContainer(
     modifier: Modifier = Modifier,
 ) {
     val viewState = viewModel.viewState.collectAsState()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     DisposableEffect(viewState.value) {
         if (viewState.value is AddTaskViewState.Completed) {
+            keyboardController?.hide()
+
             navigator.popBackStack()
         }
 
