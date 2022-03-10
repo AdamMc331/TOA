@@ -67,28 +67,11 @@ fun TaskListContent(
             )
         },
         topBar = {
-            val dialogState = rememberMaterialDialogState()
-
-            MaterialDialog(
-                dialogState = dialogState,
-                buttons = {
-                    positiveButton(stringResource(R.string.ok))
-                    negativeButton(stringResource(R.string.cancel))
-                },
-            ) {
-                this.datepicker(
-                    initialDate = viewState.selectedDate,
-                    onDateChange = onDateSelected,
-                )
-            }
-
-            TaskListToolbar(
-                onLeftButtonClicked = onPreviousDateButtonClicked,
-                onRightButtonClicked = onNextDateButtonClicked,
-                title = viewState.selectedDateString.getString(),
-                onTitleClicked = {
-                    dialogState.show()
-                },
+            ToolbarAndDialog(
+                viewState,
+                onDateSelected,
+                onPreviousDateButtonClicked,
+                onNextDateButtonClicked,
             )
         },
     ) { paddingValues ->
@@ -124,6 +107,38 @@ fun TaskListContent(
             }
         }
     }
+}
+
+@Composable
+private fun ToolbarAndDialog(
+    viewState: TaskListViewState,
+    onDateSelected: (LocalDate) -> Unit,
+    onPreviousDateButtonClicked: () -> Unit,
+    onNextDateButtonClicked: () -> Unit,
+) {
+    val dialogState = rememberMaterialDialogState()
+
+    MaterialDialog(
+        dialogState = dialogState,
+        buttons = {
+            positiveButton(stringResource(R.string.ok))
+            negativeButton(stringResource(R.string.cancel))
+        },
+    ) {
+        this.datepicker(
+            initialDate = viewState.selectedDate,
+            onDateChange = onDateSelected,
+        )
+    }
+
+    TaskListToolbar(
+        onLeftButtonClicked = onPreviousDateButtonClicked,
+        onRightButtonClicked = onNextDateButtonClicked,
+        title = viewState.selectedDateString.getString(),
+        onTitleClicked = {
+            dialogState.show()
+        },
+    )
 }
 
 @Composable
