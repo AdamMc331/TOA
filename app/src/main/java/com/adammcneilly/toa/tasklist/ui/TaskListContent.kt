@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -185,25 +184,31 @@ private fun TaskListToolbar(
                     Icons.Default.KeyboardArrowLeft,
                     contentDescription = stringResource(R.string.view_previous_day_content_description),
                     modifier = Modifier
-                        .size(84.dp),
+                        .size(toolbarHeight),
                 )
             }
 
             Crossfade(
                 targetState = title,
                 modifier = Modifier
+                    .padding(vertical = 16.dp)
                     .clickable(
                         onClick = onTitleClicked,
                     )
-                    .weight(1F),
+                    .weight(1F)
+                    .height(toolbarHeight),
             ) { title ->
-                Text(
-                    text = title,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.fillMaxWidth(),
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    Text(
+                        text = title,
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
             }
 
             IconButton(
@@ -213,7 +218,7 @@ private fun TaskListToolbar(
                     Icons.Default.KeyboardArrowRight,
                     contentDescription = stringResource(R.string.view_next_day_content_description),
                     modifier = Modifier
-                        .size(84.dp),
+                        .size(toolbarHeight),
                 )
             }
         }
