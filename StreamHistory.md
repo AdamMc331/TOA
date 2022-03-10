@@ -427,5 +427,6 @@ YouTube: https://youtu.be/Spp9RRm3hIQ
 PRs:
 * Title change animation: https://github.com/AdamMc331/TOA/pull/117/
 * Hide keyboard on task creation: https://github.com/AdamMc331/TOA/pull/118/
+* Show date picker on title click: 
 
 YouTube: Coming Soon. 

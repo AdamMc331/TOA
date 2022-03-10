@@ -2,6 +2,7 @@ package com.adammcneilly.toa.tasklist.ui
 
 import android.content.res.Configuration
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,6 +44,10 @@ import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,6 +58,7 @@ fun TaskListContent(
     onAddButtonClicked: () -> Unit,
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
+    onDateSelected: (LocalDate) -> Unit,
 ) {
     Scaffold(
         floatingActionButton = {
@@ -61,10 +67,28 @@ fun TaskListContent(
             )
         },
         topBar = {
+            val dialogState = rememberMaterialDialogState()
+
+            MaterialDialog(
+                dialogState = dialogState,
+                buttons = {
+                    positiveButton(stringResource(R.string.ok))
+                    negativeButton(stringResource(R.string.cancel))
+                },
+            ) {
+                this.datepicker(
+                    initialDate = viewState.selectedDate,
+                    onDateChange = onDateSelected,
+                )
+            }
+
             TaskListToolbar(
                 onLeftButtonClicked = onPreviousDateButtonClicked,
                 onRightButtonClicked = onNextDateButtonClicked,
                 title = viewState.selectedDateString.getString(),
+                onTitleClicked = {
+                    dialogState.show()
+                },
             )
         },
     ) { paddingValues ->
@@ -125,6 +149,7 @@ private fun TaskListToolbar(
     onLeftButtonClicked: () -> Unit,
     onRightButtonClicked: () -> Unit,
     title: String,
+    onTitleClicked: () -> Unit,
 ) {
     val toolbarHeight = 84.dp
 
@@ -152,6 +177,9 @@ private fun TaskListToolbar(
             Crossfade(
                 targetState = title,
                 modifier = Modifier
+                    .clickable(
+                        onClick = onTitleClicked,
+                    )
                     .weight(1F),
             ) { title ->
                 Text(
@@ -278,6 +306,7 @@ private fun TaskListContentPreview(
             onAddButtonClicked = {},
             onPreviousDateButtonClicked = {},
             onNextDateButtonClicked = {},
+            onDateSelected = {},
         )
     }
 }
