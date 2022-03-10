@@ -426,5 +426,6 @@ YouTube: https://youtu.be/Spp9RRm3hIQ
 
 PRs:
 * Title change animation:
+* Hide keyboard on task creation: 
 
 YouTube: Coming Soon. 
