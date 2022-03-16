@@ -33,5 +33,6 @@ fun TaskListScreen(
         },
         onPreviousDateButtonClicked = viewModel::onPreviousDateButtonClicked,
         onNextDateButtonClicked = viewModel::onNextDateButtonClicked,
+        onDateSelected = viewModel::onDateSelected,
     )
 }

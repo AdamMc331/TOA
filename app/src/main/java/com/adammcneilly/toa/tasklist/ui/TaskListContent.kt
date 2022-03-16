@@ -2,10 +2,10 @@ package com.adammcneilly.toa.tasklist.ui
 
 import android.content.res.Configuration
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -43,6 +43,10 @@ import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,6 +57,7 @@ fun TaskListContent(
     onAddButtonClicked: () -> Unit,
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
+    onDateSelected: (LocalDate) -> Unit,
 ) {
     Scaffold(
         floatingActionButton = {
@@ -61,10 +66,11 @@ fun TaskListContent(
             )
         },
         topBar = {
-            TaskListToolbar(
-                onLeftButtonClicked = onPreviousDateButtonClicked,
-                onRightButtonClicked = onNextDateButtonClicked,
-                title = viewState.selectedDateString.getString(),
+            ToolbarAndDialog(
+                viewState,
+                onDateSelected,
+                onPreviousDateButtonClicked,
+                onNextDateButtonClicked,
             )
         },
     ) { paddingValues ->
@@ -103,6 +109,38 @@ fun TaskListContent(
 }
 
 @Composable
+private fun ToolbarAndDialog(
+    viewState: TaskListViewState,
+    onDateSelected: (LocalDate) -> Unit,
+    onPreviousDateButtonClicked: () -> Unit,
+    onNextDateButtonClicked: () -> Unit,
+) {
+    val dialogState = rememberMaterialDialogState()
+
+    MaterialDialog(
+        dialogState = dialogState,
+        buttons = {
+            positiveButton(stringResource(R.string.ok))
+            negativeButton(stringResource(R.string.cancel))
+        },
+    ) {
+        this.datepicker(
+            initialDate = viewState.selectedDate,
+            onDateChange = onDateSelected,
+        )
+    }
+
+    TaskListToolbar(
+        onLeftButtonClicked = onPreviousDateButtonClicked,
+        onRightButtonClicked = onNextDateButtonClicked,
+        title = viewState.selectedDateString.getString(),
+        onTitleClicked = {
+            dialogState.show()
+        },
+    )
+}
+
+@Composable
 private fun TaskListEmptyState() {
     Box(
         modifier = Modifier
@@ -125,6 +163,7 @@ private fun TaskListToolbar(
     onLeftButtonClicked: () -> Unit,
     onRightButtonClicked: () -> Unit,
     title: String,
+    onTitleClicked: () -> Unit,
 ) {
     val toolbarHeight = 84.dp
 
@@ -145,22 +184,31 @@ private fun TaskListToolbar(
                     Icons.Default.KeyboardArrowLeft,
                     contentDescription = stringResource(R.string.view_previous_day_content_description),
                     modifier = Modifier
-                        .size(84.dp),
+                        .size(toolbarHeight),
                 )
             }
 
             Crossfade(
                 targetState = title,
                 modifier = Modifier
-                    .weight(1F),
+                    .padding(vertical = 16.dp)
+                    .clickable(
+                        onClick = onTitleClicked,
+                    )
+                    .weight(1F)
+                    .height(toolbarHeight),
             ) { title ->
-                Text(
-                    text = title,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.fillMaxWidth(),
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    Text(
+                        text = title,
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
             }
 
             IconButton(
@@ -170,7 +218,7 @@ private fun TaskListToolbar(
                     Icons.Default.KeyboardArrowRight,
                     contentDescription = stringResource(R.string.view_next_day_content_description),
                     modifier = Modifier
-                        .size(84.dp),
+                        .size(toolbarHeight),
                 )
             }
         }
@@ -278,6 +326,7 @@ private fun TaskListContentPreview(
             onAddButtonClicked = {},
             onPreviousDateButtonClicked = {},
             onNextDateButtonClicked = {},
+            onDateSelected = {},
         )
     }
 }
