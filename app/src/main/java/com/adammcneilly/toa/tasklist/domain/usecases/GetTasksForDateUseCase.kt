@@ -5,15 +5,13 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 /**
- * Fetches all tasks for a specific date and completed status.
+ * Fetches all tasks for a specific date.
  */
 interface GetTasksForDateUseCase {
     /**
-     * Fetch tasks for the given [date], where the completed property of the task matches the supplied
-     * [completed] argument.
+     * Fetch tasks for the given [date].
      */
     operator fun invoke(
         date: LocalDate,
-        completed: Boolean,
     ): Flow<TaskListResult>
 }

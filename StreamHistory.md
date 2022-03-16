@@ -350,6 +350,7 @@ In this stream, we added more functionality to our task list screen allowing the
 PRs:
 * Mark task as complete: https://github.com/AdamMc331/TOA/pull/91
 * Showing headers for sections: https://github.com/AdamMc331/TOA/pull/92
+* Combining flows: https://github.com/AdamMc331/TOA/pull/95
 
 YouTube: https://youtu.be/sGjcE4JQ-cc
 

@@ -4,6 +4,7 @@ import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
+import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
@@ -16,29 +17,31 @@ class TaskListViewModelTest {
 
     @Test
     fun successfulLoad() {
-        val task = Task(
+        val incompleteTask = Task(
             id = "Test",
             description = "Test task",
             scheduledDateMillis = 0L,
             completed = false,
         )
 
-        val taskList = listOf(task)
-
-        val taskResponse = Result.Success(
-            taskList,
+        val completedTask = incompleteTask.copy(
+            completed = true,
         )
 
+        val taskList = listOf(incompleteTask, completedTask)
+
+        val taskListResult = Result.Success(taskList)
+
         testRobot
-            .mockTasksForDateResult(
+            .mockTaskListResultForDate(
                 date = LocalDate.now(),
-                result = taskResponse,
+                result = flowOf(taskListResult),
             )
             .buildViewModel()
             .assertViewState(
                 expectedViewState = TaskListViewState(
-                    incompleteTasks = taskList,
-                    completedTasks = taskList,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = listOf(completedTask),
                     showLoading = false,
                 ),
             )
@@ -46,34 +49,24 @@ class TaskListViewModelTest {
 
     @Test
     fun clickPreviousDate() {
-        val task = Task(
-            id = "Test",
-            description = "Test task",
-            scheduledDateMillis = 0L,
-            completed = false,
-        )
-
-        val taskList = listOf(task)
-
-        val taskListResult = Result.Success(
-            taskList,
-        )
+        val today = LocalDate.now()
+        val yesterday = LocalDate.now().minusDays(1)
 
         val expectedViewState = TaskListViewState(
-            selectedDate = LocalDate.now().minusDays(1),
-            incompleteTasks = taskList,
-            completedTasks = taskList,
+            selectedDate = yesterday,
             showLoading = false,
+            incompleteTasks = emptyList(),
+            completedTasks = emptyList(),
         )
 
         testRobot
-            .mockTasksForDateResult(
-                date = LocalDate.now(),
-                result = Result.Success(emptyList()),
+            .mockTaskListResultForDate(
+                date = today,
+                result = flowOf(Result.Success(emptyList())),
             )
-            .mockTasksForDateResult(
-                date = LocalDate.now().minusDays(1),
-                result = taskListResult,
+            .mockTaskListResultForDate(
+                date = yesterday,
+                result = flowOf(Result.Success(emptyList())),
             )
             .buildViewModel()
             .clickPreviousDateButton()
@@ -82,34 +75,24 @@ class TaskListViewModelTest {
 
     @Test
     fun clickNextDate() {
-        val task = Task(
-            id = "Test",
-            description = "Test task",
-            scheduledDateMillis = 0L,
-            completed = false,
-        )
-
-        val taskList = listOf(task)
-
-        val taskListResult = Result.Success(
-            taskList,
-        )
+        val today = LocalDate.now()
+        val tomorrow = LocalDate.now().plusDays(1)
 
         val expectedViewState = TaskListViewState(
-            selectedDate = LocalDate.now().plusDays(1),
-            incompleteTasks = taskList,
-            completedTasks = taskList,
+            selectedDate = tomorrow,
             showLoading = false,
+            incompleteTasks = emptyList(),
+            completedTasks = emptyList(),
         )
 
         testRobot
-            .mockTasksForDateResult(
-                date = LocalDate.now(),
-                result = Result.Success(emptyList()),
+            .mockTaskListResultForDate(
+                date = today,
+                result = flowOf(Result.Success(emptyList())),
             )
-            .mockTasksForDateResult(
-                date = LocalDate.now().plusDays(1),
-                result = taskListResult,
+            .mockTaskListResultForDate(
+                date = tomorrow,
+                result = flowOf(Result.Success(emptyList())),
             )
             .buildViewModel()
             .clickNextDateButton()
@@ -121,9 +104,9 @@ class TaskListViewModelTest {
         val taskResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
 
         testRobot
-            .mockTasksForDateResult(
+            .mockTaskListResultForDate(
                 date = LocalDate.now(),
-                result = taskResult,
+                result = flowOf(taskResult),
             )
             .buildViewModel()
             .assertViewState(
