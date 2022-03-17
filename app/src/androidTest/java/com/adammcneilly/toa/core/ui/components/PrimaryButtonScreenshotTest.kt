@@ -14,7 +14,10 @@ class PrimaryButtonScreenshotTest : ScreenshotTest {
     @Test
     fun renderEnabledButton() {
         composeTestRule.setContent {
-            TOATheme {
+            TOATheme(
+                isDark = false,
+                dynamic = false,
+            ) {
                 PrimaryButton(
                     text = "Enabled Button",
                     onClick = {},
@@ -29,7 +32,10 @@ class PrimaryButtonScreenshotTest : ScreenshotTest {
     @Test
     fun renderDisabledButton() {
         composeTestRule.setContent {
-            TOATheme {
+            TOATheme(
+                isDark = false,
+                dynamic = false,
+            ) {
                 PrimaryButton(
                     text = "Disabled Button",
                     onClick = {},
