@@ -30,6 +30,7 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
 * [Stream Twenty One - Misc Feature Development](#stream-twenty-one---misc-development)
 * [Stream Twenty Two - Adaptive Layouts](#stream-twenty-two---adaptive-layouts)
+* [Stream Twenty Four - Snapshot Testing](#stream-twenty-four---snapshot-tests)
 </details>
 
 <details>
@@ -45,6 +46,7 @@ The following streams focus on specific hot topics in development, not just a fe
 * [Stream Fourteen - Persistent Storage](#stream-fourteen---persistent-storage)
 * [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
 * [Stream Twenty Two - Adaptive Layouts](#stream-twenty-two---adaptive-layouts)
+* [Stream Twenty Four - Snapshot Testing](#stream-twenty-four---snapshot-tests)
 
 </details>
 
@@ -59,6 +61,7 @@ The following streams touch on topics related to developer experience.
 * [Stream Seven - Documentation](#stream-seven---documentation)
 * [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
 * [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
+* [Stream Twenty Four - Snapshot Testing](#stream-twenty-four---snapshot-tests)
 </details>
 
 <details>
@@ -431,3 +434,15 @@ PRs:
 * Show date picker on title click: 
 
 YouTube: Coming Soon. 
+
+## Stream Twenty Four - Snapshot Tests
+
+Resources:
+* https://proandroiddev.com/oh-snap-966bd786b7a4
+* https://github.com/pedrovgs/Shot/
+
+PRs:
+*
+
+YouTube:
+* Coming Soon
