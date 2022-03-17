@@ -21,6 +21,7 @@ jobs:
         with:
           api-level: 29
           profile: pixel_3_xl
+          sdcard-path-or-size: 5M
           script: |
             avdmanager list device
             adb shell settings put global hidden_api_policy 1
