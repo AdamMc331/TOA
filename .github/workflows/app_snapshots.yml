@@ -21,4 +21,6 @@ jobs:
         with:
           api-level: 29
           profile: Pixel 6 Pro
-          script: ./gradlew app:executeScreenshotTests -Pandroid.testIntrumentationRunnerArguments.tests_regex=.*ScreenshotTest.*
+          script: |
+            avdmanager list device
+            ./gradlew app:executeScreenshotTests -Pandroid.testIntrumentationRunnerArguments.tests_regex=.*ScreenshotTest.*
