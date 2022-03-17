@@ -16,11 +16,10 @@ jobs:
         with:
           java-version: 1.11
 
-      - name: List Profiles
-        run: avdmanager list device
-
       - name: Run Snapshots
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: ./gradlew app:executeScreenshotTests -Pandroid.testIntrumentationRunnerArguments.tests_regex=.*ScreenshotTest.*
+          script: |
+            avdmanager list device
+            ./gradlew app:executeScreenshotTests -Pandroid.testIntrumentationRunnerArguments.tests_regex=.*ScreenshotTest.*
