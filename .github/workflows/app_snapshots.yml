@@ -23,4 +23,5 @@ jobs:
           profile: pixel_4_xl
           script: |
             avdmanager list device
+            adb shell settings put global hidden_api_policy 1
             ./gradlew app:executeScreenshotTests -Pandroid.testIntrumentationRunnerArguments.tests_regex=.*ScreenshotTest.*
