@@ -1,0 +1,24 @@
+name: App Snapshots
+
+on:
+  pull_request:
+
+jobs:
+  app-snapshots:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+
+      - name: Run Snapshots
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          profile: Pixel 6 Pro
+          script: ./gradlew app:executeScreenshotTests -Pandroid.testIntrumentationRunnerArguments.tests_regex=.*ScreenshotTest.*
