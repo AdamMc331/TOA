@@ -16,9 +16,11 @@ jobs:
         with:
           java-version: 1.11
 
+      - name: List Profiles
+        run: avdmanager list device
+
       - name: Run Snapshots
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          profile: Pixel 5
           script: ./gradlew app:executeScreenshotTests -Pandroid.testIntrumentationRunnerArguments.tests_regex=.*ScreenshotTest.*
