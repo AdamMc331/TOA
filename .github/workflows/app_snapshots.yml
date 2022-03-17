@@ -1,0 +1,28 @@
+name: App Snapshots
+
+on:
+  pull_request:
+
+jobs:
+  app-snapshots:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+
+      - name: Run Snapshots
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          profile: pixel_3_xl
+          sdcard-path-or-size: 1000M
+          script: |
+            avdmanager list device
+            adb shell settings put global hidden_api_policy 1
+            ./gradlew app:executeScreenshotTests -Pandroid.testIntrumentationRunnerArguments.tests_regex=.*ScreenshotTest.*

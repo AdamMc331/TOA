@@ -45,6 +45,7 @@ class TaskListContentTest {
                     hasClickedPreviousDate = true
                 },
                 onNextDateButtonClicked = {},
+                onDateSelected = {},
             )
         }
 
@@ -72,6 +73,7 @@ class TaskListContentTest {
                 onNextDateButtonClicked = {
                     hasClickedNextDate = true
                 },
+                onDateSelected = {},
             )
         }
 
@@ -101,6 +103,7 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
+                onDateSelected = {},
             )
         }
 
@@ -131,6 +134,7 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
+                onDateSelected = {},
             )
         }
 
@@ -168,6 +172,7 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
+                onDateSelected = {},
             )
         }
 

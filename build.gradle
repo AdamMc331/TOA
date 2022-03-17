@@ -24,6 +24,9 @@ buildscript {
         ext.jacocoAndroidVersion = "0.2"
 
         ext.coverallsVersion = "2.12.0"
+
+        // https://github.com/pedrovgs/Shot/releases
+        ext.shotVersion = "5.13.0"
     }
     repositories {
         google()
@@ -42,6 +45,7 @@ buildscript {
         classpath "org.jetbrains.kotlinx:kover:$koverVersion"
         classpath "com.hiya:jacoco-android:$jacocoAndroidVersion"
         classpath "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:$coverallsVersion"
+        classpath "com.karumi:shot:$shotVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
