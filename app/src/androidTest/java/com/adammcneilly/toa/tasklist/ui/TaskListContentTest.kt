@@ -45,6 +45,7 @@ class TaskListContentTest {
                     hasClickedPreviousDate = true
                 },
                 onNextDateButtonClicked = {},
+                onDateSelected = {},
             )
         }
 
@@ -72,6 +73,7 @@ class TaskListContentTest {
                 onNextDateButtonClicked = {
                     hasClickedNextDate = true
                 },
+                onDateSelected = {},
             )
         }
 
@@ -101,6 +103,7 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
+                onDateSelected = {},
             )
         }
 
@@ -131,6 +134,7 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
+                onDateSelected = {},
             )
         }
 
@@ -168,14 +172,9 @@ class TaskListContentTest {
                 onAddButtonClicked = {},
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
+                onDateSelected = {},
             )
         }
-
-        val noCompletedTasksLabel = composeTestRule.activity.getString(R.string.no_completed_tasks_label)
-
-        composeTestRule
-            .onNodeWithText(noCompletedTasksLabel)
-            .assertIsDisplayed()
 
         val expectedTaskTag = "INCOMPLETE_TASK_${testTask.id}"
 

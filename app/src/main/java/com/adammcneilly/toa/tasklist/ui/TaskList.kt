@@ -39,10 +39,6 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier,
     ) {
-        item {
-            SectionHeader(text = stringResource(R.string.incomplete_tasks_header))
-        }
-
         if (incompleteTasks.isEmpty()) {
             item {
                 EmptySectionCard(
@@ -71,17 +67,11 @@ fun TaskList(
             }
         }
 
-        item {
-            SectionHeader(text = stringResource(R.string.completed_tasks_header))
-        }
-
-        if (completedTasks.isEmpty()) {
+        if (completedTasks.isNotEmpty()) {
             item {
-                EmptySectionCard(
-                    text = stringResource(R.string.no_completed_tasks_label),
-                )
+                SectionHeader(text = stringResource(R.string.completed_tasks_header))
             }
-        } else {
+
             items(
                 items = completedTasks,
                 key = {
