@@ -436,5 +436,6 @@ YouTube: Coming Soon.
 
 PRs:
 * Copy updates:
+* Auto focus description on add task screen:
 
 YouTube: Coming Soon.

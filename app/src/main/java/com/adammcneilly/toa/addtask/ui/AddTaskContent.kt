@@ -15,8 +15,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -46,6 +49,14 @@ fun AddTaskContent(
     onSubmitClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val descriptionFocusRequester = remember { FocusRequester() }
+
+    // When the add task screen is first created, we want to focus on the description input
+    // so the user can begin typing right away.
+    LaunchedEffect(Unit) {
+        descriptionFocusRequester.requestFocus()
+    }
+
     Box(
         modifier = modifier,
     ) {
@@ -57,6 +68,7 @@ fun AddTaskContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState()),
+            descriptionFocusRequester = descriptionFocusRequester,
         )
 
         if (viewState is AddTaskViewState.Submitting) {
@@ -76,6 +88,7 @@ private fun AddTaskInputsColumn(
     onTaskScheduledDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
     modifier: Modifier,
+    descriptionFocusRequester: FocusRequester,
 ) {
     Column(
         modifier = modifier,
@@ -91,6 +104,7 @@ private fun AddTaskInputsColumn(
             errorMessage = (viewState as? AddTaskViewState.Active)
                 ?.descriptionInputErrorMessage
                 ?.getString(),
+            focusRequester = descriptionFocusRequester,
         )
 
         TaskDateLabel()
@@ -165,6 +179,7 @@ private fun TaskDescriptionInput(
     onTextChanged: (String) -> Unit,
     enabled: Boolean,
     errorMessage: String?,
+    focusRequester: FocusRequester,
 ) {
     TOATextField(
         text = text,
@@ -176,6 +191,7 @@ private fun TaskDescriptionInput(
         ),
         placeholderText = stringResource(R.string.task_input_placeholder),
         errorMessage = errorMessage,
+        focusRequester = focusRequester,
     )
 }
 

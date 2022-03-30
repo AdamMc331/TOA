@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.VisualTransformation
@@ -34,6 +36,8 @@ import com.adammcneilly.toa.core.ui.theme.TextFieldShape
  * @param[onTextChanged] A callback invoked whenever the user modifies the text inside this input.
  * @param[labelText] The label that shows above the input when focused.
  * @param[modifier] An optional [Modifier] to configure this component.
+ * @param[focusRequester] An optional [FocusRequester] that allows the caller to control the focused
+ * state of this text field.
  */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -47,6 +51,7 @@ fun TOATextField(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     placeholderText: String? = null,
+    focusRequester: FocusRequester = FocusRequester(),
 ) {
     val labelComposable: (@Composable () -> Unit)? = labelText?.let {
         @Composable {
@@ -72,7 +77,8 @@ fun TOATextField(
             shape = TextFieldShape,
             modifier = modifier
                 .heightIn(dimensionResource(id = R.dimen.text_field_height))
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,
