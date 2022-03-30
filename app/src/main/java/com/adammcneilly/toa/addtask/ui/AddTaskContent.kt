@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -40,6 +41,8 @@ import com.adammcneilly.toa.core.ui.components.VerticalSpacer
 import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import java.time.LocalDate
+
+const val ADD_TASK_DESCRIPTION_INPUT_TAG = "ADD_TASK_DESCRIPTION_INPUT"
 
 @Composable
 fun AddTaskContent(
@@ -192,6 +195,8 @@ private fun TaskDescriptionInput(
         placeholderText = stringResource(R.string.task_input_placeholder),
         errorMessage = errorMessage,
         focusRequester = focusRequester,
+        modifier = Modifier
+            .testTag(ADD_TASK_DESCRIPTION_INPUT_TAG)
     )
 }
 
