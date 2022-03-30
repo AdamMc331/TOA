@@ -67,17 +67,11 @@ fun TaskList(
             }
         }
 
-        item {
-            SectionHeader(text = stringResource(R.string.completed_tasks_header))
-        }
-
-        if (completedTasks.isEmpty()) {
+        if (completedTasks.isNotEmpty()) {
             item {
-                EmptySectionCard(
-                    text = stringResource(R.string.no_completed_tasks_label),
-                )
+                SectionHeader(text = stringResource(R.string.completed_tasks_header))
             }
-        } else {
+
             items(
                 items = completedTasks,
                 key = {
