@@ -10,6 +10,7 @@ import com.adammcneilly.toa.R
 import com.google.accompanist.insets.statusBarsPadding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import java.time.LocalDate
 
 /**
  * This destination is used, when we want to show an individual screen that allows
@@ -17,9 +18,9 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
  */
 @Destination
 @Composable
-// Update this to consume an initial date
 fun AddTaskScreen(
     navigator: DestinationsNavigator,
+    initialDate: LocalDate,
     viewModel: AddTaskViewModel = hiltViewModel(),
 ) {
     AddTaskContainer(

@@ -25,9 +25,13 @@ fun TaskListScreen(
         onAddButtonClicked = {
             // Update this to pass the selected as an argument to each destination
             val destination = if (windowSize != WindowSize.Compact) {
-                AddTaskDialogDestination
+                AddTaskDialogDestination(
+                    initialDate = viewState.value.selectedDate,
+                )
             } else {
-                AddTaskScreenDestination
+                AddTaskScreenDestination(
+                    initialDate = viewState.value.selectedDate,
+                )
             }
 
             navigator.navigate(destination)

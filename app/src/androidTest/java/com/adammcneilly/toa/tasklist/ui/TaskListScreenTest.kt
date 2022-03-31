@@ -29,6 +29,11 @@ class TaskListScreenTest {
             result = flowOf(Result.Success(emptyList())),
         )
 
+        getTasksForDateUseCase.mockResultForDate(
+            date = LocalDate.now().plusDays(1),
+            result = flowOf(Result.Success(emptyList())),
+        )
+
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
             markTaskAsCompleteUseCase = markTaskAsCompleteUseCase,
@@ -45,11 +50,17 @@ class TaskListScreenTest {
         }
 
         composeTestRule
+            .onNodeWithTag(NEXT_DAY_BUTTON_TAG)
+            .performClick()
+
+        composeTestRule
             .onNodeWithTag(ADD_TASK_BUTTON_TAG)
             .performClick()
 
-        destinationsNavigator.verifyNavigatedToRoute(
-            expectedRoute = AddTaskScreenDestination.route,
+        destinationsNavigator.verifyNavigatedToDirection(
+            expectedDirection = AddTaskScreenDestination(
+                initialDate = LocalDate.now().plusDays(1),
+            )
         )
     }
 
@@ -82,8 +93,10 @@ class TaskListScreenTest {
             .onNodeWithTag(ADD_TASK_BUTTON_TAG)
             .performClick()
 
-        destinationsNavigator.verifyNavigatedToRoute(
-            expectedRoute = AddTaskDialogDestination.route,
+        destinationsNavigator.verifyNavigatedToDirection(
+            expectedDirection = AddTaskDialogDestination(
+                initialDate = LocalDate.now(),
+            )
         )
     }
 }

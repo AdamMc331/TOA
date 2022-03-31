@@ -3,6 +3,7 @@ package com.adammcneilly.toa.fakes
 import androidx.navigation.NavOptionsBuilder
 import com.google.common.truth.Truth.assertThat
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.spec.Direction
 
 /**
  * This is a concrete implementation of a [DestinationsNavigator] that records all requests made
@@ -13,6 +14,14 @@ class FakeDestinationsNavigator : DestinationsNavigator {
 
     override fun clearBackStack(route: String): Boolean {
         TODO("Not yet implemented")
+    }
+
+    override fun navigate(
+        direction: Direction,
+        onlyIfResumed: Boolean,
+        builder: NavOptionsBuilder.() -> Unit
+    ) {
+        navigatedRoutes.add(direction.route)
     }
 
     override fun navigate(
@@ -35,7 +44,9 @@ class FakeDestinationsNavigator : DestinationsNavigator {
         TODO("Not yet implemented")
     }
 
-    fun verifyNavigatedToRoute(expectedRoute: String) {
+    fun verifyNavigatedToDirection(expectedDirection: Direction) {
+        val expectedRoute = expectedDirection.route
+
         assertThat(navigatedRoutes).contains(expectedRoute)
     }
 }

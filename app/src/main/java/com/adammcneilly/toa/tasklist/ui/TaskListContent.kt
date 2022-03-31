@@ -50,6 +50,7 @@ import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
+const val NEXT_DAY_BUTTON_TAG = "NEXT_DAY_BUTTON"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -216,6 +217,8 @@ private fun TaskListToolbar(
 
             IconButton(
                 onClick = onRightButtonClicked,
+                modifier = Modifier
+                    .testTag(NEXT_DAY_BUTTON_TAG),
             ) {
                 Icon(
                     Icons.Default.KeyboardArrowRight,
