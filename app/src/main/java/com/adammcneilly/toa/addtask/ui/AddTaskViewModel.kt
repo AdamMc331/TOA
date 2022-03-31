@@ -24,7 +24,7 @@ class AddTaskViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val initialDate: LocalDate? = savedStateHandle.get("initialDate")
+    private val initialDate: LocalDate? = savedStateHandle.get<LocalDate?>("initialDate")
 
     private val _viewState: MutableStateFlow<AddTaskViewState> = MutableStateFlow(
         AddTaskViewState.Initial(

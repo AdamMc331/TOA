@@ -28,7 +28,7 @@ fun TaskListScreen(
                 initialDate = viewState.value.selectedDate,
             )
 
-            val destination = if (windowSize != WindowSize.Compact) {
+            val destination = if (windowSize == WindowSize.Compact) {
                 AddTaskDialogDestination(
                     initialDate = navArgs.initialDate
                 )

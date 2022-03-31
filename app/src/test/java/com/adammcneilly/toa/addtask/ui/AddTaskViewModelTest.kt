@@ -19,6 +19,20 @@ class AddTaskViewModelTest {
     val coroutineTestRule = CoroutinesTestRule()
 
     @Test
+    fun createWithInitialDateFromSavedStateHandle() {
+        val initialDate = LocalDate.now().plusDays(1)
+
+        val expectedViewState = AddTaskViewState.Initial(
+            initialDate = initialDate,
+        )
+
+        testRobot
+            .mockInitialDate(initialDate)
+            .buildViewModel()
+            .assertViewState(expectedViewState)
+    }
+
+    @Test
     fun submitWithEmptyDescription() {
         val taskToSubmit = Task(
             id = "Testing",
