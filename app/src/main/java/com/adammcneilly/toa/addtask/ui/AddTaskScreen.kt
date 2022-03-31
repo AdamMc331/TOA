@@ -17,6 +17,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
  */
 @Destination
 @Composable
+// Update this to consume an initial date
 fun AddTaskScreen(
     navigator: DestinationsNavigator,
     viewModel: AddTaskViewModel = hiltViewModel(),

@@ -23,6 +23,7 @@ fun TaskListScreen(
         onRescheduleClicked = {},
         onDoneClicked = viewModel::onDoneButtonClicked,
         onAddButtonClicked = {
+            // Update this to pass the selected as an argument to each destination
             val destination = if (windowSize != WindowSize.Compact) {
                 AddTaskDialogDestination
             } else {

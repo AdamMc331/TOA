@@ -20,6 +20,7 @@ import com.ramcosta.composedestinations.spec.DestinationStyle
     style = DestinationStyle.Dialog::class,
 )
 @Composable
+// Update this to consume an initial date
 fun AddTaskDialog(
     navigator: DestinationsNavigator,
     viewModel: AddTaskViewModel = hiltViewModel(),
