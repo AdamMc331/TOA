@@ -11,7 +11,6 @@ import com.adammcneilly.toa.R
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.spec.DestinationStyle
-import java.time.LocalDate
 
 /**
  * This destination is very similar to [AddTaskScreen], but will present the form
@@ -19,11 +18,11 @@ import java.time.LocalDate
  */
 @Destination(
     style = DestinationStyle.Dialog::class,
+    navArgsDelegate = AddTaskNavArguments::class,
 )
 @Composable
 fun AddTaskDialog(
     navigator: DestinationsNavigator,
-    initialDate: LocalDate,
     viewModel: AddTaskViewModel = hiltViewModel(),
 ) {
     AddTaskContainer(

@@ -1,5 +1,6 @@
 package com.adammcneilly.toa.addtask.ui
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adammcneilly.toa.R
@@ -20,10 +21,17 @@ import javax.inject.Inject
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val _viewState: MutableStateFlow<AddTaskViewState> =
-        MutableStateFlow(AddTaskViewState.Initial)
+    private val initialDate: LocalDate? = savedStateHandle.get("initialDate")
+
+    private val _viewState: MutableStateFlow<AddTaskViewState> = MutableStateFlow(
+        AddTaskViewState.Initial(
+            initialDate = initialDate ?: LocalDate.now(),
+        )
+    )
+
     val viewState = _viewState.asStateFlow()
 
     fun onTaskDescriptionChanged(newDescription: String) {

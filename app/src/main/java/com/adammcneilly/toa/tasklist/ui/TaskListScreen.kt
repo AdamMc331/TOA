@@ -3,6 +3,7 @@ package com.adammcneilly.toa.tasklist.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.adammcneilly.toa.addtask.ui.AddTaskNavArguments
 import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.destinations.AddTaskDialogDestination
 import com.adammcneilly.toa.destinations.AddTaskScreenDestination
@@ -23,14 +24,17 @@ fun TaskListScreen(
         onRescheduleClicked = {},
         onDoneClicked = viewModel::onDoneButtonClicked,
         onAddButtonClicked = {
-            // Update this to pass the selected as an argument to each destination
+            val navArgs = AddTaskNavArguments(
+                initialDate = viewState.value.selectedDate,
+            )
+
             val destination = if (windowSize != WindowSize.Compact) {
                 AddTaskDialogDestination(
-                    initialDate = viewState.value.selectedDate,
+                    initialDate = navArgs.initialDate
                 )
             } else {
                 AddTaskScreenDestination(
-                    initialDate = viewState.value.selectedDate,
+                    initialDate = navArgs.initialDate,
                 )
             }
 
