@@ -18,6 +18,7 @@ import com.ramcosta.composedestinations.spec.DestinationStyle
  */
 @Destination(
     style = DestinationStyle.Dialog::class,
+    navArgsDelegate = AddTaskNavArguments::class,
 )
 @Composable
 fun AddTaskDialog(
