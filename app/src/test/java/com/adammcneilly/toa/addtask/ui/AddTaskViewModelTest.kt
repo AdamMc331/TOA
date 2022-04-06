@@ -62,6 +62,7 @@ class AddTaskViewModelTest {
                 task = taskToSubmit,
                 result = useCaseResult,
             )
+            .mockInitialDate(LocalDate.now())
             .buildViewModel()
             .enterDescription(taskToSubmit.description)
             .selectDate(taskToSubmit.scheduledDateMillis)
@@ -103,6 +104,7 @@ class AddTaskViewModelTest {
                 task = taskToSubmit,
                 result = useCaseResult,
             )
+            .mockInitialDate(LocalDate.now())
             .buildViewModel()
             .enterDescription(taskToSubmit.description)
             .selectDate(taskToSubmit.scheduledDateMillis)
