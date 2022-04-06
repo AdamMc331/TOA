@@ -24,6 +24,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -58,6 +59,7 @@ fun TaskListContent(
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
+    onTaskRescheduled: (Task, LocalDate) -> Unit,
 ) {
     Scaffold(
         floatingActionButton = {
@@ -81,6 +83,8 @@ fun TaskListContent(
             ) {
                 TaskListEmptyState()
             } else {
+                RescheduleTaskDialog(viewState, onTaskRescheduled)
+
                 TaskList(
                     incompleteTasks = viewState.incompleteTasks.orEmpty(),
                     completedTasks = viewState.completedTasks.orEmpty(),
@@ -105,6 +109,40 @@ fun TaskListContent(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun RescheduleTaskDialog(
+    viewState: TaskListViewState,
+    onTaskRescheduled: (Task, LocalDate) -> Unit,
+) {
+    val rescheduleTaskDatePickerDialogState = rememberMaterialDialogState()
+
+    LaunchedEffect(viewState) {
+        if (viewState.taskToReschedule != null) {
+            rescheduleTaskDatePickerDialogState.show()
+        }
+    }
+
+    MaterialDialog(
+        dialogState = rescheduleTaskDatePickerDialogState,
+        buttons = {
+            positiveButton(stringResource(R.string.ok))
+            negativeButton(stringResource(R.string.cancel))
+        },
+    ) {
+        this.datepicker(
+            initialDate = viewState.selectedDate,
+            onDateChange = { newDate ->
+                if (viewState.taskToReschedule != null) {
+                    onTaskRescheduled.invoke(
+                        viewState.taskToReschedule,
+                        newDate,
+                    )
+                }
+            },
+        )
     }
 }
 
@@ -327,6 +365,8 @@ private fun TaskListContentPreview(
             onPreviousDateButtonClicked = {},
             onNextDateButtonClicked = {},
             onDateSelected = {},
+            onTaskRescheduled = { _, _ ->
+            },
         )
     }
 }

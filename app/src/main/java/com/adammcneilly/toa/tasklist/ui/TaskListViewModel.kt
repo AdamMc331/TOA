@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -101,12 +102,26 @@ class TaskListViewModel @Inject constructor(
         )
     }
 
+    fun onRescheduleButtonClicked(task: Task) {
+        _viewState.update {
+            it.copy(
+                taskToReschedule = task,
+            )
+        }
+    }
+
     fun onTaskRescheduled(
         task: Task,
         newDate: LocalDate,
     ) {
         viewModelScope.launch {
             rescheduleTaskUseCase.invoke(task, newDate)
+        }
+
+        _viewState.update {
+            it.copy(
+                taskToReschedule = null,
+            )
         }
     }
 }

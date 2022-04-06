@@ -10,6 +10,8 @@ import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetAllTasksUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdMarkTaskAsCompleteUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.ProdRescheduleTaskUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.RescheduleTaskUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -49,4 +51,9 @@ abstract class UseCaseModule {
     abstract fun bindMarkTaskAsCompleteUseCase(
         markTaskAsCompleteUseCase: ProdMarkTaskAsCompleteUseCase,
     ): MarkTaskAsCompleteUseCase
+
+    @Binds
+    abstract fun bindRescheduleTaskUseCase(
+        rescheduleTaskUseCase: ProdRescheduleTaskUseCase,
+    ): RescheduleTaskUseCase
 }

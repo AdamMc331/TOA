@@ -9,6 +9,9 @@ import java.time.format.DateTimeFormatter
 
 /**
  * All of the necessary configurations for the task list screen UI.
+ *
+ * @property[taskToReschedule] If this is not null, this is the [Task] entity
+ * that the user is currently rescheduling.
  */
 data class TaskListViewState(
     val showLoading: Boolean = true,
@@ -16,6 +19,7 @@ data class TaskListViewState(
     val completedTasks: List<Task>? = null,
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now(),
+    val taskToReschedule: Task? = null,
 ) {
 
     /**
