@@ -119,17 +119,22 @@ fun TaskListContent(
         }
 
         if (viewState.showLoading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-            ) {
-                Material3CircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center),
-                )
-            }
+            TaskListLoadingContent()
         }
+    }
+}
+
+@Composable
+private fun TaskListLoadingContent() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        Material3CircularProgressIndicator(
+            modifier = Modifier
+                .wrapContentSize()
+                .align(Alignment.Center),
+        )
     }
 }
 
