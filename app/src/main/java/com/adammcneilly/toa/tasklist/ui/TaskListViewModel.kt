@@ -7,6 +7,7 @@ import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
+import com.adammcneilly.toa.tasklist.domain.usecases.RescheduleTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -26,6 +28,7 @@ import javax.inject.Inject
 class TaskListViewModel @Inject constructor(
     private val getTasksForDateUseCase: GetTasksForDateUseCase,
     private val markTaskAsCompleteUseCase: MarkTaskAsCompleteUseCase,
+    private val rescheduleTaskUseCase: RescheduleTaskUseCase,
 ) : ViewModel() {
     private val _viewState = MutableStateFlow(TaskListViewState())
     val viewState = _viewState.asStateFlow()
@@ -97,5 +100,28 @@ class TaskListViewModel @Inject constructor(
         _viewState.value = _viewState.value.copy(
             selectedDate = newDate,
         )
+    }
+
+    fun onRescheduleButtonClicked(task: Task) {
+        _viewState.update {
+            it.copy(
+                taskToReschedule = task,
+            )
+        }
+    }
+
+    fun onTaskRescheduled(
+        task: Task,
+        newDate: LocalDate,
+    ) {
+        viewModelScope.launch {
+            rescheduleTaskUseCase.invoke(task, newDate)
+        }
+
+        _viewState.update {
+            it.copy(
+                taskToReschedule = null,
+            )
+        }
     }
 }

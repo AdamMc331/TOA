@@ -48,6 +48,46 @@ class TaskListViewModelTest {
     }
 
     @Test
+    fun rescheduleTask() {
+        val incompleteTask = Task(
+            id = "Test",
+            description = "Test task",
+            scheduledDateMillis = 0L,
+            completed = false,
+        )
+
+        val taskList = listOf(incompleteTask)
+
+        val taskListResult = Result.Success(taskList)
+
+        val tomorrow = LocalDate.now().plusDays(1)
+
+        testRobot
+            .mockTaskListResultForDate(
+                date = LocalDate.now(),
+                result = flowOf(taskListResult),
+            )
+            .buildViewModel()
+            .clickRescheduleButton(incompleteTask)
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = emptyList(),
+                    taskToReschedule = incompleteTask,
+                )
+            )
+            .rescheduleTaskForDate(
+                task = incompleteTask,
+                date = tomorrow,
+            )
+            .assertTaskRescheduledForDate(
+                task = incompleteTask,
+                date = tomorrow,
+            )
+    }
+
+    @Test
     fun clickPreviousDate() {
         val today = LocalDate.now()
         val yesterday = LocalDate.now().minusDays(1)

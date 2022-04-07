@@ -440,3 +440,10 @@ PRs:
 * Sending date to add task UI: 
 
 YouTube: Coming Soon.
+
+## Stream Twenty Five - Rescheduling Tasks
+
+PRs:
+* Reschedule task: 
+
+YouTube: Coming Soon. 
