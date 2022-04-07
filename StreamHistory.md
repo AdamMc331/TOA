@@ -444,5 +444,6 @@ YouTube: Coming Soon.
 
 PRs:
 * Reschedule task: 
+* Reschedule task validation: 
 
 YouTube: Coming Soon. 
