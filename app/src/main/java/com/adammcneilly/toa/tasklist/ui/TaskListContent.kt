@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -54,6 +55,9 @@ import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+
+const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
+const val NEXT_DAY_BUTTON_TAG = "NEXT_DAY_BUTTON"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -311,6 +315,8 @@ private fun TaskListToolbar(
 
             IconButton(
                 onClick = onRightButtonClicked,
+                modifier = Modifier
+                    .testTag(NEXT_DAY_BUTTON_TAG),
             ) {
                 Icon(
                     Icons.Default.KeyboardArrowRight,
@@ -331,7 +337,8 @@ private fun AddTaskButton(
         onClick = onClick,
         shape = CircleShape,
         modifier = Modifier
-            .navigationBarsPadding(),
+            .navigationBarsPadding()
+            .testTag(ADD_TASK_BUTTON_TAG),
     ) {
         Icon(
             Icons.Default.Add,

@@ -15,7 +15,9 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
  * This destination is used, when we want to show an individual screen that allows
  * the user to create a new task.
  */
-@Destination
+@Destination(
+    navArgsDelegate = AddTaskNavArguments::class,
+)
 @Composable
 fun AddTaskScreen(
     navigator: DestinationsNavigator,

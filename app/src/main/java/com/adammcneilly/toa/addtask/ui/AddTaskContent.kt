@@ -249,7 +249,7 @@ class AddTaskViewStateProvider : PreviewParameterProvider<AddTaskViewState> {
             )
 
             return sequenceOf(
-                AddTaskViewState.Initial,
+                AddTaskViewState.Initial(),
                 AddTaskViewState.Active(
                     taskInput = activeInput,
                 ),

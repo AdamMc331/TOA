@@ -2,6 +2,7 @@ package com.adammcneilly.toa.addtask.ui
 
 import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.core.ui.UIText
+import java.time.LocalDate
 
 /**
  * A collection of possible view states for the add task UI.
@@ -11,8 +12,12 @@ sealed class AddTaskViewState(
     val inputsEnabled: Boolean = true,
 ) {
 
-    object Initial : AddTaskViewState(
-        taskInput = TaskInput(),
+    data class Initial(
+        val initialDate: LocalDate = LocalDate.now(),
+    ) : AddTaskViewState(
+        taskInput = TaskInput(
+            scheduledDate = initialDate,
+        ),
     )
 
     data class Active(

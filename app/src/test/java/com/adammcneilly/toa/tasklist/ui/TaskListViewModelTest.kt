@@ -88,7 +88,6 @@ class TaskListViewModelTest {
             )
     }
 
-    @Test
     fun preventReschedulingTaskToPastDate() {
         val incompleteTask = Task(
             id = "Test",

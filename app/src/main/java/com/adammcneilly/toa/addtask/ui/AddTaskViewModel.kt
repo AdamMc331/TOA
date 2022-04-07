@@ -1,5 +1,6 @@
 package com.adammcneilly.toa.addtask.ui
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adammcneilly.toa.R
@@ -8,6 +9,7 @@ import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.addtask.domain.usecases.AddTaskUseCase
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
+import com.adammcneilly.toa.destinations.AddTaskScreenDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,10 +22,23 @@ import javax.inject.Inject
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val _viewState: MutableStateFlow<AddTaskViewState> =
-        MutableStateFlow(AddTaskViewState.Initial)
+    /**
+     * Even though this screen can be navigated to using either AddTaskDialogDestination, or
+     * AddTaskScreenDestination, because they both have the same typesafe nav arguments delegate of
+     * [AddTaskNavArguments], it doesn't matter what we use here to call `argsFrom(savedStateHandle)
+     * because both will have the same functionality.
+     */
+    private val args: AddTaskNavArguments = AddTaskScreenDestination.argsFrom(savedStateHandle)
+
+    private val _viewState: MutableStateFlow<AddTaskViewState> = MutableStateFlow(
+        AddTaskViewState.Initial(
+            initialDate = args.initialDate,
+        )
+    )
+
     val viewState = _viewState.asStateFlow()
 
     fun onTaskDescriptionChanged(newDescription: String) {

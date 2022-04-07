@@ -116,7 +116,8 @@ class TaskListContentTest {
             )
         }
 
-        val noTasksScheduledLabel = composeTestRule.activity.getString(R.string.no_tasks_scheduled_label)
+        val noTasksScheduledLabel =
+            composeTestRule.activity.getString(R.string.no_tasks_scheduled_label)
 
         composeTestRule
             .onNodeWithText(noTasksScheduledLabel)
@@ -150,7 +151,8 @@ class TaskListContentTest {
             )
         }
 
-        val noIncompleteTasksLabel = composeTestRule.activity.getString(R.string.no_incomplete_tasks_label)
+        val noIncompleteTasksLabel =
+            composeTestRule.activity.getString(R.string.no_incomplete_tasks_label)
 
         composeTestRule
             .onNodeWithText(noIncompleteTasksLabel)
