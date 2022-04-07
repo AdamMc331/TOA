@@ -60,6 +60,8 @@ class TaskListViewModelTest {
 
         val taskListResult = Result.Success(taskList)
 
+        val tomorrow = LocalDate.now().plusDays(1)
+
         testRobot
             .mockTaskListResultForDate(
                 date = LocalDate.now(),
@@ -77,9 +79,12 @@ class TaskListViewModelTest {
             )
             .rescheduleTaskForDate(
                 task = incompleteTask,
-                date = LocalDate.now().plusDays(1),
+                date = tomorrow,
             )
-        // No assertion to verify that use case was triggered.
+            .assertTaskRescheduledForDate(
+                task = incompleteTask,
+                date = tomorrow,
+            )
     }
 
     @Test
