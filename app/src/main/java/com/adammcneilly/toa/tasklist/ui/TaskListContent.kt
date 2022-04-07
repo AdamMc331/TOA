@@ -21,10 +21,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -47,6 +52,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,7 +67,31 @@ fun TaskListContent(
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onReschedulingCompleted: () -> Unit,
+    onAlertMessageShown: () -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
+
+    if (viewState.alertMessage != null) {
+        val message = viewState.alertMessage.getString()
+
+        LaunchedEffect(snackbarHostState) {
+            coroutineScope.launch {
+                val snackbarResult = snackbarHostState.showSnackbar(message = message)
+
+                when (snackbarResult) {
+                    SnackbarResult.Dismissed -> {
+                        onAlertMessageShown.invoke()
+                    }
+                    SnackbarResult.ActionPerformed -> TODO()
+                }
+            }
+        }
+    }
+
     Scaffold(
         floatingActionButton = {
             AddTaskButton(
@@ -75,6 +105,9 @@ fun TaskListContent(
                 onPreviousDateButtonClicked,
                 onNextDateButtonClicked,
             )
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
         },
     ) { paddingValues ->
         if (viewState.showTasks) {
@@ -377,6 +410,7 @@ private fun TaskListContentPreview(
             onTaskRescheduled = { _, _ ->
             },
             onReschedulingCompleted = {},
+            onAlertMessageShown = {},
         )
     }
 }
