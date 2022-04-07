@@ -30,6 +30,9 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
 * [Stream Twenty One - Misc Feature Development](#stream-twenty-one---misc-development)
 * [Stream Twenty Two - Adaptive Layouts](#stream-twenty-two---adaptive-layouts)
+* [Stream Twenty Three - Misc Feature Development](#stream-twenty-three---misc-feature-development)
+* [Stream Twenty Four - Small Feature Development](#stream-twenty-four---small-feature-development)
+* [Stream Twenty Five - Rescheduling Tasks](#stream-twenty-five---rescheduling-tasks)
 </details>
 
 <details>
@@ -423,7 +426,7 @@ PRs:
 
 YouTube: https://youtu.be/Spp9RRm3hIQ
 
-## Stream Twenty Three - ???
+## Stream Twenty Three - Misc Feature Development
 
 PRs:
 * Title change animation: https://github.com/AdamMc331/TOA/pull/117/
