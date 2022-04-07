@@ -46,6 +46,9 @@ class TaskListContentTest {
                 },
                 onNextDateButtonClicked = {},
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
+                onReschedulingCompleted = {},
             )
         }
 
@@ -74,6 +77,9 @@ class TaskListContentTest {
                     hasClickedNextDate = true
                 },
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
+                onReschedulingCompleted = {},
             )
         }
 
@@ -104,6 +110,9 @@ class TaskListContentTest {
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
+                onReschedulingCompleted = {},
             )
         }
 
@@ -135,6 +144,9 @@ class TaskListContentTest {
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
+                onReschedulingCompleted = {},
             )
         }
 
@@ -173,6 +185,9 @@ class TaskListContentTest {
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
+                onReschedulingCompleted = {},
             )
         }
 
