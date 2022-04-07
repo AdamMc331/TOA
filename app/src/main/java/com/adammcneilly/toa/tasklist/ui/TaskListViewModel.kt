@@ -132,6 +132,10 @@ class TaskListViewModel @Inject constructor(
             rescheduleTaskUseCase.invoke(task, newDate)
         }
 
+        onReschedulingCompleted()
+    }
+
+    fun onReschedulingCompleted() {
         _viewState.update {
             it.copy(
                 taskToReschedule = null,

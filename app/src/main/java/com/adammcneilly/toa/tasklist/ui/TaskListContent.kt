@@ -60,6 +60,7 @@ fun TaskListContent(
     onNextDateButtonClicked: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
+    onReschedulingCompleted: () -> Unit,
 ) {
     Scaffold(
         floatingActionButton = {
@@ -83,7 +84,7 @@ fun TaskListContent(
             ) {
                 TaskListEmptyState()
             } else {
-                RescheduleTaskDialog(viewState, onTaskRescheduled)
+                RescheduleTaskDialog(viewState, onTaskRescheduled, onReschedulingCompleted)
 
                 TaskList(
                     incompleteTasks = viewState.incompleteTasks.orEmpty(),
@@ -116,6 +117,7 @@ fun TaskListContent(
 private fun RescheduleTaskDialog(
     viewState: TaskListViewState,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
+    onDismissed: () -> Unit,
 ) {
     val rescheduleTaskDatePickerDialogState = rememberMaterialDialogState()
 
@@ -129,8 +131,15 @@ private fun RescheduleTaskDialog(
         dialogState = rescheduleTaskDatePickerDialogState,
         buttons = {
             positiveButton(stringResource(R.string.ok))
-            negativeButton(stringResource(R.string.cancel))
+            negativeButton(
+                text = stringResource(R.string.cancel),
+                onClick = onDismissed,
+            )
         },
+        onCloseRequest = { dialogState ->
+            onDismissed.invoke()
+            dialogState.hide()
+        }
     ) {
         this.datepicker(
             initialDate = viewState.selectedDate,
@@ -367,6 +376,7 @@ private fun TaskListContentPreview(
             onDateSelected = {},
             onTaskRescheduled = { _, _ ->
             },
+            onReschedulingCompleted = {},
         )
     }
 }
