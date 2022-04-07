@@ -46,6 +46,8 @@ class TaskListContentTest {
                 },
                 onNextDateButtonClicked = {},
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
             )
         }
 
@@ -74,6 +76,8 @@ class TaskListContentTest {
                     hasClickedNextDate = true
                 },
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
             )
         }
 
@@ -104,10 +108,13 @@ class TaskListContentTest {
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
             )
         }
 
-        val noTasksScheduledLabel = composeTestRule.activity.getString(R.string.no_tasks_scheduled_label)
+        val noTasksScheduledLabel =
+            composeTestRule.activity.getString(R.string.no_tasks_scheduled_label)
 
         composeTestRule
             .onNodeWithText(noTasksScheduledLabel)
@@ -135,10 +142,13 @@ class TaskListContentTest {
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
             )
         }
 
-        val noIncompleteTasksLabel = composeTestRule.activity.getString(R.string.no_incomplete_tasks_label)
+        val noIncompleteTasksLabel =
+            composeTestRule.activity.getString(R.string.no_incomplete_tasks_label)
 
         composeTestRule
             .onNodeWithText(noIncompleteTasksLabel)
@@ -173,6 +183,8 @@ class TaskListContentTest {
                 onPreviousDateButtonClicked = {},
                 onNextDateButtonClicked = {},
                 onDateSelected = {},
+                onTaskRescheduled = { _, _ ->
+                },
             )
         }
 
