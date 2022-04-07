@@ -439,3 +439,10 @@ PRs:
 * Auto focus description on add task screen:
 
 YouTube: Coming Soon.
+
+## Stream Twenty Five - Rescheduling Tasks
+
+PRs:
+* Reschedule task: 
+
+YouTube: Coming Soon. 
