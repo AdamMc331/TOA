@@ -49,6 +49,7 @@ class TaskListContentTest {
                 onTaskRescheduled = { _, _ ->
                 },
                 onReschedulingCompleted = {},
+                onAlertMessageShown = {},
             )
         }
 
@@ -80,6 +81,7 @@ class TaskListContentTest {
                 onTaskRescheduled = { _, _ ->
                 },
                 onReschedulingCompleted = {},
+                onAlertMessageShown = {},
             )
         }
 
@@ -113,6 +115,7 @@ class TaskListContentTest {
                 onTaskRescheduled = { _, _ ->
                 },
                 onReschedulingCompleted = {},
+                onAlertMessageShown = {},
             )
         }
 
@@ -148,6 +151,7 @@ class TaskListContentTest {
                 onTaskRescheduled = { _, _ ->
                 },
                 onReschedulingCompleted = {},
+                onAlertMessageShown = {},
             )
         }
 
@@ -190,6 +194,7 @@ class TaskListContentTest {
                 onTaskRescheduled = { _, _ ->
                 },
                 onReschedulingCompleted = {},
+                onAlertMessageShown = {},
             )
         }
 
