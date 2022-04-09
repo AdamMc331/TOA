@@ -10,6 +10,7 @@ import com.adammcneilly.toa.destinations.AddTaskScreenDestination
 import com.adammcneilly.toa.fakes.FakeDestinationsNavigator
 import com.adammcneilly.toa.fakes.FakeGetTasksForDateUseCase
 import com.adammcneilly.toa.fakes.FakeMarkTaskAsCompleteUseCase
+import com.adammcneilly.toa.fakes.FakeRescheduleTaskUseCase
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -23,6 +24,7 @@ class TaskListScreenTest {
     fun navigateToAddTaskForCompactWindowSize() {
         val getTasksForDateUseCase = FakeGetTasksForDateUseCase()
         val markTaskAsCompleteUseCase = FakeMarkTaskAsCompleteUseCase()
+        val rescheduleTaskUseCase = FakeRescheduleTaskUseCase()
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
@@ -37,6 +39,7 @@ class TaskListScreenTest {
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
             markTaskAsCompleteUseCase = markTaskAsCompleteUseCase,
+            rescheduleTaskUseCase = rescheduleTaskUseCase,
         )
 
         val destinationsNavigator = FakeDestinationsNavigator()
@@ -68,6 +71,7 @@ class TaskListScreenTest {
     fun navigateToAddTaskForExpandedWindowSize() {
         val getTasksForDateUseCase = FakeGetTasksForDateUseCase()
         val markTaskAsCompleteUseCase = FakeMarkTaskAsCompleteUseCase()
+        val rescheduleTaskUseCase = FakeRescheduleTaskUseCase()
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
@@ -77,6 +81,7 @@ class TaskListScreenTest {
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
             markTaskAsCompleteUseCase = markTaskAsCompleteUseCase,
+            rescheduleTaskUseCase = rescheduleTaskUseCase,
         )
 
         val destinationsNavigator = FakeDestinationsNavigator()

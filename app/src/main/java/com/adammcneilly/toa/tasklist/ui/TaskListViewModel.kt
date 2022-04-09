@@ -2,6 +2,7 @@ package com.adammcneilly.toa.tasklist.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
@@ -114,13 +115,38 @@ class TaskListViewModel @Inject constructor(
         task: Task,
         newDate: LocalDate,
     ) {
+        if (newDate < LocalDate.now()) {
+            _viewState.update {
+                it.copy(
+                    taskToReschedule = null,
+                    alertMessage = UIText.ResourceText(
+                        R.string.err_scheduled_date_in_past,
+                    ),
+                )
+            }
+
+            return
+        }
+
         viewModelScope.launch {
             rescheduleTaskUseCase.invoke(task, newDate)
         }
 
+        onReschedulingCompleted()
+    }
+
+    fun onReschedulingCompleted() {
         _viewState.update {
             it.copy(
                 taskToReschedule = null,
+            )
+        }
+    }
+
+    fun onAlertMessageShown() {
+        _viewState.update {
+            it.copy(
+                alertMessage = null,
             )
         }
     }

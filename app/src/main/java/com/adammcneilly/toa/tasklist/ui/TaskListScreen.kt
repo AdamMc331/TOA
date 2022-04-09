@@ -44,5 +44,7 @@ fun TaskListScreen(
         onNextDateButtonClicked = viewModel::onNextDateButtonClicked,
         onDateSelected = viewModel::onDateSelected,
         onTaskRescheduled = viewModel::onTaskRescheduled,
+        onReschedulingCompleted = viewModel::onReschedulingCompleted,
+        onAlertMessageShown = viewModel::onAlertMessageShown,
     )
 }

@@ -1,6 +1,7 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.CoroutinesTestRule
+import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
@@ -84,6 +85,62 @@ class TaskListViewModelTest {
             .assertTaskRescheduledForDate(
                 task = incompleteTask,
                 date = tomorrow,
+            )
+    }
+
+    fun preventReschedulingTaskToPastDate() {
+        val incompleteTask = Task(
+            id = "Test",
+            description = "Test task",
+            scheduledDateMillis = 0L,
+            completed = false,
+        )
+
+        val taskList = listOf(incompleteTask)
+
+        val taskListResult = Result.Success(taskList)
+
+        val yesterday = LocalDate.now().minusDays(1)
+
+        testRobot
+            .mockTaskListResultForDate(
+                date = LocalDate.now(),
+                result = flowOf(taskListResult),
+            )
+            .buildViewModel()
+            .clickRescheduleButton(incompleteTask)
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = emptyList(),
+                    taskToReschedule = incompleteTask,
+                )
+            )
+            .rescheduleTaskForDate(
+                task = incompleteTask,
+                date = yesterday,
+            )
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = emptyList(),
+                    taskToReschedule = null,
+                    alertMessage = UIText.ResourceText(
+                        R.string.err_scheduled_date_in_past,
+                    ),
+                )
+            )
+            .showAlertMessage()
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = listOf(incompleteTask),
+                    completedTasks = emptyList(),
+                    taskToReschedule = null,
+                    alertMessage = null,
+                )
             )
     }
 
