@@ -2,7 +2,7 @@
 buildscript {
     ext {
         // https://developer.android.com/jetpack/androidx/releases/compose
-        compose_version = "1.1.0"
+        compose_version = "1.1.1"
 
         // https://github.com/JLLeitschuh/ktlint-gradle/releases
         ktlintPluginVersion = "10.2.0"
@@ -11,7 +11,7 @@ buildscript {
         detektVersion = "1.19.0"
 
         // https://developer.android.com/jetpack/androidx/releases/hilt
-        hiltVersion = "2.40.5"
+        hiltVersion = "2.41"
 
         kotlinVersion = "1.6.10"
 
