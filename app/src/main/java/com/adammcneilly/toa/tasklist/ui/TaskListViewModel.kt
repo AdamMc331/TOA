@@ -140,8 +140,8 @@ class TaskListViewModel @Inject constructor(
         }
 
         val taskRescheduledAlertMessage = AlertMessage(
-            message = UIText.StringText("Task Rescheduled For: [date]"),
-            actionText = UIText.StringText("UNDO"),
+            message = UIText.ResourceText(R.string.task_rescheduled),
+            actionText = UIText.ResourceText(R.string.undo),
             onActionClicked = {
                 _viewState.update {
                     val updatedTasks = it.incompleteTasks?.plus(task)

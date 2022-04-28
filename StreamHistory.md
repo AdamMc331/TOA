@@ -33,6 +33,7 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Twenty Three - Misc Feature Development](#stream-twenty-three---misc-feature-development)
 * [Stream Twenty Four - Small Feature Development](#stream-twenty-four---small-feature-development)
 * [Stream Twenty Five - Rescheduling Tasks](#stream-twenty-five---rescheduling-tasks)
+* [Stream Twenty Six - Undo Rescheduling Tasks](#stream-twenty-six---undo-rescheduling-tasks)
 </details>
 
 <details>
@@ -84,6 +85,8 @@ The following streams include work on our task list screen.
 * [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
 * [Stream Nineteen - Task List Empty States](#stream-nineteen---task-list-empty-states)
 * [Stream Twenty One - Misc Feature Development](#stream-twenty-one---misc-development)
+* [Stream Twenty Five - Rescheduling Tasks](#stream-twenty-five---rescheduling-tasks)
+* [Stream Twenty Six - Undo Rescheduling Tasks](#stream-twenty-six---undo-rescheduling-tasks)
 </details>
 
 <details>
@@ -451,3 +454,10 @@ PRs:
 * Reschedule task validation: 
 
 YouTube: Coming Soon. 
+
+## Stream Twenty Six - Undo Rescheduling Tasks
+
+PRs:
+* Undo Rescheduling: 
+
+YouTube: Coming Soon.
