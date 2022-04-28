@@ -11,6 +11,7 @@ data class AlertMessage(
     val message: UIText,
     val actionText: UIText? = null,
     val onActionClicked: () -> Unit = {},
+    val onDismissed: () -> Unit = {},
     val id: Long = UUID.randomUUID().mostSignificantBits,
     val duration: Duration = Duration.SHORT,
 ) {

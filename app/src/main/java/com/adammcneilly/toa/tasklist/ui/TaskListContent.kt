@@ -172,6 +172,7 @@ private fun TaskListSnackbar(
                 when (snackbarResult) {
                     SnackbarResult.Dismissed -> {
                         onAlertMessageShown.invoke()
+                        alertMessage.onDismissed.invoke()
                     }
                     SnackbarResult.ActionPerformed -> {
                         alertMessage.onActionClicked.invoke()

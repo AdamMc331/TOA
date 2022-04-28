@@ -10,7 +10,6 @@ import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.RescheduleTaskUseCase
-import com.adammcneilly.toa.toLocalDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -140,28 +139,42 @@ class TaskListViewModel @Inject constructor(
             return
         }
 
-        viewModelScope.launch {
-            rescheduleTaskUseCase.invoke(task, newDate)
+        val taskRescheduledAlertMessage = AlertMessage(
+            message = UIText.StringText("Task Rescheduled For: [date]"),
+            actionText = UIText.StringText("UNDO"),
+            onActionClicked = {
+                _viewState.update {
+                    val updatedTasks = it.incompleteTasks?.plus(task)
 
-            val taskRescheduledAlertMessage = AlertMessage(
-                message = UIText.StringText("Task Rescheduled For: [date]"),
-                actionText = UIText.StringText("UNDO"),
-                onActionClicked = {
-                    val originalDate = task.scheduledDateMillis.toLocalDate()
+                    it.copy(
+                        alertMessage = null,
+                        incompleteTasks = updatedTasks,
+                    )
+                }
+            },
+            onDismissed = {
+                viewModelScope.launch {
+                    rescheduleTaskUseCase.invoke(task, newDate)
 
-                    viewModelScope.launch {
-                        rescheduleTaskUseCase.invoke(task, originalDate)
+                    _viewState.update {
+                        it.copy(
+                            taskToReschedule = null,
+                            alertMessage = null,
+                        )
                     }
-                },
-                duration = AlertMessage.Duration.LONG,
-            )
+                }
+            },
+            duration = AlertMessage.Duration.LONG,
+        )
 
-            _viewState.update {
-                it.copy(
-                    taskToReschedule = null,
-                    alertMessage = taskRescheduledAlertMessage,
-                )
-            }
+        _viewState.update {
+            val tempTasks = it.incompleteTasks?.minus(task)
+
+            it.copy(
+                taskToReschedule = null,
+                incompleteTasks = tempTasks,
+                alertMessage = taskRescheduledAlertMessage,
+            )
         }
     }
 
