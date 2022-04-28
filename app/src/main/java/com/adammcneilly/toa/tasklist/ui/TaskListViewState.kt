@@ -2,6 +2,7 @@ package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
+import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.utils.getSuffixForDayOfMonth
 import java.time.LocalDate
@@ -25,7 +26,7 @@ data class TaskListViewState(
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now(),
     val taskToReschedule: Task? = null,
-    val alertMessage: UIText? = null,
+    val alertMessage: AlertMessage? = null,
 ) {
 
     /**

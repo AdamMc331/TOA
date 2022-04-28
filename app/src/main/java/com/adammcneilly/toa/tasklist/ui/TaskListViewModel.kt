@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
+import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
@@ -41,18 +42,22 @@ class TaskListViewModel @Inject constructor(
             }
             .distinctUntilChanged()
             .flatMapLatest { selectedDate ->
-                _viewState.value = _viewState.value.copy(
-                    showLoading = true,
-                    incompleteTasks = null,
-                    completedTasks = null,
-                )
+                _viewState.update {
+                    it.copy(
+                        showLoading = true,
+                        incompleteTasks = null,
+                        completedTasks = null,
+                    )
+                }
 
                 getTasksForDateUseCase.invoke(
                     date = selectedDate,
                 )
             }
             .onEach { result ->
-                _viewState.value = getViewStateForTaskListResult(result)
+                _viewState.update {
+                    getViewStateForTaskListResult(result)
+                }
             }
             .launchIn(viewModelScope)
     }
@@ -80,15 +85,19 @@ class TaskListViewModel @Inject constructor(
     }
 
     fun onPreviousDateButtonClicked() {
-        _viewState.value = _viewState.value.copy(
-            selectedDate = _viewState.value.selectedDate.minusDays(1),
-        )
+        _viewState.update {
+            it.copy(
+                selectedDate = _viewState.value.selectedDate.minusDays(1),
+            )
+        }
     }
 
     fun onNextDateButtonClicked() {
-        _viewState.value = _viewState.value.copy(
-            selectedDate = _viewState.value.selectedDate.plusDays(1),
-        )
+        _viewState.update {
+            it.copy(
+                selectedDate = _viewState.value.selectedDate.plusDays(1),
+            )
+        }
     }
 
     fun onDoneButtonClicked(task: Task) {
@@ -119,8 +128,10 @@ class TaskListViewModel @Inject constructor(
             _viewState.update {
                 it.copy(
                     taskToReschedule = null,
-                    alertMessage = UIText.ResourceText(
-                        R.string.err_scheduled_date_in_past,
+                    alertMessage = AlertMessage(
+                        message = UIText.ResourceText(
+                            R.string.err_scheduled_date_in_past,
+                        ),
                     ),
                 )
             }
@@ -128,11 +139,43 @@ class TaskListViewModel @Inject constructor(
             return
         }
 
-        viewModelScope.launch {
-            rescheduleTaskUseCase.invoke(task, newDate)
-        }
+        val taskRescheduledAlertMessage = AlertMessage(
+            message = UIText.ResourceText(R.string.task_rescheduled),
+            actionText = UIText.ResourceText(R.string.undo),
+            onActionClicked = {
+                _viewState.update {
+                    val updatedTasks = it.incompleteTasks?.plus(task)
 
-        onReschedulingCompleted()
+                    it.copy(
+                        alertMessage = null,
+                        incompleteTasks = updatedTasks,
+                    )
+                }
+            },
+            onDismissed = {
+                viewModelScope.launch {
+                    rescheduleTaskUseCase.invoke(task, newDate)
+
+                    _viewState.update {
+                        it.copy(
+                            taskToReschedule = null,
+                            alertMessage = null,
+                        )
+                    }
+                }
+            },
+            duration = AlertMessage.Duration.LONG,
+        )
+
+        _viewState.update {
+            val tempTasks = it.incompleteTasks?.minus(task)
+
+            it.copy(
+                taskToReschedule = null,
+                incompleteTasks = tempTasks,
+                alertMessage = taskRescheduledAlertMessage,
+            )
+        }
     }
 
     fun onReschedulingCompleted() {

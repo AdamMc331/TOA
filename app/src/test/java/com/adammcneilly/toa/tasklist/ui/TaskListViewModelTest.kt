@@ -4,6 +4,7 @@ import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
+import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
@@ -49,7 +50,7 @@ class TaskListViewModelTest {
     }
 
     @Test
-    fun rescheduleTask() {
+    fun rescheduleTaskTriggersAlertMessage() {
         val incompleteTask = Task(
             id = "Test",
             description = "Test task",
@@ -82,12 +83,27 @@ class TaskListViewModelTest {
                 task = incompleteTask,
                 date = tomorrow,
             )
+            .assertViewState(
+                expectedViewState = TaskListViewState(
+                    showLoading = false,
+                    incompleteTasks = emptyList(),
+                    completedTasks = emptyList(),
+                    taskToReschedule = null,
+                    alertMessage = AlertMessage(
+                        message = UIText.ResourceText(R.string.task_rescheduled),
+                        actionText = UIText.ResourceText(R.string.undo),
+                        duration = AlertMessage.Duration.LONG,
+                    ),
+                )
+            )
+            .dismissAlertMessage()
             .assertTaskRescheduledForDate(
                 task = incompleteTask,
                 date = tomorrow,
             )
     }
 
+    @Test
     fun preventReschedulingTaskToPastDate() {
         val incompleteTask = Task(
             id = "Test",
@@ -127,8 +143,10 @@ class TaskListViewModelTest {
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
                     taskToReschedule = null,
-                    alertMessage = UIText.ResourceText(
-                        R.string.err_scheduled_date_in_past,
+                    alertMessage = AlertMessage(
+                        message = UIText.ResourceText(
+                            R.string.err_scheduled_date_in_past,
+                        ),
                     ),
                 )
             )

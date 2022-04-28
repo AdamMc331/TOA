@@ -21,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -43,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
+import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.ui.adaptiveWidth
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
@@ -144,24 +146,37 @@ private fun TaskListLoadingContent() {
 
 @Composable
 private fun TaskListSnackbar(
-    alertMessage: UIText?,
+    alertMessage: AlertMessage?,
     snackbarHostState: SnackbarHostState,
     onAlertMessageShown: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
     if (alertMessage != null) {
-        val message = alertMessage.getString()
+        val message = alertMessage.message.getString()
+        val actionLabel = alertMessage.actionText?.getString()
+        val duration = when (alertMessage.duration) {
+            AlertMessage.Duration.SHORT -> SnackbarDuration.Short
+            AlertMessage.Duration.LONG -> SnackbarDuration.Long
+            AlertMessage.Duration.INDEFINITE -> SnackbarDuration.Indefinite
+        }
 
         LaunchedEffect(snackbarHostState) {
             coroutineScope.launch {
-                val snackbarResult = snackbarHostState.showSnackbar(message = message)
+                val snackbarResult = snackbarHostState.showSnackbar(
+                    message = message,
+                    actionLabel = actionLabel,
+                    duration = duration,
+                )
 
                 when (snackbarResult) {
                     SnackbarResult.Dismissed -> {
                         onAlertMessageShown.invoke()
+                        alertMessage.onDismissed.invoke()
                     }
-                    SnackbarResult.ActionPerformed -> TODO()
+                    SnackbarResult.ActionPerformed -> {
+                        alertMessage.onActionClicked.invoke()
+                    }
                 }
             }
         }
