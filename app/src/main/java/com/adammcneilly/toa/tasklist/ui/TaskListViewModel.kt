@@ -2,8 +2,10 @@ package com.adammcneilly.toa.tasklist.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
+import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
@@ -40,18 +42,22 @@ class TaskListViewModel @Inject constructor(
             }
             .distinctUntilChanged()
             .flatMapLatest { selectedDate ->
-                _viewState.value = _viewState.value.copy(
-                    showLoading = true,
-                    incompleteTasks = null,
-                    completedTasks = null,
-                )
+                _viewState.update {
+                    it.copy(
+                        showLoading = true,
+                        incompleteTasks = null,
+                        completedTasks = null,
+                    )
+                }
 
                 getTasksForDateUseCase.invoke(
                     date = selectedDate,
                 )
             }
             .onEach { result ->
-                _viewState.value = getViewStateForTaskListResult(result)
+                _viewState.update {
+                    getViewStateForTaskListResult(result)
+                }
             }
             .launchIn(viewModelScope)
     }
@@ -79,20 +85,76 @@ class TaskListViewModel @Inject constructor(
     }
 
     fun onPreviousDateButtonClicked() {
-        _viewState.value = _viewState.value.copy(
-            selectedDate = _viewState.value.selectedDate.minusDays(1),
-        )
+        _viewState.update {
+            it.copy(
+                selectedDate = _viewState.value.selectedDate.minusDays(1),
+            )
+        }
     }
 
     fun onNextDateButtonClicked() {
-        _viewState.value = _viewState.value.copy(
-            selectedDate = _viewState.value.selectedDate.plusDays(1),
-        )
+        _viewState.update {
+            it.copy(
+                selectedDate = _viewState.value.selectedDate.plusDays(1),
+            )
+        }
     }
 
+    /**
+     * When the done button is clicked, we will render an alert message that states a task has
+     * been accomplished, but it provides an undo button to revert this action. We show a temporary
+     * state, that indicates the task is done, but we don't actually commit anything to the
+     * [markTaskAsCompleteUseCase] until the message is dismissed.
+     */
     fun onDoneButtonClicked(task: Task) {
-        viewModelScope.launch {
-            markTaskAsCompleteUseCase.invoke(task)
+        val taskAccomplishedAlertMessage = AlertMessage(
+            message = UIText.ResourceText(R.string.task_accomplished),
+            actionText = UIText.ResourceText(R.string.undo),
+            onActionClicked = {
+                _viewState.update {
+                    val taskAsComplete = task.copy(
+                        completed = true,
+                    )
+
+                    val incompleteTasksToUse = it.incompleteTasks?.plus(task)
+                    val completedTasksToUse = it.completedTasks?.minus(taskAsComplete)
+
+                    it.copy(
+                        alertMessage = null,
+                        incompleteTasks = incompleteTasksToUse,
+                        completedTasks = completedTasksToUse,
+                    )
+                }
+            },
+            onDismissed = {
+                viewModelScope.launch {
+                    viewModelScope.launch {
+                        markTaskAsCompleteUseCase.invoke(task)
+                    }
+
+                    _viewState.update {
+                        it.copy(
+                            alertMessage = null,
+                        )
+                    }
+                }
+            },
+            duration = AlertMessage.Duration.LONG,
+        )
+
+        _viewState.update {
+            val taskAsComplete = task.copy(
+                completed = true,
+            )
+
+            val incompleteTaskToUse = it.incompleteTasks?.minus(task)
+            val completedTasksToUse = it.completedTasks?.plus(taskAsComplete)
+
+            it.copy(
+                incompleteTasks = incompleteTaskToUse,
+                completedTasks = completedTasksToUse,
+                alertMessage = taskAccomplishedAlertMessage,
+            )
         }
     }
 
@@ -110,17 +172,82 @@ class TaskListViewModel @Inject constructor(
         }
     }
 
+    /**
+     * When a task is rescheduled, we will render an alert message that states a task has
+     * been rescheduled, but it provides an undo button to revert this action. We show a temporary
+     * state, that indicates the task is rescheduled, but we don't actually commit anything to the
+     * [rescheduleTaskUseCase] until the message is dismissed.
+     */
     fun onTaskRescheduled(
         task: Task,
         newDate: LocalDate,
     ) {
-        viewModelScope.launch {
-            rescheduleTaskUseCase.invoke(task, newDate)
+        if (newDate < LocalDate.now()) {
+            _viewState.update {
+                it.copy(
+                    taskToReschedule = null,
+                    alertMessage = AlertMessage(
+                        message = UIText.ResourceText(
+                            R.string.err_scheduled_date_in_past,
+                        ),
+                    ),
+                )
+            }
+
+            return
         }
 
+        val taskRescheduledAlertMessage = AlertMessage(
+            message = UIText.ResourceText(R.string.task_rescheduled),
+            actionText = UIText.ResourceText(R.string.undo),
+            onActionClicked = {
+                _viewState.update {
+                    val updatedTasks = it.incompleteTasks?.plus(task)
+
+                    it.copy(
+                        alertMessage = null,
+                        incompleteTasks = updatedTasks,
+                    )
+                }
+            },
+            onDismissed = {
+                viewModelScope.launch {
+                    rescheduleTaskUseCase.invoke(task, newDate)
+
+                    _viewState.update {
+                        it.copy(
+                            taskToReschedule = null,
+                            alertMessage = null,
+                        )
+                    }
+                }
+            },
+            duration = AlertMessage.Duration.LONG,
+        )
+
+        _viewState.update {
+            val tempTasks = it.incompleteTasks?.minus(task)
+
+            it.copy(
+                taskToReschedule = null,
+                incompleteTasks = tempTasks,
+                alertMessage = taskRescheduledAlertMessage,
+            )
+        }
+    }
+
+    fun onReschedulingCompleted() {
         _viewState.update {
             it.copy(
                 taskToReschedule = null,
+            )
+        }
+    }
+
+    fun onAlertMessageShown() {
+        _viewState.update {
+            it.copy(
+                alertMessage = null,
             )
         }
     }

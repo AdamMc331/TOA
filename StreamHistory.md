@@ -33,6 +33,7 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Twenty Three - Misc Feature Development](#stream-twenty-three---misc-feature-development)
 * [Stream Twenty Four - Small Feature Development](#stream-twenty-four---small-feature-development)
 * [Stream Twenty Five - Rescheduling Tasks](#stream-twenty-five---rescheduling-tasks)
+* [Stream Twenty Six - Undo Rescheduling Tasks](#stream-twenty-six---undo-rescheduling-tasks)
 </details>
 
 <details>
@@ -84,6 +85,8 @@ The following streams include work on our task list screen.
 * [Stream Seventeen - Task Completion](#stream-seventeen---marking-tasks-as-complete)
 * [Stream Nineteen - Task List Empty States](#stream-nineteen---task-list-empty-states)
 * [Stream Twenty One - Misc Feature Development](#stream-twenty-one---misc-development)
+* [Stream Twenty Five - Rescheduling Tasks](#stream-twenty-five---rescheduling-tasks)
+* [Stream Twenty Six - Undo Rescheduling Tasks](#stream-twenty-six---undo-rescheduling-tasks)
 </details>
 
 <details>
@@ -431,22 +434,34 @@ YouTube: https://youtu.be/Spp9RRm3hIQ
 PRs:
 * Title change animation: https://github.com/AdamMc331/TOA/pull/117/
 * Hide keyboard on task creation: https://github.com/AdamMc331/TOA/pull/118/
-* Show date picker on title click: 
+* Show date picker on title click: https://github.com/AdamMc331/TOA/pull/121/
 
-YouTube: Coming Soon. 
+YouTube: https://youtu.be/jTGz4Rp-9fQ
 
 ## Stream Twenty Four - Small Feature Development
 
 PRs:
-* Copy updates:
-* Auto focus description on add task screen:
-* Sending date to add task UI: 
+* Copy updates: https://github.com/AdamMc331/TOA/pull/129/
+* Auto focus description on add task screen: https://github.com/AdamMc331/TOA/pull/130/
+* Sending date to add task UI: https://github.com/AdamMc331/TOA/pull/131/
 
-YouTube: Coming Soon.
+YouTube:
+* Copy updates: https://youtu.be/NKEwcCboIPI
+* Auto focus text: https://youtu.be/PZMF94tvoMM
+* Date to add task screen: https://youtu.be/zcLaJqtTvM8
 
 ## Stream Twenty Five - Rescheduling Tasks
 
 PRs:
-* Reschedule task: 
+* Reschedule task: https://github.com/AdamMc331/TOA/pull/132/
+* Reschedule task validation: https://github.com/AdamMc331/TOA/pull/135/
 
 YouTube: Coming Soon. 
+
+## Stream Twenty Six - Undo Rescheduling Tasks
+
+PRs:
+* Undo Rescheduling: https://github.com/AdamMc331/TOA/pull/137/
+* Undo Task Completion: https://github.com/AdamMc331/TOA/pull/138/
+
+YouTube: Coming Soon.

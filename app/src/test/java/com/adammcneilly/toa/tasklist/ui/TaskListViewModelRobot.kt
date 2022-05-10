@@ -65,4 +65,12 @@ class TaskListViewModelRobot {
             Pair(task, date)
         )
     }
+
+    fun showAlertMessage() = apply {
+        viewModel.onAlertMessageShown()
+    }
+
+    fun dismissAlertMessage() = apply {
+        viewModel.viewState.value.alertMessage?.onDismissed?.invoke()
+    }
 }

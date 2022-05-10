@@ -33,4 +33,7 @@
     <string name="no_completed_tasks_label">Tasks you\'ve completed will show up here!</string>
     <string name="no_incomplete_tasks_label">You\'ve accomplished everything for today!</string>
     <string name="no_tasks_scheduled_label">You have nothing scheduled for this day. Make time for yourself.</string>
+    <string name="undo">UNDO</string>
+    <string name="task_rescheduled">Task Rescheduled</string>
+    <string name="task_accomplished">Task Accomplished</string>
 </resources>

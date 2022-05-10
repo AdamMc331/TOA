@@ -21,10 +21,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -38,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
+import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.ui.adaptiveWidth
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
@@ -48,6 +55,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
@@ -64,7 +72,19 @@ fun TaskListContent(
     onNextDateButtonClicked: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
+    onReschedulingCompleted: () -> Unit,
+    onAlertMessageShown: () -> Unit,
 ) {
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
+
+    TaskListSnackbar(
+        alertMessage = viewState.alertMessage,
+        snackbarHostState = snackbarHostState,
+        onAlertMessageShown = onAlertMessageShown,
+    )
+
     Scaffold(
         floatingActionButton = {
             AddTaskButton(
@@ -79,6 +99,9 @@ fun TaskListContent(
                 onNextDateButtonClicked,
             )
         },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
     ) { paddingValues ->
         if (viewState.showTasks) {
             if (
@@ -87,7 +110,7 @@ fun TaskListContent(
             ) {
                 TaskListEmptyState()
             } else {
-                RescheduleTaskDialog(viewState, onTaskRescheduled)
+                RescheduleTaskDialog(viewState, onTaskRescheduled, onReschedulingCompleted)
 
                 TaskList(
                     incompleteTasks = viewState.incompleteTasks.orEmpty(),
@@ -102,15 +125,59 @@ fun TaskListContent(
         }
 
         if (viewState.showLoading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-            ) {
-                Material3CircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center),
+            TaskListLoadingContent()
+        }
+    }
+}
+
+@Composable
+private fun TaskListLoadingContent() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        Material3CircularProgressIndicator(
+            modifier = Modifier
+                .wrapContentSize()
+                .align(Alignment.Center),
+        )
+    }
+}
+
+@Composable
+private fun TaskListSnackbar(
+    alertMessage: AlertMessage?,
+    snackbarHostState: SnackbarHostState,
+    onAlertMessageShown: () -> Unit,
+) {
+    val coroutineScope = rememberCoroutineScope()
+
+    if (alertMessage != null) {
+        val message = alertMessage.message.getString()
+        val actionLabel = alertMessage.actionText?.getString()
+        val duration = when (alertMessage.duration) {
+            AlertMessage.Duration.SHORT -> SnackbarDuration.Short
+            AlertMessage.Duration.LONG -> SnackbarDuration.Long
+            AlertMessage.Duration.INDEFINITE -> SnackbarDuration.Indefinite
+        }
+
+        LaunchedEffect(snackbarHostState) {
+            coroutineScope.launch {
+                val snackbarResult = snackbarHostState.showSnackbar(
+                    message = message,
+                    actionLabel = actionLabel,
+                    duration = duration,
                 )
+
+                when (snackbarResult) {
+                    SnackbarResult.Dismissed -> {
+                        onAlertMessageShown.invoke()
+                        alertMessage.onDismissed.invoke()
+                    }
+                    SnackbarResult.ActionPerformed -> {
+                        alertMessage.onActionClicked.invoke()
+                    }
+                }
             }
         }
     }
@@ -120,6 +187,7 @@ fun TaskListContent(
 private fun RescheduleTaskDialog(
     viewState: TaskListViewState,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
+    onDismissed: () -> Unit,
 ) {
     val rescheduleTaskDatePickerDialogState = rememberMaterialDialogState()
 
@@ -133,8 +201,15 @@ private fun RescheduleTaskDialog(
         dialogState = rescheduleTaskDatePickerDialogState,
         buttons = {
             positiveButton(stringResource(R.string.ok))
-            negativeButton(stringResource(R.string.cancel))
+            negativeButton(
+                text = stringResource(R.string.cancel),
+                onClick = onDismissed,
+            )
         },
+        onCloseRequest = { dialogState ->
+            onDismissed.invoke()
+            dialogState.hide()
+        }
     ) {
         this.datepicker(
             initialDate = viewState.selectedDate,
@@ -374,6 +449,8 @@ private fun TaskListContentPreview(
             onDateSelected = {},
             onTaskRescheduled = { _, _ ->
             },
+            onReschedulingCompleted = {},
+            onAlertMessageShown = {},
         )
     }
 }
