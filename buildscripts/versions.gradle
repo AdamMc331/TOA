@@ -35,7 +35,7 @@ ext {
             // https://developer.android.com/jetpack/androidx/releases/navigation
             composeNavigation    : "2.4.2",
             // https://developer.android.com/jetpack/androidx/releases/room
-            room                 : "2.4.1",
+            room                 : "2.4.2",
             lint                 : "27.1.2",
             // https://developer.android.com/jetpack/androidx/releases/window
             windowManager        : "1.0.0",
