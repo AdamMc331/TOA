@@ -35,4 +35,5 @@
     <string name="no_tasks_scheduled_label">You have nothing scheduled for this day. Make time for yourself.</string>
     <string name="undo">UNDO</string>
     <string name="task_rescheduled">Task Rescheduled</string>
+    <string name="task_accomplished">Task Accomplished</string>
 </resources>

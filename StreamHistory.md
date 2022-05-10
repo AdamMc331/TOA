@@ -459,5 +459,6 @@ YouTube: Coming Soon.
 
 PRs:
 * Undo Rescheduling: 
+* Undo Task Completion: 
 
 YouTube: Coming Soon.
