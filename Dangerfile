@@ -16,7 +16,7 @@ if git.deletions > git.insertions
     message  "🎉 Code Cleanup!"
 end
 
-if !git.modified_files.include?("StreamHistory.md")
+if !git.modified_files.include?("StreamHistory.md") && github.branch_for_head != "version_bumps"
     fail "Please update StreamHistory.md with relevant information."
 end
 
