@@ -456,7 +456,9 @@ PRs:
 * Reschedule task: https://github.com/AdamMc331/TOA/pull/132/
 * Reschedule task validation: https://github.com/AdamMc331/TOA/pull/135/
 
-YouTube: Coming Soon. 
+YouTube: 
+* Reschedule task: https://youtu.be/B1A7APVIjcU
+* Reschedule task validation: https://youtu.be/UdSj72A72FY
 
 ## Stream Twenty Six - Undo Rescheduling Tasks
 
@@ -464,4 +466,4 @@ PRs:
 * Undo Rescheduling: https://github.com/AdamMc331/TOA/pull/137/
 * Undo Task Completion: https://github.com/AdamMc331/TOA/pull/138/
 
-YouTube: Coming Soon.
+YouTube: https://youtu.be/HWpBt7UNysY
