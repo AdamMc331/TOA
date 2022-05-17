@@ -122,6 +122,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$rootProject.ext.versions.room"
     implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
     implementation "androidx.window:window:$rootProject.ext.versions.windowManager"
+    implementation "androidx.glance:glance-appwidget:$rootProject.ext.versions.glance"
     ksp "androidx.room:room-compiler:$rootProject.ext.versions.room"
     ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
