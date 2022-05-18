@@ -467,3 +467,11 @@ PRs:
 * Undo Task Completion: https://github.com/AdamMc331/TOA/pull/138/
 
 YouTube: https://youtu.be/HWpBt7UNysY
+
+## Stream Twenty Seven - Architecture Refactor
+
+PRs:
+* Architecture docs:
+
+YouTube:
+* Coming Soon

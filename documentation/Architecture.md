@@ -18,9 +18,25 @@ Repositories should not be responsible for any data manipulation of a response. 
 
 We were inspired to leverage the idea of Use Cases thanks to [this blog post](https://proandroiddev.com/why-you-need-use-cases-interactors-142e8a6fe576).
 
-The purpose of a use case is to perform any specific action that occurs on a screen. This could be fetching or submitting data, filtering items, etc. Domain specific business like this deserves its own component in the application's architecture.
+The purpose of a use case is to perform any specific action that occurs on a screen. This could be fetching or submitting data, filtering items, etc. Domain specific business logic like this deserves its own component in the application's architecture.
 
 A repository is only responsible for requesting and receiving data. A ViewModel is only responsible for taking the results of an action, and mapping it into a ViewState. The use case is responsible for whatever happens in between - consuming responses from data requests, and mapping that into a relevant result for the ViewModel to handle.
+
+### When To Use Use Cases
+
+In general, adding a use case adds an extra layer of complexity to a screen that may not always be warranted. We prefer to have our ViewModels depend directly on a repository. If a piece of business logic does more than just request from our repository (such as data manipulation or input validation), or needs to combine data from multiple repositories, moving this logic into a use case can help with organization and testing.
+
+### Use Case Interfaces
+
+In some implementations, we often see use cases backed by an interface, like so:
+
+```kotlin
+interface MarkTaskAsCompleteUseCase { }
+
+class MarkTaskAsCompleteUseCaseImpl : MarkTaskAsCompleteUseCase { } 
+```
+
+While this approach can be beneficial for testing, in general this just adds even more complexity. Use cases should be made as their own individual class so that in our tests we can test the full integration between view models and their use cases. Interfaces should only be added for truly complex use cases that we may have difficulty writing full integration tests for. 
 
 ## ViewModel
 
