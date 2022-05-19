@@ -7,8 +7,8 @@ import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
+import com.adammcneilly.toa.task.api.TaskRepository
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
-import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.RescheduleTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,8 +29,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
     private val getTasksForDateUseCase: GetTasksForDateUseCase,
-    private val markTaskAsCompleteUseCase: MarkTaskAsCompleteUseCase,
     private val rescheduleTaskUseCase: RescheduleTaskUseCase,
+    private val taskRepository: TaskRepository,
 ) : ViewModel() {
     private val _viewState = MutableStateFlow(TaskListViewState())
     val viewState = _viewState.asStateFlow()
@@ -104,7 +104,7 @@ class TaskListViewModel @Inject constructor(
      * When the done button is clicked, we will render an alert message that states a task has
      * been accomplished, but it provides an undo button to revert this action. We show a temporary
      * state, that indicates the task is done, but we don't actually commit anything to the
-     * [markTaskAsCompleteUseCase] until the message is dismissed.
+     * [taskRepository] until the message is dismissed.
      */
     fun onDoneButtonClicked(task: Task) {
         val taskAccomplishedAlertMessage = AlertMessage(
@@ -129,7 +129,11 @@ class TaskListViewModel @Inject constructor(
             onDismissed = {
                 viewModelScope.launch {
                     viewModelScope.launch {
-                        markTaskAsCompleteUseCase.invoke(task)
+                        val updatedTask = task.copy(
+                            completed = true,
+                        )
+
+                        taskRepository.updateTask(updatedTask)
                     }
 
                     _viewState.update {
