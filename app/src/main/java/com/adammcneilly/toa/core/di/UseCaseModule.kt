@@ -2,8 +2,6 @@ package com.adammcneilly.toa.core.di
 
 import com.adammcneilly.toa.addtask.domain.usecases.AddTaskUseCase
 import com.adammcneilly.toa.addtask.domain.usecases.ProdAddTaskUseCase
-import com.adammcneilly.toa.login.domain.usecase.CredentialsLoginUseCase
-import com.adammcneilly.toa.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
@@ -26,11 +24,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class UseCaseModule {
-
-    @Binds
-    abstract fun bindCredentialsLoginUseCase(
-        credentialsLoginUseCase: ProdCredentialsLoginUseCase,
-    ): CredentialsLoginUseCase
 
     @Binds
     abstract fun bindGetAllTasksUseCase(
