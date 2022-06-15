@@ -55,7 +55,7 @@ class ProdCredentialsLoginUseCaseTest {
             tokenRepository = tokenRepository.mock,
         )
 
-        val result = useCase(defaultCredentials)
+        val result = useCase.login(defaultCredentials)
         assertThat(result).isEqualTo(LoginResult.Success)
         tokenRepository.verifyTokenStored(defaultToken)
     }
@@ -76,7 +76,7 @@ class ProdCredentialsLoginUseCaseTest {
             tokenRepository = tokenRepository.mock,
         )
 
-        val result = useCase(defaultCredentials)
+        val result = useCase.login(defaultCredentials)
         assertThat(result).isEqualTo(LoginResult.Failure.Unknown)
         tokenRepository.verifyNoTokenStored()
     }
@@ -97,7 +97,7 @@ class ProdCredentialsLoginUseCaseTest {
             tokenRepository = tokenRepository.mock,
         )
 
-        val result = useCase(defaultCredentials)
+        val result = useCase.login(defaultCredentials)
         assertThat(result).isEqualTo(LoginResult.Failure.InvalidCredentials)
         tokenRepository.verifyNoTokenStored()
     }
@@ -111,7 +111,7 @@ class ProdCredentialsLoginUseCaseTest {
             tokenRepository = tokenRepository.mock,
         )
 
-        val result = useCase(emptyCredentials)
+        val result = useCase.login(emptyCredentials)
         assertThat(result).isEqualTo(
             LoginResult.Failure.EmptyCredentials(
                 emptyEmail = true,

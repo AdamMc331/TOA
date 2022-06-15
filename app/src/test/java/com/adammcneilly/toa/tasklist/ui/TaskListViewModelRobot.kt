@@ -5,7 +5,6 @@ import com.adammcneilly.toa.fakes.FakeGetTasksForDateUseCase
 import com.adammcneilly.toa.fakes.FakeRescheduleTaskUseCase
 import com.adammcneilly.toa.task.api.TaskListResult
 import com.adammcneilly.toa.task.api.test.FakeTaskRepository
-import com.adammcneilly.toa.tasklist.domain.usecases.ProdMarkTaskAsCompleteUseCase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
@@ -19,9 +18,7 @@ class TaskListViewModelRobot {
     fun buildViewModel() = apply {
         viewModel = TaskListViewModel(
             getTasksForDateUseCase = fakeGetTasksForDateUseCase,
-            markTaskAsCompleteUseCase = ProdMarkTaskAsCompleteUseCase(
-                taskRepository = fakeTaskRepository,
-            ),
+            taskRepository = fakeTaskRepository,
             rescheduleTaskUseCase = fakeRescheduleTaskUseCase,
         )
     }

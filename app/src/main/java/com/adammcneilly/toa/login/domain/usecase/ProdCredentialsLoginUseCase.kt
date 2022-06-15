@@ -9,15 +9,16 @@ import com.adammcneilly.toa.login.domain.repository.TokenRepository
 import javax.inject.Inject
 
 /**
- * A concrete implementation of a [CredentialsLoginUseCase] that will request logging in
- * via the [loginRepository].
+ * The [ProdCredentialsLoginUseCase] is used to login a user with a given set of credentials.
+ * We will login via the supplied [loginRepository], and store the retrieved auth information inside
+ * our [tokenRepository].
  */
 class ProdCredentialsLoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val tokenRepository: TokenRepository,
-) : CredentialsLoginUseCase {
+) {
 
-    override suspend fun invoke(credentials: Credentials): LoginResult {
+    suspend fun login(credentials: Credentials): LoginResult {
         val validationResult = validateCredentials(credentials)
 
         if (validationResult != null) {

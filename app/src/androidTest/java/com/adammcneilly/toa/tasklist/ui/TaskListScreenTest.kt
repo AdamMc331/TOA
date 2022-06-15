@@ -9,8 +9,8 @@ import com.adammcneilly.toa.destinations.AddTaskDialogDestination
 import com.adammcneilly.toa.destinations.AddTaskScreenDestination
 import com.adammcneilly.toa.fakes.FakeDestinationsNavigator
 import com.adammcneilly.toa.fakes.FakeGetTasksForDateUseCase
-import com.adammcneilly.toa.fakes.FakeMarkTaskAsCompleteUseCase
 import com.adammcneilly.toa.fakes.FakeRescheduleTaskUseCase
+import com.adammcneilly.toa.fakes.FakeTaskRepository
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +23,7 @@ class TaskListScreenTest {
     @Test
     fun navigateToAddTaskForCompactWindowSize() {
         val getTasksForDateUseCase = FakeGetTasksForDateUseCase()
-        val markTaskAsCompleteUseCase = FakeMarkTaskAsCompleteUseCase()
+        val taskRepository = FakeTaskRepository()
         val rescheduleTaskUseCase = FakeRescheduleTaskUseCase()
 
         getTasksForDateUseCase.mockResultForDate(
@@ -38,7 +38,7 @@ class TaskListScreenTest {
 
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
-            markTaskAsCompleteUseCase = markTaskAsCompleteUseCase,
+            taskRepository = taskRepository,
             rescheduleTaskUseCase = rescheduleTaskUseCase,
         )
 
@@ -70,7 +70,7 @@ class TaskListScreenTest {
     @Test
     fun navigateToAddTaskForExpandedWindowSize() {
         val getTasksForDateUseCase = FakeGetTasksForDateUseCase()
-        val markTaskAsCompleteUseCase = FakeMarkTaskAsCompleteUseCase()
+        val taskRepository = FakeTaskRepository()
         val rescheduleTaskUseCase = FakeRescheduleTaskUseCase()
 
         getTasksForDateUseCase.mockResultForDate(
@@ -80,7 +80,7 @@ class TaskListScreenTest {
 
         val viewModel = TaskListViewModel(
             getTasksForDateUseCase = getTasksForDateUseCase,
-            markTaskAsCompleteUseCase = markTaskAsCompleteUseCase,
+            taskRepository = taskRepository,
             rescheduleTaskUseCase = rescheduleTaskUseCase,
         )
 

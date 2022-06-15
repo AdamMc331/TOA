@@ -2,14 +2,10 @@ package com.adammcneilly.toa.core.di
 
 import com.adammcneilly.toa.addtask.domain.usecases.AddTaskUseCase
 import com.adammcneilly.toa.addtask.domain.usecases.ProdAddTaskUseCase
-import com.adammcneilly.toa.login.domain.usecase.CredentialsLoginUseCase
-import com.adammcneilly.toa.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.GetAllTasksUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
-import com.adammcneilly.toa.tasklist.domain.usecases.MarkTaskAsCompleteUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetAllTasksUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdGetTasksForDateUseCase
-import com.adammcneilly.toa.tasklist.domain.usecases.ProdMarkTaskAsCompleteUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.ProdRescheduleTaskUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.RescheduleTaskUseCase
 import dagger.Binds
@@ -28,11 +24,6 @@ import dagger.hilt.components.SingletonComponent
 abstract class UseCaseModule {
 
     @Binds
-    abstract fun bindCredentialsLoginUseCase(
-        credentialsLoginUseCase: ProdCredentialsLoginUseCase,
-    ): CredentialsLoginUseCase
-
-    @Binds
     abstract fun bindGetAllTasksUseCase(
         getAllTasksUseCase: ProdGetAllTasksUseCase,
     ): GetAllTasksUseCase
@@ -46,11 +37,6 @@ abstract class UseCaseModule {
     abstract fun bindGetTasksForDateUseCase(
         getTasksForDateUseCase: ProdGetTasksForDateUseCase,
     ): GetTasksForDateUseCase
-
-    @Binds
-    abstract fun bindMarkTaskAsCompleteUseCase(
-        markTaskAsCompleteUseCase: ProdMarkTaskAsCompleteUseCase,
-    ): MarkTaskAsCompleteUseCase
 
     @Binds
     abstract fun bindRescheduleTaskUseCase(

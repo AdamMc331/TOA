@@ -1,27 +1,39 @@
 package com.adammcneilly.toa.login.ui
 
 import app.cash.turbine.test
-import com.adammcneilly.toa.fakes.FakeCredentialsLoginUseCase
+import com.adammcneilly.toa.core.data.Result
+import com.adammcneilly.toa.fakes.FakeLoginRepository
+import com.adammcneilly.toa.fakes.FakeTokenRepository
 import com.adammcneilly.toa.login.domain.model.Credentials
-import com.adammcneilly.toa.login.domain.model.LoginResult
+import com.adammcneilly.toa.login.domain.model.LoginResponse
+import com.adammcneilly.toa.login.domain.usecase.ProdCredentialsLoginUseCase
 import com.google.common.truth.Truth.assertThat
 
 class LoginViewModelRobot {
-    private val fakeCredentialsLoginUseCase = FakeCredentialsLoginUseCase()
+    private val fakeLoginRepository = FakeLoginRepository()
+    private val fakeTokenRepository = FakeTokenRepository()
+
+    private val credentialsLoginUseCase = ProdCredentialsLoginUseCase(
+        loginRepository = fakeLoginRepository.mock,
+        tokenRepository = fakeTokenRepository.mock,
+    )
 
     private lateinit var viewModel: LoginViewModel
 
     fun buildViewModel() = apply {
         viewModel = LoginViewModel(
-            credentialsLoginUseCase = fakeCredentialsLoginUseCase.mock,
+            credentialsLoginUseCase = credentialsLoginUseCase,
         )
     }
 
     fun mockLoginResultForCredentials(
         credentials: Credentials,
-        result: LoginResult,
+        result: Result<LoginResponse>,
     ) = apply {
-        fakeCredentialsLoginUseCase.mockLoginResultForCredentials(credentials, result)
+        fakeLoginRepository.mockLoginWithCredentials(
+            credentials,
+            result,
+        )
     }
 
     fun enterEmail(email: String) = apply {

@@ -3,10 +3,11 @@ package com.adammcneilly.toa.login.ui
 import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.ThreadExceptionHandlerTestRule
+import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.Email
-import com.adammcneilly.toa.login.domain.model.LoginResult
+import com.adammcneilly.toa.login.domain.model.InvalidCredentialsException
 import com.adammcneilly.toa.login.domain.model.Password
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -93,7 +94,7 @@ class LoginViewModelTest {
             .buildViewModel()
             .mockLoginResultForCredentials(
                 credentials = completedCredentials,
-                result = LoginResult.Failure.InvalidCredentials,
+                result = Result.Error(InvalidCredentialsException()),
             )
             .expectViewStates(
                 action = {
@@ -141,7 +142,9 @@ class LoginViewModelTest {
             .buildViewModel()
             .mockLoginResultForCredentials(
                 credentials = completedCredentials,
-                result = LoginResult.Failure.Unknown,
+                result = Result.Error(
+                    Throwable("Failed."),
+                ),
             )
             .expectViewStates(
                 action = {
@@ -169,13 +172,6 @@ class LoginViewModelTest {
 
         testRobot
             .buildViewModel()
-            .mockLoginResultForCredentials(
-                credentials = credentials,
-                result = LoginResult.Failure.EmptyCredentials(
-                    emptyEmail = true,
-                    emptyPassword = true,
-                )
-            )
             .expectViewStates(
                 action = {
                     clickLogInButton()
@@ -212,13 +208,6 @@ class LoginViewModelTest {
 
         testRobot
             .buildViewModel()
-            .mockLoginResultForCredentials(
-                credentials = credentials,
-                result = LoginResult.Failure.EmptyCredentials(
-                    emptyEmail = true,
-                    emptyPassword = true,
-                )
-            )
             .expectViewStates(
                 action = {
                     clickLogInButton()
