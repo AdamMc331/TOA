@@ -1,6 +1,8 @@
 package com.adammcneilly.toa
 
 import android.os.Bundle
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -41,6 +43,26 @@ class MainActivity : FragmentActivity() {
     @OptIn(ExperimentalMaterialNavigationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set up an OnPreDrawListener to the root view.
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    val currentSessionState = sessionViewModel.sessionState.value
+                    val isInitializing = currentSessionState == SessionState.UNINITIALIZED
+
+                    return if (isInitializing) {
+                        // We don't have data yet, don't draw anything.
+                        false
+                    } else {
+                        // we're ready, start drawing
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    }
+                }
+            }
+        )
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
