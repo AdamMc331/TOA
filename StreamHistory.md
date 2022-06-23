@@ -475,3 +475,17 @@ PRs:
 
 YouTube:
 * Coming Soon
+
+## Stream Twenty Eight - Splash Screen API
+
+In this stream we hooked into the Splash Screen API to have the Android 12 splash screen stay visible until we had the logged in state information.
+
+PRs:
+* Splash Screen:
+
+YouTube:
+* Coming Soon. 
+
+Resources:
+* Splash screen docs: https://developer.android.com/guide/topics/ui/splash-screen
+* Splash screen guide: https://itnext.io/a-comprehensive-guide-to-android-12s-splash-screen-api-644609c811fa
