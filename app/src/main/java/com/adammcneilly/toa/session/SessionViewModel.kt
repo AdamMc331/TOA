@@ -6,9 +6,7 @@ import com.adammcneilly.toa.login.domain.repository.TokenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,25 +20,26 @@ class SessionViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getSessionStateFromLoggedInStatus()
+            getInitialSessionState()
         }
     }
 
-    private fun getSessionStateFromLoggedInStatus() {
-        tokenRepository
-            .observeToken()
-            .map { token ->
-                if (token == null) {
-                    SessionState.LOGGED_OUT
-                } else {
-                    SessionState.LOGGED_IN
-                }
-            }
-            .onEach { newSessionState ->
-                _sessionState.update {
-                    newSessionState
-                }
-            }
-            .launchIn(viewModelScope)
+    /**
+     * While we have the ability to observe our logged in status,
+     * in this instance we just want to retrieve the current status, so that we can
+     * determine how to render our MainActivity initially.
+     */
+    private suspend fun getInitialSessionState() {
+        val isLoggedIn = tokenRepository.observeToken().first() != null
+
+        val newSessionState = if (isLoggedIn) {
+            SessionState.LOGGED_IN
+        } else {
+            SessionState.LOGGED_OUT
+        }
+
+        _sessionState.update {
+            newSessionState
+        }
     }
 }
