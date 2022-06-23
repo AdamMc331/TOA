@@ -16,6 +16,11 @@ interface TokenRepository {
     )
 
     /**
+     * Clear any cached authentication token.
+     */
+    suspend fun clearToken()
+
+    /**
      * Fetches the token of the signed is user, if we have one saved.
      *
      * @return The token or null if not found.

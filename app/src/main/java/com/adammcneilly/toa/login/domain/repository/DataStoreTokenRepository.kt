@@ -27,6 +27,12 @@ class DataStoreTokenRepository @Inject constructor(
         }
     }
 
+    override suspend fun clearToken() {
+        tokenDataStore.updateData { dataStoreToken ->
+            dataStoreToken.defaultInstanceForType
+        }
+    }
+
     override fun observeToken(): Flow<Token?> {
         return tokenDataStore.data
             .map { dataStoreToken ->
