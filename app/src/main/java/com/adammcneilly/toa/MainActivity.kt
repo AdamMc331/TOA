@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalMaterialNavigationApi::class)
+
 package com.adammcneilly.toa
 
+import android.R
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
@@ -17,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
+import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.core.ui.rememberWindowSizeClass
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.destinations.LoginScreenDestination
@@ -40,12 +44,71 @@ class MainActivity : FragmentActivity() {
 
     private val sessionViewModel: SessionViewModel by viewModels()
 
-    @OptIn(ExperimentalMaterialNavigationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Set up an OnPreDrawListener to the root view.
-        val content: View = findViewById(android.R.id.content)
+        keepSplashScreenVisibleWhileInitializing()
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        setContent {
+            val windowSize = rememberWindowSizeClass()
+
+            TOATheme {
+                ConfigureSystemBars()
+
+                ProvideWindowInsets {
+                    Surface(
+                        color = MaterialTheme.colorScheme.background,
+                    ) {
+                        val sessionState = sessionViewModel.sessionState.collectAsState()
+
+                        val startRoute: Route? = when (sessionState.value) {
+                            SessionState.UNINITIALIZED -> null
+                            SessionState.LOGGED_IN -> TaskListScreenDestination
+                            SessionState.LOGGED_OUT -> LoginScreenDestination
+                        }
+
+                        if (startRoute != null) {
+                            TOANavHost(startRoute, windowSize)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun TOANavHost(
+        startRoute: Route,
+        windowSize: WindowSize,
+    ) {
+        DestinationsNavHost(
+            startRoute = startRoute,
+            navGraph = NavGraphs.root,
+            engine = rememberAnimatedNavHostEngine(
+                rootDefaultAnimations = RootNavGraphDefaultAnimations(
+                    enterTransition = {
+                        slideInHorizontally()
+                    },
+                    exitTransition = {
+                        fadeOut()
+                    },
+                ),
+            ),
+            manualComposableCallsBuilder = {
+                composable(TaskListScreenDestination) {
+                    TaskListScreen(
+                        navigator = destinationsNavigator,
+                        windowSize = windowSize,
+                    )
+                }
+            }
+        )
+    }
+
+    private fun keepSplashScreenVisibleWhileInitializing() {
+        val content: View = findViewById(R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
@@ -63,56 +126,6 @@ class MainActivity : FragmentActivity() {
                 }
             }
         )
-
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        setContent {
-            val windowSize = rememberWindowSizeClass()
-
-            TOATheme {
-                ConfigureSystemBars()
-
-                ProvideWindowInsets {
-                    Surface(
-                        color = MaterialTheme.colorScheme.background,
-                    ) {
-
-                        val sessionState = sessionViewModel.sessionState.collectAsState()
-
-                        val startRoute: Route? = when (sessionState.value) {
-                            SessionState.UNINITIALIZED -> null
-                            SessionState.LOGGED_IN -> TaskListScreenDestination
-                            SessionState.LOGGED_OUT -> LoginScreenDestination
-                        }
-
-                        if (startRoute != null) {
-                            DestinationsNavHost(
-                                startRoute = startRoute,
-                                navGraph = NavGraphs.root,
-                                engine = rememberAnimatedNavHostEngine(
-                                    rootDefaultAnimations = RootNavGraphDefaultAnimations(
-                                        enterTransition = {
-                                            slideInHorizontally()
-                                        },
-                                        exitTransition = {
-                                            fadeOut()
-                                        },
-                                    ),
-                                ),
-                                manualComposableCallsBuilder = {
-                                    composable(TaskListScreenDestination) {
-                                        TaskListScreen(
-                                            navigator = destinationsNavigator,
-                                            windowSize = windowSize,
-                                        )
-                                    }
-                                }
-                            )
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Composable
