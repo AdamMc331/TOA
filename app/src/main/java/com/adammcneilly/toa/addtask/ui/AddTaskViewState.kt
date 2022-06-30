@@ -36,10 +36,16 @@ sealed class AddTaskViewState(
         inputsEnabled = false,
     )
 
+    /**
+     * @param[allowRetry] If true, this signifies the submission error can be overridden
+     * and the user can click submit anyways. This will be used in situations like
+     * the user reaching their preferred task limit.
+     */
     data class SubmissionError(
         override val taskInput: TaskInput,
         val errorMessage: UIText,
         val overrideButtonText: UIText? = null,
+        val allowRetry: Boolean = false,
     ) : AddTaskViewState(
         taskInput = taskInput,
     )

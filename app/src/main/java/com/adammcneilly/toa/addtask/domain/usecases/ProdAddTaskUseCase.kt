@@ -16,7 +16,10 @@ class ProdAddTaskUseCase @Inject constructor(
     private val userPreferences: UserPreferences,
 ) : AddTaskUseCase {
 
-    override suspend fun invoke(task: Task): AddTaskResult {
+    override suspend fun invoke(
+        task: Task,
+        ignoreTaskLimits: Boolean,
+    ): AddTaskResult {
         // Just for testing
         userPreferences.setPreferredNumTasksPerDay(3)
 
@@ -30,10 +33,12 @@ class ProdAddTaskUseCase @Inject constructor(
             return validationResult
         }
 
-        val preferenceCheckResult = ensureNumTasksWithinPreferences(task, taskRepository, userPreferences)
+        if (!ignoreTaskLimits) {
+            val preferenceCheckResult = ensureNumTasksWithinPreferences(task, taskRepository, userPreferences)
 
-        if (preferenceCheckResult != null) {
-            return preferenceCheckResult
+            if (preferenceCheckResult != null) {
+                return preferenceCheckResult
+            }
         }
 
         val result = taskRepository.addTask(sanitizedTask)

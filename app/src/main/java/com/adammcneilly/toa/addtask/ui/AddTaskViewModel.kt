@@ -82,7 +82,12 @@ class AddTaskViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            val result = addTaskUseCase.invoke(taskToCreate)
+            val canRetry = (_viewState.value as? AddTaskViewState.SubmissionError)?.allowRetry
+
+            val result = addTaskUseCase.invoke(
+                task = taskToCreate,
+                ignoreTaskLimits = canRetry == true,
+            )
 
             _viewState.value = when (result) {
                 is AddTaskResult.Success -> {
@@ -98,6 +103,7 @@ class AddTaskViewModel @Inject constructor(
                         taskInput = _viewState.value.taskInput,
                         errorMessage = UIText.StringText("You already have a lot going on this day. Would you like to schedule this for another day?"),
                         overrideButtonText = UIText.ResourceText(R.string.that_is_okay),
+                        allowRetry = true,
                     )
                 }
                 is AddTaskResult.Failure.Unknown -> {

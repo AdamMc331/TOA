@@ -14,7 +14,7 @@ class FakeAddTaskUseCase {
         result: AddTaskResult
     ) {
         coEvery {
-            mock.invoke(any())
+            mock.invoke(any(), any())
         } returns result
     }
 }

@@ -42,7 +42,10 @@ class ProdAddTaskUseCaseTest {
             scheduledDateInPast = false,
         )
 
-        val actualResult = useCase.invoke(taskToSubmit)
+        val actualResult = useCase.invoke(
+            task = taskToSubmit,
+            ignoreTaskLimits = false,
+        )
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -62,7 +65,10 @@ class ProdAddTaskUseCaseTest {
             scheduledDateInPast = false,
         )
 
-        val actualResult = useCase.invoke(taskToSubmit)
+        val actualResult = useCase.invoke(
+            task = taskToSubmit,
+            ignoreTaskLimits = false,
+        )
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -84,7 +90,10 @@ class ProdAddTaskUseCaseTest {
             scheduledDateInPast = true,
         )
 
-        val actualResult = useCase.invoke(taskToSubmit)
+        val actualResult = useCase.invoke(
+            task = taskToSubmit,
+            ignoreTaskLimits = false,
+        )
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -106,7 +115,10 @@ class ProdAddTaskUseCaseTest {
         fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
 
         val expectedResult = AddTaskResult.Success
-        val actualResult = useCase.invoke(inputTask)
+        val actualResult = useCase.invoke(
+            task = inputTask,
+            ignoreTaskLimits = false,
+        )
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -128,7 +140,10 @@ class ProdAddTaskUseCaseTest {
         fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
 
         val expectedResult = AddTaskResult.Success
-        val actualResult = useCase.invoke(inputTask)
+        val actualResult = useCase.invoke(
+            task = inputTask,
+            ignoreTaskLimits = false,
+        )
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -154,7 +169,44 @@ class ProdAddTaskUseCaseTest {
 
         val expectedResult = AddTaskResult.Failure.MaxTasksPerDayExceeded
 
-        val actualResult = useCase.invoke(inputTask)
+        val actualResult = useCase.invoke(
+            task = inputTask,
+            ignoreTaskLimits = false,
+        )
+        assertThat(actualResult).isEqualTo(expectedResult)
+    }
+
+    @Test
+    fun submitWithIgnoringPreferenceLimit() = runTest {
+        val today = ZonedDateTime.now()
+            .toInstant()
+            .toEpochMilli()
+
+        // For sake of testing, lol
+        userPreferences.setPreferredNumTasksPerDay(0)
+
+        // Mock an empty task list for this date.
+        fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
+            flowOf(Result.Success(emptyList()))
+
+        val inputTask = Task(
+            id = "Some ID",
+            description = "   Testing",
+            scheduledDateMillis = today,
+            completed = false,
+        )
+
+        val expectedSavedTask = inputTask.copy(
+            description = "Testing",
+        )
+
+        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
+
+        val expectedResult = AddTaskResult.Success
+        val actualResult = useCase.invoke(
+            task = inputTask,
+            ignoreTaskLimits = true,
+        )
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 }
