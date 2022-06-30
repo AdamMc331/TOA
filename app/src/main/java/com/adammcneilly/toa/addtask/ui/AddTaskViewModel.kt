@@ -93,6 +93,12 @@ class AddTaskViewModel @Inject constructor(
                         taskInput = _viewState.value.taskInput,
                     )
                 }
+                is AddTaskResult.Failure.MaxTasksPerDayExceeded -> {
+                    AddTaskViewState.SubmissionError(
+                        taskInput = _viewState.value.taskInput,
+                        errorMessage = UIText.StringText("You already have a lot going on this day. Would you like to schedule this for another day?"),
+                    )
+                }
                 is AddTaskResult.Failure.Unknown -> {
                     AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,

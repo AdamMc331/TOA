@@ -1,12 +1,13 @@
 package com.adammcneilly.toa.preferences
 
 import android.content.SharedPreferences
+import javax.inject.Inject
 
 /**
  * An implementation of our [Preferences] that reads and writes
  * data from the supplied [sharedPreferences].
  */
-class AndroidPreferences(
+class AndroidPreferences @Inject constructor(
     private val sharedPreferences: SharedPreferences,
 ) : Preferences {
 

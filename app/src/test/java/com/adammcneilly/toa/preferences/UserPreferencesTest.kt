@@ -1,13 +1,12 @@
 package com.adammcneilly.toa.preferences
 
-import com.adammcneilly.toa.fakes.FakePreferences
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
 class UserPreferencesTest {
-    private val fakePreferences = FakePreferences()
+    private val fakePreferences = com.adammcneilly.toa.fakes.FakePreferences()
     private lateinit var userPreferences: UserPreferences
 
     @Before

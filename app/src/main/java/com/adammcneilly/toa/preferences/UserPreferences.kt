@@ -1,10 +1,12 @@
 package com.adammcneilly.toa.preferences
 
+import javax.inject.Inject
+
 /**
  * This class maintains the data contract to read and write
  * specific local preferences for using the TOA application.
  */
-class UserPreferences(
+class UserPreferences @Inject constructor(
     private val preferences: Preferences,
 ) {
 
