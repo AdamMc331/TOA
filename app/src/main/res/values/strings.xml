@@ -36,4 +36,5 @@
     <string name="undo">UNDO</string>
     <string name="task_rescheduled">Task Rescheduled</string>
     <string name="task_accomplished">Task Accomplished</string>
+    <string name="that_is_okay">That\'s Okay</string>
 </resources>

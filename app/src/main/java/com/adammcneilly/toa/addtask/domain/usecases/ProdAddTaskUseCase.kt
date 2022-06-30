@@ -17,6 +17,9 @@ class ProdAddTaskUseCase @Inject constructor(
 ) : AddTaskUseCase {
 
     override suspend fun invoke(task: Task): AddTaskResult {
+        // Just for testing
+        userPreferences.setPreferredNumTasksPerDay(3)
+
         val sanitizedTask = task.copy(
             description = task.description.trim(),
         )

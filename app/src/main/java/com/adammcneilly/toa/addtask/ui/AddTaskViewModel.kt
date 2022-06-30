@@ -97,6 +97,7 @@ class AddTaskViewModel @Inject constructor(
                     AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,
                         errorMessage = UIText.StringText("You already have a lot going on this day. Would you like to schedule this for another day?"),
+                        overrideButtonText = UIText.ResourceText(R.string.that_is_okay),
                     )
                 }
                 is AddTaskResult.Failure.Unknown -> {
