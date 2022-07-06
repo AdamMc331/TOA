@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
+      <module name="TasksOfAffirmation.android-ui-components" target="11" />
       <module name="TasksOfAffirmation.app" target="11" />
       <module name="TasksOfAffirmation.core-data" target="11" />
       <module name="TasksOfAffirmation.core-models" target="11" />
