@@ -16,13 +16,11 @@ class ProdAddTaskUseCase @Inject constructor(
     private val userPreferences: UserPreferences,
 ) : AddTaskUseCase {
 
+    @Suppress("ReturnCount")
     override suspend fun invoke(
         task: Task,
         ignoreTaskLimits: Boolean,
     ): AddTaskResult {
-        // Just for testing
-        userPreferences.setPreferredNumTasksPerDay(3)
-
         val sanitizedTask = task.copy(
             description = task.description.trim(),
         )

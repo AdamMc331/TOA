@@ -101,7 +101,7 @@ class AddTaskViewModel @Inject constructor(
                 is AddTaskResult.Failure.MaxTasksPerDayExceeded -> {
                     AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,
-                        errorMessage = UIText.StringText("You already have a lot going on this day. Would you like to schedule this for another day?"),
+                        errorMessage = UIText.StringText(R.string.err_add_task_limit_reached),
                         overrideButtonText = UIText.ResourceText(R.string.that_is_okay),
                         allowRetry = true,
                     )
