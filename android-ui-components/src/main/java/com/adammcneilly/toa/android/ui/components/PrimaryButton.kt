@@ -18,9 +18,9 @@ import androidx.compose.ui.unit.dp
  * @param[text] The text inside the button.
  * @param[onClick] A callback invoked when the user clicks the button.
  * @param[modifier] An optional [Modifier] to configure this component.
- * @param[containerColor] The color of the button in an enabled state.
  */
 @Composable
+@Suppress("MagicNumber")
 fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
