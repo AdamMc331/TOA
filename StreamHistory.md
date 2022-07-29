@@ -34,6 +34,9 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Twenty Four - Small Feature Development](#stream-twenty-four---small-feature-development)
 * [Stream Twenty Five - Rescheduling Tasks](#stream-twenty-five---rescheduling-tasks)
 * [Stream Twenty Six - Undo Rescheduling Tasks](#stream-twenty-six---undo-rescheduling-tasks)
+* [Stream Twenty Seven - Architecture Refactor](#stream-twenty-seven---architecture-refactor)
+* [Stream Twenty Eight - Splash Screen API](#stream-twenty-eight---splash-screen-api)
+* [Stream Twenty Nine - Preferred Tasks Per Day](#stream-twenty-nine---preferred-tasks-per-day)
 </details>
 
 <details>
@@ -489,3 +492,13 @@ YouTube:
 Resources:
 * Splash screen docs: https://developer.android.com/guide/topics/ui/splash-screen
 * Splash screen guide: https://itnext.io/a-comprehensive-guide-to-android-12s-splash-screen-api-644609c811fa
+
+## Stream Twenty Nine - Preferred Tasks Per Day
+
+PRs:
+
+* Preferred tasks data layer: https://github.com/AdamMc331/TOA/pull/144
+
+YouTube:
+
+* Coming Soon.
