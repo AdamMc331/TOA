@@ -1,6 +1,7 @@
 package com.adammcneilly.toa.core.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.adammcneilly.toa.core.data.local.TOADatabase
 import com.adammcneilly.toa.core.data.local.TaskDAO
@@ -30,5 +31,16 @@ object DataModule {
         database: TOADatabase,
     ): TaskDAO {
         return database.taskDao()
+    }
+
+    @Provides
+    fun provideSharedPreferences(
+        @ApplicationContext
+        applicationContext: Context,
+    ): SharedPreferences {
+        return applicationContext.getSharedPreferences(
+            "toa_preferences",
+            Context.MODE_PRIVATE,
+        )
     }
 }

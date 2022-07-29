@@ -8,5 +8,8 @@ import com.adammcneilly.toa.core.models.Task
  */
 interface AddTaskUseCase {
 
-    suspend operator fun invoke(task: Task): AddTaskResult
+    suspend operator fun invoke(
+        task: Task,
+        ignoreTaskLimits: Boolean,
+    ): AddTaskResult
 }

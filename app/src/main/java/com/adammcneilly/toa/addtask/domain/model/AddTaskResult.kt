@@ -15,6 +15,13 @@ sealed class AddTaskResult {
             val scheduledDateInPast: Boolean,
         ) : Failure()
 
+        /**
+         * This error response gets returned
+         * when a user attempts to add a task, and doing so would exceed their
+         * preferred number of tasks per day.
+         */
+        object MaxTasksPerDayExceeded : Failure()
+
         object Unknown : Failure()
     }
 }
