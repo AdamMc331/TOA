@@ -16,8 +16,8 @@ class DemoLoginRepository @Inject constructor() : LoginRepository {
 
     override suspend fun login(credentials: Credentials): Result<LoginResponse> {
         val defaultToken = Token(
-            AuthToken(""),
-            RefreshToken(""),
+            AuthToken("DemoAuthToken"),
+            RefreshToken("DemoRefreshToken"),
         )
 
         val defaultResponse = LoginResponse(defaultToken)

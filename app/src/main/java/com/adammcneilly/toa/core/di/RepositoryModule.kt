@@ -1,8 +1,8 @@
 package com.adammcneilly.toa.core.di
 
 import com.adammcneilly.toa.core.data.local.RoomTaskRepository
+import com.adammcneilly.toa.login.domain.repository.DataStoreTokenRepository
 import com.adammcneilly.toa.login.domain.repository.DemoLoginRepository
-import com.adammcneilly.toa.login.domain.repository.DemoTokenRepository
 import com.adammcneilly.toa.login.domain.repository.LoginRepository
 import com.adammcneilly.toa.login.domain.repository.TokenRepository
 import com.adammcneilly.toa.task.api.TaskRepository
@@ -22,7 +22,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindTokenRepository(
-        tokenRepository: DemoTokenRepository,
+        tokenRepository: DataStoreTokenRepository,
     ): TokenRepository
 
     @Binds

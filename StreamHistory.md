@@ -485,6 +485,7 @@ In this stream we hooked into the Splash Screen API to have the Android 12 splas
 
 PRs:
 * Splash Screen:
+* Observing logged in state (sort of):
 
 YouTube:
 * Coming Soon. 
