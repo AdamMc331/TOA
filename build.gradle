@@ -11,7 +11,7 @@ buildscript {
         detektVersion = "1.19.0"
 
         // https://developer.android.com/jetpack/androidx/releases/hilt
-        hiltVersion = "2.42"
+        hiltVersion = "2.41"
 
         kotlinVersion = "1.6.10"
 
@@ -33,7 +33,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath 'com.android.tools.build:gradle:7.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintPluginVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
