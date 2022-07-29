@@ -124,6 +124,7 @@ private fun AddTaskInputsColumn(
         if (viewState is AddTaskViewState.SubmissionError) {
             Text(
                 text = viewState.errorMessage.getString(),
+                textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier
                     .padding(top = 12.dp),
@@ -135,6 +136,7 @@ private fun AddTaskInputsColumn(
         SubmitButton(
             onClick = onSubmitClicked,
             enabled = viewState.inputsEnabled,
+            text = viewState.submitButtonText,
         )
     }
 }
@@ -143,9 +145,10 @@ private fun AddTaskInputsColumn(
 private fun SubmitButton(
     onClick: () -> Unit,
     enabled: Boolean,
+    text: UIText,
 ) {
     PrimaryButton(
-        text = stringResource(R.string.submit),
+        text = text.getString(),
         onClick = onClick,
         enabled = enabled,
     )
