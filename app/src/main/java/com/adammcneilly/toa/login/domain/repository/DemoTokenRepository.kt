@@ -1,6 +1,7 @@
 package com.adammcneilly.toa.login.domain.repository
 
 import com.adammcneilly.toa.login.domain.model.Token
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 /**
@@ -12,7 +13,14 @@ class DemoTokenRepository @Inject constructor() : TokenRepository {
         // No-Op
     }
 
+    @Suppress("MagicNumber")
     override suspend fun fetchToken(): Token? {
+        delay(2_500)
+
         return null
+//        return Token(
+//            AuthToken("Test"),
+//            RefreshToken("Test"),
+//        )
     }
 }
