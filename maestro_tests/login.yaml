@@ -1,0 +1,9 @@
+appId: com.adammcneilly.toa
+---
+- launchApp
+- tapOn: "Email"
+- inputText: "adam@adam.com"
+- tapOn: "Password"
+- inputText: "Hunter2"
+- tapOn: "log in"
+- assertVisible: "You have nothing scheduled for this day. Make time for yourself."
