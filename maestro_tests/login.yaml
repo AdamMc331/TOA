@@ -7,3 +7,7 @@ appId: com.adammcneilly.toa
 - inputText: "Hunter2"
 - tapOn: "log in"
 - assertVisible: "You have nothing scheduled for this day. Make time for yourself."
+- tapOn: "Add Task"
+- inputText: "My Test Task"
+- tapOn: "submit"
+- assertVisible: "My Test Task"
