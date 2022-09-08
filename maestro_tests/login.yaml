@@ -1,13 +1,27 @@
 appId: com.adammcneilly.toa
 ---
-- launchApp
+- launchApp:
+    clearState: true
+# Login
 - tapOn: "Email"
 - inputText: "adam@adam.com"
 - tapOn: "Password"
 - inputText: "Hunter2"
 - tapOn: "log in"
+
+# View home and add task
 - assertVisible: "You have nothing scheduled for this day. Make time for yourself."
 - tapOn: "Add Task"
 - inputText: "My Test Task"
 - tapOn: "submit"
 - assertVisible: "My Test Task"
+
+# Mark task as done
+- assertVisible: "reschedule"
+- tapOn: "done"
+- assertNotVisible: "reschedule"
+- assertVisible:
+    text: "You've accomplished everything for today!"
+    above:
+        text: "Accomplishments"
+        above: "My Test Task"
