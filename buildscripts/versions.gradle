@@ -39,5 +39,7 @@ ext {
             lint                 : "27.1.2",
             // https://developer.android.com/jetpack/androidx/releases/window
             windowManager        : "1.0.0",
+            // https://developer.android.com/jetpack/androidx/releases/datastore
+            dataStore            : "1.0.0",
     ]
 }
