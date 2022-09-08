@@ -24,7 +24,7 @@ jobs:
         with:
           api-level: 29
           script: |
-            maestro test login.yaml
-            maestro test create_task.yaml
-            maestro test mark_task_as_done.yaml
-            maestro test undo_mark_task_as_done.yaml
+            maestro --platform android test maestro_tests/login.yaml
+            maestro --platform android test maestro_tests/create_task.yaml
+            maestro --platform android test maestro_tests/mark_task_as_done.yaml
+            maestro --platform android test maestro_tests/undo_mark_task_as_done.yaml
