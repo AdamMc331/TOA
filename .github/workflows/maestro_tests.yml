@@ -26,6 +26,7 @@ jobs:
           profile: Nexus 6
           script: |
             ./gradlew installDebug
+            maestro --platform android test maestro_tests/invalid_login.yaml
             maestro --platform android test maestro_tests/login.yaml
             maestro --platform android test maestro_tests/create_task.yaml
             maestro --platform android test maestro_tests/mark_task_as_done.yaml

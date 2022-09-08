@@ -1,0 +1,15 @@
+appId: "com.adammcneilly.toa"
+---
+- launchApp:
+    clearState: true
+- tapOn: "log in"
+- assertVisible: "Please enter an email."
+- assertVisible: "Please enter a password."
+- tapOn: "email"
+- inputText: "adam@adam.com"
+- assertNotVisible: "Please enter an email."
+- tapOn: "password"
+- inputText: "Hunter2"
+- assertNotVisible: "Please enter a password."
+- tapOn: "log in"
+- assertVisible: "You have nothing scheduled for this day. Make time for yourself."
