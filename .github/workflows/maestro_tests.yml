@@ -24,6 +24,7 @@ jobs:
         with:
           api-level: 29
           script: |
+            ./gradlew installDebug
             maestro --platform android test maestro_tests/login.yaml
             maestro --platform android test maestro_tests/create_task.yaml
             maestro --platform android test maestro_tests/mark_task_as_done.yaml
