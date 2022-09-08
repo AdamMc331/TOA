@@ -1,0 +1,9 @@
+appId: "com.adammcneilly.toa"
+initFlow: "login.yaml"
+---
+- launchApp
+- assertVisible: "You have nothing scheduled for this day. Make time for yourself."
+- tapOn: "Add Task"
+- inputText: "My Test Task"
+- tapOn: "submit"
+- assertVisible: "My Test Task"
