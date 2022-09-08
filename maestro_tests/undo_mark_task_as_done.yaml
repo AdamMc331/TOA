@@ -1,0 +1,12 @@
+appId: "com.adammcneilly.toa"
+initFlow: "create_task.yaml"
+---
+- launchApp
+- assertVisible: "My Test Task"
+- assertVisible: "reschedule"
+- tapOn: "done"
+- tapOn: "undo"
+- assertVisible: "My Test Task"
+- assertVisible: "reschedule"
+- assertNotVisible: "You've accomplished everything for today!"
+- assertNotVisible: "Accomplishments"
