@@ -71,6 +71,10 @@ subprojects {
     apply from: "../buildscripts/detekt.gradle"
     apply from: "../buildscripts/versionsplugin.gradle"
     apply from: "../buildscripts/kover.gradle"
+
+    dependencies {
+        detektPlugins "com.twitter.compose.rules:detekt:$rootProject.ext.twitterComposeRules"
+    }
 }
 
 task clean(type: Delete) {
