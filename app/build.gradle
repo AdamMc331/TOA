@@ -143,6 +143,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.1.5"
+    detektPlugins "com.twitter.compose.rules:detekt:$rootProject.ext.twitterComposeRules"
 }
 
 protobuf {

@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,8 +19,12 @@ import com.adammcneilly.toa.core.ui.theme.TOATheme
 fun TOATextButton(
     text: String,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    TextButton(onClick) {
+    TextButton(
+        onClick = onClick,
+        modifier = modifier,
+    ) {
         Text(
             text = text.toUpperCase(Locale.current),
             style = MaterialTheme.typography.labelSmall,

@@ -503,3 +503,16 @@ PRs:
 YouTube:
 
 * Coming Soon.
+
+## Stream Thirty One - Compose Lint Checks
+
+We looked at the [Compose Rules](https://github.com/twitter/compose-rules) from Twitter to improve our
+Jetpack Compose code.
+
+PRs:
+
+* Compose Lint Checks: 
+
+YouTube:
+
+* Coming Soon.

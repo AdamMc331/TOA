@@ -10,6 +10,9 @@ import androidx.compose.ui.unit.Dp
  * This is a custom [Spacer] that consumes a [height] and removes boilerplate.
  */
 @Composable
-fun VerticalSpacer(height: Dp) {
-    Spacer(modifier = Modifier.height(height))
+fun VerticalSpacer(
+    height: Dp,
+    modifier: Modifier = Modifier,
+) {
+    Spacer(modifier = modifier.height(height))
 }

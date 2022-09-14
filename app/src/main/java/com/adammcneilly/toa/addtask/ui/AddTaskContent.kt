@@ -90,8 +90,8 @@ private fun AddTaskInputsColumn(
     onTaskDescriptionChanged: (String) -> Unit,
     onTaskScheduledDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
-    modifier: Modifier,
     descriptionFocusRequester: FocusRequester,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,

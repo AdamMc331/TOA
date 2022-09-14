@@ -15,20 +15,24 @@ import com.ramcosta.composedestinations.spec.DestinationStyle
 /**
  * This destination is very similar to [AddTaskScreen], but will present the form
  * to add a task as a Dialog instead.
+ *
+ * See [AddTaskContainer] docs for why we suppressed the view model forwarding.
  */
 @Destination(
     style = DestinationStyle.Dialog::class,
     navArgsDelegate = AddTaskNavArguments::class,
 )
 @Composable
+@Suppress("ViewModelForwarding")
 fun AddTaskDialog(
     navigator: DestinationsNavigator,
+    modifier: Modifier = Modifier,
     viewModel: AddTaskViewModel = hiltViewModel(),
 ) {
     AddTaskContainer(
         viewModel = viewModel,
         navigator = navigator,
-        modifier = Modifier
+        modifier = modifier
             .background(color = MaterialTheme.colorScheme.background)
             .padding(dimensionResource(id = R.dimen.screen_padding)),
     )
