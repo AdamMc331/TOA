@@ -4,7 +4,7 @@ plugins {
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
     id "com.google.devtools.ksp" version "1.7.21-1.0.8"
-    id "com.google.protobuf" version "0.8.17"
+    id "com.google.protobuf" version "0.9.1"
 }
 
 kotlin {
@@ -118,12 +118,12 @@ dependencies {
     implementation "io.github.raamcosta.compose-destinations:animations-core:$rootProject.ext.versions.composeDestinations"
     implementation "androidx.navigation:navigation-compose:$rootProject.ext.versions.composeNavigation"
     implementation "com.google.accompanist:accompanist-navigation-animation:$rootProject.ext.versions.accompanist"
-    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.7.0"
+    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.9.0"
     implementation "androidx.room:room-runtime:$rootProject.ext.versions.room"
     implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
     implementation "androidx.window:window:$rootProject.ext.versions.windowManager"
     implementation "androidx.datastore:datastore:$rootProject.ext.versions.dataStore"
-    implementation  "com.google.protobuf:protobuf-javalite:3.18.0"
+    implementation  "com.google.protobuf:protobuf-javalite:3.21.9"
     ksp "androidx.room:room-compiler:$rootProject.ext.versions.room"
     ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
