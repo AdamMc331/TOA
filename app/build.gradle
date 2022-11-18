@@ -3,7 +3,7 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
-    id "com.google.devtools.ksp" version "1.6.10-1.0.2"
+    id "com.google.devtools.ksp" version "1.7.21-1.0.8"
     id "com.google.protobuf" version "0.8.17"
 }
 
@@ -65,7 +65,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion "1.6.10"
+        kotlinCompilerVersion "1.7.21"
     }
     packagingOptions {
         resources {
