@@ -4,7 +4,7 @@ plugins {
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
     id "com.google.devtools.ksp" version "1.7.10-1.0.6"
-    id "com.google.protobuf" version "0.9.1"
+    id "com.google.protobuf" version "0.8.17"
 }
 
 kotlin {
@@ -123,7 +123,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
     implementation "androidx.window:window:$rootProject.ext.versions.windowManager"
     implementation "androidx.datastore:datastore:$rootProject.ext.versions.dataStore"
-    implementation  "com.google.protobuf:protobuf-javalite:3.21.9"
+    implementation  "com.google.protobuf:protobuf-javalite:3.18.0"
     ksp "androidx.room:room-compiler:$rootProject.ext.versions.room"
     ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
