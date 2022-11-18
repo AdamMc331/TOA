@@ -3,7 +3,7 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
-    id "com.google.devtools.ksp" version "1.7.21-1.0.8"
+    id "com.google.devtools.ksp" version "1.7.10-1.0.6"
     id "com.google.protobuf" version "0.9.1"
 }
 
@@ -22,12 +22,12 @@ apply from: "../buildscripts/jacoco.gradle"
 apply from: "../buildscripts/coveralls.gradle"
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.adammcneilly.toa"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0.0"
 
@@ -64,7 +64,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion "1.7.21"
+        kotlinCompilerVersion "1.7.10"
     }
     packagingOptions {
         resources {
