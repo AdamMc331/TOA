@@ -1,0 +1,9 @@
+appId: com.adammcneilly.toa
+---
+- launchApp:
+    clearState: true
+- tapOn: "Email"
+- inputText: "adam@adam.com"
+- tapOn: "Password"
+- inputText: "Hunter2"
+- tapOn: "log in"

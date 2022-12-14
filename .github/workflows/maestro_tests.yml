@@ -1,0 +1,33 @@
+#name: Maestro Tests
+#
+#on: pull_request
+#
+#jobs:
+#  build:
+#    runs-on: macos-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#
+#      - name: Set Up JDK
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 1.11
+#
+#      - name: Install Maestro CLI
+#        run: |
+#          brew tap mobile-dev-inc/tap
+#          brew install maestro
+#
+#      - name: Run Tests
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 29
+#          profile: Nexus 6
+#          script: |
+#            ./gradlew installDebug
+#            maestro --platform android test maestro_tests/invalid_login.yaml
+#            maestro --platform android test maestro_tests/login.yaml
+#            maestro --platform android test maestro_tests/create_task.yaml
+#            maestro --platform android test maestro_tests/mark_task_as_done.yaml
+#            maestro --platform android test maestro_tests/undo_mark_task_as_done.yaml
