@@ -13,7 +13,7 @@ buildscript {
         // https://developer.android.com/jetpack/androidx/releases/hilt
         hiltVersion = "2.41"
 
-        kotlinVersion = "1.6.10"
+        kotlinVersion = '1.6.21'
 
         // https://github.com/ben-manes/gradle-versions-plugin
         versionsPluginVersion = "0.29.0"
@@ -33,7 +33,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintPluginVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"

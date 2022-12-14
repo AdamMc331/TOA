@@ -22,3 +22,5 @@ local.properties
 /core-data/build/
 /task-api/build/
 /task-api-test/build/
+/.idea/sonarlint/issuestore/
+/.idea/kotlinc.xml
