@@ -9,33 +9,40 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.TextButton
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.ButtonShape
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import com.adammcneilly.toa.toEpochMillis
+import com.adammcneilly.toa.toLocalDate
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 /**
  * A custom composable that when clicked, launches a date picker.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TOADatePicker(
     value: LocalDate,
@@ -46,19 +53,51 @@ fun TOADatePicker(
     iconColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
     errorMessage: String? = null,
 ) {
-    val dialogState = rememberMaterialDialogState()
+    val showDatePicker = remember { mutableStateOf(false) }
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = value.toEpochMillis(),
+    )
 
-    MaterialDialog(
-        dialogState = dialogState,
-        buttons = {
-            positiveButton(stringResource(R.string.ok))
-            negativeButton(stringResource(R.string.cancel))
-        },
-    ) {
-        this.datepicker(
-            initialDate = value,
-            onDateChange = onValueChanged,
-        )
+    if (showDatePicker.value) {
+        Dialog(
+            onDismissRequest = {
+                showDatePicker.value = false
+            },
+        ) {
+            Surface {
+                Column {
+                    DatePicker(
+                        datePickerState,
+                        dateValidator = { dateMillis ->
+                            dateMillis >= System.currentTimeMillis()
+                        },
+                    )
+
+                    Row {
+                        TextButton(
+                            onClick = {
+                                showDatePicker.value = false
+                            },
+                        ) {
+                            Text("CANCEL")
+                        }
+
+                        TextButton(
+                            onClick = {
+                                showDatePicker.value = false
+
+                                datePickerState.selectedDateMillis?.let { selectedDateMillis ->
+                                    val localDate = selectedDateMillis.toLocalDate()
+                                    onValueChanged.invoke(localDate)
+                                }
+                            },
+                        ) {
+                            Text("DONE")
+                        }
+                    }
+                }
+            }
+        }
     }
 
     val hasError = errorMessage != null
@@ -87,7 +126,7 @@ fun TOADatePicker(
                 )
                 .clip(ButtonShape)
                 .clickable {
-                    dialogState.show()
+                    showDatePicker.value = true
                 },
         ) {
             DateAndIcon(
