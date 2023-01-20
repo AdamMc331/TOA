@@ -11,9 +11,9 @@ buildscript {
         detektVersion = "1.19.0"
 
         // https://developer.android.com/jetpack/androidx/releases/hilt
-        hiltVersion = "2.41"
+        hiltVersion = "2.44.2"
 
-        kotlinVersion = "1.6.10"
+        kotlinVersion = "1.7.20"
 
         // https://github.com/ben-manes/gradle-versions-plugin
         versionsPluginVersion = "0.29.0"
