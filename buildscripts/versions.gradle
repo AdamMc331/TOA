@@ -31,7 +31,7 @@ ext {
             // https://developer.android.com/jetpack/androidx/releases/activity
             activityCompose      : "1.4.0",
             // https://github.com/raamcosta/compose-destinations/releases
-            composeDestinations  : "1.7.32-beta",
+            composeDestinations  : "1.8.32-beta",
             // https://developer.android.com/jetpack/androidx/releases/navigation
             composeNavigation    : "2.4.2",
             // https://developer.android.com/jetpack/androidx/releases/room
