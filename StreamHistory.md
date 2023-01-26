@@ -37,6 +37,8 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Twenty Seven - Architecture Refactor](#stream-twenty-seven---architecture-refactor)
 * [Stream Twenty Eight - Splash Screen API](#stream-twenty-eight---splash-screen-api)
 * [Stream Twenty Nine - Preferred Tasks Per Day](#stream-twenty-nine---preferred-tasks-per-day)
+* [Stream Thirty - Maestro](#stream-thirty---maestro)
+* [Stream Thirty One - Material 3 Date Picker](#stream-thirty-one---compose-material-3-date-picker)
 </details>
 
 <details>
@@ -66,6 +68,7 @@ The following streams touch on topics related to developer experience.
 * [Stream Seven - Documentation](#stream-seven---documentation)
 * [Stream Eighteen - Test Coverage](#stream-eighteen---adding-code-coverage)
 * [Stream Twenty - Multi Module App Structure](#stream-twenty---multi-module-app-structure)
+* [Stream Thirty - Maestro](#stream-thirty---maestro)
 </details>
 
 <details>
