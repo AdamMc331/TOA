@@ -4,7 +4,9 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.TextButton
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerState
@@ -15,11 +17,16 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.toEpochMillisUTC
 import java.time.LocalDate
 
+/**
+ * This is a [Dialog] that will render a [DatePicker] and allow the user to select any date today
+ * or in the future. This is most likely going to be triggered from within a [TOADatePickerInput].
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TOADatePickerDialog(
@@ -67,6 +74,8 @@ private fun DatePickerButtonRow(
         ) {
             Text("CANCEL")
         }
+
+        Spacer(modifier = Modifier.width(8.dp))
 
         TextButton(
             onClick = onDoneClicked,

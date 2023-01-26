@@ -509,3 +509,19 @@ YouTube:
 Looked at Maestro UI testing framework.
 
 // Adam to add more.
+
+## Stream Thirty One - Compose Material 3 Date Picker
+
+Added a date picker dialog from the latest compose material 3 alpha.
+
+Resources:
+
+* Material 3 1.1.0-alpha04: https://developer.android.com/jetpack/androidx/releases/compose-material3#1.1.0-alpha04
+
+PRs:
+
+* https://github.com/AdamMc331/TOA/pull/160
+
+YouTube: Coming Soon
+
+
