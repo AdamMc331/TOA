@@ -27,8 +27,10 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -48,13 +50,13 @@ import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.ui.adaptiveWidth
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
+import com.adammcneilly.toa.core.ui.components.TOADatePickerDialog
 import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
+import com.adammcneilly.toa.toEpochMillisUTC
+import com.adammcneilly.toa.toLocalDateUTC
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -174,6 +176,7 @@ private fun TaskListSnackbar(
                         onAlertMessageShown.invoke()
                         alertMessage.onDismissed.invoke()
                     }
+
                     SnackbarResult.ActionPerformed -> {
                         alertMessage.onActionClicked.invoke()
                     }
@@ -183,48 +186,33 @@ private fun TaskListSnackbar(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun RescheduleTaskDialog(
     viewState: TaskListViewState,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onDismissed: () -> Unit,
 ) {
-    val rescheduleTaskDatePickerDialogState = rememberMaterialDialogState()
+    val taskToReschedule = viewState.taskToReschedule
 
-    LaunchedEffect(viewState) {
-        if (viewState.taskToReschedule != null) {
-            rescheduleTaskDatePickerDialogState.show()
-        }
-    }
-
-    MaterialDialog(
-        dialogState = rescheduleTaskDatePickerDialogState,
-        buttons = {
-            positiveButton(stringResource(R.string.ok))
-            negativeButton(
-                text = stringResource(R.string.cancel),
-                onClick = onDismissed,
-            )
-        },
-        onCloseRequest = { dialogState ->
-            onDismissed.invoke()
-            dialogState.hide()
-        }
-    ) {
-        this.datepicker(
-            initialDate = viewState.selectedDate,
-            onDateChange = { newDate ->
-                if (viewState.taskToReschedule != null) {
-                    onTaskRescheduled.invoke(
-                        viewState.taskToReschedule,
-                        newDate,
-                    )
+    if (taskToReschedule != null) {
+        TOADatePickerDialog(
+            datePickerState = rememberDatePickerState(
+                initialSelectedDateMillis = taskToReschedule.scheduledDateMillis.toLocalDateUTC()
+                    .toEpochMillisUTC(),
+            ),
+            onDismiss = onDismissed,
+            onComplete = { selectedDateMillis ->
+                if (selectedDateMillis != null) {
+                    val newDate = selectedDateMillis.toLocalDateUTC()
+                    onTaskRescheduled.invoke(taskToReschedule, newDate)
                 }
             },
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ToolbarAndDialog(
     viewState: TaskListViewState,
@@ -232,18 +220,23 @@ private fun ToolbarAndDialog(
     onPreviousDateButtonClicked: () -> Unit,
     onNextDateButtonClicked: () -> Unit,
 ) {
-    val dialogState = rememberMaterialDialogState()
+    val showDatePickerDialog = remember { mutableStateOf(false) }
 
-    MaterialDialog(
-        dialogState = dialogState,
-        buttons = {
-            positiveButton(stringResource(R.string.ok))
-            negativeButton(stringResource(R.string.cancel))
-        },
-    ) {
-        this.datepicker(
-            initialDate = viewState.selectedDate,
-            onDateChange = onDateSelected,
+    if (showDatePickerDialog.value) {
+        TOADatePickerDialog(
+            datePickerState = rememberDatePickerState(
+                initialSelectedDateMillis = viewState.selectedDate.toEpochMillisUTC(),
+            ),
+            onDismiss = {
+                showDatePickerDialog.value = false
+            },
+            onComplete = { selectedDateMillis ->
+                showDatePickerDialog.value = false
+
+                if (selectedDateMillis != null) {
+                    onDateSelected.invoke(selectedDateMillis.toLocalDateUTC())
+                }
+            }
         )
     }
 
@@ -252,7 +245,7 @@ private fun ToolbarAndDialog(
         onRightButtonClicked = onNextDateButtonClicked,
         title = viewState.selectedDateString.getString(),
         onTitleClicked = {
-            dialogState.show()
+            showDatePickerDialog.value = true
         },
     )
 }

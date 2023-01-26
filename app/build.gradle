@@ -127,7 +127,6 @@ dependencies {
     implementation "io.github.raamcosta.compose-destinations:animations-core:$rootProject.ext.versions.composeDestinations"
     implementation "androidx.navigation:navigation-compose:$rootProject.ext.versions.composeNavigation"
     implementation "com.google.accompanist:accompanist-navigation-animation:$rootProject.ext.versions.accompanist"
-    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.7.0"
     implementation "androidx.room:room-runtime:$rootProject.ext.versions.room"
     implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
     implementation "androidx.window:window:$rootProject.ext.versions.windowManager"
