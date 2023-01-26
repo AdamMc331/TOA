@@ -50,8 +50,6 @@ class AddTaskViewModel @Inject constructor(
         _viewState.value = AddTaskViewState.Active(
             taskInput = newInput,
             descriptionInputErrorMessage = null,
-            scheduledDateInputErrorMessage = (_viewState.value as? AddTaskViewState.Active)
-                ?.scheduledDateInputErrorMessage,
         )
     }
 
@@ -65,7 +63,6 @@ class AddTaskViewModel @Inject constructor(
             taskInput = newInput,
             descriptionInputErrorMessage = (_viewState.value as? AddTaskViewState.Active)
                 ?.descriptionInputErrorMessage,
-            scheduledDateInputErrorMessage = null,
         )
     }
 
@@ -124,9 +121,6 @@ private fun AddTaskResult.Failure.InvalidInput.toViewState(
         taskInput = taskInput,
         descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description).takeIf {
             this.emptyDescription
-        },
-        scheduledDateInputErrorMessage = UIText.ResourceText(R.string.err_scheduled_date_in_past).takeIf {
-            this.scheduledDateInPast
         },
     )
 }

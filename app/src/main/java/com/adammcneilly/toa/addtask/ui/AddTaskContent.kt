@@ -35,7 +35,7 @@ import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.core.ui.components.Material3CircularProgressIndicator
 import com.adammcneilly.toa.core.ui.components.PrimaryButton
-import com.adammcneilly.toa.core.ui.components.TOADatePicker
+import com.adammcneilly.toa.core.ui.components.TOADatePickerInput
 import com.adammcneilly.toa.core.ui.components.TOATextField
 import com.adammcneilly.toa.core.ui.components.VerticalSpacer
 import com.adammcneilly.toa.core.ui.getString
@@ -116,9 +116,6 @@ private fun AddTaskInputsColumn(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduledDateChanged,
             enabled = viewState.inputsEnabled,
-            errorMessage = (viewState as? AddTaskViewState.Active)
-                ?.scheduledDateInputErrorMessage
-                ?.getString(),
         )
 
         if (viewState is AddTaskViewState.SubmissionError) {
@@ -159,14 +156,13 @@ private fun TaskDateInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
     enabled: Boolean,
-    errorMessage: String?,
 ) {
-    TOADatePicker(
+    // We should support disabling this input.
+    TOADatePickerInput(
         value = value,
         onValueChanged = onValueChanged,
         modifier = Modifier
             .fillMaxWidth(),
-        errorMessage = errorMessage,
     )
 }
 
