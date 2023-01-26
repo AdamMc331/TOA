@@ -4,15 +4,23 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-fun LocalDate.toEpochMillis(): Long {
+fun LocalDate.toEpochMillis(
+    zoneId: ZoneId = ZoneId.systemDefault(),
+): Long {
     return this.atStartOfDay()
-        .atZone(ZoneId.systemDefault())
+        .atZone(zoneId)
         .toInstant()
         .toEpochMilli()
 }
 
-fun Long.toLocalDate(): LocalDate {
+fun LocalDate.toEpochMillisUTC(): Long = this.toEpochMillis(ZoneId.of("UTC"))
+
+fun Long.toLocalDate(
+    zoneId: ZoneId = ZoneId.systemDefault(),
+): LocalDate {
     return Instant.ofEpochMilli(this)
-        .atZone(ZoneId.systemDefault())
+        .atZone(zoneId)
         .toLocalDate()
 }
+
+fun Long.toLocalDateUTC(): LocalDate = this.toLocalDate(ZoneId.of("UTC"))

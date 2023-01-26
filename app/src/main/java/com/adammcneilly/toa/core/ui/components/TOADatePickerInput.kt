@@ -1,8 +1,8 @@
 package com.adammcneilly.toa.core.ui.components
 
-import android.content.res.Configuration
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,16 +27,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.ButtonShape
-import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.toEpochMillis
+import com.adammcneilly.toa.toEpochMillisUTC
 import com.adammcneilly.toa.toLocalDate
+import com.adammcneilly.toa.toLocalDateUTC
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 /**
@@ -44,7 +45,7 @@ import java.time.format.DateTimeFormatter
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TOADatePicker(
+fun TOADatePickerInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
@@ -55,49 +56,23 @@ fun TOADatePicker(
 ) {
     val showDatePicker = remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(
-        initialSelectedDateMillis = value.toEpochMillis(),
+        initialSelectedDateMillis = value.toEpochMillisUTC(),
     )
 
     if (showDatePicker.value) {
-        Dialog(
-            onDismissRequest = {
+        TOADatePickerDialog(
+            datePickerState = datePickerState,
+            onDismiss = {
                 showDatePicker.value = false
             },
-        ) {
-            Surface {
-                Column {
-                    DatePicker(
-                        datePickerState,
-                        dateValidator = { dateMillis ->
-                            dateMillis >= System.currentTimeMillis()
-                        },
-                    )
+            onComplete = { selectedDateMillis ->
+                showDatePicker.value = false
 
-                    Row {
-                        TextButton(
-                            onClick = {
-                                showDatePicker.value = false
-                            },
-                        ) {
-                            Text("CANCEL")
-                        }
-
-                        TextButton(
-                            onClick = {
-                                showDatePicker.value = false
-
-                                datePickerState.selectedDateMillis?.let { selectedDateMillis ->
-                                    val localDate = selectedDateMillis.toLocalDate()
-                                    onValueChanged.invoke(localDate)
-                                }
-                            },
-                        ) {
-                            Text("DONE")
-                        }
-                    }
+                if (selectedDateMillis != null) {
+                    onValueChanged.invoke(selectedDateMillis.toLocalDateUTC())
                 }
-            }
-        }
+            },
+        )
     }
 
     val hasError = errorMessage != null
@@ -183,55 +158,4 @@ private fun ErrorMessage(errorMessage: String) {
 private fun LocalDate.toUIString(): String {
     val formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
     return formatter.format(this)
-}
-
-@Preview(
-    name = "Night Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-)
-@Preview(
-    name = "Day Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-)
-@Composable
-@Suppress("UnusedPrivateMember")
-@ExcludeFromJacocoGeneratedReport
-private fun TOADatePickerPreview() {
-    TOATheme {
-        Surface {
-            TOADatePicker(
-                value = LocalDate.now(),
-                onValueChanged = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-            )
-        }
-    }
-}
-
-@Preview(
-    name = "Night Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-)
-@Preview(
-    name = "Day Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-)
-@Composable
-@Suppress("UnusedPrivateMember")
-@ExcludeFromJacocoGeneratedReport
-private fun TOADatePickerWithErrorPreview() {
-    TOATheme {
-        Surface {
-            TOADatePicker(
-                value = LocalDate.now().minusDays(1),
-                onValueChanged = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                errorMessage = "Scheduled date cannot be in past.",
-            )
-        }
-    }
 }
