@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.Divider
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
-import com.adammcneilly.toa.core.ui.components.Material3Card
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -46,24 +47,29 @@ fun TaskList(
                 )
             }
         } else {
-            items(
-                items = incompleteTasks,
-                key = {
-                    it.id
-                },
-            ) { task ->
-                TaskListItem(
-                    task = task,
-                    onRescheduleClicked = {
-                        onRescheduleClicked(task)
-                    },
-                    onDoneClicked = {
-                        onDoneClicked(task)
-                    },
-                    modifier = Modifier
-                        .testTag("INCOMPLETE_TASK_${task.id}")
-                        .animateItemPlacement(),
-                )
+            item {
+                Card {
+                    incompleteTasks.forEachIndexed { index, task ->
+                        TaskListItem(
+                            task = task,
+                            onRescheduleClicked = {
+                                onRescheduleClicked(task)
+                            },
+                            onDoneClicked = {
+                                onDoneClicked(task)
+                            },
+                            modifier = Modifier
+                                .testTag("INCOMPLETE_TASK_${task.id}")
+                                .animateItemPlacement(),
+                        )
+
+                        if (index != incompleteTasks.lastIndex) {
+                            Divider(
+                                color = LocalContentColor.current,
+                            )
+                        }
+                    }
+                }
             }
         }
 
@@ -72,24 +78,29 @@ fun TaskList(
                 SectionHeader(text = stringResource(R.string.completed_tasks_header))
             }
 
-            items(
-                items = completedTasks,
-                key = {
-                    it.id
-                },
-            ) { task ->
-                TaskListItem(
-                    task = task,
-                    onRescheduleClicked = {
-                        onRescheduleClicked(task)
-                    },
-                    onDoneClicked = {
-                        onDoneClicked(task)
-                    },
-                    modifier = Modifier
-                        .testTag("COMPLETED_TASK_${task.id}")
-                        .animateItemPlacement(),
-                )
+            item {
+                Card {
+                    completedTasks.forEachIndexed { index, task ->
+                        TaskListItem(
+                            task = task,
+                            onRescheduleClicked = {
+                                onRescheduleClicked(task)
+                            },
+                            onDoneClicked = {
+                                onDoneClicked(task)
+                            },
+                            modifier = Modifier
+                                .testTag("COMPLETED_TASK_${task.id}")
+                                .animateItemPlacement(),
+                        )
+
+                        if (index != completedTasks.lastIndex) {
+                            Divider(
+                                color = LocalContentColor.current,
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -100,7 +111,7 @@ private fun EmptySectionCard(
     text: String,
     modifier: Modifier = Modifier,
 ) {
-    Material3Card(
+    Card(
         modifier = modifier
             .fillMaxWidth(),
     ) {
