@@ -38,4 +38,5 @@
     <string name="task_accomplished">Task Accomplished</string>
     <string name="that_is_okay">That\'s Okay</string>
     <string name="err_add_task_limit_reached">You already have a lot going on this day. Would you like to schedule this for another day?</string>
+    <string name="change_date">Change Date</string>
 </resources>

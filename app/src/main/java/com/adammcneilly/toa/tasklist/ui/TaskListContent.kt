@@ -1,31 +1,22 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import android.content.res.Configuration
-import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -37,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -56,12 +46,10 @@ import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.toEpochMillisUTC
 import com.adammcneilly.toa.toLocalDateUTC
 import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
-const val NEXT_DAY_BUTTON_TAG = "NEXT_DAY_BUTTON"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,8 +58,6 @@ fun TaskListContent(
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit,
-    onPreviousDateButtonClicked: () -> Unit,
-    onNextDateButtonClicked: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onReschedulingCompleted: () -> Unit,
@@ -97,8 +83,6 @@ fun TaskListContent(
             ToolbarAndDialog(
                 viewState,
                 onDateSelected,
-                onPreviousDateButtonClicked,
-                onNextDateButtonClicked,
             )
         },
         snackbarHost = {
@@ -217,8 +201,6 @@ private fun RescheduleTaskDialog(
 private fun ToolbarAndDialog(
     viewState: TaskListViewState,
     onDateSelected: (LocalDate) -> Unit,
-    onPreviousDateButtonClicked: () -> Unit,
-    onNextDateButtonClicked: () -> Unit,
 ) {
     val showDatePickerDialog = remember { mutableStateOf(false) }
 
@@ -241,10 +223,8 @@ private fun ToolbarAndDialog(
     }
 
     TaskListToolbar(
-        onLeftButtonClicked = onPreviousDateButtonClicked,
-        onRightButtonClicked = onNextDateButtonClicked,
         title = viewState.selectedDateString.getString(),
-        onTitleClicked = {
+        onCalendarIconClicked = {
             showDatePickerDialog.value = true
         },
     )
@@ -265,75 +245,6 @@ private fun TaskListEmptyState() {
                 .align(Alignment.Center)
                 .adaptiveWidth(),
         )
-    }
-}
-
-@Composable
-private fun TaskListToolbar(
-    onLeftButtonClicked: () -> Unit,
-    onRightButtonClicked: () -> Unit,
-    title: String,
-    onTitleClicked: () -> Unit,
-) {
-    val toolbarHeight = 84.dp
-
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .statusBarsPadding()
-                .height(toolbarHeight)
-                .adaptiveWidth(),
-        ) {
-            IconButton(
-                onClick = onLeftButtonClicked,
-            ) {
-                Icon(
-                    Icons.Default.KeyboardArrowLeft,
-                    contentDescription = stringResource(R.string.view_previous_day_content_description),
-                    modifier = Modifier
-                        .size(toolbarHeight),
-                )
-            }
-
-            Crossfade(
-                targetState = title,
-                modifier = Modifier
-                    .padding(vertical = 16.dp)
-                    .clickable(
-                        onClick = onTitleClicked,
-                    )
-                    .weight(1F)
-                    .height(toolbarHeight),
-            ) { title ->
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    Text(
-                        text = title,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.align(Alignment.Center),
-                    )
-                }
-            }
-
-            IconButton(
-                onClick = onRightButtonClicked,
-                modifier = Modifier
-                    .testTag(NEXT_DAY_BUTTON_TAG),
-            ) {
-                Icon(
-                    Icons.Default.KeyboardArrowRight,
-                    contentDescription = stringResource(R.string.view_next_day_content_description),
-                    modifier = Modifier
-                        .size(toolbarHeight),
-                )
-            }
-        }
     }
 }
 
@@ -437,8 +348,6 @@ private fun TaskListContentPreview(
             onRescheduleClicked = {},
             onDoneClicked = {},
             onAddButtonClicked = {},
-            onPreviousDateButtonClicked = {},
-            onNextDateButtonClicked = {},
             onDateSelected = {},
             onTaskRescheduled = { _, _ ->
             },

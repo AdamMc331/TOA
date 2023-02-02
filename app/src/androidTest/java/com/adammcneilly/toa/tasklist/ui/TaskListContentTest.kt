@@ -6,13 +6,10 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
-import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 import java.time.ZonedDateTime
@@ -32,70 +29,6 @@ class TaskListContentTest {
     )
 
     @Test
-    fun clickPreviousDateButton() {
-        var hasClickedPreviousDate = false
-
-        composeTestRule.setContent {
-            TaskListContent(
-                viewState = TaskListViewState(),
-                onRescheduleClicked = {},
-                onDoneClicked = {},
-                onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {
-                    hasClickedPreviousDate = true
-                },
-                onNextDateButtonClicked = {},
-                onDateSelected = {},
-                onTaskRescheduled = { _, _ ->
-                },
-                onReschedulingCompleted = {},
-                onAlertMessageShown = {},
-            )
-        }
-
-        val previousButtonContentDescription = composeTestRule.activity
-            .getString(R.string.view_previous_day_content_description)
-
-        composeTestRule
-            .onNodeWithContentDescription(previousButtonContentDescription)
-            .performClick()
-
-        assertThat(hasClickedPreviousDate).isTrue()
-    }
-
-    @Test
-    fun clickNextDateButton() {
-        var hasClickedNextDate = false
-
-        composeTestRule.setContent {
-            TaskListContent(
-                viewState = TaskListViewState(),
-                onRescheduleClicked = {},
-                onDoneClicked = {},
-                onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {},
-                onNextDateButtonClicked = {
-                    hasClickedNextDate = true
-                },
-                onDateSelected = {},
-                onTaskRescheduled = { _, _ ->
-                },
-                onReschedulingCompleted = {},
-                onAlertMessageShown = {},
-            )
-        }
-
-        val nextButtonContentDescription = composeTestRule.activity
-            .getString(R.string.view_next_day_content_description)
-
-        composeTestRule
-            .onNodeWithContentDescription(nextButtonContentDescription)
-            .performClick()
-
-        assertThat(hasClickedNextDate).isTrue()
-    }
-
-    @Test
     fun renderWithNoTasks() {
         val viewState = TaskListViewState(
             showLoading = false,
@@ -109,8 +42,6 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {},
-                onNextDateButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
                 },
@@ -145,8 +76,6 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {},
-                onNextDateButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
                 },
@@ -188,8 +117,6 @@ class TaskListContentTest {
                 onRescheduleClicked = {},
                 onDoneClicked = {},
                 onAddButtonClicked = {},
-                onPreviousDateButtonClicked = {},
-                onNextDateButtonClicked = {},
                 onDateSelected = {},
                 onTaskRescheduled = { _, _ ->
                 },
