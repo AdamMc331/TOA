@@ -38,7 +38,7 @@ class ProdCredentialsLoginUseCaseTest {
 
     @Test
     fun testSuccessfulLogin() = runBlockingTest {
-        val loginResponse = Result.Success(
+        val loginResponse = Result.success(
             LoginResponse(
                 token = defaultToken,
             )
@@ -61,7 +61,7 @@ class ProdCredentialsLoginUseCaseTest {
 
     @Test
     fun testUnknownFailureLogin() = runBlockingTest {
-        val loginResponse: Result<LoginResponse> = Result.Error(
+        val loginResponse: Result<LoginResponse> = Result.failure(
             Throwable("Adam fucked up")
         )
 
@@ -82,7 +82,7 @@ class ProdCredentialsLoginUseCaseTest {
 
     @Test
     fun testInvalidCredentialLogin() = runBlockingTest {
-        val loginResponse: Result<LoginResponse> = Result.Error(
+        val loginResponse: Result<LoginResponse> = Result.failure(
             InvalidCredentialsException()
         )
 

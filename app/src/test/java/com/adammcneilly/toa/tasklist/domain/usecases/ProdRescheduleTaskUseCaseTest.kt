@@ -28,7 +28,7 @@ class ProdRescheduleTaskUseCaseTest {
             scheduledDateMillis = newDate.toEpochMillis(),
         )
 
-        fakeRepository.updateTaskResults[expectedNewTask] = Result.Success(Unit)
+        fakeRepository.updateTaskResults[expectedNewTask] = Result.success(Unit)
 
         useCase.invoke(initialTask, newDate)
     }

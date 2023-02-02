@@ -111,7 +111,7 @@ class ProdAddTaskUseCaseTest {
             description = "Testing",
         )
 
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
+        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
         val actualResult = useCase.invoke(
@@ -136,7 +136,7 @@ class ProdAddTaskUseCaseTest {
             description = "Testing",
         )
 
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
+        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
         val actualResult = useCase.invoke(
@@ -157,7 +157,7 @@ class ProdAddTaskUseCaseTest {
 
         // Mock an empty task list for this date.
         fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
-            flowOf(Result.Success(emptyList()))
+            flowOf(Result.success(emptyList()))
 
         val inputTask = Task(
             id = "Some ID",
@@ -186,7 +186,7 @@ class ProdAddTaskUseCaseTest {
 
         // Mock an empty task list for this date.
         fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
-            flowOf(Result.Success(emptyList()))
+            flowOf(Result.success(emptyList()))
 
         val inputTask = Task(
             id = "Some ID",
@@ -199,7 +199,7 @@ class ProdAddTaskUseCaseTest {
             description = "Testing",
         )
 
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
+        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
         val actualResult = useCase.invoke(

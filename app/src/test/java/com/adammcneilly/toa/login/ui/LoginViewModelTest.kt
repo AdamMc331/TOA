@@ -93,7 +93,7 @@ class LoginViewModelTest {
             .buildViewModel()
             .mockLoginResultForCredentials(
                 credentials = completedCredentials,
-                result = Result.Error(InvalidCredentialsException()),
+                result = Result.failure(InvalidCredentialsException()),
             )
             .expectViewStates(
                 action = {
@@ -141,7 +141,7 @@ class LoginViewModelTest {
             .buildViewModel()
             .mockLoginResultForCredentials(
                 credentials = completedCredentials,
-                result = Result.Error(
+                result = Result.failure(
                     Throwable("Failed."),
                 ),
             )
