@@ -35,14 +35,6 @@ class TaskListViewModelRobot {
         assertThat(actualViewState).isEqualTo(expectedViewState)
     }
 
-    fun clickPreviousDateButton() = apply {
-        viewModel.onPreviousDateButtonClicked()
-    }
-
-    fun clickNextDateButton() = apply {
-        viewModel.onNextDateButtonClicked()
-    }
-
     fun clickRescheduleButton(task: Task) = apply {
         viewModel.onRescheduleButtonClicked(task)
     }

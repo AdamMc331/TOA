@@ -59,8 +59,6 @@ fun TaskListContent(
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit,
-    onPreviousDateButtonClicked: () -> Unit,
-    onNextDateButtonClicked: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onReschedulingCompleted: () -> Unit,
@@ -86,8 +84,6 @@ fun TaskListContent(
             ToolbarAndDialog(
                 viewState,
                 onDateSelected,
-                onPreviousDateButtonClicked,
-                onNextDateButtonClicked,
             )
         },
         snackbarHost = {
@@ -206,8 +202,6 @@ private fun RescheduleTaskDialog(
 private fun ToolbarAndDialog(
     viewState: TaskListViewState,
     onDateSelected: (LocalDate) -> Unit,
-    onPreviousDateButtonClicked: () -> Unit,
-    onNextDateButtonClicked: () -> Unit,
 ) {
     val showDatePickerDialog = remember { mutableStateOf(false) }
 
@@ -355,8 +349,6 @@ private fun TaskListContentPreview(
             onRescheduleClicked = {},
             onDoneClicked = {},
             onAddButtonClicked = {},
-            onPreviousDateButtonClicked = {},
-            onNextDateButtonClicked = {},
             onDateSelected = {},
             onTaskRescheduled = { _, _ ->
             },
