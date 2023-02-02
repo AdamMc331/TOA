@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -73,9 +72,7 @@ fun TaskList(
 
                         if (index != incompleteTasks.lastIndex) {
                             Divider(
-                                color = LocalContentColor.current.copy(
-                                    alpha = 0.50F,
-                                ),
+                                color = MaterialTheme.colorScheme.surface,
                             )
                         }
                     }
@@ -113,9 +110,7 @@ fun TaskList(
 
                         if (index != completedTasks.lastIndex) {
                             Divider(
-                                color = LocalContentColor.current.copy(
-                                    alpha = 0.50F,
-                                ),
+                                color = MaterialTheme.colorScheme.surface,
                             )
                         }
                     }

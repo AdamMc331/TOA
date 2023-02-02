@@ -528,10 +528,11 @@ YouTube:
 
 ## Stream Thirty Two - Compose Material 3 Toolbar
 
-Updated the toolbar of the app to use a Material 3 CenterAlignedTopAppBar.
+Updated the toolbar of the app to use a Material 3 CenterAlignedTopAppBar. We also updated the task list UI for the main screen. 
 
 PRs:
-* https://github.com/AdamMc331/TOA/pull/164
+* Toolbar: https://github.com/AdamMc331/TOA/pull/164
+* Task list tweaks: TODO
 
 YouTube:
 * Coming soon
