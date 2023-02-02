@@ -518,13 +518,20 @@ Looked at Maestro UI testing framework.
 Added a date picker dialog from the latest compose material 3 alpha.
 
 Resources:
-
 * Material 3 1.1.0-alpha04: https://developer.android.com/jetpack/androidx/releases/compose-material3#1.1.0-alpha04
 
 PRs:
-
 * https://github.com/AdamMc331/TOA/pull/160
 
-YouTube: Coming Soon
+YouTube:
+* https://youtu.be/1wa0GafAhmg
 
+## Stream Thirty Two - Compose Material 3 Toolbar
 
+Updated the toolbar of the app to use a Material 3 CenterAlignedTopAppBar.
+
+PRs:
+* https://github.com/AdamMc331/TOA/pull/164
+
+YouTube:
+* Coming soon
