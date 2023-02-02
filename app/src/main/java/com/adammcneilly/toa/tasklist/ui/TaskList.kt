@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -48,7 +49,14 @@ fun TaskList(
             }
         } else {
             item {
-                Card {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 1.dp,
+                    ),
+                ) {
                     incompleteTasks.forEachIndexed { index, task ->
                         TaskListItem(
                             task = task,
@@ -65,7 +73,9 @@ fun TaskList(
 
                         if (index != incompleteTasks.lastIndex) {
                             Divider(
-                                color = LocalContentColor.current,
+                                color = LocalContentColor.current.copy(
+                                    alpha = 0.50F,
+                                ),
                             )
                         }
                     }
@@ -79,7 +89,14 @@ fun TaskList(
             }
 
             item {
-                Card {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 1.dp,
+                    ),
+                ) {
                     completedTasks.forEachIndexed { index, task ->
                         TaskListItem(
                             task = task,
@@ -96,7 +113,9 @@ fun TaskList(
 
                         if (index != completedTasks.lastIndex) {
                             Divider(
-                                color = LocalContentColor.current,
+                                color = LocalContentColor.current.copy(
+                                    alpha = 0.50F,
+                                ),
                             )
                         }
                     }
