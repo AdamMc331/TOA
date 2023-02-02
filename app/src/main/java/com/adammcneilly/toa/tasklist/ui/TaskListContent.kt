@@ -50,7 +50,6 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
-const val NEXT_DAY_BUTTON_TAG = "NEXT_DAY_BUTTON"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
