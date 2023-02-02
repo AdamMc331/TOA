@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.fakes
 
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.LoginResponse
 import com.adammcneilly.toa.login.domain.repository.LoginRepository

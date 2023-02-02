@@ -3,7 +3,6 @@ package com.adammcneilly.toa.tasklist.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adammcneilly.toa.R
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
@@ -63,9 +62,9 @@ class TaskListViewModel @Inject constructor(
     }
 
     private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState {
-        return when (result) {
-            is Result.Success -> {
-                val (complete, incomplete) = result.data.partition { task ->
+        return result.fold(
+            onSuccess = { taskList ->
+                val (complete, incomplete) = taskList.partition { task ->
                     task.completed
                 }
 
@@ -74,14 +73,14 @@ class TaskListViewModel @Inject constructor(
                     completedTasks = complete,
                     showLoading = false,
                 )
-            }
-            is Result.Error -> {
+            },
+            onFailure = {
                 _viewState.value.copy(
                     errorMessage = UIText.StringText("Something went wrong."),
                     showLoading = false,
                 )
-            }
-        }
+            },
+        )
     }
 
     /**

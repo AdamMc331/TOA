@@ -3,7 +3,6 @@ package com.adammcneilly.toa.tasklist.ui
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.destinations.AddTaskDialogDestination
 import com.adammcneilly.toa.destinations.AddTaskScreenDestination

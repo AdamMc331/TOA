@@ -2,7 +2,6 @@ package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.R
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText

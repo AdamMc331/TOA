@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.login.domain.usecase
 
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.fakes.FakeLoginRepository
 import com.adammcneilly.toa.fakes.FakeTokenRepository
 import com.adammcneilly.toa.login.domain.model.AuthToken

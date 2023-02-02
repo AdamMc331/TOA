@@ -3,7 +3,6 @@ package com.adammcneilly.toa.login.ui
 import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.ThreadExceptionHandlerTestRule
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.Email

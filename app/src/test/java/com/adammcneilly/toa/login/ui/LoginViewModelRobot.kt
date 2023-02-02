@@ -1,7 +1,6 @@
 package com.adammcneilly.toa.login.ui
 
 import app.cash.turbine.test
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.fakes.FakeLoginRepository
 import com.adammcneilly.toa.fakes.FakeTokenRepository
 import com.adammcneilly.toa.login.domain.model.Credentials

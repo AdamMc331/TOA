@@ -1,7 +1,6 @@
 package com.adammcneilly.toa.addtask.domain.usecases
 
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.fakes.FakePreferences
 import com.adammcneilly.toa.preferences.UserPreferences

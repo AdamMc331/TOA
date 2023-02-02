@@ -1,7 +1,6 @@
 package com.adammcneilly.toa.addtask.domain.usecases
 
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.preferences.UserPreferences
 import com.adammcneilly.toa.task.api.TaskRepository
@@ -41,10 +40,14 @@ class ProdAddTaskUseCase @Inject constructor(
 
         val result = taskRepository.addTask(sanitizedTask)
 
-        return when (result) {
-            is Result.Success -> AddTaskResult.Success
-            is Result.Error -> AddTaskResult.Failure.Unknown
-        }
+        return result.fold(
+            onSuccess = {
+                AddTaskResult.Success
+            },
+            onFailure = {
+                AddTaskResult.Failure.Unknown
+            },
+        )
     }
 
     private suspend fun ensureNumTasksWithinPreferences(
@@ -54,12 +57,12 @@ class ProdAddTaskUseCase @Inject constructor(
     ): AddTaskResult.Failure.MaxTasksPerDayExceeded? {
         val preferredNumTasks = userPreferences.getPreferredNumTasksPerDay() ?: return null
 
-        val numIncompleteTasksResult = taskRepository.fetchTasksForDate(
+        val incompleteTaskList = taskRepository.fetchTasksForDate(
             dateMillis = task.scheduledDateMillis,
             completed = false,
-        ).first() as? Result.Success
+        ).first().getOrNull()
 
-        val numIncompleteTasks = numIncompleteTasksResult?.data?.size ?: 0
+        val numIncompleteTasks = incompleteTaskList?.size ?: 0
 
         return if (numIncompleteTasks >= preferredNumTasks) {
             AddTaskResult.Failure.MaxTasksPerDayExceeded
