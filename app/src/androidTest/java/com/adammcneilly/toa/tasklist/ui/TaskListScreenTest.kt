@@ -27,12 +27,12 @@ class TaskListScreenTest {
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
-            result = flowOf(Result.Success(emptyList())),
+            result = flowOf(Result.success(emptyList())),
         )
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now().plusDays(1),
-            result = flowOf(Result.Success(emptyList())),
+            result = flowOf(Result.success(emptyList())),
         )
 
         val viewModel = TaskListViewModel(
@@ -69,7 +69,7 @@ class TaskListScreenTest {
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
-            result = flowOf(Result.Success(emptyList())),
+            result = flowOf(Result.success(emptyList())),
         )
 
         val viewModel = TaskListViewModel(
