@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.login.domain.usecase
 
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.fakes.FakeLoginRepository
 import com.adammcneilly.toa.fakes.FakeTokenRepository
 import com.adammcneilly.toa.login.domain.model.AuthToken
@@ -39,7 +38,7 @@ class ProdCredentialsLoginUseCaseTest {
 
     @Test
     fun testSuccessfulLogin() = runBlockingTest {
-        val loginResponse = Result.Success(
+        val loginResponse = Result.success(
             LoginResponse(
                 token = defaultToken,
             )
@@ -62,7 +61,7 @@ class ProdCredentialsLoginUseCaseTest {
 
     @Test
     fun testUnknownFailureLogin() = runBlockingTest {
-        val loginResponse: Result<LoginResponse> = Result.Error(
+        val loginResponse: Result<LoginResponse> = Result.failure(
             Throwable("Adam fucked up")
         )
 
@@ -83,7 +82,7 @@ class ProdCredentialsLoginUseCaseTest {
 
     @Test
     fun testInvalidCredentialLogin() = runBlockingTest {
-        val loginResponse: Result<LoginResponse> = Result.Error(
+        val loginResponse: Result<LoginResponse> = Result.failure(
             InvalidCredentialsException()
         )
 

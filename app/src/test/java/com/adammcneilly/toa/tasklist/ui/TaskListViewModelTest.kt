@@ -2,7 +2,6 @@ package com.adammcneilly.toa.tasklist.ui
 
 import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.R
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.AlertMessage
 import com.adammcneilly.toa.core.ui.UIText
@@ -32,7 +31,7 @@ class TaskListViewModelTest {
 
         val taskList = listOf(incompleteTask, completedTask)
 
-        val taskListResult = Result.Success(taskList)
+        val taskListResult = Result.success(taskList)
 
         testRobot
             .mockTaskListResultForDate(
@@ -60,7 +59,7 @@ class TaskListViewModelTest {
 
         val taskList = listOf(incompleteTask)
 
-        val taskListResult = Result.Success(taskList)
+        val taskListResult = Result.success(taskList)
 
         val tomorrow = LocalDate.now().plusDays(1)
 
@@ -114,7 +113,7 @@ class TaskListViewModelTest {
 
         val taskList = listOf(incompleteTask)
 
-        val taskListResult = Result.Success(taskList)
+        val taskListResult = Result.success(taskList)
 
         val yesterday = LocalDate.now().minusDays(1)
 
@@ -164,7 +163,7 @@ class TaskListViewModelTest {
 
     @Test
     fun failureLoad() {
-        val taskResult: Result<List<Task>> = Result.Error(Throwable("Whoops"))
+        val taskResult: Result<List<Task>> = Result.failure(Throwable("Whoops"))
 
         testRobot
             .mockTaskListResultForDate(

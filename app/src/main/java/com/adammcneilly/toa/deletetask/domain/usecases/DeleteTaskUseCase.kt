@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.deletetask.domain.usecases
 
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 
 /**

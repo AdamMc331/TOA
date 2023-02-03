@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.login.domain.usecase
 
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.InvalidCredentialsException
 import com.adammcneilly.toa.login.domain.model.LoginResult
@@ -27,15 +26,15 @@ class ProdCredentialsLoginUseCase @Inject constructor(
 
         val repoResult = loginRepository.login(credentials)
 
-        return when (repoResult) {
-            is Result.Success -> {
-                tokenRepository.storeToken(repoResult.data.token)
+        return repoResult.fold(
+            onSuccess = { loginResponse ->
+                tokenRepository.storeToken(loginResponse.token)
                 LoginResult.Success
-            }
-            is Result.Error -> {
-                loginResultForError(repoResult)
-            }
-        }
+            },
+            onFailure = { error ->
+                loginResultForError(error)
+            },
+        )
     }
 
     private fun validateCredentials(credentials: Credentials): LoginResult.Failure.EmptyCredentials? {
@@ -53,11 +52,11 @@ class ProdCredentialsLoginUseCase @Inject constructor(
     }
 
     /**
-     * Checks the possible error scenarios for the [repoResult] and maps to an appropriate
+     * Checks the possible error scenarios for the [error] and maps to an appropriate
      * [LoginResult.Failure].
      */
-    private fun loginResultForError(repoResult: Result.Error): LoginResult.Failure {
-        return when (repoResult.error) {
+    private fun loginResultForError(error: Throwable): LoginResult.Failure {
+        return when (error) {
             is InvalidCredentialsException -> {
                 LoginResult.Failure.InvalidCredentials
             }

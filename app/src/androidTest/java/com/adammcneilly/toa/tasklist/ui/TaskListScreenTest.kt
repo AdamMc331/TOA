@@ -3,7 +3,6 @@ package com.adammcneilly.toa.tasklist.ui
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.destinations.AddTaskDialogDestination
 import com.adammcneilly.toa.destinations.AddTaskScreenDestination
@@ -28,12 +27,12 @@ class TaskListScreenTest {
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
-            result = flowOf(Result.Success(emptyList())),
+            result = flowOf(Result.success(emptyList())),
         )
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now().plusDays(1),
-            result = flowOf(Result.Success(emptyList())),
+            result = flowOf(Result.success(emptyList())),
         )
 
         val viewModel = TaskListViewModel(
@@ -70,7 +69,7 @@ class TaskListScreenTest {
 
         getTasksForDateUseCase.mockResultForDate(
             date = LocalDate.now(),
-            result = flowOf(Result.Success(emptyList())),
+            result = flowOf(Result.success(emptyList())),
         )
 
         val viewModel = TaskListViewModel(

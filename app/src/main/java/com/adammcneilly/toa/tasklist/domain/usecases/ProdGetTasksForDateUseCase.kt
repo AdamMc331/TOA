@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.tasklist.domain.usecases
 
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.task.api.TaskListResult
 import com.adammcneilly.toa.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
@@ -25,13 +24,15 @@ class ProdGetTasksForDateUseCase @Inject constructor(
         val completedTaskFlow = taskRepository.fetchTasksForDate(dateMillis, completed = true)
 
         return incompleteTaskFlow.combineTransform(completedTaskFlow) { incomplete, complete ->
-            if (incomplete is Result.Success && complete is Result.Success) {
-                val result = Result.Success(incomplete.data + complete.data)
+            val incompleteTasks = incomplete.getOrNull()
+            val completeTasks = complete.getOrNull()
+            if (incompleteTasks != null && completeTasks != null) {
+                val result = Result.success(incompleteTasks + completeTasks)
                 emit(result)
             } else {
                 // Ideally we emit one of the actual errors that occurred, but for now we can just
                 // say something went wrong.
-                emit(Result.Error(Throwable("Error Requesting Tasks For Date: $date")))
+                emit(Result.failure(Throwable("Error Requesting Tasks For Date: $date")))
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.login.domain.repository
 
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.login.domain.model.AuthToken
 import com.adammcneilly.toa.login.domain.model.Credentials
 import com.adammcneilly.toa.login.domain.model.LoginResponse
@@ -22,6 +21,6 @@ class DemoLoginRepository @Inject constructor() : LoginRepository {
 
         val defaultResponse = LoginResponse(defaultToken)
 
-        return Result.Success(defaultResponse)
+        return Result.success(defaultResponse)
     }
 }

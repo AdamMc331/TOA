@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.core.data.local
 
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.task.api.TaskListResult
 import com.adammcneilly.toa.task.api.TaskRepository
@@ -20,7 +19,7 @@ class RoomTaskRepository @Inject constructor(
         return taskDAO
             .fetchAllTasks()
             .map { taskList ->
-                Result.Success(taskList.toDomainTaskList())
+                Result.success(taskList.toDomainTaskList())
             }
     }
 
@@ -39,14 +38,14 @@ class RoomTaskRepository @Inject constructor(
                 completed,
             )
             .map { taskList ->
-                Result.Success(taskList.toDomainTaskList())
+                Result.success(taskList.toDomainTaskList())
             }
     }
 
     override suspend fun addTask(task: Task): Result<Unit> {
         taskDAO.insertTask(task.toPersistableTask())
 
-        return Result.Success(Unit)
+        return Result.success(Unit)
     }
 
     override suspend fun deleteTask(task: Task): Result<Unit> {
@@ -56,7 +55,7 @@ class RoomTaskRepository @Inject constructor(
     override suspend fun updateTask(task: Task): Result<Unit> {
         taskDAO.updateTask(task.toPersistableTask())
 
-        return Result.Success(Unit)
+        return Result.success(Unit)
     }
 }
 

@@ -1,7 +1,6 @@
 package com.adammcneilly.toa.addtask.domain.usecases
 
 import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
-import com.adammcneilly.toa.core.data.Result
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.fakes.FakePreferences
 import com.adammcneilly.toa.preferences.UserPreferences
@@ -112,7 +111,7 @@ class ProdAddTaskUseCaseTest {
             description = "Testing",
         )
 
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
+        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
         val actualResult = useCase.invoke(
@@ -137,7 +136,7 @@ class ProdAddTaskUseCaseTest {
             description = "Testing",
         )
 
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
+        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
         val actualResult = useCase.invoke(
@@ -158,7 +157,7 @@ class ProdAddTaskUseCaseTest {
 
         // Mock an empty task list for this date.
         fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
-            flowOf(Result.Success(emptyList()))
+            flowOf(Result.success(emptyList()))
 
         val inputTask = Task(
             id = "Some ID",
@@ -187,7 +186,7 @@ class ProdAddTaskUseCaseTest {
 
         // Mock an empty task list for this date.
         fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
-            flowOf(Result.Success(emptyList()))
+            flowOf(Result.success(emptyList()))
 
         val inputTask = Task(
             id = "Some ID",
@@ -200,7 +199,7 @@ class ProdAddTaskUseCaseTest {
             description = "Testing",
         )
 
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.Success(Unit)
+        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
         val actualResult = useCase.invoke(
