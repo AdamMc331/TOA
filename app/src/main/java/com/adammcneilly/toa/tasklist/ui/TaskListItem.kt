@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.models.Task
-import com.adammcneilly.toa.core.ui.components.Material3Card
 import com.adammcneilly.toa.core.ui.components.TOATextButton
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 
@@ -33,25 +32,21 @@ fun TaskListItem(
     onDoneClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Material3Card(
-        modifier = modifier,
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalAlignment = Alignment.End,
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            horizontalAlignment = Alignment.End,
-        ) {
-            TaskText(
-                task.description,
-            )
+        TaskText(
+            task.description,
+        )
 
-            if (!task.completed) {
-                ButtonRow(
-                    onRescheduleClicked = onRescheduleClicked,
-                    onDoneClicked = onDoneClicked,
-                )
-            }
+        if (!task.completed) {
+            ButtonRow(
+                onRescheduleClicked = onRescheduleClicked,
+                onDoneClicked = onDoneClicked,
+            )
         }
     }
 }
