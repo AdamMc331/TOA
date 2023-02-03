@@ -532,8 +532,8 @@ Updated the toolbar of the app to use a Material 3 CenterAlignedTopAppBar. We al
 
 PRs:
 * Toolbar: https://github.com/AdamMc331/TOA/pull/164
-* Task list tweaks: TODO
-* Result class replacement:
+* Task list tweaks: https://github.com/AdamMc331/TOA/pull/167
+* Result class replacement: https://github.com/AdamMc331/TOA/pull/168
 
 YouTube:
 * Coming soon

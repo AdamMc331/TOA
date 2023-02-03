@@ -50,18 +50,13 @@ class TaskListScreenTest {
                 windowSize = WindowSize.Compact,
             )
         }
-
-        composeTestRule
-            .onNodeWithTag(NEXT_DAY_BUTTON_TAG)
-            .performClick()
-
         composeTestRule
             .onNodeWithTag(ADD_TASK_BUTTON_TAG)
             .performClick()
 
         destinationsNavigator.verifyNavigatedToDirection(
             expectedDirection = AddTaskScreenDestination(
-                initialDate = LocalDate.now().plusDays(1),
+                initialDate = LocalDate.now(),
             )
         )
     }
