@@ -90,8 +90,6 @@ class TaskListViewModel @Inject constructor(
      * [taskRepository] until the message is dismissed.
      */
     fun onDoneButtonClicked(task: Task) {
-        println("ARM - Done Button Clicked: ${task.description}")
-
         markTaskAsComplete(task)
         val taskAccomplishedAlertMessage = getUndoAlertMessageForTask(task)
         addAlertMessageToState(taskAccomplishedAlertMessage)
@@ -119,8 +117,6 @@ class TaskListViewModel @Inject constructor(
         message = UIText.ResourceText(R.string.task_accomplished, listOf(task.description)),
         actionText = UIText.ResourceText(R.string.undo),
         onActionClicked = {
-            println("ARM - Undoing Task Completion: ${task.description}")
-
             val taskAsIncomplete = task.copy(
                 completed = false,
             )

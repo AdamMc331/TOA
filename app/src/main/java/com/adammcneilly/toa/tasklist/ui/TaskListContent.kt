@@ -143,11 +143,7 @@ private fun TaskListSnackbar(
             AlertMessage.Duration.INDEFINITE -> SnackbarDuration.Indefinite
         }
 
-        println("ARM - Snackbar Component Called: $message")
-
         LaunchedEffect(alertMessage.id) {
-            println("ARM - Showing alert message LaunchedEffect: $message")
-
             val snackbarResult = snackbarHostState.showSnackbar(
                 message = message,
                 actionLabel = actionLabel,
