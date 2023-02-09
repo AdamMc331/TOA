@@ -92,61 +92,49 @@ class TaskListViewModel @Inject constructor(
     fun onDoneButtonClicked(task: Task) {
         println("ARM - Done Button Clicked: ${task.description}")
 
-        val taskAccomplishedAlertMessage = AlertMessage(
-            message = UIText.ResourceText(R.string.task_accomplished, listOf(task.description)),
-            actionText = UIText.ResourceText(R.string.undo),
-            onActionClicked = {
-                _viewState.update {
-                    println("ARM - Undoing Task Completion: ${task.description}")
+        markTaskAsComplete(task)
+        val taskAccomplishedAlertMessage = getUndoAlertMessageForTask(task)
+        addAlertMessageToState(taskAccomplishedAlertMessage)
+    }
 
-                    val incompleteTasksToUse = it.incompleteTasks?.plus(task)
+    private fun addAlertMessageToState(taskAccomplishedAlertMessage: AlertMessage) {
+        _viewState.update { currentState ->
+            currentState.copy(
+                alertMessages = currentState.alertMessages + taskAccomplishedAlertMessage,
+            )
+        }
+    }
 
-                    // Instead of removing the task by an equality check
-                    // We should just filter by the ID. However, since we're trying to match by
-                    // equality, we need to take the task, and act as if it's "complete".
-                    val taskAsComplete = task.copy(
-                        completed = true,
-                    )
-
-                    val completedTasksToUse = it.completedTasks?.minus(taskAsComplete)
-
-                    it.copy(
-                        incompleteTasks = incompleteTasksToUse,
-                        completedTasks = completedTasksToUse,
-                    )
-                }
-            },
-            onDismissed = {
-                viewModelScope.launch {
-                    println("ARM - Submitting Task Completion: ${task.description}")
-
-                    val updatedTask = task.copy(
-                        completed = true,
-                    )
-
-                    taskRepository.updateTask(updatedTask)
-                }
-            },
-            duration = AlertMessage.Duration.LONG,
-        )
-
-        _viewState.update {
+    private fun markTaskAsComplete(task: Task) {
+        viewModelScope.launch {
             val taskAsComplete = task.copy(
                 completed = true,
             )
 
-            val incompleteTaskToUse = it.incompleteTasks?.minus(task)
-            val completedTasksToUse = it.completedTasks?.plus(taskAsComplete)
-
-            println("ARM - Setting Alert Message: ${task.description}")
-
-            it.copy(
-                incompleteTasks = incompleteTaskToUse,
-                completedTasks = completedTasksToUse,
-                alertMessages = it.alertMessages + taskAccomplishedAlertMessage,
-            )
+            taskRepository.updateTask(taskAsComplete)
         }
     }
+
+    private fun getUndoAlertMessageForTask(task: Task) = AlertMessage(
+        message = UIText.ResourceText(R.string.task_accomplished, listOf(task.description)),
+        actionText = UIText.ResourceText(R.string.undo),
+        onActionClicked = {
+            println("ARM - Undoing Task Completion: ${task.description}")
+
+            val taskAsIncomplete = task.copy(
+                completed = false,
+            )
+
+            viewModelScope.launch {
+                taskRepository.updateTask(taskAsIncomplete)
+            }
+        },
+        onDismissed = {
+            // Do nothing, we're assuming data source was already updated
+            // as if the task was complete.
+        },
+        duration = AlertMessage.Duration.LONG,
+    )
 
     fun onDateSelected(newDate: LocalDate) {
         _viewState.value = _viewState.value.copy(
