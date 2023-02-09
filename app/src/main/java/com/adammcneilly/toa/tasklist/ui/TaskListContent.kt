@@ -61,14 +61,14 @@ fun TaskListContent(
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onReschedulingCompleted: () -> Unit,
-    onAlertMessageShown: () -> Unit,
+    onAlertMessageShown: (Long) -> Unit,
 ) {
     val snackbarHostState = remember {
         SnackbarHostState()
     }
 
     TaskListSnackbar(
-        alertMessage = viewState.alertMessage,
+        alertMessage = viewState.alertMessages.firstOrNull(),
         snackbarHostState = snackbarHostState,
         onAlertMessageShown = onAlertMessageShown,
     )
@@ -134,7 +134,7 @@ private fun TaskListLoadingContent() {
 private fun TaskListSnackbar(
     alertMessage: AlertMessage?,
     snackbarHostState: SnackbarHostState,
-    onAlertMessageShown: () -> Unit,
+    onAlertMessageShown: (Long) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -155,9 +155,10 @@ private fun TaskListSnackbar(
                     duration = duration,
                 )
 
+                onAlertMessageShown.invoke(alertMessage.id)
+
                 when (snackbarResult) {
                     SnackbarResult.Dismissed -> {
-                        onAlertMessageShown.invoke()
                         alertMessage.onDismissed.invoke()
                     }
 

@@ -90,20 +90,27 @@ class TaskListViewModel @Inject constructor(
      * [taskRepository] until the message is dismissed.
      */
     fun onDoneButtonClicked(task: Task) {
+        println("ARM - Done Button Clicked: ${task.description}")
+
         val taskAccomplishedAlertMessage = AlertMessage(
-            message = UIText.ResourceText(R.string.task_accomplished),
+            message = UIText.ResourceText(R.string.task_accomplished, listOf(task.description)),
             actionText = UIText.ResourceText(R.string.undo),
             onActionClicked = {
                 _viewState.update {
+                    println("ARM - Undoing Task Completion: ${task.description}")
+
+                    val incompleteTasksToUse = it.incompleteTasks?.plus(task)
+
+                    // Instead of removing the task by an equality check
+                    // We should just filter by the ID. However, since we're trying to match by
+                    // equality, we need to take the task, and act as if it's "complete".
                     val taskAsComplete = task.copy(
                         completed = true,
                     )
 
-                    val incompleteTasksToUse = it.incompleteTasks?.plus(task)
                     val completedTasksToUse = it.completedTasks?.minus(taskAsComplete)
 
                     it.copy(
-                        alertMessage = null,
                         incompleteTasks = incompleteTasksToUse,
                         completedTasks = completedTasksToUse,
                     )
@@ -111,19 +118,13 @@ class TaskListViewModel @Inject constructor(
             },
             onDismissed = {
                 viewModelScope.launch {
-                    viewModelScope.launch {
-                        val updatedTask = task.copy(
-                            completed = true,
-                        )
+                    println("ARM - Submitting Task Completion: ${task.description}")
 
-                        taskRepository.updateTask(updatedTask)
-                    }
+                    val updatedTask = task.copy(
+                        completed = true,
+                    )
 
-                    _viewState.update {
-                        it.copy(
-                            alertMessage = null,
-                        )
-                    }
+                    taskRepository.updateTask(updatedTask)
                 }
             },
             duration = AlertMessage.Duration.LONG,
@@ -137,10 +138,12 @@ class TaskListViewModel @Inject constructor(
             val incompleteTaskToUse = it.incompleteTasks?.minus(task)
             val completedTasksToUse = it.completedTasks?.plus(taskAsComplete)
 
+            println("ARM - Setting Alert Message: ${task.description}")
+
             it.copy(
                 incompleteTasks = incompleteTaskToUse,
                 completedTasks = completedTasksToUse,
-                alertMessage = taskAccomplishedAlertMessage,
+                alertMessages = it.alertMessages + taskAccomplishedAlertMessage,
             )
         }
     }
@@ -173,7 +176,7 @@ class TaskListViewModel @Inject constructor(
             _viewState.update {
                 it.copy(
                     taskToReschedule = null,
-                    alertMessage = AlertMessage(
+                    alertMessages = it.alertMessages + AlertMessage(
                         message = UIText.ResourceText(
                             R.string.err_scheduled_date_in_past,
                         ),
@@ -192,7 +195,6 @@ class TaskListViewModel @Inject constructor(
                     val updatedTasks = it.incompleteTasks?.plus(task)
 
                     it.copy(
-                        alertMessage = null,
                         incompleteTasks = updatedTasks,
                     )
                 }
@@ -204,7 +206,6 @@ class TaskListViewModel @Inject constructor(
                     _viewState.update {
                         it.copy(
                             taskToReschedule = null,
-                            alertMessage = null,
                         )
                     }
                 }
@@ -218,7 +219,7 @@ class TaskListViewModel @Inject constructor(
             it.copy(
                 taskToReschedule = null,
                 incompleteTasks = tempTasks,
-                alertMessage = taskRescheduledAlertMessage,
+                alertMessages = it.alertMessages + taskRescheduledAlertMessage,
             )
         }
     }
@@ -231,10 +232,16 @@ class TaskListViewModel @Inject constructor(
         }
     }
 
-    fun onAlertMessageShown() {
+    fun onAlertMessageShown(
+        shownId: Long,
+    ) {
         _viewState.update {
+            val newAlertMessages = it.alertMessages.filter { alertMessage ->
+                alertMessage.id != shownId
+            }
+
             it.copy(
-                alertMessage = null,
+                alertMessages = newAlertMessages,
             )
         }
     }

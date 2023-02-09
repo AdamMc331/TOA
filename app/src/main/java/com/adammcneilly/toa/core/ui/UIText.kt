@@ -11,7 +11,10 @@ import androidx.compose.ui.platform.LocalContext
 sealed class UIText {
     data class StringText(val value: String) : UIText()
 
-    data class ResourceText(@StringRes val value: Int) : UIText()
+    data class ResourceText(
+        @StringRes val value: Int,
+        val args: List<Any> = emptyList(),
+    ) : UIText()
 }
 
 /**
@@ -22,7 +25,7 @@ sealed class UIText {
 fun UIText.getString(context: Context): String {
     return when (this) {
         is UIText.StringText -> this.value
-        is UIText.ResourceText -> context.getString(this.value)
+        is UIText.ResourceText -> context.getString(this.value, *this.args.toTypedArray())
     }
 }
 
