@@ -55,11 +55,16 @@ class TaskListViewModelRobot {
         )
     }
 
+    /**
+     * Look up and dismiss first alert message ID
+     */
     fun showAlertMessage() = apply {
-        viewModel.onAlertMessageShown()
+        viewModel.viewState.value.alertMessages.firstOrNull()?.id?.let { id ->
+            viewModel.onAlertMessageShown(id)
+        }
     }
 
     fun dismissAlertMessage() = apply {
-        viewModel.viewState.value.alertMessage?.onDismissed?.invoke()
+        viewModel.viewState.value.alertMessages?.firstOrNull()?.onDismissed?.invoke()
     }
 }

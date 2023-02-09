@@ -88,10 +88,12 @@ class TaskListViewModelTest {
                     incompleteTasks = emptyList(),
                     completedTasks = emptyList(),
                     taskToReschedule = null,
-                    alertMessage = AlertMessage(
-                        message = UIText.ResourceText(R.string.task_rescheduled),
-                        actionText = UIText.ResourceText(R.string.undo),
-                        duration = AlertMessage.Duration.LONG,
+                    alertMessages = listOf(
+                        AlertMessage(
+                            message = UIText.ResourceText(R.string.task_rescheduled),
+                            actionText = UIText.ResourceText(R.string.undo),
+                            duration = AlertMessage.Duration.LONG,
+                        ),
                     ),
                 )
             )
@@ -116,6 +118,12 @@ class TaskListViewModelTest {
         val taskListResult = Result.success(taskList)
 
         val yesterday = LocalDate.now().minusDays(1)
+
+        val alertMessage = AlertMessage(
+            message = UIText.ResourceText(
+                R.string.err_scheduled_date_in_past,
+            ),
+        )
 
         testRobot
             .mockTaskListResultForDate(
@@ -142,10 +150,8 @@ class TaskListViewModelTest {
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
                     taskToReschedule = null,
-                    alertMessage = AlertMessage(
-                        message = UIText.ResourceText(
-                            R.string.err_scheduled_date_in_past,
-                        ),
+                    alertMessages = listOf(
+                        alertMessage,
                     ),
                 )
             )
@@ -156,7 +162,7 @@ class TaskListViewModelTest {
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
                     taskToReschedule = null,
-                    alertMessage = null,
+                    alertMessages = emptyList(),
                 )
             )
     }
