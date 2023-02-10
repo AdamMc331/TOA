@@ -26,7 +26,7 @@ data class TaskListViewState(
     val errorMessage: UIText? = null,
     val selectedDate: LocalDate = LocalDate.now(),
     val taskToReschedule: Task? = null,
-    val alertMessage: AlertMessage? = null,
+    val alertMessages: List<AlertMessage> = emptyList(),
 ) {
 
     /**

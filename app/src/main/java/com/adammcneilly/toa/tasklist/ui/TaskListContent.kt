@@ -23,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -46,7 +45,6 @@ import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.toEpochMillisUTC
 import com.adammcneilly.toa.toLocalDateUTC
 import com.google.accompanist.insets.navigationBarsPadding
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
@@ -61,14 +59,14 @@ fun TaskListContent(
     onDateSelected: (LocalDate) -> Unit,
     onTaskRescheduled: (Task, LocalDate) -> Unit,
     onReschedulingCompleted: () -> Unit,
-    onAlertMessageShown: () -> Unit,
+    onAlertMessageShown: (Long) -> Unit,
 ) {
     val snackbarHostState = remember {
         SnackbarHostState()
     }
 
     TaskListSnackbar(
-        alertMessage = viewState.alertMessage,
+        alertMessage = viewState.alertMessages.firstOrNull(),
         snackbarHostState = snackbarHostState,
         onAlertMessageShown = onAlertMessageShown,
     )
@@ -134,10 +132,8 @@ private fun TaskListLoadingContent() {
 private fun TaskListSnackbar(
     alertMessage: AlertMessage?,
     snackbarHostState: SnackbarHostState,
-    onAlertMessageShown: () -> Unit,
+    onAlertMessageShown: (Long) -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     if (alertMessage != null) {
         val message = alertMessage.message.getString()
         val actionLabel = alertMessage.actionText?.getString()
@@ -147,23 +143,22 @@ private fun TaskListSnackbar(
             AlertMessage.Duration.INDEFINITE -> SnackbarDuration.Indefinite
         }
 
-        LaunchedEffect(snackbarHostState) {
-            coroutineScope.launch {
-                val snackbarResult = snackbarHostState.showSnackbar(
-                    message = message,
-                    actionLabel = actionLabel,
-                    duration = duration,
-                )
+        LaunchedEffect(alertMessage.id) {
+            val snackbarResult = snackbarHostState.showSnackbar(
+                message = message,
+                actionLabel = actionLabel,
+                duration = duration,
+            )
 
-                when (snackbarResult) {
-                    SnackbarResult.Dismissed -> {
-                        onAlertMessageShown.invoke()
-                        alertMessage.onDismissed.invoke()
-                    }
+            onAlertMessageShown.invoke(alertMessage.id)
 
-                    SnackbarResult.ActionPerformed -> {
-                        alertMessage.onActionClicked.invoke()
-                    }
+            when (snackbarResult) {
+                SnackbarResult.Dismissed -> {
+                    alertMessage.onDismissed.invoke()
+                }
+
+                SnackbarResult.ActionPerformed -> {
+                    alertMessage.onActionClicked.invoke()
                 }
             }
         }

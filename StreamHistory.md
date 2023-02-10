@@ -39,6 +39,8 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Twenty Nine - Preferred Tasks Per Day](#stream-twenty-nine---preferred-tasks-per-day)
 * [Stream Thirty - Maestro](#stream-thirty---maestro)
 * [Stream Thirty One - Material 3 Date Picker](#stream-thirty-one---compose-material-3-date-picker)
+* [Stream Thirty Two - Material 3 Toolbar & Design Tweaks](#stream-thirty-two---compose-material-3-toolbar-ui-tweaks-data-layer-updates)
+* [Stream Thirty Three - Race Condition Fixes](#stream-thirty-three---fixing-race-conditions)
 </details>
 
 <details>
@@ -537,3 +539,13 @@ PRs:
 
 YouTube:
 * Coming soon
+
+## Stream Thirty Three - Fixing Race Conditions
+
+Fixed a race condition that happened when trying to mark multiple tasks as completed.
+
+PRs:
+* https://github.com/AdamMc331/TOA/pull/169
+
+YouTube:
+* Coming Soon
