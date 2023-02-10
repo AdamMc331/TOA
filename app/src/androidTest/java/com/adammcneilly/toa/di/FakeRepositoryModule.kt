@@ -13,6 +13,11 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import javax.inject.Singleton
 
+/**
+ * At the time I'm writing this comment, this module is not used, but we kept it here for education
+ * sake, as this shows how we can write a module to override dependencies set inside the application
+ * variant.
+ */
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],

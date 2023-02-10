@@ -63,8 +63,6 @@ class MainActivity : FragmentActivity() {
                     ) {
                         val sessionState = sessionViewModel.sessionState.collectAsState()
 
-                        println("ARM - Session state: $sessionState")
-
                         val startRoute: Route? = when (sessionState.value) {
                             SessionState.UNINITIALIZED -> null
                             SessionState.LOGGED_IN -> TaskListScreenDestination

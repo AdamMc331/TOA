@@ -3,11 +3,13 @@ package com.adammcneilly.toa
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithTag
 import com.adammcneilly.toa.login.domain.model.AuthToken
 import com.adammcneilly.toa.login.domain.model.RefreshToken
 import com.adammcneilly.toa.login.domain.model.Token
 import com.adammcneilly.toa.login.domain.repository.TokenRepository
+import com.adammcneilly.toa.login.ui.LoginScreen
+import com.adammcneilly.toa.tasklist.ui.TaskListScreen
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -41,10 +43,9 @@ class MainActivityTest {
             tokenRepository.clearToken()
         }
 
-        composeTestRule.onNodeWithText("Email").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Password").assertIsDisplayed()
-        composeTestRule.onNodeWithText("LOG IN").assertIsDisplayed()
-        composeTestRule.onNodeWithText("SIGN UP").assertIsDisplayed()
+        composeTestRule
+            .onNodeWithTag(LoginScreen.TEST_TAG)
+            .assertIsDisplayed()
     }
 
     @Test
@@ -60,7 +61,7 @@ class MainActivityTest {
         }
 
         composeTestRule
-            .onNodeWithText("You have nothing scheduled for this day. Make time for yourself")
+            .onNodeWithTag(TaskListScreen.TEST_TAG)
             .assertIsDisplayed()
     }
 }

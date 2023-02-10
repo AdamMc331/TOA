@@ -41,6 +41,7 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Thirty One - Material 3 Date Picker](#stream-thirty-one---compose-material-3-date-picker)
 * [Stream Thirty Two - Material 3 Toolbar & Design Tweaks](#stream-thirty-two---compose-material-3-toolbar-ui-tweaks-data-layer-updates)
 * [Stream Thirty Three - Race Condition Fixes](#stream-thirty-three---fixing-race-conditions)
+* [Stream Thirty Four - MainActivity UI Tests](#stream-thirty-four---mainactivity-ui-tests)
 </details>
 
 <details>
@@ -546,6 +547,16 @@ Fixed a race condition that happened when trying to mark multiple tasks as compl
 
 PRs:
 * https://github.com/AdamMc331/TOA/pull/169
+
+YouTube:
+* Coming Soon
+
+## Stream Thirty Four - MainActivity UI Tests
+
+Added UI tests to validate which screen is shown when the user is logged in or not. 
+
+PRs:
+* https://github.com/AdamMc331/TOA/pull/172
 
 YouTube:
 * Coming Soon

@@ -2,6 +2,8 @@ package com.adammcneilly.toa.tasklist.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adammcneilly.toa.addtask.ui.AddTaskNavArguments
 import com.adammcneilly.toa.core.ui.WindowSize
@@ -44,5 +46,11 @@ fun TaskListScreen(
         onTaskRescheduled = viewModel::onTaskRescheduled,
         onReschedulingCompleted = viewModel::onReschedulingCompleted,
         onAlertMessageShown = viewModel::onAlertMessageShown,
+        modifier = Modifier
+            .testTag(TaskListScreen.TEST_TAG),
     )
+}
+
+object TaskListScreen {
+    const val TEST_TAG = "TASK_LIST_SCREEN"
 }

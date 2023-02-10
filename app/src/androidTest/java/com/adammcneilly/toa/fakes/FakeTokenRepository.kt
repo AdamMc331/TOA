@@ -14,7 +14,6 @@ class FakeTokenRepository @Inject constructor() : TokenRepository {
     )
 
     override suspend fun storeToken(token: Token) {
-        println("ARM - Emitting token: $token")
         tokenFlow.emit(token)
     }
 

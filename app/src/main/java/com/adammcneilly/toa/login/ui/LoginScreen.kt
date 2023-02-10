@@ -4,7 +4,9 @@ import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adammcneilly.toa.destinations.LoginScreenDestination
 import com.adammcneilly.toa.destinations.TaskListScreenDestination
@@ -47,5 +49,11 @@ fun LoginScreen(
                 Toast.LENGTH_SHORT,
             ).show()
         },
+        modifier = Modifier
+            .testTag(LoginScreen.TEST_TAG),
     )
+}
+
+object LoginScreen {
+    const val TEST_TAG = "LOGIN_SCREEN"
 }
