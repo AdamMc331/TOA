@@ -63,6 +63,8 @@ class MainActivity : FragmentActivity() {
                     ) {
                         val sessionState = sessionViewModel.sessionState.collectAsState()
 
+                        println("ARM - Session state: $sessionState")
+
                         val startRoute: Route? = when (sessionState.value) {
                             SessionState.UNINITIALIZED -> null
                             SessionState.LOGGED_IN -> TaskListScreenDestination
@@ -109,6 +111,7 @@ class MainActivity : FragmentActivity() {
 
     private fun keepSplashScreenVisibleWhileInitializing() {
         val content: View = findViewById(R.id.content)
+
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
