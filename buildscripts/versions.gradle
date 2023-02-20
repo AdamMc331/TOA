@@ -1,7 +1,7 @@
 ext {
     versions = [
             // https://developer.android.com/jetpack/androidx/releases/core
-            ktxCore              : "1.7.0",
+            ktxCore              : "1.9.0",
             // https://developer.android.com/jetpack/androidx/releases/appcompat
             appCompat            : "1.6.1",
             // https://github.com/material-components/material-components-android/releases
