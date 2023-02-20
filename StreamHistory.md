@@ -539,7 +539,9 @@ PRs:
 * Result class replacement: https://github.com/AdamMc331/TOA/pull/168
 
 YouTube:
-* Coming soon
+* Toolbar: https://youtu.be/youW1g-eFnA
+* Task list tweaks: coming soon
+* Result class replacement: coming soon
 
 ## Stream Thirty Three - Fixing Race Conditions
 
