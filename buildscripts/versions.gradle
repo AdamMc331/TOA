@@ -9,7 +9,7 @@ ext {
             // https://developer.android.com/jetpack/androidx/releases/hilt
             hiltNavigationCompose: "1.0.0",
             // https://github.com/google/accompanist/releases
-            accompanist          : "0.23.1",
+            accompanist          : "0.28.0",
             // https://developer.android.com/jetpack/androidx/releases/compose-material3
             composeMaterial3     : "1.0.0-alpha09",
             // https://github.com/junit-team/junit4/releases
