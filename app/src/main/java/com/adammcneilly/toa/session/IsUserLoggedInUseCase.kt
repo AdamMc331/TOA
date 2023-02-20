@@ -1,7 +1,8 @@
 package com.adammcneilly.toa.session
 
 import com.adammcneilly.toa.login.domain.repository.TokenRepository
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 /**
@@ -12,8 +13,11 @@ class IsUserLoggedInUseCase @Inject constructor(
     private val tokenRepository: TokenRepository
 ) {
 
-    suspend fun isUserLoggedIn(): Boolean {
-        val authToken = tokenRepository.observeToken().firstOrNull()
-        return authToken != null
+    fun isUserLoggedIn(): Flow<Boolean> {
+        return tokenRepository
+            .observeToken()
+            .map { token ->
+                token != null
+            }
     }
 }

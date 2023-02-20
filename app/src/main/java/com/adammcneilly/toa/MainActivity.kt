@@ -109,6 +109,7 @@ class MainActivity : FragmentActivity() {
 
     private fun keepSplashScreenVisibleWhileInitializing() {
         val content: View = findViewById(R.id.content)
+
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
