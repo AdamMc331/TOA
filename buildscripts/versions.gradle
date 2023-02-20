@@ -3,7 +3,7 @@ ext {
             // https://developer.android.com/jetpack/androidx/releases/core
             ktxCore              : "1.7.0",
             // https://developer.android.com/jetpack/androidx/releases/appcompat
-            appCompat            : "1.4.1",
+            appCompat            : "1.6.1",
             // https://github.com/material-components/material-components-android/releases
             material             : "1.5.0",
             // https://developer.android.com/jetpack/androidx/releases/hilt
@@ -29,7 +29,7 @@ ext {
             // https://developer.android.com/jetpack/androidx/releases/lifecycle
             lifecycle            : "2.4.1",
             // https://developer.android.com/jetpack/androidx/releases/activity
-            activityCompose      : "1.4.0",
+            activityCompose      : "1.6.1",
             // https://github.com/raamcosta/compose-destinations/releases
             composeDestinations  : "1.8.32-beta",
             // https://developer.android.com/jetpack/androidx/releases/navigation
