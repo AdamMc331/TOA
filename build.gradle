@@ -11,7 +11,7 @@ buildscript {
         detektVersion = "1.19.0"
 
         // https://developer.android.com/jetpack/androidx/releases/hilt
-        hiltVersion = "2.44.2"
+        hiltVersion = "2.45"
 
         kotlinVersion = "1.7.21"
 
