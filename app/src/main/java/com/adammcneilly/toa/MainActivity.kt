@@ -12,15 +12,20 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import com.adammcneilly.toa.core.ui.WindowSize
+import com.adammcneilly.toa.core.ui.components.navigation.NavigationTab
+import com.adammcneilly.toa.core.ui.components.navigation.NavigationTabDisplayModel
+import com.adammcneilly.toa.core.ui.components.navigation.TOABottomNavigation
 import com.adammcneilly.toa.core.ui.rememberWindowSizeClass
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.destinations.LoginScreenDestination
@@ -70,7 +75,31 @@ class MainActivity : FragmentActivity() {
                         }
 
                         if (startRoute != null) {
-                            TOANavHost(startRoute, windowSize)
+                            Column {
+                                TOANavHost(
+                                    startRoute,
+                                    windowSize,
+                                    modifier = Modifier
+                                        .weight(1F),
+                                )
+
+                                val defaultTabs = listOf(
+                                    NavigationTabDisplayModel(
+                                        tab = NavigationTab.Home,
+                                        isSelected = true,
+                                        onClick = {},
+                                    ),
+                                    NavigationTabDisplayModel(
+                                        tab = NavigationTab.Settings,
+                                        isSelected = false,
+                                        onClick = {},
+                                    ),
+                                )
+
+                                TOABottomNavigation(
+                                    navigationTabs = defaultTabs,
+                                )
+                            }
                         }
                     }
                 }
@@ -82,6 +111,7 @@ class MainActivity : FragmentActivity() {
     private fun TOANavHost(
         startRoute: Route,
         windowSize: WindowSize,
+        modifier: Modifier = Modifier,
     ) {
         DestinationsNavHost(
             startRoute = startRoute,
@@ -103,7 +133,8 @@ class MainActivity : FragmentActivity() {
                         windowSize = windowSize,
                     )
                 }
-            }
+            },
+            modifier = modifier,
         )
     }
 
