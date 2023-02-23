@@ -44,7 +44,6 @@ import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.toEpochMillisUTC
 import com.adammcneilly.toa.toLocalDateUTC
-import com.google.accompanist.insets.navigationBarsPadding
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
@@ -253,7 +252,6 @@ private fun AddTaskButton(
         onClick = onClick,
         shape = CircleShape,
         modifier = Modifier
-            .navigationBarsPadding()
             .testTag(ADD_TASK_BUTTON_TAG),
     ) {
         Icon(
