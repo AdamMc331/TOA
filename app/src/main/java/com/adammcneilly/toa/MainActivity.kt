@@ -24,7 +24,6 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.core.ui.components.navigation.NavigationTab
-import com.adammcneilly.toa.core.ui.components.navigation.NavigationTabDisplayModel
 import com.adammcneilly.toa.core.ui.components.navigation.TOABottomNavigation
 import com.adammcneilly.toa.core.ui.rememberWindowSizeClass
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -41,7 +40,6 @@ import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultA
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.manualcomposablecalls.composable
 import com.ramcosta.composedestinations.spec.Route
-import com.ramcosta.composedestinations.utils.currentDestinationAsState
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalAnimationApi
@@ -120,27 +118,13 @@ class MainActivity : FragmentActivity() {
                     .weight(1F),
             )
 
-            val shouldShowBottomBar = when (navController.currentDestinationAsState().value?.route) {
-                TaskListScreenDestination.route -> true
-                else -> false
-            }
-
-            if (shouldShowBottomBar) {
-                val tabs = listOf(
-                    NavigationTabDisplayModel(
-                        tab = NavigationTab.Home,
-                        isSelected = true,
-                        onClick = {},
-                    ),
-                    NavigationTabDisplayModel(
-                        tab = NavigationTab.Settings,
-                        isSelected = false,
-                        onClick = {},
-                    ),
-                )
-
-                TOABottomNavigation(navigationTabs = tabs)
-            }
+            TOABottomNavigation(
+                navHostController = navController,
+                tabs = listOf(
+                    NavigationTab.Home,
+                    NavigationTab.Settings,
+                ),
+            )
         }
     }
 

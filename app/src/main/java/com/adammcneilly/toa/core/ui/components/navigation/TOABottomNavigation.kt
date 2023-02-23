@@ -1,6 +1,5 @@
 package com.adammcneilly.toa.core.ui.components.navigation
 
-import android.content.res.Configuration
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -8,65 +7,46 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
-import com.adammcneilly.toa.core.ui.theme.TOATheme
+import androidx.navigation.NavHostController
+import com.ramcosta.composedestinations.utils.currentDestinationAsState
 
 @Composable
 fun TOABottomNavigation(
-    navigationTabs: List<NavigationTabDisplayModel>,
+    navHostController: NavHostController,
+    tabs: List<NavigationTab>,
     modifier: Modifier = Modifier,
 ) {
-    NavigationBar(
-        modifier = modifier,
-    ) {
-        navigationTabs.forEach { navigationTab ->
-            NavigationBarItem(
-                selected = navigationTab.isSelected,
-                onClick = navigationTab.onClick,
-                icon = {
-                    Icon(
-                        imageVector = navigationTab.tab.icon,
-                        contentDescription = stringResource(id = navigationTab.tab.labelTextRes),
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(id = navigationTab.tab.labelTextRes),
-                    )
-                },
-            )
-        }
+    val currentRoute = navHostController.currentDestinationAsState().value?.route
+
+    val shouldShowBottomBar = tabs.any { tab ->
+        tab.screenRoute == currentRoute
     }
-}
 
-@Preview(
-    name = "Day Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-)
-@Preview(
-    name = "Night Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-)
-@Composable
-@ExcludeFromJacocoGeneratedReport
-private fun TOABottomNavigationPreview() {
-    val tabs = listOf(
-        NavigationTabDisplayModel(
-            tab = NavigationTab.Home,
-            isSelected = true,
-            onClick = {},
-        ),
-        NavigationTabDisplayModel(
-            tab = NavigationTab.Settings,
-            isSelected = false,
-            onClick = {},
-        ),
-    )
-
-    TOATheme {
-        TOABottomNavigation(
-            navigationTabs = tabs,
-        )
+    if (shouldShowBottomBar) {
+        NavigationBar(
+            modifier = modifier,
+        ) {
+            tabs.forEach { tab ->
+                NavigationBarItem(
+                    selected = tab.screenRoute == currentRoute,
+                    onClick = {
+                        if (tab.screenRoute != currentRoute) {
+                            navHostController.navigate(tab.screenRoute)
+                        }
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = tab.icon,
+                            contentDescription = stringResource(id = tab.labelTextRes),
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = stringResource(id = tab.labelTextRes),
+                        )
+                    },
+                )
+            }
+        }
     }
 }
