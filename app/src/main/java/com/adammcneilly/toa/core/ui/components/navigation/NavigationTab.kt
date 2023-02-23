@@ -9,9 +9,7 @@ import com.adammcneilly.toa.destinations.SettingsScreenDestination
 import com.adammcneilly.toa.destinations.TaskListScreenDestination
 
 /**
- * Represents a tab that can appear on some navigation component. This just defines the information
- * that we'll always have, state such as if the tab is selected is represented over in
- * [NavigationTabDisplayModel].
+ * Represents a tab that can appear on some navigation component.
  */
 sealed class NavigationTab(
     val labelTextRes: Int,

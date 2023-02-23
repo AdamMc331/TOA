@@ -562,3 +562,14 @@ PRs:
 
 YouTube:
 * Coming Soon
+
+## Stream Thirty Five - User Settings
+
+In this stream, we built out the stub for the settings screen, allowing the user to specify
+a number of tasks per day to complete. 
+
+PRs:
+* Navigation bar:
+
+YouTube:
+* Coming Soon
