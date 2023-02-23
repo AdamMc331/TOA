@@ -1,5 +1,10 @@
 package com.adammcneilly.toa.core.ui.components.navigation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -22,10 +27,13 @@ fun TOABottomNavigation(
         tab.screenRoute == currentRoute
     }
 
-    if (shouldShowBottomBar) {
-        NavigationBar(
-            modifier = modifier,
-        ) {
+    AnimatedVisibility(
+        visible = shouldShowBottomBar,
+        modifier = modifier,
+        enter = fadeIn() + expandVertically(),
+        exit = fadeOut() + shrinkVertically(),
+    ) {
+        NavigationBar {
             tabs.forEach { tab ->
                 NavigationBarItem(
                     selected = tab.screenRoute == currentRoute,
