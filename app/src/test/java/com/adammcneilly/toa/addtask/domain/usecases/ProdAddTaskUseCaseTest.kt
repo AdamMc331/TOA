@@ -154,6 +154,7 @@ class ProdAddTaskUseCaseTest {
 
         // For sake of testing, lol
         userPreferences.setPreferredNumTasksPerDay(0)
+        userPreferences.setPrefferedNumTasksPerDayEnabled(true)
 
         // Mock an empty task list for this date.
         fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
@@ -206,6 +207,39 @@ class ProdAddTaskUseCaseTest {
             task = inputTask,
             ignoreTaskLimits = true,
         )
+        assertThat(actualResult).isEqualTo(expectedResult)
+    }
+
+    /**
+     * If our preferences say we have a limit on tasks,
+     * but the preference is disabled, ensure that we ignore this limit.
+     */
+    @Test
+    fun submitWithPreferenceLimitButDisabled() = runTest {
+        userPreferences.setPreferredNumTasksPerDay(0)
+        userPreferences.setPrefferedNumTasksPerDayEnabled(false)
+
+        val taskToSubmit = Task(
+            id = "Testing",
+            description = "Test",
+            scheduledDateMillis = ZonedDateTime.now()
+                .toInstant()
+                .toEpochMilli(),
+            completed = false,
+        )
+
+        // Mock a result for this task specifically
+        // we do this to ensure in our test that the insert function is ultimately
+        // called with the task that we expect it to be.
+        fakeTaskRepository.addTaskResults[taskToSubmit] = Result.success(Unit)
+
+        val expectedResult = AddTaskResult.Success
+
+        val actualResult = useCase.invoke(
+            task = taskToSubmit,
+            ignoreTaskLimits = false,
+        )
+
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 }
