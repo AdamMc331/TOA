@@ -47,36 +47,46 @@ fun SettingsContent(
             style = MaterialTheme.typography.titleLarge,
         )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = stringResource(R.string.num_tasks_per_day_label),
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .weight(1F),
-            )
+        NumTasksPerDayPreference(viewState, onNumTasksEnabledChanged, onNumTasksChanged)
+    }
+}
 
-            Switch(
-                checked = viewState.numTasksPreferenceEnabled,
-                onCheckedChange = onNumTasksEnabledChanged,
-            )
-        }
-
-        OutlinedTextField(
-            value = viewState.numTasksPerDay?.toString().orEmpty(),
-            onValueChange = onNumTasksChanged,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-            ),
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun NumTasksPerDayPreference(
+    viewState: SettingsViewState,
+    onNumTasksEnabledChanged: (Boolean) -> Unit,
+    onNumTasksChanged: (String) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = stringResource(R.string.num_tasks_per_day_label),
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
-                .fillMaxWidth(),
-            shape = CircleShape,
-            enabled = viewState.numTasksPreferenceEnabled,
+                .weight(1F),
+        )
+
+        Switch(
+            checked = viewState.numTasksPreferenceEnabled,
+            onCheckedChange = onNumTasksEnabledChanged,
         )
     }
+
+    OutlinedTextField(
+        value = viewState.numTasksPerDay?.toString().orEmpty(),
+        onValueChange = onNumTasksChanged,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+        ),
+        modifier = Modifier
+            .fillMaxWidth(),
+        shape = CircleShape,
+        enabled = viewState.numTasksPreferenceEnabled,
+    )
 }
 
 @Preview(
