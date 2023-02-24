@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,7 +43,6 @@ import com.adammcneilly.toa.core.ui.getString
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.toEpochMillisUTC
 import com.adammcneilly.toa.toLocalDateUTC
-import com.google.accompanist.insets.navigationBarsPadding
 import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
@@ -251,9 +249,7 @@ private fun AddTaskButton(
 ) {
     FloatingActionButton(
         onClick = onClick,
-        shape = CircleShape,
         modifier = Modifier
-            .navigationBarsPadding()
             .testTag(ADD_TASK_BUTTON_TAG),
     ) {
         Icon(

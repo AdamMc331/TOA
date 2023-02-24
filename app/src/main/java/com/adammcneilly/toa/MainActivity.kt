@@ -12,15 +12,19 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import com.adammcneilly.toa.core.ui.WindowSize
+import com.adammcneilly.toa.core.ui.components.navigation.NavigationTab
+import com.adammcneilly.toa.core.ui.components.navigation.TOABottomNavigation
 import com.adammcneilly.toa.core.ui.rememberWindowSizeClass
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.destinations.LoginScreenDestination
@@ -83,28 +87,45 @@ class MainActivity : FragmentActivity() {
         startRoute: Route,
         windowSize: WindowSize,
     ) {
-        DestinationsNavHost(
-            startRoute = startRoute,
-            navGraph = NavGraphs.root,
-            engine = rememberAnimatedNavHostEngine(
-                rootDefaultAnimations = RootNavGraphDefaultAnimations(
-                    enterTransition = {
-                        slideInHorizontally()
-                    },
-                    exitTransition = {
-                        fadeOut()
-                    },
-                ),
+        val navigationEngine = rememberAnimatedNavHostEngine(
+            rootDefaultAnimations = RootNavGraphDefaultAnimations(
+                enterTransition = {
+                    slideInHorizontally()
+                },
+                exitTransition = {
+                    fadeOut()
+                },
             ),
-            manualComposableCallsBuilder = {
-                composable(TaskListScreenDestination) {
-                    TaskListScreen(
-                        navigator = destinationsNavigator,
-                        windowSize = windowSize,
-                    )
-                }
-            }
         )
+
+        val navController = navigationEngine.rememberNavController()
+
+        Column {
+            DestinationsNavHost(
+                startRoute = startRoute,
+                navGraph = NavGraphs.root,
+                engine = navigationEngine,
+                navController = navController,
+                manualComposableCallsBuilder = {
+                    composable(TaskListScreenDestination) {
+                        TaskListScreen(
+                            navigator = destinationsNavigator,
+                            windowSize = windowSize,
+                        )
+                    }
+                },
+                modifier = Modifier
+                    .weight(1F),
+            )
+
+            TOABottomNavigation(
+                navHostController = navController,
+                tabs = listOf(
+                    NavigationTab.Home,
+                    NavigationTab.Settings,
+                ),
+            )
+        }
     }
 
     private fun keepSplashScreenVisibleWhileInitializing() {
