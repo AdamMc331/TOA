@@ -55,6 +55,10 @@ class ProdAddTaskUseCase @Inject constructor(
         taskRepository: TaskRepository,
         userPreferences: UserPreferences,
     ): AddTaskResult.Failure.MaxTasksPerDayExceeded? {
+        if (!userPreferences.getPreferredNumTasksPerDayEnabled()) {
+            return null
+        }
+
         val preferredNumTasks = userPreferences.getPreferredNumTasksPerDay() ?: return null
 
         val incompleteTaskList = taskRepository.fetchTasksForDate(
