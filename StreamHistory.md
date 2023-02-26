@@ -540,8 +540,8 @@ PRs:
 
 YouTube:
 * Toolbar: https://youtu.be/youW1g-eFnA
-* Task list tweaks: coming soon
-* Result class replacement: coming soon
+* Task list tweaks: https://youtu.be/youW1g-eFnA
+* Result class replacement: https://youtu.be/rjOABsFvOXY
 
 ## Stream Thirty Three - Fixing Race Conditions
 
