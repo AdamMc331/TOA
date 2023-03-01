@@ -42,6 +42,8 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Thirty Two - Material 3 Toolbar & Design Tweaks](#stream-thirty-two---compose-material-3-toolbar-ui-tweaks-data-layer-updates)
 * [Stream Thirty Three - Race Condition Fixes](#stream-thirty-three---fixing-race-conditions)
 * [Stream Thirty Four - MainActivity UI Tests](#stream-thirty-four---mainactivity-ui-tests)
+* [Stream Thirty Five - Bottom Bar For Settings](#stream-thirty-five---user-settings)
+* [Stream Thirty Six - Settings Implementation](#stream-thirty-six---user-settings-continued)
 </details>
 
 <details>
@@ -569,7 +571,19 @@ In this stream, we built out the stub for the settings screen, allowing the user
 a number of tasks per day to complete. 
 
 PRs:
-* Navigation bar:
+* Navigation bar: https://github.com/AdamMc331/TOA/pull/175
 
 YouTube:
 * Coming Soon
+
+## Stream Thirty Six - User Settings Continued
+
+In this stream, we implemented the settings screen UI and data layer for modifying
+those preferences. 
+
+PRs:
+* https://github.com/AdamMc331/TOA/pull/176
+
+YouTube: 
+* Coming Soon
+

@@ -55,6 +55,10 @@ class ProdAddTaskUseCase @Inject constructor(
         taskRepository: TaskRepository,
         userPreferences: UserPreferences,
     ): AddTaskResult.Failure.MaxTasksPerDayExceeded? {
+        if (!userPreferences.getPreferredNumTasksPerDayEnabled()) {
+            return null
+        }
+
         val preferredNumTasks = userPreferences.getPreferredNumTasksPerDay() ?: return null
 
         val incompleteTaskList = taskRepository.fetchTasksForDate(
@@ -71,6 +75,10 @@ class ProdAddTaskUseCase @Inject constructor(
         }
     }
 
+    /**
+     * Since it's no longer possible to select a date in the past (our date picker validates this),
+     * we can simplify this to only validate that the description is not empty.
+     */
     private fun validateInput(task: Task): AddTaskResult.Failure.InvalidInput? {
         val emptyDescription = task.description.isBlank()
 
