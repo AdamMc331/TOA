@@ -44,6 +44,7 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Thirty Four - MainActivity UI Tests](#stream-thirty-four---mainactivity-ui-tests)
 * [Stream Thirty Five - Bottom Bar For Settings](#stream-thirty-five---user-settings)
 * [Stream Thirty Six - Settings Implementation](#stream-thirty-six---user-settings-continued)
+* [Stream Thirty Seven - Adaptive Navigation Types](#stream-thirty-seven---adaptive-navigation-types)
 </details>
 
 <details>
@@ -587,3 +588,13 @@ PRs:
 YouTube: 
 * Coming Soon
 
+## Stream Thirty Seven - Adaptive Navigation Types
+
+In this stream, we implemented the material 3 window size class dependency & changed our navigation
+type based on screen width. 
+
+PRs:
+* https://github.com/AdamMc331/TOA/pull/181
+
+YouTube:
+* Coming Soon
