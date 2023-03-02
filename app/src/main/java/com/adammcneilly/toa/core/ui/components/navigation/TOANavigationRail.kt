@@ -9,54 +9,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.ramcosta.composedestinations.utils.currentDestinationAsState
 
 @Composable
 fun TOANavigationRail(
-    navHostController: NavHostController,
-    tabs: List<NavigationTab>,
-    modifier: Modifier = Modifier,
-) {
-    val currentRoute = navHostController.currentDestinationAsState().value?.route
-
-    val shouldShowNavigationRail = tabs.any { tab ->
-        tab.screenRoute == currentRoute
-    }
-
-    if (shouldShowNavigationRail) {
-        TOANavigationRail(
-            tabs = tabs,
-            selectedTab = tabs.find { tab ->
-                tab.screenRoute == currentRoute
-            },
-            onTabClicked = { tab ->
-                if (tab.screenRoute != currentRoute) {
-                    navHostController.navigate(tab.screenRoute)
-                }
-            },
-            modifier = modifier,
-        )
-    }
-}
-
-@Composable
-private fun TOANavigationRail(
-    tabs: List<NavigationTab>,
-    selectedTab: NavigationTab?,
-    onTabClicked: (NavigationTab) -> Unit,
+    navigationConfig: TOANavigationConfig,
     modifier: Modifier = Modifier,
 ) {
     NavigationRail(
         modifier = modifier,
     ) {
-        tabs.forEach { tab ->
+        navigationConfig.tabs.forEach { tab ->
             NavigationRailItem(
-                selected = tab == selectedTab,
+                selected = tab == navigationConfig.selectedTab,
                 onClick = {
-                    onTabClicked.invoke(tab)
+                    navigationConfig.onTabClicked.invoke(tab)
                 },
                 icon = {
                     Icon(
@@ -87,9 +55,11 @@ private fun TOANavigationRail(
 private fun TOANavigationRailPreview() {
     TOATheme {
         TOANavigationRail(
-            tabs = listOf(NavigationTab.Home, NavigationTab.Settings),
-            selectedTab = NavigationTab.Home,
-            onTabClicked = {},
+            navigationConfig = TOANavigationConfig(
+                tabs = listOf(NavigationTab.Home, NavigationTab.Settings),
+                selectedTab = NavigationTab.Home,
+                onTabClicked = {},
+            ),
         )
     }
 }

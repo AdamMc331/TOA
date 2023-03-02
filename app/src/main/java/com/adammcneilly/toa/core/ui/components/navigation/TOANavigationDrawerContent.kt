@@ -14,44 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.core.ui.theme.TOATheme
-import com.ramcosta.composedestinations.utils.currentDestinationAsState
 
 @Composable
 fun TOANavigationDrawerContent(
-    navHostController: NavHostController,
-    tabs: List<NavigationTab>,
-    modifier: Modifier = Modifier,
-) {
-    val currentRoute = navHostController.currentDestinationAsState().value?.route
-
-    val shouldShowNavigationDrawer = tabs.any { tab ->
-        tab.screenRoute == currentRoute
-    }
-
-    if (shouldShowNavigationDrawer) {
-        TOANavigationDrawerContent(
-            tabs = tabs,
-            selectedTab = tabs.find { tab ->
-                tab.screenRoute == currentRoute
-            },
-            onTabClicked = { tab ->
-                if (tab.screenRoute != currentRoute) {
-                    navHostController.navigate(tab.screenRoute)
-                }
-            },
-            modifier = modifier,
-        )
-    }
-}
-
-@Composable
-private fun TOANavigationDrawerContent(
-    tabs: List<NavigationTab>,
-    selectedTab: NavigationTab?,
-    onTabClicked: (NavigationTab) -> Unit,
+    navigationConfig: TOANavigationConfig,
     modifier: Modifier = Modifier,
 ) {
     PermanentDrawerSheet(
@@ -64,16 +32,16 @@ private fun TOANavigationDrawerContent(
             modifier = Modifier
                 .verticalScroll(rememberScrollState()),
         ) {
-            tabs.forEach { tab ->
+            navigationConfig.tabs.forEach { tab ->
                 NavigationDrawerItem(
                     label = {
                         Text(
                             text = stringResource(id = tab.labelTextRes),
                         )
                     },
-                    selected = (tab == selectedTab),
+                    selected = (tab == navigationConfig.selectedTab),
                     onClick = {
-                        onTabClicked.invoke(tab)
+                        navigationConfig.onTabClicked.invoke(tab)
                     },
                     icon = {
                         Icon(
@@ -100,9 +68,11 @@ private fun TOANavigationDrawerContent(
 private fun TOANavigationDrawerContentPreview() {
     TOATheme {
         TOANavigationDrawerContent(
-            tabs = listOf(NavigationTab.Home, NavigationTab.Settings),
-            selectedTab = NavigationTab.Home,
-            onTabClicked = {},
+            navigationConfig = TOANavigationConfig(
+                tabs = listOf(NavigationTab.Home, NavigationTab.Settings),
+                selectedTab = NavigationTab.Home,
+                onTabClicked = {},
+            ),
         )
     }
 }

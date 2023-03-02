@@ -14,7 +14,6 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Surface
@@ -26,16 +25,13 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavHostController
 import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.core.ui.components.navigation.NavigationTab
 import com.adammcneilly.toa.core.ui.components.navigation.NavigationType
-import com.adammcneilly.toa.core.ui.components.navigation.TOABottomNavigation
-import com.adammcneilly.toa.core.ui.components.navigation.TOANavigationDrawerContent
-import com.adammcneilly.toa.core.ui.components.navigation.TOANavigationRail
+import com.adammcneilly.toa.core.ui.components.navigation.TOANavigationContainer
 import com.adammcneilly.toa.core.ui.rememberWindowSizeClass
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.destinations.LoginScreenDestination
@@ -165,9 +161,10 @@ class MainActivity : FragmentActivity() {
     ) {
         PermanentNavigationDrawer(
             drawerContent = {
-                TOANavigationDrawerContent(
+                TOANavigationContainer(
                     navHostController = navController,
                     tabs = navigationTabs,
+                    navigationType = NavigationType.PERMANENT_NAVIGATION_DRAWER,
                 )
             },
         ) {
@@ -197,11 +194,10 @@ class MainActivity : FragmentActivity() {
         windowSize: WindowSize
     ) {
         Row {
-            TOANavigationRail(
+            TOANavigationContainer(
                 navHostController = navController,
                 tabs = navigationTabs,
-                modifier = Modifier
-                    .width(80.dp),
+                navigationType = NavigationType.NAVIGATION_RAIL,
             )
 
             DestinationsNavHost(
@@ -249,9 +245,10 @@ class MainActivity : FragmentActivity() {
                     .weight(1F),
             )
 
-            TOABottomNavigation(
+            TOANavigationContainer(
                 navHostController = navController,
                 tabs = tabs,
+                navigationType = NavigationType.BOTTOM_NAVIGATION,
             )
         }
     }
