@@ -23,11 +23,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
-import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.core.ui.components.navigation.NavigationTab
 import com.adammcneilly.toa.core.ui.components.navigation.NavigationType
 import com.adammcneilly.toa.core.ui.components.navigation.TOANavigationContainer
-import com.adammcneilly.toa.core.ui.rememberWindowSizeClass
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.destinations.LoginScreenDestination
 import com.adammcneilly.toa.destinations.TaskListScreenDestination
@@ -50,6 +48,7 @@ class MainActivity : FragmentActivity() {
 
     private val sessionViewModel: SessionViewModel by viewModels()
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,7 +57,7 @@ class MainActivity : FragmentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val windowSize = rememberWindowSizeClass()
+            val windowWidthSizeClass = calculateWindowSizeClass(activity = this).widthSizeClass
 
             TOATheme {
                 ConfigureSystemBars()
@@ -76,7 +75,7 @@ class MainActivity : FragmentActivity() {
                         }
 
                         if (startRoute != null) {
-                            TOANavHost(startRoute, windowSize)
+                            TOANavHost(startRoute, windowWidthSizeClass)
                         }
                     }
                 }
@@ -88,7 +87,7 @@ class MainActivity : FragmentActivity() {
     @Composable
     private fun TOANavHost(
         startRoute: Route,
-        windowSize: WindowSize,
+        windowWidthSizeClass: WindowWidthSizeClass,
     ) {
         val navigationEngine = rememberAnimatedNavHostEngine(
             rootDefaultAnimations = RootNavGraphDefaultAnimations(
@@ -131,7 +130,7 @@ class MainActivity : FragmentActivity() {
                         composable(TaskListScreenDestination) {
                             TaskListScreen(
                                 navigator = destinationsNavigator,
-                                windowSize = windowSize,
+                                windowWidthSizeClass = windowWidthSizeClass,
                             )
                         }
                     },
