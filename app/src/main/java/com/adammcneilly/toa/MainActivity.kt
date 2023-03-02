@@ -12,10 +12,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -23,11 +20,9 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.NavHostController
 import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.core.ui.components.navigation.NavigationTab
 import com.adammcneilly.toa.core.ui.components.navigation.NavigationType
@@ -46,7 +41,6 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.manualcomposablecalls.composable
-import com.ramcosta.composedestinations.spec.NavHostEngine
 import com.ramcosta.composedestinations.spec.Route
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -118,139 +112,32 @@ class MainActivity : FragmentActivity() {
             NavigationTab.Settings,
         )
 
-        when (navigationType) {
-            NavigationType.BOTTOM_NAVIGATION -> {
-                BottomNavigationContent(
-                    startRoute,
-                    navigationEngine,
-                    navController,
-                    windowSize,
-                    navigationTabs
-                )
-            }
-
-            NavigationType.NAVIGATION_RAIL -> {
-                NavigationRailContent(
-                    navController,
-                    navigationTabs,
-                    startRoute,
-                    navigationEngine,
-                    windowSize
-                )
-            }
-
-            NavigationType.PERMANENT_NAVIGATION_DRAWER -> {
-                PermanentNavigationDrawerContent(
-                    navController,
-                    navigationTabs,
-                    startRoute,
-                    navigationEngine,
-                    windowSize
-                )
-            }
-        }
-    }
-
-    @Composable
-    private fun PermanentNavigationDrawerContent(
-        navController: NavHostController,
-        navigationTabs: List<NavigationTab>,
-        startRoute: Route,
-        navigationEngine: NavHostEngine,
-        windowSize: WindowSize
-    ) {
-        PermanentNavigationDrawer(
-            drawerContent = {
+        TOAAppScaffold(
+            navigationType = navigationType,
+            navigationContent = {
                 TOANavigationContainer(
                     navHostController = navController,
                     tabs = navigationTabs,
-                    navigationType = NavigationType.PERMANENT_NAVIGATION_DRAWER,
+                    navigationType = navigationType,
                 )
             },
-        ) {
-            DestinationsNavHost(
-                startRoute = startRoute,
-                navGraph = NavGraphs.root,
-                engine = navigationEngine,
-                navController = navController,
-                manualComposableCallsBuilder = {
-                    composable(TaskListScreenDestination) {
-                        TaskListScreen(
-                            navigator = destinationsNavigator,
-                            windowSize = windowSize,
-                        )
-                    }
-                },
-            )
-        }
-    }
-
-    @Composable
-    private fun NavigationRailContent(
-        navController: NavHostController,
-        navigationTabs: List<NavigationTab>,
-        startRoute: Route,
-        navigationEngine: NavHostEngine,
-        windowSize: WindowSize
-    ) {
-        Row {
-            TOANavigationContainer(
-                navHostController = navController,
-                tabs = navigationTabs,
-                navigationType = NavigationType.NAVIGATION_RAIL,
-            )
-
-            DestinationsNavHost(
-                startRoute = startRoute,
-                navGraph = NavGraphs.root,
-                engine = navigationEngine,
-                navController = navController,
-                manualComposableCallsBuilder = {
-                    composable(TaskListScreenDestination) {
-                        TaskListScreen(
-                            navigator = destinationsNavigator,
-                            windowSize = windowSize,
-                        )
-                    }
-                },
-                modifier = Modifier
-                    .weight(1F),
-            )
-        }
-    }
-
-    @Composable
-    private fun BottomNavigationContent(
-        startRoute: Route,
-        navigationEngine: NavHostEngine,
-        navController: NavHostController,
-        windowSize: WindowSize,
-        tabs: List<NavigationTab>,
-    ) {
-        Column {
-            DestinationsNavHost(
-                startRoute = startRoute,
-                navGraph = NavGraphs.root,
-                engine = navigationEngine,
-                navController = navController,
-                manualComposableCallsBuilder = {
-                    composable(TaskListScreenDestination) {
-                        TaskListScreen(
-                            navigator = destinationsNavigator,
-                            windowSize = windowSize,
-                        )
-                    }
-                },
-                modifier = Modifier
-                    .weight(1F),
-            )
-
-            TOANavigationContainer(
-                navHostController = navController,
-                tabs = tabs,
-                navigationType = NavigationType.BOTTOM_NAVIGATION,
-            )
-        }
+            appContent = {
+                DestinationsNavHost(
+                    startRoute = startRoute,
+                    navGraph = NavGraphs.root,
+                    engine = navigationEngine,
+                    navController = navController,
+                    manualComposableCallsBuilder = {
+                        composable(TaskListScreenDestination) {
+                            TaskListScreen(
+                                navigator = destinationsNavigator,
+                                windowSize = windowSize,
+                            )
+                        }
+                    },
+                )
+            }
+        )
     }
 
     private fun keepSplashScreenVisibleWhileInitializing() {
