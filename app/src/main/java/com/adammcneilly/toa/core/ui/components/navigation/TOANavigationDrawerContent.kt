@@ -2,13 +2,18 @@ package com.adammcneilly.toa.core.ui.components.navigation
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -49,27 +54,35 @@ private fun TOANavigationDrawerContent(
     onTabClicked: (NavigationTab) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier,
+    PermanentDrawerSheet(
+        modifier = modifier.sizeIn(
+            minWidth = 200.dp,
+            maxWidth = 200.dp,
+        ),
     ) {
-        tabs.forEach { tab ->
-            NavigationDrawerItem(
-                label = {
-                    Text(
-                        text = stringResource(id = tab.labelTextRes),
-                    )
-                },
-                selected = (tab == selectedTab),
-                onClick = {
-                    onTabClicked.invoke(tab)
-                },
-                icon = {
-                    Icon(
-                        imageVector = tab.icon,
-                        contentDescription = stringResource(id = tab.labelTextRes),
-                    )
-                }
-            )
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState()),
+        ) {
+            tabs.forEach { tab ->
+                NavigationDrawerItem(
+                    label = {
+                        Text(
+                            text = stringResource(id = tab.labelTextRes),
+                        )
+                    },
+                    selected = (tab == selectedTab),
+                    onClick = {
+                        onTabClicked.invoke(tab)
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = tab.icon,
+                            contentDescription = stringResource(id = tab.labelTextRes),
+                        )
+                    }
+                )
+            }
         }
     }
 }
