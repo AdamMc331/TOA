@@ -12,19 +12,21 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.core.ui.components.navigation.NavigationTab
-import com.adammcneilly.toa.core.ui.components.navigation.TOABottomNavigation
+import com.adammcneilly.toa.core.ui.components.navigation.NavigationType
+import com.adammcneilly.toa.core.ui.components.navigation.TOANavigationContainer
 import com.adammcneilly.toa.core.ui.rememberWindowSizeClass
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.destinations.LoginScreenDestination
@@ -82,6 +84,7 @@ class MainActivity : FragmentActivity() {
         }
     }
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     @Composable
     private fun TOANavHost(
         startRoute: Route,
@@ -100,32 +103,41 @@ class MainActivity : FragmentActivity() {
 
         val navController = navigationEngine.rememberNavController()
 
-        Column {
-            DestinationsNavHost(
-                startRoute = startRoute,
-                navGraph = NavGraphs.root,
-                engine = navigationEngine,
-                navController = navController,
-                manualComposableCallsBuilder = {
-                    composable(TaskListScreenDestination) {
-                        TaskListScreen(
-                            navigator = destinationsNavigator,
-                            windowSize = windowSize,
-                        )
-                    }
-                },
-                modifier = Modifier
-                    .weight(1F),
-            )
+        val windowSizeClass = calculateWindowSizeClass(activity = this)
 
-            TOABottomNavigation(
-                navHostController = navController,
-                tabs = listOf(
-                    NavigationTab.Home,
-                    NavigationTab.Settings,
-                ),
-            )
-        }
+        val navigationType = getNavigationType(windowSizeClass.widthSizeClass)
+
+        val navigationTabs = listOf(
+            NavigationTab.Home,
+            NavigationTab.Settings,
+        )
+
+        TOAAppScaffold(
+            navigationType = navigationType,
+            navigationContent = {
+                TOANavigationContainer(
+                    navHostController = navController,
+                    tabs = navigationTabs,
+                    navigationType = navigationType,
+                )
+            },
+            appContent = {
+                DestinationsNavHost(
+                    startRoute = startRoute,
+                    navGraph = NavGraphs.root,
+                    engine = navigationEngine,
+                    navController = navController,
+                    manualComposableCallsBuilder = {
+                        composable(TaskListScreenDestination) {
+                            TaskListScreen(
+                                navigator = destinationsNavigator,
+                                windowSize = windowSize,
+                            )
+                        }
+                    },
+                )
+            }
+        )
     }
 
     private fun keepSplashScreenVisibleWhileInitializing() {
@@ -160,6 +172,16 @@ class MainActivity : FragmentActivity() {
                 color = Color.Transparent,
                 darkIcons = useDarkIcons
             )
+        }
+    }
+
+    private fun getNavigationType(
+        widthSizeClass: WindowWidthSizeClass,
+    ): NavigationType {
+        return when (widthSizeClass) {
+            WindowWidthSizeClass.Expanded -> NavigationType.PERMANENT_NAVIGATION_DRAWER
+            WindowWidthSizeClass.Medium -> NavigationType.NAVIGATION_RAIL
+            else -> NavigationType.BOTTOM_NAVIGATION
         }
     }
 }

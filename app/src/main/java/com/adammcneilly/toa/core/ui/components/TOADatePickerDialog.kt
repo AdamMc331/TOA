@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.toEpochMillisUTC
 import java.time.LocalDate
@@ -95,6 +96,7 @@ private fun DatePickerButtonRow(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Composable
+@ExcludeFromJacocoGeneratedReport
 private fun TOADatePickerDialogPreview() {
     TOATheme {
         TOADatePickerDialog(
