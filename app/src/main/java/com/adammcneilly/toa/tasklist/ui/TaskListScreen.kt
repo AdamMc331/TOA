@@ -16,7 +16,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun TaskListScreen(
     navigator: DestinationsNavigator,
-    windowWidthSizeClass: WindowWidthSizeClass,
+    windowWidthSizeClass: WindowWidthSizeClass = WindowWidthSizeClass.Compact,
     viewModel: TaskListViewModel = hiltViewModel(),
 ) {
     val viewState = viewModel.viewState.collectAsState()
