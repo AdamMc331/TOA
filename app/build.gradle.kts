@@ -28,12 +28,12 @@ apply(from = "../buildscripts/jacoco.gradle")
 apply(from = "../buildscripts/coveralls.gradle")
 
 android {
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.adammcneilly.toa"
-        minSdk = 21
-        targetSdk = 33
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.compileSdk.get().toInt()
         versionCode = 1
         versionName = "1.0.0"
 
@@ -47,7 +47,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         debug {
             isTestCoverageEnabled = true
@@ -62,8 +65,8 @@ android {
         jvmTarget = "1.8"
 
         freeCompilerArgs += listOf(
-                "-Xopt-in=kotlin.time.ExperimentalTime",
-                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xopt-in=kotlin.time.ExperimentalTime",
+            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
         )
     }
     buildFeatures {
@@ -118,45 +121,45 @@ dependencies {
     implementation(project(":core-data"))
     implementation(project(":task-api"))
     implementation(libs.androidx.ktx.core)
-    implementation("androidx.appcompat:appcompat:$rootProject.ext.versions.appCompat")
-    implementation("com.google.android.material:material:$rootProject.ext.versions.material")
-    implementation("androidx.compose.ui:ui:1.4.0-alpha04")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.0-alpha04")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.versions.lifecycle")
-    implementation("androidx.activity:activity-compose:$rootProject.ext.versions.activityCompose")
-    implementation("com.google.dagger:hilt-android:$rootProject.ext.hiltVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:$rootProject.ext.versions.hiltNavigationCompose")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
     implementation(libs.bundles.accompanist)
     // For the known issue: https://developer.android.com/jetpack/androidx/releases/compose-material3#1.1.0-alpha04
-    implementation("androidx.compose.foundation:foundation:1.4.0-alpha03")
-    implementation("androidx.compose.material3:material3:1.1.0-alpha04")
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.0-alpha04")
-    implementation("io.github.raamcosta.compose-destinations:animations-core:$rootProject.ext.versions.composeDestinations")
-    implementation("androidx.navigation:navigation-compose:$rootProject.ext.versions.composeNavigation")
-    implementation("com.google.accompanist:accompanist-navigation-animation:$rootProject.ext.versions.accompanist")
-    implementation("androidx.room:room-runtime:$rootProject.ext.versions.room")
-    implementation("androidx.room:room-ktx:$rootProject.ext.versions.room")
-    implementation("androidx.window:window:$rootProject.ext.versions.windowManager")
-    implementation("androidx.datastore:datastore:$rootProject.ext.versions.dataStore")
-    implementation( "com.google.protobuf:protobuf-javalite:3.18.0")
-    ksp("androidx.room:room-compiler:$rootProject.ext.versions.room")
-    ksp("io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations")
-    kapt("com.google.dagger:hilt-compiler:$rootProject.ext.hiltVersion")
-    testImplementation("junit:junit:$rootProject.ext.versions.junit")
-    testImplementation("io.mockk:mockk:$rootProject.ext.versions.mockk")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.ext.versions.coroutinesTest")
-    testImplementation("com.google.truth:truth:$rootProject.ext.versions.truth")
-    testImplementation("app.cash.turbine:turbine:$rootProject.ext.versions.turbine")
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3.windowsizeclass)
+    implementation(libs.compose.destinations.animations.core)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.accompanist.navigation.animation)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.window)
+    implementation(libs.androidx.datastore)
+    // 3.20.0 instead of 3.18.0?
+    implementation(libs.google.protobuf.javalite)
+    ksp(libs.androidx.room.compiler)
+    ksp(libs.compose.destinations.ksp)
+    kapt(libs.hilt.compiler)
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.google.truth)
+    testImplementation(libs.cash.turbine)
     testImplementation(project(":task-api-test"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0-alpha04")
-    androidTestImplementation("androidx.test.ext:junit:$rootProject.ext.versions.androidxTestJunit")
-    androidTestImplementation("androidx.test.espresso:espresso-core:$rootProject.ext.versions.espresso")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0-alpha04")
-    androidTestImplementation("com.google.truth:truth:$rootProject.ext.versions.truth")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:$rootProject.ext.hiltVersion")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:$rootProject.ext.hiltVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.4.0-alpha04")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.0-alpha04")
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.google.truth)
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 }
