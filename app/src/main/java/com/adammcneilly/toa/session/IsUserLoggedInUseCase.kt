@@ -10,7 +10,7 @@ import javax.inject.Inject
  * on this device.
  */
 class IsUserLoggedInUseCase @Inject constructor(
-    private val tokenRepository: TokenRepository
+    private val tokenRepository: TokenRepository,
 ) {
 
     fun isUserLoggedIn(): Flow<Boolean> {

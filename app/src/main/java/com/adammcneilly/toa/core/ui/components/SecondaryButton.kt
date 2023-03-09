@@ -36,7 +36,6 @@ fun SecondaryButton(
     contentColor: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true,
 ) {
-
     val buttonColors = textButtonColors(
         contentColor = contentColor,
     )

@@ -213,7 +213,7 @@ private fun ToolbarAndDialog(
                 if (selectedDateMillis != null) {
                     onDateSelected.invoke(selectedDateMillis.toLocalDateUTC())
                 }
-            }
+            },
         )
     }
 

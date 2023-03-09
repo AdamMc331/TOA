@@ -4,9 +4,6 @@ buildscript {
         // https://developer.android.com/jetpack/androidx/releases/compose
         compose_version = "1.1.1"
 
-        // https://github.com/JLLeitschuh/ktlint-gradle/releases
-        ktlintPluginVersion = "10.2.0"
-
         // https://github.com/detekt/detekt/releases
         detektVersion = "1.19.0"
 
@@ -35,7 +32,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintPluginVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$versionsPluginVersion"
@@ -46,6 +42,10 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+
+plugins {
+    id("org.jmailen.kotlinter").version("3.13.0").apply(false)
 }
 
 apply from: "buildscripts/git-hooks.gradle"

@@ -34,10 +34,10 @@ class LoginViewModelTest {
 
         val initialState = LoginViewState.Initial
         val emailEnteredState = LoginViewState.Active(
-            credentials = Credentials(email = Email(testEmail))
+            credentials = Credentials(email = Email(testEmail)),
         )
         val emailPasswordEnteredState = LoginViewState.Active(
-            credentials = Credentials(email = Email(testEmail), password = Password(testPassword))
+            credentials = Credentials(email = Email(testEmail), password = Password(testPassword)),
         )
 
         val expectedViewStates = listOf(
@@ -68,7 +68,7 @@ class LoginViewModelTest {
 
         val initialState = LoginViewState.Initial
         val emailEnteredState = LoginViewState.Active(
-            credentials = Credentials(email = Email(testEmail))
+            credentials = Credentials(email = Email(testEmail)),
         )
         val emailPasswordEnteredState = LoginViewState.Active(
             credentials = completedCredentials,
@@ -78,7 +78,7 @@ class LoginViewModelTest {
         )
         val submissionErrorState = LoginViewState.SubmissionError(
             credentials = completedCredentials,
-            errorMessage = UIText.ResourceText(R.string.err_invalid_credentials)
+            errorMessage = UIText.ResourceText(R.string.err_invalid_credentials),
         )
 
         val expectedViewStates = listOf(
@@ -116,7 +116,7 @@ class LoginViewModelTest {
 
         val initialState = LoginViewState.Initial
         val emailEnteredState = LoginViewState.Active(
-            credentials = Credentials(email = Email(testEmail))
+            credentials = Credentials(email = Email(testEmail)),
         )
         val emailPasswordEnteredState = LoginViewState.Active(
             credentials = completedCredentials,

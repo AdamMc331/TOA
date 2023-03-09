@@ -136,7 +136,7 @@ class MainActivity : FragmentActivity() {
                         }
                     },
                 )
-            }
+            },
         )
     }
 
@@ -158,7 +158,7 @@ class MainActivity : FragmentActivity() {
                         true
                     }
                 }
-            }
+            },
         )
     }
 
@@ -170,7 +170,7 @@ class MainActivity : FragmentActivity() {
         SideEffect {
             systemUiController.setSystemBarsColor(
                 color = Color.Transparent,
-                darkIcons = useDarkIcons
+                darkIcons = useDarkIcons,
             )
         }
     }

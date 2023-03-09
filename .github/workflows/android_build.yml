@@ -18,4 +18,4 @@ jobs:
         run: ./gradlew assemble
 
       - name: Static Analysis
-        run: ./gradlew ktlintCheck detekt
+        run: ./gradlew lintKotlin detekt

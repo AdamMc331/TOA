@@ -19,7 +19,7 @@ class FakeDestinationsNavigator : DestinationsNavigator {
     override fun navigate(
         direction: Direction,
         onlyIfResumed: Boolean,
-        builder: NavOptionsBuilder.() -> Unit
+        builder: NavOptionsBuilder.() -> Unit,
     ) {
         navigatedRoutes.add(direction.route)
     }

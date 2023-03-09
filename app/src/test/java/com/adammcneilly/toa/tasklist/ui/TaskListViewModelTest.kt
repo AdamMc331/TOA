@@ -76,7 +76,7 @@ class TaskListViewModelTest {
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
                     taskToReschedule = incompleteTask,
-                )
+                ),
             )
             .rescheduleTaskForDate(
                 task = incompleteTask,
@@ -95,7 +95,7 @@ class TaskListViewModelTest {
                             duration = AlertMessage.Duration.LONG,
                         ),
                     ),
-                )
+                ),
             )
             .dismissAlertMessage()
             .assertTaskRescheduledForDate(
@@ -138,7 +138,7 @@ class TaskListViewModelTest {
                     incompleteTasks = listOf(incompleteTask),
                     completedTasks = emptyList(),
                     taskToReschedule = incompleteTask,
-                )
+                ),
             )
             .rescheduleTaskForDate(
                 task = incompleteTask,
@@ -153,7 +153,7 @@ class TaskListViewModelTest {
                     alertMessages = listOf(
                         alertMessage,
                     ),
-                )
+                ),
             )
             .showAlertMessage()
             .assertViewState(
@@ -163,7 +163,7 @@ class TaskListViewModelTest {
                     completedTasks = emptyList(),
                     taskToReschedule = null,
                     alertMessages = emptyList(),
-                )
+                ),
             )
     }
 
@@ -181,7 +181,7 @@ class TaskListViewModelTest {
                 expectedViewState = TaskListViewState(
                     errorMessage = UIText.StringText("Something went wrong."),
                     showLoading = false,
-                )
+                ),
             )
     }
 }

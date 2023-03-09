@@ -51,7 +51,7 @@ class TaskListViewModelRobot {
         date: LocalDate,
     ) = apply {
         fakeRescheduleTaskUseCase.assertInvocation(
-            Pair(task, date)
+            Pair(task, date),
         )
     }
 

@@ -41,7 +41,7 @@ class ProdCredentialsLoginUseCaseTest {
         val loginResponse = Result.success(
             LoginResponse(
                 token = defaultToken,
-            )
+            ),
         )
 
         loginRepository.mockLoginWithCredentials(
@@ -62,7 +62,7 @@ class ProdCredentialsLoginUseCaseTest {
     @Test
     fun testUnknownFailureLogin() = runBlockingTest {
         val loginResponse: Result<LoginResponse> = Result.failure(
-            Throwable("Adam fucked up")
+            Throwable("Adam fucked up"),
         )
 
         loginRepository.mockLoginWithCredentials(
@@ -83,7 +83,7 @@ class ProdCredentialsLoginUseCaseTest {
     @Test
     fun testInvalidCredentialLogin() = runBlockingTest {
         val loginResponse: Result<LoginResponse> = Result.failure(
-            InvalidCredentialsException()
+            InvalidCredentialsException(),
         )
 
         loginRepository.mockLoginWithCredentials(
@@ -115,7 +115,7 @@ class ProdCredentialsLoginUseCaseTest {
             LoginResult.Failure.EmptyCredentials(
                 emptyEmail = true,
                 emptyPassword = true,
-            )
+            ),
         )
 
         loginRepository.verifyNoLoginCall()

@@ -598,3 +598,13 @@ PRs:
 
 YouTube:
 * Coming Soon
+
+## Stream Thirty Eight - Kotlinter Migration
+
+In this stream, we migrated away from a no longer maintained ktlint plugin to the new kotlinter gradle plugin.
+
+PRs:
+* TBD
+
+YouTube:
+* Coming Soon

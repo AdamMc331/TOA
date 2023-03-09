@@ -16,7 +16,7 @@ class FakeRescheduleTaskUseCase : RescheduleTaskUseCase {
     }
 
     fun assertInvocation(
-        invocation: Pair<Task, LocalDate>
+        invocation: Pair<Task, LocalDate>,
     ) {
         assertThat(invocations).contains(invocation)
     }

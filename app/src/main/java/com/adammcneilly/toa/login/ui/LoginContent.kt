@@ -93,7 +93,7 @@ private fun LogoInputsColumn(
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(
-        dimensionResource(id = R.dimen.screen_padding)
+        dimensionResource(id = R.dimen.screen_padding),
     ),
 ) {
     Column(
@@ -224,7 +224,7 @@ private fun EmailInput(
 
 @Composable
 private fun AppLogo(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Image(
         painterResource(id = R.drawable.ic_toa_checkmark),

@@ -23,11 +23,11 @@ object DataStoreTokenSerializer : Serializer<DataStoreToken> {
 
     override suspend fun writeTo(
         t: DataStoreToken,
-        output: OutputStream
+        output: OutputStream,
     ) = t.writeTo(output)
 }
 
 val Context.tokenDataStore: DataStore<DataStoreToken> by dataStore(
     fileName = "token.pb",
-    serializer = DataStoreTokenSerializer
+    serializer = DataStoreTokenSerializer,
 )

@@ -125,12 +125,12 @@ private fun md3TextFieldColors(
     focusedLabelColor: Color =
         MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.high),
     unfocusedLabelColor: Color = MaterialTheme.colorScheme.onSurface.copy(
-        ContentAlpha.medium
+        ContentAlpha.medium,
     ),
     disabledLabelColor: Color = unfocusedLabelColor.copy(ContentAlpha.disabled),
     errorLabelColor: Color = MaterialTheme.colorScheme.error,
     placeholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(
-        ContentAlpha.medium
+        ContentAlpha.medium,
     ),
     disabledPlaceholderColor: Color = placeholderColor.copy(ContentAlpha.disabled),
 ) = outlinedTextFieldColors(

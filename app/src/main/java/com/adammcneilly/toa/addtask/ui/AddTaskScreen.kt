@@ -29,6 +29,6 @@ fun AddTaskScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.screen_padding))
-            .statusBarsPadding()
+            .statusBarsPadding(),
     )
 }
