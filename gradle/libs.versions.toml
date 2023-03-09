@@ -6,6 +6,7 @@ appCompat = "1.6.1"
 compileSdk = "33"
 compose = "1.4.0-alpha04"
 composeDestinations = "1.8.32-beta"
+# For the known issue: https://developer.android.com/jetpack/androidx/releases/compose-material3#1.1.0-alpha04
 composeFoundation = "1.4.0-alpha03"
 composeMaterial3 = "1.1.0-alpha04"
 composeNavigation = "2.4.2"
