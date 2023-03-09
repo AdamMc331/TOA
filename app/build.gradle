@@ -120,8 +120,7 @@ dependencies {
     implementation "androidx.activity:activity-compose:$rootProject.ext.versions.activityCompose"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     implementation "androidx.hilt:hilt-navigation-compose:$rootProject.ext.versions.hiltNavigationCompose"
-    implementation "com.google.accompanist:accompanist-insets-ui:$rootProject.ext.versions.accompanist"
-    implementation "com.google.accompanist:accompanist-systemuicontroller:$rootProject.ext.versions.accompanist"
+    implementation(libs.bundles.accompanist)
     // For the known issue: https://developer.android.com/jetpack/androidx/releases/compose-material3#1.1.0-alpha04
     implementation "androidx.compose.foundation:foundation:1.4.0-alpha03"
     implementation "androidx.compose.material3:material3:1.1.0-alpha04"

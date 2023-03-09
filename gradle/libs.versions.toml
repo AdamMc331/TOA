@@ -1,5 +1,16 @@
 [versions]
+accompanist = "0.28.0"
+compileSdk = "33"
 coreKtx = "1.9.0"
+minSdk = "21"
 
 [libraries]
+accompanist-insets-ui = { group = "com.google.accompanist", name = "accompanist-insets-ui", version.ref = "accompanist" }
+accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 androidx-ktx-core = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+
+[bundles]
+accompanist = [
+    "accompanist-insets-ui",
+    "accompanist-systemuicontroller",
+]
