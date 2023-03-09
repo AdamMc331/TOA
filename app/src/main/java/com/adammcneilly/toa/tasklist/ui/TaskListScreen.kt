@@ -1,12 +1,12 @@
 package com.adammcneilly.toa.tasklist.ui
 
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adammcneilly.toa.addtask.ui.AddTaskNavArguments
-import com.adammcneilly.toa.core.ui.WindowSize
 import com.adammcneilly.toa.destinations.AddTaskDialogDestination
 import com.adammcneilly.toa.destinations.AddTaskScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
@@ -16,7 +16,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun TaskListScreen(
     navigator: DestinationsNavigator,
-    windowSize: WindowSize = WindowSize.Compact,
+    windowWidthSizeClass: WindowWidthSizeClass = WindowWidthSizeClass.Compact,
     viewModel: TaskListViewModel = hiltViewModel(),
 ) {
     val viewState = viewModel.viewState.collectAsState()
@@ -30,7 +30,7 @@ fun TaskListScreen(
                 initialDate = viewState.value.selectedDate,
             )
 
-            val destination = if (windowSize != WindowSize.Compact) {
+            val destination = if (windowWidthSizeClass != WindowWidthSizeClass.Compact) {
                 AddTaskDialogDestination(
                     initialDate = navArgs.initialDate,
                 )

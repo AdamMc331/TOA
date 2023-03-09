@@ -594,7 +594,8 @@ In this stream, we implemented the material 3 window size class dependency & cha
 type based on screen width. 
 
 PRs:
-* https://github.com/AdamMc331/TOA/pull/181
+* Adaptive navigation types: https://github.com/AdamMc331/TOA/pull/181
+* Old windowsize code cleanup: https://github.com/AdamMc331/TOA/pull/182
 
 YouTube:
 * Coming Soon
