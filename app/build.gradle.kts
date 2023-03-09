@@ -1,6 +1,6 @@
 import com.google.protobuf.gradle.builtins
 import com.google.protobuf.gradle.generateProtoTasks
-import com.google.protobuf.gradle.ofSourceSet
+import com.google.protobuf.gradle.id
 import com.google.protobuf.gradle.protobuf
 import com.google.protobuf.gradle.protoc
 
@@ -173,9 +173,9 @@ protobuf {
     // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
     // for more information.
     generateProtoTasks {
-        ofSourceSet("main").forEach { task ->
-            task.builtins {
-                getByName("java") {
+        all().forEach {
+            it.builtins {
+                id("java") {
                     option("lite")
                 }
             }
