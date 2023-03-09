@@ -1,3 +1,9 @@
+import com.google.protobuf.gradle.builtins
+import com.google.protobuf.gradle.generateProtoTasks
+import com.google.protobuf.gradle.ofSourceSet
+import com.google.protobuf.gradle.protobuf
+import com.google.protobuf.gradle.protoc
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -18,8 +24,8 @@ kotlin {
     }
 }
 
-apply from: "../buildscripts/jacoco.gradle"
-apply from: "../buildscripts/coveralls.gradle"
+apply(from = "../buildscripts/jacoco.gradle")
+apply(from = "../buildscripts/coveralls.gradle")
 
 android {
     compileSdk = 33
@@ -34,31 +40,31 @@ android {
         testInstrumentationRunner = "com.adammcneilly.toa.HiltTestRunner"
 
         vectorDrawables {
-            useSupportLibrary true
+            useSupportLibrary = true
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled = false
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         debug {
-            testCoverageEnabled = true
+            isTestCoverageEnabled = true
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled = true
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
 
-        freeCompilerArgs += [
+        freeCompilerArgs += listOf(
                 "-Xopt-in=kotlin.time.ExperimentalTime",
                 "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-        ]
+        )
     }
     buildFeatures {
         compose = true
@@ -75,28 +81,28 @@ android {
     testOptions {
         unitTests.all {
             kover {
-                enabled = true
-                excludes = [
-                        "dagger.hilt.internal.aggregatedroot.codegen.*",
-                        "hilt_aggregated_deps.*",
-                        "com.adammcneilly.toa.core.di.*",
-                        "com.adammcneilly.toa.core.ui.theme.*",
-                        ".*ComposableSingletons.*",
-                        ".*Hilt.*",
-                        ".*BuildConfig.*",
-                        ".*_Factory.*",
-                ]
+                isEnabled = true
+//                excludes = listOf(
+//                        "dagger.hilt.internal.aggregatedroot.codegen.*",
+//                        "hilt_aggregated_deps.*",
+//                        "com.adammcneilly.toa.core.di.*",
+//                        "com.adammcneilly.toa.core.ui.theme.*",
+//                        ".*ComposableSingletons.*",
+//                        ".*Hilt.*",
+//                        ".*BuildConfig.*",
+//                        ".*_Factory.*",
+//                )
             }
         }
     }
 
     sourceSets {
-        test {
+        getByName("test") {
             java.srcDir(project(":task-api-test").file("src/commonMain/kotlin"))
         }
     }
 
-    applicationVariants.all { variant ->
+    applicationVariants.forEach { variant ->
         kotlin.sourceSets {
             getByName(variant.name) {
                 kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
@@ -118,7 +124,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.0-alpha04")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.versions.lifecycle")
     implementation("androidx.activity:activity-compose:$rootProject.ext.versions.activityCompose")
-    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    implementation("com.google.dagger:hilt-android:$rootProject.ext.hiltVersion")
     implementation("androidx.hilt:hilt-navigation-compose:$rootProject.ext.versions.hiltNavigationCompose")
     implementation(libs.bundles.accompanist)
     // For the known issue: https://developer.android.com/jetpack/androidx/releases/compose-material3#1.1.0-alpha04
@@ -135,7 +141,7 @@ dependencies {
     implementation( "com.google.protobuf:protobuf-javalite:3.18.0")
     ksp("androidx.room:room-compiler:$rootProject.ext.versions.room")
     ksp("io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestinations")
-    kapt("com.google.dagger:hilt-compiler:$hiltVersion")
+    kapt("com.google.dagger:hilt-compiler:$rootProject.ext.hiltVersion")
     testImplementation("junit:junit:$rootProject.ext.versions.junit")
     testImplementation("io.mockk:mockk:$rootProject.ext.versions.mockk")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.ext.versions.coroutinesTest")
@@ -147,8 +153,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:$rootProject.ext.versions.espresso")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0-alpha04")
     androidTestImplementation("com.google.truth:truth:$rootProject.ext.versions.truth")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:$rootProject.ext.hiltVersion")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:$rootProject.ext.hiltVersion")
     debugImplementation("androidx.compose.ui:ui-tooling:1.4.0-alpha04")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.0-alpha04")
 
@@ -164,9 +170,9 @@ protobuf {
     // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
     // for more information.
     generateProtoTasks {
-        all().each { task ->
+        ofSourceSet("main").forEach { task ->
             task.builtins {
-                java {
+                getByName("java") {
                     option("lite")
                 }
             }
