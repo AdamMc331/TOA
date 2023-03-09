@@ -111,7 +111,7 @@ dependencies {
     implementation(project(":core-models"))
     implementation(project(":core-data"))
     implementation(project(":task-api"))
-    implementation "androidx.core:core-ktx:$rootProject.ext.versions.ktxCore"
+    implementation(libs.androidx.ktx.core)
     implementation "androidx.appcompat:appcompat:$rootProject.ext.versions.appCompat"
     implementation "com.google.android.material:material:$rootProject.ext.versions.material"
     implementation "androidx.compose.ui:ui:1.4.0-alpha04"

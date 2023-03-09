@@ -1,0 +1,5 @@
+[versions]
+coreKtx = "1.9.0"
+
+[libraries]
+androidx-ktx-core = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
