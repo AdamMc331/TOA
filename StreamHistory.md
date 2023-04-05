@@ -599,3 +599,13 @@ PRs:
 
 YouTube:
 * Coming Soon
+
+## Stream Thirty Eight - Migrating To Gradle Version Catalogs
+
+In this stream, we modified the dependency management to use gradle version catalogs.
+
+PRs:
+* Gradle version catalogs: https://github.com/AdamMc331/TOA/pull/185
+
+YouTube:
+* Coming Soon
