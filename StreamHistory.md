@@ -600,12 +600,22 @@ PRs:
 YouTube:
 * Coming Soon
 
-## Stream Thirty Eight - Kotlinter Migration
+## Stream Thirty Eight? - Kotlinter Migration
 
 In this stream, we migrated away from a no longer maintained ktlint plugin to the new kotlinter gradle plugin.
 
 PRs:
 * TBD
+
+YouTube:
+* Coming Soon
+
+## Stream Thirty Nine? - Migrating To Gradle Version Catalogs
+
+In this stream, we modified the dependency management to use gradle version catalogs.
+
+PRs:
+* Gradle version catalogs: https://github.com/AdamMc331/TOA/pull/185
 
 YouTube:
 * Coming Soon
