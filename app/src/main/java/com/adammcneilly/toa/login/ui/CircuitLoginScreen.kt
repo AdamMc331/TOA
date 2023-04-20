@@ -27,7 +27,9 @@ object CircuitLoginScreen : Screen {
 
         data class PasswordChanged(val password: Password) : LoginEvent
 
-        object LoginButtonClicked : LoginEvent
+        object LogInButtonClicked : LoginEvent
+
+        object SignUpButtonClicked : LoginEvent
     }
 }
 
@@ -44,14 +46,18 @@ fun CircuitLoginPresenter(): CircuitLoginScreen.LoginState {
                 )
             }
 
-            CircuitLoginScreen.LoginEvent.LoginButtonClicked -> {
-                // Navigate to new screen?
-            }
-
             is CircuitLoginScreen.LoginEvent.PasswordChanged -> {
                 credentials = credentials.copy(
                     password = event.password,
                 )
+            }
+
+            CircuitLoginScreen.LoginEvent.LogInButtonClicked -> {
+                // Navigate to new screen?
+            }
+
+            CircuitLoginScreen.LoginEvent.SignUpButtonClicked -> {
+                // Show not implemented snackbar
             }
         }
     }
@@ -74,10 +80,10 @@ fun CircuitLoginContent(
             state.eventSink(CircuitLoginScreen.LoginEvent.PasswordChanged(Password(password)))
         },
         onLoginClicked = {
-            state.eventSink(CircuitLoginScreen.LoginEvent.LoginButtonClicked)
+            state.eventSink(CircuitLoginScreen.LoginEvent.LogInButtonClicked)
         },
         onSignUpClicked = {
-            // TODO: Implement this
+            state.eventSink(CircuitLoginScreen.LoginEvent.SignUpButtonClicked)
         },
         modifier = modifier,
     )
