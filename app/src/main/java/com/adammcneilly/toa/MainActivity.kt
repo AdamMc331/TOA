@@ -29,6 +29,8 @@ import com.adammcneilly.toa.core.ui.components.navigation.TOANavigationContainer
 import com.adammcneilly.toa.core.ui.theme.TOATheme
 import com.adammcneilly.toa.destinations.LoginScreenDestination
 import com.adammcneilly.toa.destinations.TaskListScreenDestination
+import com.adammcneilly.toa.login.ui.CircuitLoginContentFactory
+import com.adammcneilly.toa.login.ui.CircuitLoginPresenterFactory
 import com.adammcneilly.toa.session.SessionState
 import com.adammcneilly.toa.session.SessionViewModel
 import com.adammcneilly.toa.tasklist.ui.TaskListScreen
@@ -40,6 +42,8 @@ import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultA
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.manualcomposablecalls.composable
 import com.ramcosta.composedestinations.spec.Route
+import com.slack.circuit.foundation.CircuitCompositionLocals
+import com.slack.circuit.foundation.CircuitConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalAnimationApi
@@ -47,6 +51,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : FragmentActivity() {
 
     private val sessionViewModel: SessionViewModel by viewModels()
+
+    private val circuitConfig = CircuitConfig
+        .Builder()
+        .addPresenterFactory(CircuitLoginPresenterFactory())
+        .addUiFactory(CircuitLoginContentFactory())
+        .build()
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,23 +69,25 @@ class MainActivity : FragmentActivity() {
         setContent {
             val windowWidthSizeClass = calculateWindowSizeClass(activity = this).widthSizeClass
 
-            TOATheme {
-                ConfigureSystemBars()
+            CircuitCompositionLocals(circuitConfig = circuitConfig) {
+                TOATheme {
+                    ConfigureSystemBars()
 
-                ProvideWindowInsets {
-                    Surface(
-                        color = MaterialTheme.colorScheme.background,
-                    ) {
-                        val sessionState = sessionViewModel.sessionState.collectAsState()
+                    ProvideWindowInsets {
+                        Surface(
+                            color = MaterialTheme.colorScheme.background,
+                        ) {
+                            val sessionState = sessionViewModel.sessionState.collectAsState()
 
-                        val startRoute: Route? = when (sessionState.value) {
-                            SessionState.UNINITIALIZED -> null
-                            SessionState.LOGGED_IN -> TaskListScreenDestination
-                            SessionState.LOGGED_OUT -> LoginScreenDestination
-                        }
+                            val startRoute: Route? = when (sessionState.value) {
+                                SessionState.UNINITIALIZED -> null
+                                SessionState.LOGGED_IN -> TaskListScreenDestination
+                                SessionState.LOGGED_OUT -> LoginScreenDestination
+                            }
 
-                        if (startRoute != null) {
-                            TOANavHost(startRoute, windowWidthSizeClass)
+                            if (startRoute != null) {
+                                TOANavHost(startRoute, windowWidthSizeClass)
+                            }
                         }
                     }
                 }

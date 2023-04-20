@@ -8,6 +8,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp").version("1.7.21-1.0.8")
     id("com.google.protobuf").version("0.8.17")
@@ -58,11 +59,11 @@ android {
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
 
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.time.ExperimentalTime",
@@ -145,6 +146,9 @@ dependencies {
     implementation(libs.google.protobuf.javalite)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
+    implementation("com.slack.circuit:circuit-foundation:0.8.0")
+    api("com.slack.circuit:circuit-codegen-annotations:0.8.0")
+    ksp("com.slack.circuit:circuit-codegen:0.8.0")
     implementation(project(":core-data"))
     implementation(project(":core-models"))
     implementation(project(":task-api"))
