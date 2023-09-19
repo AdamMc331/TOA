@@ -2,6 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
+      <module name="adammcneilly.AndroidStudioProjects.TOA.TasksOfAffirmation.core-data~1" target="17" />
+      <module name="adammcneilly.AndroidStudioProjects.TOA.TasksOfAffirmation.core-models~2" target="17" />
+      <module name="adammcneilly.AndroidStudioProjects.TOA.TasksOfAffirmation.task-api-test~1" target="17" />
+      <module name="AndroidStudioProjects.TOA.TasksOfAffirmation.app" target="17" />
       <module name="TasksOfAffirmation.app" target="17" />
       <module name="TasksOfAffirmation.core-data" target="17" />
       <module name="TasksOfAffirmation.core-models" target="17" />
