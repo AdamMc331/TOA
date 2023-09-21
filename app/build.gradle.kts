@@ -104,6 +104,7 @@ android {
             java.srcDir(project(":task-api-test").file("src/commonMain/kotlin"))
         }
     }
+    namespace = "com.adammcneilly.toa"
 
     applicationVariants.forEach { variant ->
         kotlin.sourceSets {

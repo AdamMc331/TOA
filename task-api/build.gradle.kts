@@ -59,4 +59,5 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.compileSdk.get().toInt()
     }
+    namespace = "com.adammcneilly.toa.task.api"
 }
