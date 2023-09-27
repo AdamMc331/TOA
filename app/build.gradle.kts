@@ -24,7 +24,7 @@ kotlin {
     }
 }
 
-// apply(from = "../buildscripts/jacoco.gradle")
+apply(from = "../buildscripts/jacoco.gradle")
 apply(from = "../buildscripts/coveralls.gradle")
 
 android {

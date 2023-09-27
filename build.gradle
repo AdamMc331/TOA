@@ -40,12 +40,15 @@ buildscript {
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$versionsPluginVersion"
         classpath "org.jetbrains.kotlinx:kover:$koverVersion"
-        classpath "com.hiya:jacoco-android:$jacocoAndroidVersion"
         classpath "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:$coverallsVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+
+plugins {
+    id "com.mxalbert.gradle.jacoco-android" version "0.2.0" apply false
 }
 
 apply from: "buildscripts/git-hooks.gradle"
