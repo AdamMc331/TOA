@@ -1,16 +1,16 @@
-import com.google.protobuf.gradle.builtins
-import com.google.protobuf.gradle.generateProtoTasks
+//import com.google.protobuf.gradle.builtins
+//import com.google.protobuf.gradle.generateProtoTasks
 import com.google.protobuf.gradle.id
 import com.google.protobuf.gradle.protobuf
-import com.google.protobuf.gradle.protoc
+//import com.google.protobuf.gradle.protoc
 
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp").version("1.7.21-1.0.8")
-    id("com.google.protobuf").version("0.8.17")
+    id("com.google.devtools.ksp").version("1.9.0-1.0.13")
+    id("com.google.protobuf").version("0.9.4")
 }
 
 kotlin {
@@ -24,7 +24,7 @@ kotlin {
     }
 }
 
-apply(from = "../buildscripts/jacoco.gradle")
+//apply(from = "../buildscripts/jacoco.gradle")
 apply(from = "../buildscripts/coveralls.gradle")
 
 android {
@@ -112,6 +112,8 @@ android {
             }
         }
     }
+
+    namespace = "com.adammcneilly.toa"
 }
 
 dependencies {
@@ -167,15 +169,15 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.21.12"
+        artifact = "com.google.protobuf:protoc:${libs.versions.protobuf.get()}"
     }
 
     // Generates the java Protobuf-lite code for the Protobufs in this project. See
     // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
     // for more information.
     generateProtoTasks {
-        all().forEach {
-            it.builtins {
+        all().forEach { task ->
+            task.builtins {
                 id("java") {
                     option("lite")
                 }
