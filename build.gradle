@@ -69,6 +69,17 @@ subprojects {
     apply from: "../buildscripts/detekt.gradle"
     apply from: "../buildscripts/versionsplugin.gradle"
     apply from: "../buildscripts/kover.gradle"
+
+    afterEvaluate {
+        gradle.projectsEvaluated {
+            tasks.withType(JavaCompile.class).tap {
+                configureEach {
+                    sourceCompatibility = "17"
+                    targetCompatibility = "17"
+                }
+            }
+        }
+    }
 }
 
 task clean(type: Delete) {
