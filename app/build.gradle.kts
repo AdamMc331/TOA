@@ -1,8 +1,8 @@
-//import com.google.protobuf.gradle.builtins
-//import com.google.protobuf.gradle.generateProtoTasks
+// import com.google.protobuf.gradle.builtins
+// import com.google.protobuf.gradle.generateProtoTasks
 import com.google.protobuf.gradle.id
 import com.google.protobuf.gradle.protobuf
-//import com.google.protobuf.gradle.protoc
+// import com.google.protobuf.gradle.protoc
 
 plugins {
     id("com.android.application")
@@ -24,7 +24,7 @@ kotlin {
     }
 }
 
-//apply(from = "../buildscripts/jacoco.gradle")
+// apply(from = "../buildscripts/jacoco.gradle")
 apply(from = "../buildscripts/coveralls.gradle")
 
 android {
@@ -73,7 +73,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0-alpha02"
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
     packagingOptions {
         resources {
