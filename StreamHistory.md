@@ -609,3 +609,14 @@ PRs:
 
 YouTube:
 * Coming Soon
+
+## Stream Thirty Nine - Exploring Kotlin Context Receivers
+
+Testing out experimental Context Receiver feature in Kotlin and replacing some UseCase implementations
+with this new feature. 
+
+PRs:
+* Replacing AddTaskUseCase: https://github.com/AdamMc331/TOA/pull/190
+
+YouTube:
+* Coming Soon
