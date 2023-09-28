@@ -10,6 +10,8 @@ import com.adammcneilly.toa.addtask.domain.usecases.AddTaskUseCase
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.destinations.AddTaskScreenDestination
+import com.adammcneilly.toa.preferences.UserPreferences
+import com.adammcneilly.toa.task.api.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
-    private val addTaskUseCase: AddTaskUseCase,
+    private val taskRepository: TaskRepository,
+    private val userPreferences: UserPreferences,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -81,20 +84,26 @@ class AddTaskViewModel @Inject constructor(
         viewModelScope.launch {
             val canRetry = (_viewState.value as? AddTaskViewState.SubmissionError)?.allowRetry
 
-            val result = addTaskUseCase.invoke(
-                task = taskToCreate,
-                ignoreTaskLimits = canRetry == true,
-            )
+            val result = with(taskRepository) {
+                with(userPreferences) {
+                    com.adammcneilly.toa.addtask.domain.usecases.addTask(
+                        task = taskToCreate,
+                        ignoreTaskLimits = (canRetry == true),
+                    )
+                }
+            }
 
             _viewState.value = when (result) {
                 is AddTaskResult.Success -> {
                     AddTaskViewState.Completed
                 }
+
                 is AddTaskResult.Failure.InvalidInput -> {
                     result.toViewState(
                         taskInput = _viewState.value.taskInput,
                     )
                 }
+
                 is AddTaskResult.Failure.MaxTasksPerDayExceeded -> {
                     AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,
@@ -103,6 +112,7 @@ class AddTaskViewModel @Inject constructor(
                         allowRetry = true,
                     )
                 }
+
                 is AddTaskResult.Failure.Unknown -> {
                     AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,
@@ -119,8 +129,9 @@ private fun AddTaskResult.Failure.InvalidInput.toViewState(
 ): AddTaskViewState {
     return AddTaskViewState.Active(
         taskInput = taskInput,
-        descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description).takeIf {
-            this.emptyDescription
-        },
+        descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description)
+            .takeIf {
+                this.emptyDescription
+            },
     )
 }
