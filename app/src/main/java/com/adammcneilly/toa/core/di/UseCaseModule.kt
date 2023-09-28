@@ -27,11 +27,6 @@ abstract class UseCaseModule {
     ): GetAllTasksUseCase
 
     @Binds
-    abstract fun bindAddTaskUseCase(
-        addTaskUseCase: ProdAddTaskUseCase,
-    ): AddTaskUseCase
-
-    @Binds
     abstract fun bindGetTasksForDateUseCase(
         getTasksForDateUseCase: ProdGetTasksForDateUseCase,
     ): GetTasksForDateUseCase

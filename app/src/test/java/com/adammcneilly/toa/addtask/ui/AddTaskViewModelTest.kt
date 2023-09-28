@@ -41,11 +41,6 @@ class AddTaskViewModelTest {
             completed = false,
         )
 
-        val useCaseResult = AddTaskResult.Failure.InvalidInput(
-            emptyDescription = true,
-            scheduledDateInPast = false,
-        )
-
         val expectedViewState = AddTaskViewState.Active(
             taskInput = TaskInput(
                 description = taskToSubmit.description,
@@ -57,10 +52,6 @@ class AddTaskViewModelTest {
         )
 
         testRobot
-            .mockResultForTask(
-                task = taskToSubmit,
-                result = useCaseResult,
-            )
             .mockInitialDate(LocalDate.now())
             .buildViewModel()
             .enterDescription(taskToSubmit.description)
