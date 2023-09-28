@@ -29,14 +29,14 @@ class TaskListViewModelTest {
             completed = true,
         )
 
-        val taskList = listOf(incompleteTask, completedTask)
-
-        val taskListResult = Result.success(taskList)
-
         testRobot
-            .mockTaskListResultForDate(
+            .mockCompletedTasksForDate(
                 date = LocalDate.now(),
-                result = flowOf(taskListResult),
+                result = flowOf(Result.success(listOf(completedTask))),
+            )
+            .mockIncompleteTasksForDate(
+                date = LocalDate.now(),
+                result = flowOf(Result.success(listOf(incompleteTask))),
             )
             .buildViewModel()
             .assertViewState(
@@ -57,16 +57,16 @@ class TaskListViewModelTest {
             completed = false,
         )
 
-        val taskList = listOf(incompleteTask)
-
-        val taskListResult = Result.success(taskList)
-
         val tomorrow = LocalDate.now().plusDays(1)
 
         testRobot
-            .mockTaskListResultForDate(
+            .mockCompletedTasksForDate(
                 date = LocalDate.now(),
-                result = flowOf(taskListResult),
+                result = flowOf(Result.success(emptyList())),
+            )
+            .mockIncompleteTasksForDate(
+                date = LocalDate.now(),
+                result = flowOf(Result.success(listOf(incompleteTask))),
             )
             .buildViewModel()
             .clickRescheduleButton(incompleteTask)
@@ -113,10 +113,6 @@ class TaskListViewModelTest {
             completed = false,
         )
 
-        val taskList = listOf(incompleteTask)
-
-        val taskListResult = Result.success(taskList)
-
         val yesterday = LocalDate.now().minusDays(1)
 
         val alertMessage = AlertMessage(
@@ -126,9 +122,13 @@ class TaskListViewModelTest {
         )
 
         testRobot
-            .mockTaskListResultForDate(
+            .mockCompletedTasksForDate(
                 date = LocalDate.now(),
-                result = flowOf(taskListResult),
+                result = flowOf(Result.success(emptyList())),
+            )
+            .mockIncompleteTasksForDate(
+                date = LocalDate.now(),
+                result = flowOf(Result.success(listOf(incompleteTask))),
             )
             .buildViewModel()
             .clickRescheduleButton(incompleteTask)
@@ -172,7 +172,11 @@ class TaskListViewModelTest {
         val taskResult: Result<List<Task>> = Result.failure(Throwable("Whoops"))
 
         testRobot
-            .mockTaskListResultForDate(
+            .mockCompletedTasksForDate(
+                date = LocalDate.now(),
+                result = flowOf(taskResult),
+            )
+            .mockIncompleteTasksForDate(
                 date = LocalDate.now(),
                 result = flowOf(taskResult),
             )

@@ -6,6 +6,7 @@ import com.adammcneilly.toa.task.api.test.FakeTaskRepository
 import com.adammcneilly.toa.task.api.test.TasksForDateInput
 import com.adammcneilly.toa.tasklist.domain.usecases.GetTasksForDateUseCase
 import com.adammcneilly.toa.tasklist.domain.usecases.RescheduleTaskUseCase
+import com.adammcneilly.toa.toEpochMillis
 import com.adammcneilly.toa.toEpochMillisUTC
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.Flow
@@ -29,11 +30,19 @@ class TaskListViewModelRobot {
         )
     }
 
-    fun mockTaskListResultForDate(
+    fun mockCompletedTasksForDate(
         date: LocalDate,
         result: Flow<TaskListResult>,
     ) = apply {
-        val input = TasksForDateInput(date.toEpochMillisUTC(), true)
+        val input = TasksForDateInput(date.toEpochMillis(), true)
+        fakeTaskRepository.tasksForDateResults[input] = result
+    }
+
+    fun mockIncompleteTasksForDate(
+        date: LocalDate,
+        result: Flow<TaskListResult>,
+    ) = apply {
+        val input = TasksForDateInput(date.toEpochMillis(), false)
         fakeTaskRepository.tasksForDateResults[input] = result
     }
 
@@ -57,10 +66,9 @@ class TaskListViewModelRobot {
         task: Task,
         date: LocalDate,
     ) = apply {
-        TODO("Verify that a task was updated to the given date")
-//        fakeRescheduleTaskUseCase.assertInvocation(
-//            Pair(task, date)
-//        )
+        fakeTaskRepository.updatedTasks.any {
+            it.id == task.id && it.scheduledDateMillis == date.toEpochMillisUTC()
+        }
     }
 
     /**

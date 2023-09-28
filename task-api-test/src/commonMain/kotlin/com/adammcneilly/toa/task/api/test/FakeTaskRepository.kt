@@ -20,6 +20,10 @@ class FakeTaskRepository : TaskRepository {
 
     val updateTaskResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
 
+    private val _updatedTasks: MutableList<Task> = mutableListOf()
+    val updatedTasks: List<Task>
+        get() = _updatedTasks
+
     override fun fetchAllTasks(): Flow<TaskListResult> {
         return allTasksResult
     }
@@ -42,6 +46,7 @@ class FakeTaskRepository : TaskRepository {
     }
 
     override suspend fun updateTask(task: Task): Result<Unit> {
+        _updatedTasks.add(task)
         return updateTaskResults[task]!!
     }
 }
