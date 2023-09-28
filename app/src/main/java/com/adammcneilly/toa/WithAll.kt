@@ -5,7 +5,8 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 /**
- * Hopefully this error gets fixed soon, but basically it happens when you have generic receivers that "might", but don't necessarily, have a subtyping relation
+ * Hopefully this error gets fixed soon, but basically it happens when you have generic receivers
+ * that "might", but don't necessarily, have a subtyping relation
  *
  * https://discuss.kotlinlang.org/t/using-with-function-with-multiple-receivers/2062/7
  */
