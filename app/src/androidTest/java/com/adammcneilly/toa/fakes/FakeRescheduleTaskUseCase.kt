@@ -1,7 +1,6 @@
 package com.adammcneilly.toa.fakes
 
 import com.adammcneilly.toa.core.models.Task
-import com.adammcneilly.toa.tasklist.domain.usecases.RescheduleTaskUseCase
 import com.google.common.truth.Truth.assertThat
 import java.time.LocalDate
 

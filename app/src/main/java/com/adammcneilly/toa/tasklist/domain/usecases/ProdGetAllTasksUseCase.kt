@@ -5,11 +5,10 @@ import com.adammcneilly.toa.task.api.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ProdGetAllTasksUseCase @Inject constructor(
-    private val taskRepository: TaskRepository,
-) : GetAllTasksUseCase {
+context(TaskRepository)
+class ProdGetAllTasksUseCase @Inject constructor() {
 
-    override fun invoke(): Flow<Result<List<Task>>> {
-        return taskRepository.fetchAllTasks()
+    fun invoke(): Flow<Result<List<Task>>> {
+        return fetchAllTasks()
     }
 }

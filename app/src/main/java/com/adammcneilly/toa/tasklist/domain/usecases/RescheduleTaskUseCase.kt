@@ -1,16 +1,23 @@
 package com.adammcneilly.toa.tasklist.domain.usecases
 
 import com.adammcneilly.toa.core.models.Task
+import com.adammcneilly.toa.task.api.TaskRepository
+import com.adammcneilly.toa.toEpochMillis
 import java.time.LocalDate
+import javax.inject.Inject
 
 /**
- * Consume a task and a new date that we want to schedule that
- * task for. We will modify the task, and save that change in our
- * data layer.
+ * Concrete implementation of a use case to reschedule a task that will save the task
+ * change inside of the given [TaskRepository].
  */
-interface RescheduleTaskUseCase {
-    suspend operator fun invoke(
-        task: Task,
-        newDate: LocalDate,
-    )
+context(TaskRepository)
+class RescheduleTaskUseCase @Inject constructor() {
+
+    suspend fun invoke(task: Task, newDate: LocalDate) {
+        val updatedTask = task.copy(
+            scheduledDateMillis = newDate.toEpochMillis(),
+        )
+
+        updateTask(updatedTask)
+    }
 }

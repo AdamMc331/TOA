@@ -7,11 +7,11 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
 
-class ProdRescheduleTaskUseCaseTest {
+class RescheduleTaskUseCaseTest {
     private val fakeRepository = FakeTaskRepository()
-    private val useCase = ProdRescheduleTaskUseCase(
-        repository = fakeRepository,
-    )
+    private val useCase = with(fakeRepository) {
+        RescheduleTaskUseCase()
+    }
 
     @Test
     fun rescheduleTask() = runTest {
