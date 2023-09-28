@@ -619,6 +619,7 @@ with this new feature.
 
 PRs:
 * Replacing AddTaskUseCase: https://github.com/AdamMc331/TOA/pull/190
+* Updating remaining UseCases: https://github.com/AdamMc331/TOA/pull/191 
 
 YouTube:
 * Coming Soon
