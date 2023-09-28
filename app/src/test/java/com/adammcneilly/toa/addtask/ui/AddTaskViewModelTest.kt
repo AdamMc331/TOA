@@ -2,7 +2,6 @@ package com.adammcneilly.toa.addtask.ui
 
 import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.R
-import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
 import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
