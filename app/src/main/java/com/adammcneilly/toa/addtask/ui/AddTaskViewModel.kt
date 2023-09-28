@@ -12,6 +12,7 @@ import com.adammcneilly.toa.core.ui.UIText
 import com.adammcneilly.toa.destinations.AddTaskScreenDestination
 import com.adammcneilly.toa.preferences.UserPreferences
 import com.adammcneilly.toa.task.api.TaskRepository
+import com.adammcneilly.toa.withAll
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -84,13 +85,11 @@ class AddTaskViewModel @Inject constructor(
         viewModelScope.launch {
             val canRetry = (_viewState.value as? AddTaskViewState.SubmissionError)?.allowRetry
 
-            val result = with(taskRepository) {
-                with(userPreferences) {
-                    com.adammcneilly.toa.addtask.domain.usecases.addTask(
-                        task = taskToCreate,
-                        ignoreTaskLimits = (canRetry == true),
-                    )
-                }
+            val result = withAll(taskRepository, userPreferences) {
+                com.adammcneilly.toa.addtask.domain.usecases.addTask(
+                    task = taskToCreate,
+                    ignoreTaskLimits = (canRetry == true),
+                )
             }
 
             _viewState.value = when (result) {
