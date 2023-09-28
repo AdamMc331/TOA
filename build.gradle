@@ -11,9 +11,9 @@ buildscript {
         detektVersion = "1.19.0"
 
         // https://developer.android.com/jetpack/androidx/releases/hilt
-        hiltVersion = "2.45"
+        hiltVersion = libs.versions.hilt.get()
 
-        kotlinVersion = "1.7.21"
+        kotlinVersion = "1.9.0"
 
         // https://github.com/ben-manes/gradle-versions-plugin
         versionsPluginVersion = "0.29.0"
@@ -33,19 +33,22 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath "com.android.tools.build:gradle:8.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintPluginVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$versionsPluginVersion"
         classpath "org.jetbrains.kotlinx:kover:$koverVersion"
-        classpath "com.hiya:jacoco-android:$jacocoAndroidVersion"
         classpath "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:$coverallsVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+
+plugins {
+    id "com.mxalbert.gradle.jacoco-android" version "0.2.0" apply false
 }
 
 apply from: "buildscripts/git-hooks.gradle"
@@ -69,6 +72,17 @@ subprojects {
     apply from: "../buildscripts/detekt.gradle"
     apply from: "../buildscripts/versionsplugin.gradle"
     apply from: "../buildscripts/kover.gradle"
+
+    afterEvaluate {
+        gradle.projectsEvaluated {
+            tasks.withType(JavaCompile.class).tap {
+                configureEach {
+                    sourceCompatibility = "17"
+                    targetCompatibility = "17"
+                }
+            }
+        }
+    }
 }
 
 task clean(type: Delete) {
