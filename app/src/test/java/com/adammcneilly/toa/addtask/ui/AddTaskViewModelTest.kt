@@ -2,7 +2,6 @@ package com.adammcneilly.toa.addtask.ui
 
 import com.adammcneilly.toa.CoroutinesTestRule
 import com.adammcneilly.toa.R
-import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
 import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.core.ui.UIText
@@ -41,11 +40,6 @@ class AddTaskViewModelTest {
             completed = false,
         )
 
-        val useCaseResult = AddTaskResult.Failure.InvalidInput(
-            emptyDescription = true,
-            scheduledDateInPast = false,
-        )
-
         val expectedViewState = AddTaskViewState.Active(
             taskInput = TaskInput(
                 description = taskToSubmit.description,
@@ -57,10 +51,6 @@ class AddTaskViewModelTest {
         )
 
         testRobot
-            .mockResultForTask(
-                task = taskToSubmit,
-                result = useCaseResult,
-            )
             .mockInitialDate(LocalDate.now())
             .buildViewModel()
             .enterDescription(taskToSubmit.description)
