@@ -45,6 +45,8 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Thirty Five - Bottom Bar For Settings](#stream-thirty-five---user-settings)
 * [Stream Thirty Six - Settings Implementation](#stream-thirty-six---user-settings-continued)
 * [Stream Thirty Seven - Adaptive Navigation Types](#stream-thirty-seven---adaptive-navigation-types)
+* [Stream Thirty Eight - Migrating To Gradle Version Catalogs](#stream-thirty-eight---migrating-to-gradle-version-catalogs)
+* [Stream Thirty Nine - Kotlin Context Receivers](#stream-thirty-eight---migrating-to-gradle-version-catalogs)
 </details>
 
 <details>
@@ -606,6 +608,17 @@ In this stream, we modified the dependency management to use gradle version cata
 
 PRs:
 * Gradle version catalogs: https://github.com/AdamMc331/TOA/pull/185
+
+YouTube:
+* Coming Soon
+
+## Stream Thirty Nine - Exploring Kotlin Context Receivers
+
+Testing out experimental Context Receiver feature in Kotlin and replacing some UseCase implementations
+with this new feature. 
+
+PRs:
+* Replacing AddTaskUseCase: https://github.com/AdamMc331/TOA/pull/190
 
 YouTube:
 * Coming Soon
