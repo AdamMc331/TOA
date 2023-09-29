@@ -1,6 +1,8 @@
 package com.adammcneilly.toa.fakes
 
+import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.Navigator
 import com.google.common.truth.Truth.assertThat
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.spec.Direction
@@ -28,6 +30,15 @@ class FakeDestinationsNavigator : DestinationsNavigator {
         route: String,
         onlyIfResumed: Boolean,
         builder: NavOptionsBuilder.() -> Unit,
+    ) {
+        navigatedRoutes.add(route)
+    }
+
+    override fun navigate(
+        route: String,
+        onlyIfResumed: Boolean,
+        navOptions: NavOptions?,
+        navigatorExtras: Navigator.Extras?
     ) {
         navigatedRoutes.add(route)
     }
