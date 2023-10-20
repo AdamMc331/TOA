@@ -1,7 +1,7 @@
 apply plugin: "com.mxalbert.gradle.jacoco-android"
 
 jacoco {
-    toolVersion = "0.8.9"
+    toolVersion = "0.8.11"
 }
 
 configurations.all {
