@@ -45,8 +45,8 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Thirty Five - Bottom Bar For Settings](#stream-thirty-five---user-settings)
 * [Stream Thirty Six - Settings Implementation](#stream-thirty-six---user-settings-continued)
 * [Stream Thirty Seven - Adaptive Navigation Types](#stream-thirty-seven---adaptive-navigation-types)
-* [Stream Thirty Eight - Migrating To Gradle Version Catalogs](#stream-thirty-eight---migrating-to-gradle-version-catalogs)
-* [Stream Thirty Nine - Kotlin Context Receivers](#stream-thirty-eight---migrating-to-gradle-version-catalogs)
+* [Stream Thirty Eight - Gradle Version Catalogs](#stream-thirty-eight---migrating-to-gradle-version-catalogs)
+* [Stream Thirty Nine - Material3 DatePickerDialog](#stream-thirty-nine---refactoring-material3-datepickerdialog)
 </details>
 
 <details>
@@ -611,6 +611,14 @@ PRs:
 
 YouTube:
 * Coming Soon
+
+## Stream Thirty Eight - Refactoring Material3 DatePickerDialog
+
+In this stream we replaced our custom date picker dialog implementation with the one provided
+by the material 3 library which is now stable. 
+
+PRs:
+* https://github.com/AdamMc331/TOA/pull/187
 
 ## Stream Thirty Nine - Exploring Kotlin Context Receivers
 
