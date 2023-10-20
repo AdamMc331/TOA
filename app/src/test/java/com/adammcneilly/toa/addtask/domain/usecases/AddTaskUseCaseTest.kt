@@ -5,6 +5,7 @@ import com.adammcneilly.toa.core.models.Task
 import com.adammcneilly.toa.fakes.FakePreferences
 import com.adammcneilly.toa.preferences.UserPreferences
 import com.adammcneilly.toa.task.api.test.FakeTaskRepository
+import com.adammcneilly.toa.withAll
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
@@ -14,15 +15,10 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-class ProdAddTaskUseCaseTest {
+class AddTaskUseCaseTest {
     private val fakeTaskRepository = FakeTaskRepository()
     private val userPreferences = UserPreferences(
         preferences = FakePreferences(),
-    )
-
-    private val useCase = ProdAddTaskUseCase(
-        taskRepository = fakeTaskRepository,
-        userPreferences = userPreferences,
     )
 
     @Test
@@ -41,10 +37,12 @@ class ProdAddTaskUseCaseTest {
             scheduledDateInPast = false,
         )
 
-        val actualResult = useCase.invoke(
-            task = taskToSubmit,
-            ignoreTaskLimits = false,
-        )
+        val actualResult = withAll(fakeTaskRepository, userPreferences) {
+            addTask(
+                task = taskToSubmit,
+                ignoreTaskLimits = false,
+            )
+        }
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -64,10 +62,12 @@ class ProdAddTaskUseCaseTest {
             scheduledDateInPast = false,
         )
 
-        val actualResult = useCase.invoke(
-            task = taskToSubmit,
-            ignoreTaskLimits = false,
-        )
+        val actualResult = withAll(fakeTaskRepository, userPreferences) {
+            addTask(
+                task = taskToSubmit,
+                ignoreTaskLimits = false,
+            )
+        }
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -89,10 +89,12 @@ class ProdAddTaskUseCaseTest {
             scheduledDateInPast = true,
         )
 
-        val actualResult = useCase.invoke(
-            task = taskToSubmit,
-            ignoreTaskLimits = false,
-        )
+        val actualResult = withAll(fakeTaskRepository, userPreferences) {
+            addTask(
+                task = taskToSubmit,
+                ignoreTaskLimits = false,
+            )
+        }
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -114,10 +116,12 @@ class ProdAddTaskUseCaseTest {
         fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
-        val actualResult = useCase.invoke(
-            task = inputTask,
-            ignoreTaskLimits = false,
-        )
+        val actualResult = withAll(fakeTaskRepository, userPreferences) {
+            addTask(
+                task = inputTask,
+                ignoreTaskLimits = false,
+            )
+        }
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -139,10 +143,12 @@ class ProdAddTaskUseCaseTest {
         fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
-        val actualResult = useCase.invoke(
-            task = inputTask,
-            ignoreTaskLimits = false,
-        )
+        val actualResult = withAll(fakeTaskRepository, userPreferences) {
+            addTask(
+                task = inputTask,
+                ignoreTaskLimits = false,
+            )
+        }
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -169,10 +175,12 @@ class ProdAddTaskUseCaseTest {
 
         val expectedResult = AddTaskResult.Failure.MaxTasksPerDayExceeded
 
-        val actualResult = useCase.invoke(
-            task = inputTask,
-            ignoreTaskLimits = false,
-        )
+        val actualResult = withAll(fakeTaskRepository, userPreferences) {
+            addTask(
+                task = inputTask,
+                ignoreTaskLimits = false,
+            )
+        }
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -203,10 +211,12 @@ class ProdAddTaskUseCaseTest {
         fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
 
         val expectedResult = AddTaskResult.Success
-        val actualResult = useCase.invoke(
-            task = inputTask,
-            ignoreTaskLimits = true,
-        )
+        val actualResult = withAll(fakeTaskRepository, userPreferences) {
+            addTask(
+                task = inputTask,
+                ignoreTaskLimits = true,
+            )
+        }
         assertThat(actualResult).isEqualTo(expectedResult)
     }
 
@@ -235,10 +245,12 @@ class ProdAddTaskUseCaseTest {
 
         val expectedResult = AddTaskResult.Success
 
-        val actualResult = useCase.invoke(
-            task = taskToSubmit,
-            ignoreTaskLimits = false,
-        )
+        val actualResult = withAll(fakeTaskRepository, userPreferences) {
+            addTask(
+                task = taskToSubmit,
+                ignoreTaskLimits = false,
+            )
+        }
 
         assertThat(actualResult).isEqualTo(expectedResult)
     }

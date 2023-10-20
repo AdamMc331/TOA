@@ -612,13 +612,21 @@ PRs:
 YouTube:
 * Coming Soon
 
-## Stream Thirty Nine - Refactoring Material3 DatePickerDialog
+## Stream Thirty Eight - Refactoring Material3 DatePickerDialog
 
 In this stream we replaced our custom date picker dialog implementation with the one provided
 by the material 3 library which is now stable. 
 
 PRs:
 * https://github.com/AdamMc331/TOA/pull/187
+
+## Stream Thirty Nine - Exploring Kotlin Context Receivers
+
+Testing out experimental Context Receiver feature in Kotlin and replacing some UseCase implementations
+with this new feature. 
+
+PRs:
+* Replacing AddTaskUseCase: https://github.com/AdamMc331/TOA/pull/190
 
 YouTube:
 * Coming Soon

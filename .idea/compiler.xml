@@ -5,6 +5,8 @@
       <module name="TasksOfAffirmation.app" target="17" />
       <module name="TasksOfAffirmation.core-data" target="17" />
       <module name="TasksOfAffirmation.core-models" target="17" />
+      <module name="TasksOfAffirmation.lint-checks.main" target="17" />
+      <module name="TasksOfAffirmation.lint-checks.test" target="17" />
       <module name="TasksOfAffirmation.task-api" target="17" />
       <module name="TasksOfAffirmation.task-api-test" target="17" />
     </bytecodeTargetLevel>

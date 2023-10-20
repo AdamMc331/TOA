@@ -28,7 +28,6 @@ kotlin {
             }
         }
         val androidMain by getting
-        val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -57,4 +56,6 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.compileSdk.get().toInt()
     }
+
+    namespace = "com.adammcneilly.toa.task.api.test"
 }

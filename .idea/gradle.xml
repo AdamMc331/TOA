@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/task-api-test" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
