@@ -32,7 +32,6 @@ import com.adammcneilly.toa.destinations.TaskListScreenDestination
 import com.adammcneilly.toa.session.SessionState
 import com.adammcneilly.toa.session.SessionViewModel
 import com.adammcneilly.toa.tasklist.ui.TaskListScreen
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ramcosta.composedestinations.DestinationsNavHost
@@ -62,21 +61,19 @@ class MainActivity : FragmentActivity() {
             TOATheme {
                 ConfigureSystemBars()
 
-                ProvideWindowInsets {
-                    Surface(
-                        color = MaterialTheme.colorScheme.background,
-                    ) {
-                        val sessionState = sessionViewModel.sessionState.collectAsState()
+                Surface(
+                    color = MaterialTheme.colorScheme.background,
+                ) {
+                    val sessionState = sessionViewModel.sessionState.collectAsState()
 
-                        val startRoute: Route? = when (sessionState.value) {
-                            SessionState.UNINITIALIZED -> null
-                            SessionState.LOGGED_IN -> TaskListScreenDestination
-                            SessionState.LOGGED_OUT -> LoginScreenDestination
-                        }
+                    val startRoute: Route? = when (sessionState.value) {
+                        SessionState.UNINITIALIZED -> null
+                        SessionState.LOGGED_IN -> TaskListScreenDestination
+                        SessionState.LOGGED_OUT -> LoginScreenDestination
+                    }
 
-                        if (startRoute != null) {
-                            TOANavHost(startRoute, windowWidthSizeClass)
-                        }
+                    if (startRoute != null) {
+                        TOANavHost(startRoute, windowWidthSizeClass)
                     }
                 }
             }

@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -73,7 +71,8 @@ fun TOADatePickerInput(
             modifier = Modifier
                 .border(
                     width = 1.dp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+                    // MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+                    color = MaterialTheme.colorScheme.onSurface,
                     shape = ButtonShape,
                 )
                 .clip(ButtonShape)
@@ -84,7 +83,8 @@ fun TOADatePickerInput(
             DateAndIcon(
                 value = value,
                 textColor = MaterialTheme.colorScheme.onBackground,
-                iconColorToUse = MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
+                // MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
+                iconColorToUse = MaterialTheme.colorScheme.onSurface,
             )
         }
     }

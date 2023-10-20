@@ -1,5 +1,5 @@
 [versions]
-accompanist = "0.28.0"
+accompanist = "0.32.0"
 activityCompose = "1.8.0"
 androidxTestJunit = "1.1.5"
 appCompat = "1.6.1"
@@ -27,7 +27,6 @@ turbine = "0.12.1"
 windowManager = "1.0.0"
 
 [libraries]
-accompanist-insets-ui = { module = "com.google.accompanist:accompanist-insets-ui", version.ref = "accompanist" }
 accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -69,6 +68,5 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [bundles]
 accompanist = [
-    "accompanist-insets-ui",
     "accompanist-systemuicontroller",
 ]
