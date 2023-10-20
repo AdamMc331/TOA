@@ -23,7 +23,7 @@ buildscript {
 
         ext.jacocoAndroidVersion = "0.2"
 
-        ext.coverallsVersion = "2.12.0"
+        ext.coverallsVersion = "2.12.2"
     }
     repositories {
         google()
