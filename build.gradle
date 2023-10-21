@@ -48,7 +48,7 @@ buildscript {
 }
 
 plugins {
-    id "com.mxalbert.gradle.jacoco-android" version "0.2.0" apply false
+    id "com.mxalbert.gradle.jacoco-android" version "0.2.1" apply false
 }
 
 apply from: "buildscripts/git-hooks.gradle"
