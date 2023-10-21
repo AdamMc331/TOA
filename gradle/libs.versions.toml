@@ -23,7 +23,7 @@ mockk = "1.13.8"
 protobuf = "3.24.4"
 room = "2.5.1"
 truth = "1.1.5"
-turbine = "0.12.1"
+turbine = "0.13.0"
 windowManager = "1.1.0"
 
 [libraries]
