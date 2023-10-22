@@ -133,7 +133,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.google.truth)
     androidTestImplementation(libs.hilt.android.testing)
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.3")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.accompanist.navigation.animation)
