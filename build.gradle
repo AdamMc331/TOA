@@ -16,7 +16,7 @@ buildscript {
         kotlinVersion = "1.9.0"
 
         // https://github.com/ben-manes/gradle-versions-plugin
-        versionsPluginVersion = "0.29.0"
+        versionsPluginVersion = "0.50.0"
 
         // https://github.com/Kotlin/kotlinx-kover/releases
         koverVersion = "0.4.1"
