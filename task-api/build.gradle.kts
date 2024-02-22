@@ -21,7 +21,7 @@ kotlin {
             dependencies {
                 api(project(":core-models"))
                 api(project(":core-data"))
-                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
             }
         }
         val commonTest by getting {
