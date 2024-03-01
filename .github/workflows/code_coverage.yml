@@ -19,6 +19,12 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          # Only write to the cache for builds on the 'development' branch
+          cache-read-only: ${{ github.ref != 'refs/heads/development' }}
+
       - name: Run Tests
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
