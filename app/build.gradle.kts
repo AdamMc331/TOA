@@ -9,7 +9,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp").version("1.9.22-1.0.18")
+    alias(libs.plugins.ksp)
     id("com.google.protobuf").version("0.9.4")
 }
 
