@@ -5,6 +5,7 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -42,13 +43,28 @@ fun TOADatePickerDialog(
         },
     ) {
         DatePicker(
-            datePickerState,
-            dateValidator = { dateMillis ->
-                val todayStartMillis = LocalDate.now().toEpochMillisUTC()
-
-                dateMillis >= todayStartMillis
-            },
+            state = datePickerState,
         )
+    }
+}
+
+object TOADatePickerDialog {
+
+    /**
+     * Custom implementation of [SelectableDates] that restricts to only select dates
+     * in the future.
+     */
+    @OptIn(ExperimentalMaterial3Api::class)
+    val FutureDates = object : SelectableDates {
+        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+            val todayStartMillis = LocalDate.now().toEpochMillisUTC()
+            return utcTimeMillis >= todayStartMillis
+        }
+
+        override fun isSelectableYear(year: Int): Boolean {
+            val todayYear = LocalDate.now().year
+            return year >= todayYear
+        }
     }
 }
 
