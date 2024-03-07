@@ -22,236 +22,244 @@ class AddTaskUseCaseTest {
     )
 
     @Test
-    fun submitWithEmptyDescription() = runBlockingTest {
-        val taskToSubmit = Task(
-            id = "Testing",
-            description = "",
-            scheduledDateMillis = ZonedDateTime.now()
+    fun submitWithEmptyDescription() =
+        runBlockingTest {
+            val taskToSubmit = Task(
+                id = "Testing",
+                description = "",
+                scheduledDateMillis = ZonedDateTime.now()
+                    .toInstant()
+                    .toEpochMilli(),
+                completed = false,
+            )
+
+            val expectedResult = AddTaskResult.Failure.InvalidInput(
+                emptyDescription = true,
+                scheduledDateInPast = false,
+            )
+
+            val actualResult = withAll(fakeTaskRepository, userPreferences) {
+                addTask(
+                    task = taskToSubmit,
+                    ignoreTaskLimits = false,
+                )
+            }
+            assertThat(actualResult).isEqualTo(expectedResult)
+        }
+
+    @Test
+    fun submitWithBlankDescription() =
+        runBlockingTest {
+            val taskToSubmit = Task(
+                id = "Testing",
+                description = "         ",
+                scheduledDateMillis = ZonedDateTime.now()
+                    .toInstant()
+                    .toEpochMilli(),
+                completed = false,
+            )
+
+            val expectedResult = AddTaskResult.Failure.InvalidInput(
+                emptyDescription = true,
+                scheduledDateInPast = false,
+            )
+
+            val actualResult = withAll(fakeTaskRepository, userPreferences) {
+                addTask(
+                    task = taskToSubmit,
+                    ignoreTaskLimits = false,
+                )
+            }
+            assertThat(actualResult).isEqualTo(expectedResult)
+        }
+
+    @Test
+    fun submitWithScheduledDateInPast() =
+        runBlockingTest {
+            val taskToSubmit = Task(
+                id = "Testing",
+                description = "Some description",
+                scheduledDateMillis = LocalDate.now().minusDays(1)
+                    .atStartOfDay()
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant()
+                    .toEpochMilli(),
+                completed = false,
+            )
+
+            val expectedResult = AddTaskResult.Failure.InvalidInput(
+                emptyDescription = false,
+                scheduledDateInPast = true,
+            )
+
+            val actualResult = withAll(fakeTaskRepository, userPreferences) {
+                addTask(
+                    task = taskToSubmit,
+                    ignoreTaskLimits = false,
+                )
+            }
+            assertThat(actualResult).isEqualTo(expectedResult)
+        }
+
+    @Test
+    fun submitValidTaskWithExtraWhitespace() =
+        runTest {
+            val inputTask = Task(
+                id = "Some ID",
+                description = "   Testing      ",
+                scheduledDateMillis = ZonedDateTime.now()
+                    .toInstant()
+                    .toEpochMilli(),
+                completed = false,
+            )
+
+            val expectedSavedTask = inputTask.copy(
+                description = "Testing",
+            )
+
+            fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
+
+            val expectedResult = AddTaskResult.Success
+            val actualResult = withAll(fakeTaskRepository, userPreferences) {
+                addTask(
+                    task = inputTask,
+                    ignoreTaskLimits = false,
+                )
+            }
+            assertThat(actualResult).isEqualTo(expectedResult)
+        }
+
+    @Test
+    fun submitWithoutPreferenceLimit() =
+        runTest {
+            val inputTask = Task(
+                id = "Some ID",
+                description = "   Testing",
+                scheduledDateMillis = ZonedDateTime.now()
+                    .toInstant()
+                    .toEpochMilli(),
+                completed = false,
+            )
+
+            val expectedSavedTask = inputTask.copy(
+                description = "Testing",
+            )
+
+            fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
+
+            val expectedResult = AddTaskResult.Success
+            val actualResult = withAll(fakeTaskRepository, userPreferences) {
+                addTask(
+                    task = inputTask,
+                    ignoreTaskLimits = false,
+                )
+            }
+            assertThat(actualResult).isEqualTo(expectedResult)
+        }
+
+    @Test
+    fun submitWithPreferenceLimit() =
+        runTest {
+            val today = ZonedDateTime.now()
                 .toInstant()
-                .toEpochMilli(),
-            completed = false,
-        )
+                .toEpochMilli()
 
-        val expectedResult = AddTaskResult.Failure.InvalidInput(
-            emptyDescription = true,
-            scheduledDateInPast = false,
-        )
+            // For sake of testing, lol
+            userPreferences.setPreferredNumTasksPerDay(0)
+            userPreferences.setPrefferedNumTasksPerDayEnabled(true)
 
-        val actualResult = withAll(fakeTaskRepository, userPreferences) {
-            addTask(
-                task = taskToSubmit,
-                ignoreTaskLimits = false,
+            // Mock an empty task list for this date.
+            fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
+                flowOf(Result.success(emptyList()))
+
+            val inputTask = Task(
+                id = "Some ID",
+                description = "   Testing",
+                scheduledDateMillis = today,
+                completed = false,
             )
+
+            val expectedResult = AddTaskResult.Failure.MaxTasksPerDayExceeded
+
+            val actualResult = withAll(fakeTaskRepository, userPreferences) {
+                addTask(
+                    task = inputTask,
+                    ignoreTaskLimits = false,
+                )
+            }
+            assertThat(actualResult).isEqualTo(expectedResult)
         }
-        assertThat(actualResult).isEqualTo(expectedResult)
-    }
 
     @Test
-    fun submitWithBlankDescription() = runBlockingTest {
-        val taskToSubmit = Task(
-            id = "Testing",
-            description = "         ",
-            scheduledDateMillis = ZonedDateTime.now()
+    fun submitWithIgnoringPreferenceLimit() =
+        runTest {
+            val today = ZonedDateTime.now()
                 .toInstant()
-                .toEpochMilli(),
-            completed = false,
-        )
+                .toEpochMilli()
 
-        val expectedResult = AddTaskResult.Failure.InvalidInput(
-            emptyDescription = true,
-            scheduledDateInPast = false,
-        )
+            // For sake of testing, lol
+            userPreferences.setPreferredNumTasksPerDay(0)
 
-        val actualResult = withAll(fakeTaskRepository, userPreferences) {
-            addTask(
-                task = taskToSubmit,
-                ignoreTaskLimits = false,
+            // Mock an empty task list for this date.
+            fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
+                flowOf(Result.success(emptyList()))
+
+            val inputTask = Task(
+                id = "Some ID",
+                description = "   Testing",
+                scheduledDateMillis = today,
+                completed = false,
             )
-        }
-        assertThat(actualResult).isEqualTo(expectedResult)
-    }
 
-    @Test
-    fun submitWithScheduledDateInPast() = runBlockingTest {
-        val taskToSubmit = Task(
-            id = "Testing",
-            description = "Some description",
-            scheduledDateMillis = LocalDate.now().minusDays(1)
-                .atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant()
-                .toEpochMilli(),
-            completed = false,
-        )
-
-        val expectedResult = AddTaskResult.Failure.InvalidInput(
-            emptyDescription = false,
-            scheduledDateInPast = true,
-        )
-
-        val actualResult = withAll(fakeTaskRepository, userPreferences) {
-            addTask(
-                task = taskToSubmit,
-                ignoreTaskLimits = false,
+            val expectedSavedTask = inputTask.copy(
+                description = "Testing",
             )
+
+            fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
+
+            val expectedResult = AddTaskResult.Success
+            val actualResult = withAll(fakeTaskRepository, userPreferences) {
+                addTask(
+                    task = inputTask,
+                    ignoreTaskLimits = true,
+                )
+            }
+            assertThat(actualResult).isEqualTo(expectedResult)
         }
-        assertThat(actualResult).isEqualTo(expectedResult)
-    }
-
-    @Test
-    fun submitValidTaskWithExtraWhitespace() = runTest {
-        val inputTask = Task(
-            id = "Some ID",
-            description = "   Testing      ",
-            scheduledDateMillis = ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
-            completed = false,
-        )
-
-        val expectedSavedTask = inputTask.copy(
-            description = "Testing",
-        )
-
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
-
-        val expectedResult = AddTaskResult.Success
-        val actualResult = withAll(fakeTaskRepository, userPreferences) {
-            addTask(
-                task = inputTask,
-                ignoreTaskLimits = false,
-            )
-        }
-        assertThat(actualResult).isEqualTo(expectedResult)
-    }
-
-    @Test
-    fun submitWithoutPreferenceLimit() = runTest {
-        val inputTask = Task(
-            id = "Some ID",
-            description = "   Testing",
-            scheduledDateMillis = ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
-            completed = false,
-        )
-
-        val expectedSavedTask = inputTask.copy(
-            description = "Testing",
-        )
-
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
-
-        val expectedResult = AddTaskResult.Success
-        val actualResult = withAll(fakeTaskRepository, userPreferences) {
-            addTask(
-                task = inputTask,
-                ignoreTaskLimits = false,
-            )
-        }
-        assertThat(actualResult).isEqualTo(expectedResult)
-    }
-
-    @Test
-    fun submitWithPreferenceLimit() = runTest {
-        val today = ZonedDateTime.now()
-            .toInstant()
-            .toEpochMilli()
-
-        // For sake of testing, lol
-        userPreferences.setPreferredNumTasksPerDay(0)
-        userPreferences.setPrefferedNumTasksPerDayEnabled(true)
-
-        // Mock an empty task list for this date.
-        fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
-            flowOf(Result.success(emptyList()))
-
-        val inputTask = Task(
-            id = "Some ID",
-            description = "   Testing",
-            scheduledDateMillis = today,
-            completed = false,
-        )
-
-        val expectedResult = AddTaskResult.Failure.MaxTasksPerDayExceeded
-
-        val actualResult = withAll(fakeTaskRepository, userPreferences) {
-            addTask(
-                task = inputTask,
-                ignoreTaskLimits = false,
-            )
-        }
-        assertThat(actualResult).isEqualTo(expectedResult)
-    }
-
-    @Test
-    fun submitWithIgnoringPreferenceLimit() = runTest {
-        val today = ZonedDateTime.now()
-            .toInstant()
-            .toEpochMilli()
-
-        // For sake of testing, lol
-        userPreferences.setPreferredNumTasksPerDay(0)
-
-        // Mock an empty task list for this date.
-        fakeTaskRepository.tasksForDateResults[Pair(today, false)] =
-            flowOf(Result.success(emptyList()))
-
-        val inputTask = Task(
-            id = "Some ID",
-            description = "   Testing",
-            scheduledDateMillis = today,
-            completed = false,
-        )
-
-        val expectedSavedTask = inputTask.copy(
-            description = "Testing",
-        )
-
-        fakeTaskRepository.addTaskResults[expectedSavedTask] = Result.success(Unit)
-
-        val expectedResult = AddTaskResult.Success
-        val actualResult = withAll(fakeTaskRepository, userPreferences) {
-            addTask(
-                task = inputTask,
-                ignoreTaskLimits = true,
-            )
-        }
-        assertThat(actualResult).isEqualTo(expectedResult)
-    }
 
     /**
      * If our preferences say we have a limit on tasks,
      * but the preference is disabled, ensure that we ignore this limit.
      */
     @Test
-    fun submitWithPreferenceLimitButDisabled() = runTest {
-        userPreferences.setPreferredNumTasksPerDay(0)
-        userPreferences.setPrefferedNumTasksPerDayEnabled(false)
+    fun submitWithPreferenceLimitButDisabled() =
+        runTest {
+            userPreferences.setPreferredNumTasksPerDay(0)
+            userPreferences.setPrefferedNumTasksPerDayEnabled(false)
 
-        val taskToSubmit = Task(
-            id = "Testing",
-            description = "Test",
-            scheduledDateMillis = ZonedDateTime.now()
-                .toInstant()
-                .toEpochMilli(),
-            completed = false,
-        )
-
-        // Mock a result for this task specifically
-        // we do this to ensure in our test that the insert function is ultimately
-        // called with the task that we expect it to be.
-        fakeTaskRepository.addTaskResults[taskToSubmit] = Result.success(Unit)
-
-        val expectedResult = AddTaskResult.Success
-
-        val actualResult = withAll(fakeTaskRepository, userPreferences) {
-            addTask(
-                task = taskToSubmit,
-                ignoreTaskLimits = false,
+            val taskToSubmit = Task(
+                id = "Testing",
+                description = "Test",
+                scheduledDateMillis = ZonedDateTime.now()
+                    .toInstant()
+                    .toEpochMilli(),
+                completed = false,
             )
-        }
 
-        assertThat(actualResult).isEqualTo(expectedResult)
-    }
+            // Mock a result for this task specifically
+            // we do this to ensure in our test that the insert function is ultimately
+            // called with the task that we expect it to be.
+            fakeTaskRepository.addTaskResults[taskToSubmit] = Result.success(Unit)
+
+            val expectedResult = AddTaskResult.Success
+
+            val actualResult = withAll(fakeTaskRepository, userPreferences) {
+                addTask(
+                    task = taskToSubmit,
+                    ignoreTaskLimits = false,
+                )
+            }
+
+            assertThat(actualResult).isEqualTo(expectedResult)
+        }
 }

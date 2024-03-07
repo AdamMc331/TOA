@@ -262,7 +262,6 @@ private fun AddTaskButton(
 
 @Suppress("MagicNumber")
 class TaskListViewStateProvider : PreviewParameterProvider<TaskListViewState> {
-
     override val values: Sequence<TaskListViewState>
         get() {
             val incompleteTasks = (1..3).map { index ->

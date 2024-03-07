@@ -14,7 +14,9 @@ import com.ramcosta.composedestinations.spec.Direction
 class FakeDestinationsNavigator : DestinationsNavigator {
     private val navigatedRoutes = mutableListOf<String>()
 
-    override fun clearBackStack(route: String): Boolean {
+    override fun clearBackStack(
+        route: String,
+    ): Boolean {
         TODO("Not yet implemented")
     }
 
@@ -38,7 +40,7 @@ class FakeDestinationsNavigator : DestinationsNavigator {
         route: String,
         onlyIfResumed: Boolean,
         navOptions: NavOptions?,
-        navigatorExtras: Navigator.Extras?
+        navigatorExtras: Navigator.Extras?,
     ) {
         navigatedRoutes.add(route)
     }
@@ -51,11 +53,17 @@ class FakeDestinationsNavigator : DestinationsNavigator {
         TODO("Not yet implemented")
     }
 
-    override fun popBackStack(route: String, inclusive: Boolean, saveState: Boolean): Boolean {
+    override fun popBackStack(
+        route: String,
+        inclusive: Boolean,
+        saveState: Boolean,
+    ): Boolean {
         TODO("Not yet implemented")
     }
 
-    fun verifyNavigatedToDirection(expectedDirection: Direction) {
+    fun verifyNavigatedToDirection(
+        expectedDirection: Direction,
+    ) {
         val expectedRoute = expectedDirection.route
 
         assertThat(navigatedRoutes).contains(expectedRoute)

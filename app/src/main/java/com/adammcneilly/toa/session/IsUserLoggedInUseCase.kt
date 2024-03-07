@@ -12,7 +12,6 @@ import javax.inject.Inject
 class IsUserLoggedInUseCase @Inject constructor(
     private val tokenRepository: TokenRepository,
 ) {
-
     fun isUserLoggedIn(): Flow<Boolean> {
         return tokenRepository
             .observeToken()

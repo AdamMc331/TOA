@@ -13,7 +13,9 @@ import java.io.OutputStream
 object DataStoreTokenSerializer : Serializer<DataStoreToken> {
     override val defaultValue: DataStoreToken = DataStoreToken.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): DataStoreToken {
+    override suspend fun readFrom(
+        input: InputStream,
+    ): DataStoreToken {
         try {
             return DataStoreToken.parseFrom(input)
         } catch (exception: InvalidProtocolBufferException) {

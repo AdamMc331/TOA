@@ -17,7 +17,9 @@ import javax.inject.Inject
 class DataStoreTokenRepository @Inject constructor(
     private val tokenDataStore: DataStore<DataStoreToken>,
 ) : TokenRepository {
-    override suspend fun storeToken(token: Token) {
+    override suspend fun storeToken(
+        token: Token,
+    ) {
         tokenDataStore.updateData { dataStoreToken ->
             dataStoreToken
                 .toBuilder()

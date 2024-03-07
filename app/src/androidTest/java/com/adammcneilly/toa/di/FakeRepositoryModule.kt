@@ -24,7 +24,6 @@ import javax.inject.Singleton
     replaces = [RepositoryModule::class],
 )
 abstract class FakeRepositoryModule {
-
     @Singleton
     @Binds
     abstract fun bindTokenRepository(

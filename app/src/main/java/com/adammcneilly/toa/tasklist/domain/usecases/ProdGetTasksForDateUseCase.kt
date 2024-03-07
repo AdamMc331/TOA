@@ -11,7 +11,6 @@ import javax.inject.Inject
 class ProdGetTasksForDateUseCase @Inject constructor(
     private val taskRepository: TaskRepository,
 ) : GetTasksForDateUseCase {
-
     override fun invoke(
         date: LocalDate,
     ): Flow<TaskListResult> {

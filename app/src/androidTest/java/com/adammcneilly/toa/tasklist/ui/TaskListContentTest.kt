@@ -15,7 +15,6 @@ import org.junit.Test
 import java.time.ZonedDateTime
 
 class TaskListContentTest {
-
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 

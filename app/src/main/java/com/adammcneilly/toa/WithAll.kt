@@ -12,7 +12,12 @@ import kotlin.contracts.contract
  */
 @OptIn(ExperimentalContracts::class)
 @Suppress("SUBTYPING_BETWEEN_CONTEXT_RECEIVERS")
-inline fun <A, B, R> withAll(a: A, b: B, block: context(A, B) () -> R): R {
+inline fun <A, B, R> withAll(
+    a: A,
+    b: B,
+    block: context(A, B)
+    () -> R,
+): R {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
@@ -21,7 +26,13 @@ inline fun <A, B, R> withAll(a: A, b: B, block: context(A, B) () -> R): R {
 
 @OptIn(ExperimentalContracts::class)
 @Suppress("SUBTYPING_BETWEEN_CONTEXT_RECEIVERS")
-inline fun <A, B, C, R> withAll(a: A, b: B, c: C, block: context(A, B, C) () -> R): R {
+inline fun <A, B, C, R> withAll(
+    a: A,
+    b: B,
+    c: C,
+    block: context(A, B, C)
+    () -> R,
+): R {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }

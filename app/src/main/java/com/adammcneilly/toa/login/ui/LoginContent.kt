@@ -261,7 +261,6 @@ private fun LoginContentPreview(
 }
 
 class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
-
     override val values: Sequence<LoginViewState>
         get() {
             val activeCredentials = Credentials(

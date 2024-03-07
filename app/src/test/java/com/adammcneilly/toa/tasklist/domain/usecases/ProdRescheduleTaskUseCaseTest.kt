@@ -14,22 +14,23 @@ class ProdRescheduleTaskUseCaseTest {
     )
 
     @Test
-    fun rescheduleTask() = runTest {
-        val initialTask = Task(
-            id = "TestID",
-            description = "Test Task",
-            scheduledDateMillis = 0L,
-            completed = false,
-        )
+    fun rescheduleTask() =
+        runTest {
+            val initialTask = Task(
+                id = "TestID",
+                description = "Test Task",
+                scheduledDateMillis = 0L,
+                completed = false,
+            )
 
-        val newDate = LocalDate.now().plusDays(1)
+            val newDate = LocalDate.now().plusDays(1)
 
-        val expectedNewTask = initialTask.copy(
-            scheduledDateMillis = newDate.toEpochMillis(),
-        )
+            val expectedNewTask = initialTask.copy(
+                scheduledDateMillis = newDate.toEpochMillis(),
+            )
 
-        fakeRepository.updateTaskResults[expectedNewTask] = Result.success(Unit)
+            fakeRepository.updateTaskResults[expectedNewTask] = Result.success(Unit)
 
-        useCase.invoke(initialTask, newDate)
-    }
+            useCase.invoke(initialTask, newDate)
+        }
 }

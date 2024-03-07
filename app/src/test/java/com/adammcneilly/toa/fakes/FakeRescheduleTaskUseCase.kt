@@ -6,10 +6,12 @@ import com.google.common.truth.Truth.assertThat
 import java.time.LocalDate
 
 class FakeRescheduleTaskUseCase : RescheduleTaskUseCase {
-
     private val invocations: MutableList<Pair<Task, LocalDate>> = mutableListOf()
 
-    override suspend fun invoke(task: Task, newDate: LocalDate) {
+    override suspend fun invoke(
+        task: Task,
+        newDate: LocalDate,
+    ) {
         invocations.add(
             Pair(task, newDate),
         )

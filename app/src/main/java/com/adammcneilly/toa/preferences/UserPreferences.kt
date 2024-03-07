@@ -9,7 +9,6 @@ import javax.inject.Inject
 class UserPreferences @Inject constructor(
     private val preferences: Preferences,
 ) {
-
     suspend fun getPreferredNumTasksPerDay(): Int? {
         return preferences.getInt(
             key = NUM_TASKS_PER_DAY,
@@ -17,7 +16,9 @@ class UserPreferences @Inject constructor(
         )
     }
 
-    suspend fun setPreferredNumTasksPerDay(numTasks: Int?) {
+    suspend fun setPreferredNumTasksPerDay(
+        numTasks: Int?,
+    ) {
         preferences.storeInt(
             key = NUM_TASKS_PER_DAY,
             value = numTasks,
@@ -31,7 +32,9 @@ class UserPreferences @Inject constructor(
         )
     }
 
-    suspend fun setPrefferedNumTasksPerDayEnabled(enabled: Boolean) {
+    suspend fun setPrefferedNumTasksPerDayEnabled(
+        enabled: Boolean,
+    ) {
         preferences.storeBoolean(
             key = NUM_TASKS_PER_DAY_ENABLED,
             value = enabled,

@@ -20,30 +20,31 @@ private const val MIN_EXPANDED_WIDTH_DP = 840
  * If the available space is within the MEDIUM bucket, we will 75% of the maximum width.
  * If the available space is within the EXPANDED bucket, we will fill 50% of the maximum width.
  */
-fun Modifier.adaptiveWidth() = this
-    .layout { measurable, constraints ->
-        val widthRatio = when {
-            constraints.maxWidth < MIN_MEDIUM_WIDTH_DP.dp.toPx() -> COMPACT_WIDTH_RATIO
-            constraints.maxWidth < MIN_EXPANDED_WIDTH_DP.dp.toPx() -> MEDIUM_WIDTH_RATIO
-            else -> EXPANDED_WIDTH_RATIO
+fun Modifier.adaptiveWidth() =
+    this
+        .layout { measurable, constraints ->
+            val widthRatio = when {
+                constraints.maxWidth < MIN_MEDIUM_WIDTH_DP.dp.toPx() -> COMPACT_WIDTH_RATIO
+                constraints.maxWidth < MIN_EXPANDED_WIDTH_DP.dp.toPx() -> MEDIUM_WIDTH_RATIO
+                else -> EXPANDED_WIDTH_RATIO
+            }
+
+            val widthToUse = constraints.maxWidth * widthRatio
+
+            val newConstraints = constraints.copy(
+                minWidth = widthToUse.toInt(),
+                maxWidth = widthToUse.toInt(),
+            )
+
+            val placeable = measurable.measure(newConstraints)
+
+            val x = Alignment.CenterHorizontally.align(
+                size = placeable.width,
+                space = constraints.maxWidth,
+                layoutDirection = layoutDirection,
+            )
+
+            layout(constraints.maxWidth, placeable.height) {
+                placeable.place(x = x, y = 0)
+            }
         }
-
-        val widthToUse = constraints.maxWidth * widthRatio
-
-        val newConstraints = constraints.copy(
-            minWidth = widthToUse.toInt(),
-            maxWidth = widthToUse.toInt(),
-        )
-
-        val placeable = measurable.measure(newConstraints)
-
-        val x = Alignment.CenterHorizontally.align(
-            size = placeable.width,
-            space = constraints.maxWidth,
-            layoutDirection = layoutDirection,
-        )
-
-        layout(constraints.maxWidth, placeable.height) {
-            placeable.place(x = x, y = 0)
-        }
-    }

@@ -27,7 +27,6 @@ class AddTaskViewModel @Inject constructor(
     private val userPreferences: UserPreferences,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
     /**
      * Even though this screen can be navigated to using either AddTaskDialogDestination, or
      * AddTaskScreenDestination, because they both have the same typesafe nav arguments delegate of
@@ -44,7 +43,9 @@ class AddTaskViewModel @Inject constructor(
 
     val viewState = _viewState.asStateFlow()
 
-    fun onTaskDescriptionChanged(newDescription: String) {
+    fun onTaskDescriptionChanged(
+        newDescription: String,
+    ) {
         val currentInput = _viewState.value.taskInput
         val newInput = currentInput.copy(
             description = newDescription,
@@ -56,7 +57,9 @@ class AddTaskViewModel @Inject constructor(
         )
     }
 
-    fun onTaskScheduledDateChanged(newDate: LocalDate) {
+    fun onTaskScheduledDateChanged(
+        newDate: LocalDate,
+    ) {
         val currentInput = _viewState.value.taskInput
         val newInput = currentInput.copy(
             scheduledDate = newDate,

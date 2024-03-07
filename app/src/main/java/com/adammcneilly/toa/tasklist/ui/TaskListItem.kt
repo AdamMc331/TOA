@@ -101,7 +101,6 @@ private fun TaskText(
 
 @ExcludeFromJacocoGeneratedReport
 private class TaskPreviewParameterProvider : PreviewParameterProvider<Task> {
-
     override val values: Sequence<Task>
         get() {
             val incompleteTask = Task(

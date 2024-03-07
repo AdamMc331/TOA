@@ -44,11 +44,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
-
     private val sessionViewModel: SessionViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
 
         keepSplashScreenVisibleWhileInitializing()

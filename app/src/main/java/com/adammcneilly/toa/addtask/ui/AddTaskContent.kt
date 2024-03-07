@@ -239,7 +239,6 @@ private fun AddTaskContentPreview(
 }
 
 class AddTaskViewStateProvider : PreviewParameterProvider<AddTaskViewState> {
-
     override val values: Sequence<AddTaskViewState>
         get() {
             val activeInput = TaskInput(

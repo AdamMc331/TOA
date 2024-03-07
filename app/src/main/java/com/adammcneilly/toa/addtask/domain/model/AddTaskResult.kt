@@ -9,7 +9,6 @@ sealed class AddTaskResult {
     object Success : AddTaskResult()
 
     sealed class Failure : AddTaskResult() {
-
         data class InvalidInput(
             val emptyDescription: Boolean,
             val scheduledDateInPast: Boolean,
