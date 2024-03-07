@@ -38,7 +38,7 @@ allprojects {
 }
 
 subprojects {
-    apply(from = "../buildscripts/ktlint.gradle")
+    apply(plugin = "org.jmailen.kotlinter")
     apply(from = "../buildscripts/detekt.gradle")
     apply(from = "../buildscripts/versionsplugin.gradle")
     apply(from = "../buildscripts/kover.gradle")
