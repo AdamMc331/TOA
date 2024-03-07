@@ -90,7 +90,7 @@ android {
     testOptions {
         unitTests.all {
             kover {
-                isEnabled = true
+//                isEnabled = true
 //                excludes = listOf(
 //                        "dagger.hilt.internal.aggregatedroot.codegen.*",
 //                        "hilt_aggregated_deps.*",
