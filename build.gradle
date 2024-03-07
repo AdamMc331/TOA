@@ -5,7 +5,7 @@ buildscript {
         compose_version = "1.1.1"
 
         // https://github.com/detekt/detekt/releases
-        detektVersion = "1.19.0"
+        detektVersion = "1.23.5"
 
         // https://developer.android.com/jetpack/androidx/releases/hilt
         hiltVersion = libs.versions.hilt.get()
@@ -16,7 +16,7 @@ buildscript {
         versionsPluginVersion = "0.51.0"
 
         // https://github.com/Kotlin/kotlinx-kover/releases
-        koverVersion = "0.4.1"
+        koverVersion = "0.6.1"
 
         ext.jacocoAndroidVersion = "0.2"
 
