@@ -77,7 +77,9 @@ private suspend fun ensureNumTasksWithinPreferences(
  * Since it's no longer possible to select a date in the past (our date picker validates this),
  * we can simplify this to only validate that the description is not empty.
  */
-private fun validateInput(task: Task): AddTaskResult.Failure.InvalidInput? {
+private fun validateInput(
+    task: Task,
+): AddTaskResult.Failure.InvalidInput? {
     val emptyDescription = task.description.isBlank()
 
     val scheduledDate = Instant

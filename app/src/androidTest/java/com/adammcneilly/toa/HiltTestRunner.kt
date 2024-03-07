@@ -11,8 +11,11 @@ import dagger.hilt.android.testing.HiltTestApplication
  * https://developer.android.com/training/dependency-injection/hilt-testing#instrumented-tests
  */
 class HiltTestRunner : AndroidJUnitRunner() {
-
-    override fun newApplication(cl: ClassLoader?, name: String?, context: Context?): Application {
+    override fun newApplication(
+        cl: ClassLoader?,
+        name: String?,
+        context: Context?,
+    ): Application {
         return super.newApplication(cl, HiltTestApplication::class.java.name, context)
     }
 }

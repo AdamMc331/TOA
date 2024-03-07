@@ -17,17 +17,19 @@ class UserPreferencesTest {
     }
 
     @Test
-    fun readWriteNumTasksPerDay() = runTest {
-        val preferredNumTasks = 3
+    fun readWriteNumTasksPerDay() =
+        runTest {
+            val preferredNumTasks = 3
 
-        userPreferences.setPreferredNumTasksPerDay(preferredNumTasks)
-        val storedPref = userPreferences.getPreferredNumTasksPerDay()
-        assertThat(storedPref).isEqualTo(preferredNumTasks)
-    }
+            userPreferences.setPreferredNumTasksPerDay(preferredNumTasks)
+            val storedPref = userPreferences.getPreferredNumTasksPerDay()
+            assertThat(storedPref).isEqualTo(preferredNumTasks)
+        }
 
     @Test
-    fun getDefaultNumTasksPerDay() = runTest {
-        val preferredNumTasks = userPreferences.getPreferredNumTasksPerDay()
-        assertThat(preferredNumTasks).isNull()
-    }
+    fun getDefaultNumTasksPerDay() =
+        runTest {
+            val preferredNumTasks = userPreferences.getPreferredNumTasksPerDay()
+            assertThat(preferredNumTasks).isNull()
+        }
 }

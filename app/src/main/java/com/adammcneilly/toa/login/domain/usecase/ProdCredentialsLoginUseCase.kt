@@ -16,8 +16,9 @@ class ProdCredentialsLoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val tokenRepository: TokenRepository,
 ) {
-
-    suspend fun login(credentials: Credentials): LoginResult {
+    suspend fun login(
+        credentials: Credentials,
+    ): LoginResult {
         val validationResult = validateCredentials(credentials)
 
         if (validationResult != null) {
@@ -37,7 +38,9 @@ class ProdCredentialsLoginUseCase @Inject constructor(
         )
     }
 
-    private fun validateCredentials(credentials: Credentials): LoginResult.Failure.EmptyCredentials? {
+    private fun validateCredentials(
+        credentials: Credentials,
+    ): LoginResult.Failure.EmptyCredentials? {
         val emptyEmail = credentials.email.value.isEmpty()
         val emptyPassword = credentials.password.value.isEmpty()
 
@@ -55,7 +58,9 @@ class ProdCredentialsLoginUseCase @Inject constructor(
      * Checks the possible error scenarios for the [error] and maps to an appropriate
      * [LoginResult.Failure].
      */
-    private fun loginResultForError(error: Throwable): LoginResult.Failure {
+    private fun loginResultForError(
+        error: Throwable,
+    ): LoginResult.Failure {
         return when (error) {
             is InvalidCredentialsException -> {
                 LoginResult.Failure.InvalidCredentials

@@ -20,13 +20,14 @@ class AddTaskViewModelRobot {
     private val mockSavedStateHandle: SavedStateHandle = mockk(relaxed = true)
     private lateinit var viewModel: AddTaskViewModel
 
-    fun buildViewModel() = apply {
-        viewModel = AddTaskViewModel(
-            taskRepository = fakeTaskRepository,
-            userPreferences = userPreferences,
-            savedStateHandle = mockSavedStateHandle,
-        )
-    }
+    fun buildViewModel() =
+        apply {
+            viewModel = AddTaskViewModel(
+                taskRepository = fakeTaskRepository,
+                userPreferences = userPreferences,
+                savedStateHandle = mockSavedStateHandle,
+            )
+        }
 
     fun mockInitialDate(
         date: LocalDate,
@@ -68,9 +69,10 @@ class AddTaskViewModelRobot {
         viewModel.onTaskScheduledDateChanged(scheduledDate)
     }
 
-    fun clickSubmit() = apply {
-        viewModel.onSubmitButtonClicked()
-    }
+    fun clickSubmit() =
+        apply {
+            viewModel.onSubmitButtonClicked()
+        }
 
     fun assertViewState(
         expectedViewState: AddTaskViewState,

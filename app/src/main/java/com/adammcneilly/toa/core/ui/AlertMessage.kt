@@ -15,7 +15,6 @@ data class AlertMessage(
     val id: Long = UUID.randomUUID().mostSignificantBits,
     val duration: Duration = Duration.SHORT,
 ) {
-
     /**
      * This enum defines the various durations that an [AlertMessage] can be rendered on the screen.
      */
@@ -25,7 +24,9 @@ data class AlertMessage(
         INDEFINITE,
     }
 
-    override fun equals(other: Any?): Boolean {
+    override fun equals(
+        other: Any?,
+    ): Boolean {
         return other is AlertMessage &&
             other.message == this.message &&
             other.actionText == this.actionText &&

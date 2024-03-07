@@ -55,7 +55,7 @@ fun SettingsContent(
 private fun NumTasksPerDayPreference(
     viewState: SettingsViewState,
     onNumTasksEnabledChanged: (Boolean) -> Unit,
-    onNumTasksChanged: (String) -> Unit
+    onNumTasksChanged: (String) -> Unit,
 ) {
     Row(
         modifier = Modifier

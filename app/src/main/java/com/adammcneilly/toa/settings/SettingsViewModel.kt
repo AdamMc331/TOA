@@ -17,7 +17,6 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val userPreferences: UserPreferences,
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(SettingsViewState())
     val state = _state.asStateFlow()
 
@@ -39,7 +38,9 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun numTasksPerDayChanged(input: String) {
+    fun numTasksPerDayChanged(
+        input: String,
+    ) {
         val numTasks = input
             .filter(Char::isDigit)
             .toIntOrNull()
@@ -58,7 +59,9 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun numTasksPerDayEnabledChanged(enabled: Boolean) {
+    fun numTasksPerDayEnabledChanged(
+        enabled: Boolean,
+    ) {
         // Update preferences
         // And update state
         // Ideally, we update preferences, and the state observes this change.

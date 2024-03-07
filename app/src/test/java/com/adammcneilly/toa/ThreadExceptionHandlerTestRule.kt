@@ -10,10 +10,11 @@ import org.junit.runner.Description
  * Inspiration: https://github.com/Kotlin/kotlinx.coroutines/issues/1205#issuecomment-880411987
  */
 class ThreadExceptionHandlerTestRule : TestWatcher() {
-
     private var previousHandler: Thread.UncaughtExceptionHandler? = null
 
-    override fun starting(description: Description?) {
+    override fun starting(
+        description: Description?,
+    ) {
         super.starting(description)
 
         previousHandler = Thread.getDefaultUncaughtExceptionHandler()
@@ -23,7 +24,9 @@ class ThreadExceptionHandlerTestRule : TestWatcher() {
         }
     }
 
-    override fun finished(description: Description?) {
+    override fun finished(
+        description: Description?,
+    ) {
         super.finished(description)
 
         Thread.setDefaultUncaughtExceptionHandler(previousHandler)

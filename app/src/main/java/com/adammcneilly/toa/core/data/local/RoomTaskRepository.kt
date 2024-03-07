@@ -14,7 +14,6 @@ import javax.inject.Inject
 class RoomTaskRepository @Inject constructor(
     private val taskDAO: TaskDAO,
 ) : TaskRepository {
-
     override fun fetchAllTasks(): Flow<Result<List<Task>>> {
         return taskDAO
             .fetchAllTasks()
@@ -42,17 +41,23 @@ class RoomTaskRepository @Inject constructor(
             }
     }
 
-    override suspend fun addTask(task: Task): Result<Unit> {
+    override suspend fun addTask(
+        task: Task,
+    ): Result<Unit> {
         taskDAO.insertTask(task.toPersistableTask())
 
         return Result.success(Unit)
     }
 
-    override suspend fun deleteTask(task: Task): Result<Unit> {
+    override suspend fun deleteTask(
+        task: Task,
+    ): Result<Unit> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateTask(task: Task): Result<Unit> {
+    override suspend fun updateTask(
+        task: Task,
+    ): Result<Unit> {
         taskDAO.updateTask(task.toPersistableTask())
 
         return Result.success(Unit)

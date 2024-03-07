@@ -61,7 +61,9 @@ class TaskListViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState {
+    private fun getViewStateForTaskListResult(
+        result: Result<List<Task>>,
+    ): TaskListViewState {
         return result.fold(
             onSuccess = { taskList ->
                 val (complete, incomplete) = taskList.partition { task ->
@@ -89,13 +91,17 @@ class TaskListViewModel @Inject constructor(
      * state, that indicates the task is done, but we don't actually commit anything to the
      * [taskRepository] until the message is dismissed.
      */
-    fun onDoneButtonClicked(task: Task) {
+    fun onDoneButtonClicked(
+        task: Task,
+    ) {
         markTaskAsComplete(task)
         val taskAccomplishedAlertMessage = getUndoAlertMessageForTask(task)
         addAlertMessageToState(taskAccomplishedAlertMessage)
     }
 
-    private fun addAlertMessageToState(taskAccomplishedAlertMessage: AlertMessage) {
+    private fun addAlertMessageToState(
+        taskAccomplishedAlertMessage: AlertMessage,
+    ) {
         _viewState.update { currentState ->
             currentState.copy(
                 alertMessages = currentState.alertMessages + taskAccomplishedAlertMessage,
@@ -103,7 +109,9 @@ class TaskListViewModel @Inject constructor(
         }
     }
 
-    private fun markTaskAsComplete(task: Task) {
+    private fun markTaskAsComplete(
+        task: Task,
+    ) {
         viewModelScope.launch {
             val taskAsComplete = task.copy(
                 completed = true,
@@ -113,7 +121,9 @@ class TaskListViewModel @Inject constructor(
         }
     }
 
-    private fun getUndoAlertMessageForTask(task: Task) = AlertMessage(
+    private fun getUndoAlertMessageForTask(
+        task: Task,
+    ) = AlertMessage(
         message = UIText.ResourceText(R.string.task_accomplished, listOf(task.description)),
         actionText = UIText.ResourceText(R.string.undo),
         onActionClicked = {
@@ -132,13 +142,17 @@ class TaskListViewModel @Inject constructor(
         duration = AlertMessage.Duration.LONG,
     )
 
-    fun onDateSelected(newDate: LocalDate) {
+    fun onDateSelected(
+        newDate: LocalDate,
+    ) {
         _viewState.value = _viewState.value.copy(
             selectedDate = newDate,
         )
     }
 
-    fun onRescheduleButtonClicked(task: Task) {
+    fun onRescheduleButtonClicked(
+        task: Task,
+    ) {
         _viewState.update {
             it.copy(
                 taskToReschedule = task,

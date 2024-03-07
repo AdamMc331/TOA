@@ -19,11 +19,12 @@ class LoginViewModelRobot {
 
     private lateinit var viewModel: LoginViewModel
 
-    fun buildViewModel() = apply {
-        viewModel = LoginViewModel(
-            credentialsLoginUseCase = credentialsLoginUseCase,
-        )
-    }
+    fun buildViewModel() =
+        apply {
+            viewModel = LoginViewModel(
+                credentialsLoginUseCase = credentialsLoginUseCase,
+            )
+        }
 
     fun mockLoginResultForCredentials(
         credentials: Credentials,
@@ -35,21 +36,27 @@ class LoginViewModelRobot {
         )
     }
 
-    fun enterEmail(email: String) = apply {
+    fun enterEmail(
+        email: String,
+    ) = apply {
         viewModel.emailChanged(email)
     }
 
-    fun enterPassword(password: String) = apply {
+    fun enterPassword(
+        password: String,
+    ) = apply {
         viewModel.passwordChanged(password)
     }
 
-    fun clickLogInButton() = apply {
-        viewModel.loginButtonClicked()
-    }
+    fun clickLogInButton() =
+        apply {
+            viewModel.loginButtonClicked()
+        }
 
-    fun clickSignUpButton() = apply {
-        viewModel.signUpButtonClicked()
-    }
+    fun clickSignUpButton() =
+        apply {
+            viewModel.signUpButtonClicked()
+        }
 
     /**
      * Launch a coroutine that will observe our [viewModel]'s view state and ensure that we consume

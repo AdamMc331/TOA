@@ -21,7 +21,6 @@ import javax.inject.Inject
 @OptIn(ExperimentalAnimationApi::class)
 @HiltAndroidTest
 class MainActivityTest {
-
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 

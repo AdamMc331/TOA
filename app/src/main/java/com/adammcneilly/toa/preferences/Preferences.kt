@@ -5,11 +5,13 @@ package com.adammcneilly.toa.preferences
  * user's preferences.
  */
 interface Preferences {
-
     /**
      * Store some [value] inside our preferences that is mapped to the given [key].
      */
-    suspend fun storeInt(key: String, value: Int?)
+    suspend fun storeInt(
+        key: String,
+        value: Int?,
+    )
 
     /**
      * Returns the integer value saved in preferences with this [key]. Will return
@@ -23,7 +25,10 @@ interface Preferences {
     /**
      * Store some [value] inside our preferences that is mapped to the given [key].
      */
-    suspend fun storeBoolean(key: String, value: Boolean)
+    suspend fun storeBoolean(
+        key: String,
+        value: Boolean,
+    )
 
     /**
      * Returns the boolean value saved in preferences with this [key]. Will return

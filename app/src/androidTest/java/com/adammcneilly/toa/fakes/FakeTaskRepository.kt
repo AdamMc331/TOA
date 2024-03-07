@@ -11,7 +11,6 @@ typealias TasksForDateInput = Pair<Long, Boolean>
  * A concrete implementation of [TaskRepository] that allows to caller to mock and verify calls to this repo.
  */
 class FakeTaskRepository : TaskRepository {
-
     lateinit var allTasksResult: Flow<TaskListResult>
 
     val tasksForDateResults: MutableMap<TasksForDateInput, Flow<TaskListResult>> = mutableMapOf()
@@ -33,15 +32,21 @@ class FakeTaskRepository : TaskRepository {
         return tasksForDateResults[inputPair]!!
     }
 
-    override suspend fun addTask(task: Task): Result<Unit> {
+    override suspend fun addTask(
+        task: Task,
+    ): Result<Unit> {
         return addTaskResults[task]!!
     }
 
-    override suspend fun deleteTask(task: Task): Result<Unit> {
+    override suspend fun deleteTask(
+        task: Task,
+    ): Result<Unit> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateTask(task: Task): Result<Unit> {
+    override suspend fun updateTask(
+        task: Task,
+    ): Result<Unit> {
         return updateTaskResults[task]!!
     }
 }

@@ -13,8 +13,10 @@ import javax.inject.Inject
 class ProdRescheduleTaskUseCase @Inject constructor(
     private val repository: TaskRepository,
 ) : RescheduleTaskUseCase {
-
-    override suspend fun invoke(task: Task, newDate: LocalDate) {
+    override suspend fun invoke(
+        task: Task,
+        newDate: LocalDate,
+    ) {
         val updatedTask = task.copy(
             scheduledDateMillis = newDate.toEpochMillis(),
         )

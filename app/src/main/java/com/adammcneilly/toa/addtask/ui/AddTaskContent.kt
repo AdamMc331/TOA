@@ -198,7 +198,7 @@ private fun TaskDescriptionInput(
         errorMessage = errorMessage,
         focusRequester = focusRequester,
         modifier = Modifier
-            .testTag(ADD_TASK_DESCRIPTION_INPUT_TAG)
+            .testTag(ADD_TASK_DESCRIPTION_INPUT_TAG),
     )
 }
 
@@ -242,7 +242,6 @@ private fun AddTaskContentPreview(
 }
 
 class AddTaskViewStateProvider : PreviewParameterProvider<AddTaskViewState> {
-
     override val values: Sequence<AddTaskViewState>
         get() {
             val activeInput = TaskInput(
