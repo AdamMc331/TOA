@@ -28,6 +28,9 @@ import com.adammcneilly.toa.toLocalDateUTC
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+private const val ENABLED_CONTENT_ALPHA = 1F
+private const val DISABLED_CONTENT_ALPHA = 0.38F
+
 /**
  * A custom text field looking composable that displays a date. Clicking on it, will allow the user
  * to select a new date by launching a [TOADatePickerDialog].
@@ -47,6 +50,8 @@ fun TOADatePickerInput(
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = value.toEpochMillisUTC(),
     )
+
+    val contentColor = MaterialTheme.colorScheme.onSurface.enabled(enabled)
 
     if (showDatePicker.value) {
         TOADatePickerDialog(
@@ -71,8 +76,7 @@ fun TOADatePickerInput(
             modifier = Modifier
                 .border(
                     width = 1.dp,
-                    // MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = contentColor,
                     shape = ButtonShape,
                 )
                 .clip(ButtonShape)
@@ -82,9 +86,8 @@ fun TOADatePickerInput(
         ) {
             DateAndIcon(
                 value = value,
-                textColor = MaterialTheme.colorScheme.onBackground,
-                // MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
-                iconColorToUse = MaterialTheme.colorScheme.onSurface,
+                textColor = contentColor,
+                iconColorToUse = contentColor,
             )
         }
     }
@@ -118,4 +121,20 @@ private fun DateAndIcon(
 private fun LocalDate.toUIString(): String {
     val formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
     return formatter.format(this)
+}
+
+/**
+ * Modifies the alpha value of this [Color] based on whether it should
+ * represent an [enabled] state or not.
+ */
+private fun Color.enabled(
+    enabled: Boolean,
+): Color {
+    val alphaToUse = if (enabled) {
+        ENABLED_CONTENT_ALPHA
+    } else {
+        DISABLED_CONTENT_ALPHA
+    }
+
+    return this.copy(alpha = alphaToUse)
 }

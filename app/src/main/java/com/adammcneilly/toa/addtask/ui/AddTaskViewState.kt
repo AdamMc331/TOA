@@ -10,7 +10,7 @@ import java.time.LocalDate
  */
 sealed class AddTaskViewState(
     open val taskInput: TaskInput,
-    val inputsEnabled: Boolean = true,
+    val inputsEnabled: Boolean = false,
 ) {
     data class Initial(
         val initialDate: LocalDate = LocalDate.now(),

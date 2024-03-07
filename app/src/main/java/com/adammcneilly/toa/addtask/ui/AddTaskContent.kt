@@ -158,10 +158,10 @@ private fun TaskDateInput(
     onValueChanged: (LocalDate) -> Unit,
     enabled: Boolean,
 ) {
-    // We should support disabling this input.
     TOADatePickerInput(
         value = value,
         onValueChanged = onValueChanged,
+        enabled = enabled,
         modifier = Modifier
             .fillMaxWidth(),
     )
