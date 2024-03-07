@@ -207,3 +207,11 @@ tasks.lintKotlinDebug {
 tasks.lintKotlinRelease {
     exclude { it.file.path.contains("build/")}
 }
+
+tasks.formatKotlinDebug {
+    exclude { it.file.path.contains("build/")}
+}
+
+tasks.formatKotlinRelease {
+    exclude { it.file.path.contains("build/")}
+}
