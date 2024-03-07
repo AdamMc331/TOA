@@ -1,6 +1,5 @@
 plugins {
     id 'java-library'
-    id 'kotlin'
 }
 
 java {
@@ -9,7 +8,7 @@ java {
 }
 
 dependencies {
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.21"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     compileOnly "com.android.tools.lint:lint-api:$rootProject.ext.versions.lint"
     compileOnly "com.android.tools.lint:lint-checks:$rootProject.ext.versions.lint"
 
