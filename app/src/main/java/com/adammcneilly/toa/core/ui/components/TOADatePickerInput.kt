@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.toa.R
 import com.adammcneilly.toa.core.ui.theme.ButtonShape
@@ -53,6 +54,12 @@ fun TOADatePickerInput(
 
     val contentColor = MaterialTheme.colorScheme.onSurface.enabled(enabled)
 
+    val borderWidth = if (enabled) {
+        1.dp
+    } else {
+        Dp.Hairline
+    }
+
     if (showDatePicker.value) {
         TOADatePickerDialog(
             datePickerState = datePickerState,
@@ -75,7 +82,7 @@ fun TOADatePickerInput(
         Box(
             modifier = Modifier
                 .border(
-                    width = 1.dp,
+                    width = borderWidth,
                     color = contentColor,
                     shape = ButtonShape,
                 )
