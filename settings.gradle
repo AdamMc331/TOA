@@ -5,5 +5,3 @@ include ':core-data'
 include ':task-api'
 include ':task-api-test'
 include ':lint-checks'
-
-enableFeaturePreview("VERSION_CATALOGS")

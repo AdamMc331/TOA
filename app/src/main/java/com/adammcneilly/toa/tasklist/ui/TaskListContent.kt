@@ -179,6 +179,7 @@ private fun RescheduleTaskDialog(
             datePickerState = rememberDatePickerState(
                 initialSelectedDateMillis = taskToReschedule.scheduledDateMillis.toLocalDateUTC()
                     .toEpochMillisUTC(),
+                selectableDates = TOADatePickerDialog.FutureDates,
             ),
             onDismiss = onDismissed,
             onComplete = { selectedDateMillis ->

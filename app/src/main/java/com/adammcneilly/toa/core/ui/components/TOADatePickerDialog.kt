@@ -1,23 +1,16 @@
 package com.adammcneilly.toa.core.ui.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.TextButton
 import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Surface
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
 import com.adammcneilly.toa.core.ui.theme.TOATheme
@@ -35,53 +28,42 @@ fun TOADatePickerDialog(
     onDismiss: () -> Unit,
     onComplete: (Long?) -> Unit,
 ) {
-    Dialog(
+    DatePickerDialog(
         onDismissRequest = onDismiss,
-    ) {
-        Surface {
-            Column {
-                DatePicker(
-                    datePickerState,
-                    dateValidator = { dateMillis ->
-                        val todayStartMillis = LocalDate.now().toEpochMillisUTC()
-
-                        dateMillis >= todayStartMillis
-                    },
-                )
-
-                DatePickerButtonRow(
-                    onCancelClicked = onDismiss,
-                    onDoneClicked = {
-                        onComplete(datePickerState.selectedDateMillis)
-                    },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onComplete.invoke(datePickerState.selectedDateMillis)
+                },
+            ) {
+                Text(
+                    text = "DONE",
                 )
             }
-        }
+        },
+    ) {
+        DatePicker(
+            state = datePickerState,
+        )
     }
 }
 
-@Composable
-private fun DatePickerButtonRow(
-    onCancelClicked: () -> Unit,
-    onDoneClicked: () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.End,
-    ) {
-        TextButton(
-            onClick = onCancelClicked,
-        ) {
-            Text("CANCEL")
+object TOADatePickerDialog {
+
+    /**
+     * Custom implementation of [SelectableDates] that restricts to only select dates
+     * in the future.
+     */
+    @OptIn(ExperimentalMaterial3Api::class)
+    val FutureDates = object : SelectableDates {
+        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+            val todayStartMillis = LocalDate.now().toEpochMillisUTC()
+            return utcTimeMillis >= todayStartMillis
         }
 
-        Spacer(modifier = Modifier.width(8.dp))
-
-        TextButton(
-            onClick = onDoneClicked,
-        ) {
-            Text("DONE")
+        override fun isSelectableYear(year: Int): Boolean {
+            val todayYear = LocalDate.now().year
+            return year >= todayYear
         }
     }
 }

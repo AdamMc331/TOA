@@ -45,6 +45,8 @@ The following is a record of all TOA streams in chronological order.
 * [Stream Thirty Five - Bottom Bar For Settings](#stream-thirty-five---user-settings)
 * [Stream Thirty Six - Settings Implementation](#stream-thirty-six---user-settings-continued)
 * [Stream Thirty Seven - Adaptive Navigation Types](#stream-thirty-seven---adaptive-navigation-types)
+* [Stream Thirty Eight - Gradle Version Catalogs](#stream-thirty-eight---migrating-to-gradle-version-catalogs)
+* [Stream Thirty Nine - Material3 DatePickerDialog](#stream-thirty-nine---refactoring-material3-datepickerdialog)
 </details>
 
 <details>
@@ -616,6 +618,25 @@ In this stream, we modified the dependency management to use gradle version cata
 
 PRs:
 * Gradle version catalogs: https://github.com/AdamMc331/TOA/pull/185
+
+YouTube:
+* Coming Soon
+
+## Stream Thirty Eight - Refactoring Material3 DatePickerDialog
+
+In this stream we replaced our custom date picker dialog implementation with the one provided
+by the material 3 library which is now stable. 
+
+PRs:
+* https://github.com/AdamMc331/TOA/pull/187
+
+## Stream Thirty Nine - Exploring Kotlin Context Receivers
+
+Testing out experimental Context Receiver feature in Kotlin and replacing some UseCase implementations
+with this new feature. 
+
+PRs:
+* Replacing AddTaskUseCase: https://github.com/AdamMc331/TOA/pull/190
 
 YouTube:
 * Coming Soon

@@ -1,16 +1,16 @@
-import com.google.protobuf.gradle.builtins
-import com.google.protobuf.gradle.generateProtoTasks
+// import com.google.protobuf.gradle.builtins
+// import com.google.protobuf.gradle.generateProtoTasks
 import com.google.protobuf.gradle.id
 import com.google.protobuf.gradle.protobuf
-import com.google.protobuf.gradle.protoc
+// import com.google.protobuf.gradle.protoc
 
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp").version("1.7.21-1.0.8")
-    id("com.google.protobuf").version("0.8.17")
+    alias(libs.plugins.ksp)
+    id("com.google.protobuf").version("0.9.4")
 }
 
 kotlin {
@@ -56,25 +56,31 @@ android {
             isTestCoverageEnabled = true
         }
     }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
 
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.time.ExperimentalTime",
             "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xcontext-receivers",
         )
     }
+
     buildFeatures {
         compose = true
     }
+
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0-alpha02"
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
+
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -112,16 +118,22 @@ android {
             }
         }
     }
+
+    namespace = "com.adammcneilly.toa"
 }
 
 dependencies {
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    debugImplementation(composeBom)
+    androidTestImplementation(composeBom)
 
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.google.truth)
     androidTestImplementation(libs.hilt.android.testing)
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.accompanist.navigation.animation)
@@ -163,15 +175,15 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.21.12"
+        artifact = "com.google.protobuf:protoc:${libs.versions.protobuf.get()}"
     }
 
     // Generates the java Protobuf-lite code for the Protobufs in this project. See
     // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
     // for more information.
     generateProtoTasks {
-        all().forEach {
-            it.builtins {
+        all().forEach { task ->
+            task.builtins {
                 id("java") {
                     option("lite")
                 }

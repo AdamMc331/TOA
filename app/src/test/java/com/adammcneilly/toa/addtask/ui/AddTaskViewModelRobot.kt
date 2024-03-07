@@ -1,24 +1,29 @@
 package com.adammcneilly.toa.addtask.ui
 
 import androidx.lifecycle.SavedStateHandle
-import com.adammcneilly.toa.addtask.domain.model.AddTaskResult
 import com.adammcneilly.toa.core.models.Task
-import com.adammcneilly.toa.fakes.FakeAddTaskUseCase
+import com.adammcneilly.toa.fakes.FakePreferences
+import com.adammcneilly.toa.preferences.UserPreferences
+import com.adammcneilly.toa.task.api.test.FakeTaskRepository
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.runBlocking
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
 class AddTaskViewModelRobot {
-    private val fakeAddTaskUseCase = FakeAddTaskUseCase()
+    private val fakeTaskRepository = FakeTaskRepository()
+    private val fakePreferences = FakePreferences()
+    private val userPreferences = UserPreferences(fakePreferences)
     private val mockSavedStateHandle: SavedStateHandle = mockk(relaxed = true)
     private lateinit var viewModel: AddTaskViewModel
 
     fun buildViewModel() = apply {
         viewModel = AddTaskViewModel(
-            addTaskUseCase = fakeAddTaskUseCase.mock,
+            taskRepository = fakeTaskRepository,
+            userPreferences = userPreferences,
             savedStateHandle = mockSavedStateHandle,
         )
     }
@@ -31,11 +36,20 @@ class AddTaskViewModelRobot {
         } returns date
     }
 
-    fun mockResultForTask(
+    fun mockAddTaskRepositoryResult(
         task: Task,
-        result: AddTaskResult,
+        result: Result<Unit>,
     ) = apply {
-        fakeAddTaskUseCase.mockResultForTask(task, result)
+        fakeTaskRepository.addTaskResults[task] = result
+    }
+
+    fun mockPreferenceInt(
+        key: String,
+        value: Int?,
+    ) = apply {
+        runBlocking {
+            fakePreferences.storeInt(key, value)
+        }
     }
 
     fun enterDescription(
