@@ -4,16 +4,13 @@ buildscript {
         // https://developer.android.com/jetpack/androidx/releases/compose
         compose_version = "1.1.1"
 
-        // https://github.com/JLLeitschuh/ktlint-gradle/releases
-        ktlintPluginVersion = "11.6.1"
-
         // https://github.com/detekt/detekt/releases
         detektVersion = "1.23.5"
 
         // https://developer.android.com/jetpack/androidx/releases/hilt
         hiltVersion = libs.versions.hilt.get()
 
-        kotlinVersion = "1.9.0"
+        kotlinVersion = "1.9.21"
 
         // https://github.com/ben-manes/gradle-versions-plugin
         versionsPluginVersion = "0.51.0"
@@ -35,7 +32,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:8.3.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintPluginVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$versionsPluginVersion"
@@ -49,6 +45,7 @@ buildscript {
 
 plugins {
     id "com.mxalbert.gradle.jacoco-android" version "0.2.1" apply false
+    id "org.jmailen.kotlinter" version "4.2.0" apply false
     alias(libs.plugins.ksp).apply(false)
 }
 
@@ -69,7 +66,7 @@ allprojects {
 }
 
 subprojects {
-    apply from: "../buildscripts/ktlint.gradle"
+    apply plugin: "org.jmailen.kotlinter"
     apply from: "../buildscripts/detekt.gradle"
     apply from: "../buildscripts/versionsplugin.gradle"
     apply from: "../buildscripts/kover.gradle"

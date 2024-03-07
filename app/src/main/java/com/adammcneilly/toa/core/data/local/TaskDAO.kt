@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDAO {
-
     @Query("SELECT * FROM task")
     fun fetchAllTasks(): Flow<List<PersistableTask>>
 
@@ -22,8 +21,12 @@ interface TaskDAO {
     @Insert(
         onConflict = OnConflictStrategy.REPLACE,
     )
-    suspend fun insertTask(task: PersistableTask)
+    suspend fun insertTask(
+        task: PersistableTask,
+    )
 
     @Update
-    suspend fun updateTask(task: PersistableTask)
+    suspend fun updateTask(
+        task: PersistableTask,
+    )
 }

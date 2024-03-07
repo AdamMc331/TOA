@@ -13,7 +13,9 @@ class FakeTokenRepository @Inject constructor() : TokenRepository {
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
 
-    override suspend fun storeToken(token: Token) {
+    override suspend fun storeToken(
+        token: Token,
+    ) {
         tokenFlow.emit(token)
     }
 

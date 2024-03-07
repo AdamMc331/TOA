@@ -13,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class AndroidPreferencesTest {
-
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
@@ -38,30 +37,32 @@ class AndroidPreferencesTest {
     }
 
     @Test
-    fun storeNonNullInt() = runTest {
-        every {
-            mockEditor.putInt(testKey, 5)
-        } returns mockEditor
+    fun storeNonNullInt() =
+        runTest {
+            every {
+                mockEditor.putInt(testKey, 5)
+            } returns mockEditor
 
-        androidPreferences.storeInt(testKey, 5)
+            androidPreferences.storeInt(testKey, 5)
 
-        verify {
-            mockEditor.putInt(testKey, 5)
-            mockEditor.apply()
+            verify {
+                mockEditor.putInt(testKey, 5)
+                mockEditor.apply()
+            }
         }
-    }
 
     @Test
-    fun storeNullInt() = runTest {
-        every {
-            mockEditor.remove(testKey)
-        } returns mockEditor
+    fun storeNullInt() =
+        runTest {
+            every {
+                mockEditor.remove(testKey)
+            } returns mockEditor
 
-        androidPreferences.storeInt(testKey, null)
+            androidPreferences.storeInt(testKey, null)
 
-        verify {
-            mockEditor.remove(testKey)
-            mockEditor.apply()
+            verify {
+                mockEditor.remove(testKey)
+                mockEditor.apply()
+            }
         }
-    }
 }

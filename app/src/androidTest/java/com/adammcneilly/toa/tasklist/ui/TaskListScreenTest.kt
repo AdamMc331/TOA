@@ -57,7 +57,7 @@ class TaskListScreenTest {
         destinationsNavigator.verifyNavigatedToDirection(
             expectedDirection = AddTaskScreenDestination(
                 initialDate = LocalDate.now(),
-            )
+            ),
         )
     }
 
@@ -95,7 +95,7 @@ class TaskListScreenTest {
         destinationsNavigator.verifyNavigatedToDirection(
             expectedDirection = AddTaskDialogDestination(
                 initialDate = LocalDate.now(),
-            )
+            ),
         )
     }
 }

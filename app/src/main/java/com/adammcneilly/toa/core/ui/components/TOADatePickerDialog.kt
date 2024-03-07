@@ -49,19 +49,22 @@ fun TOADatePickerDialog(
 }
 
 object TOADatePickerDialog {
-
     /**
      * Custom implementation of [SelectableDates] that restricts to only select dates
      * in the future.
      */
     @OptIn(ExperimentalMaterial3Api::class)
     val FutureDates = object : SelectableDates {
-        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+        override fun isSelectableDate(
+            utcTimeMillis: Long,
+        ): Boolean {
             val todayStartMillis = LocalDate.now().toEpochMillisUTC()
             return utcTimeMillis >= todayStartMillis
         }
 
-        override fun isSelectableYear(year: Int): Boolean {
+        override fun isSelectableYear(
+            year: Int,
+        ): Boolean {
             val todayYear = LocalDate.now().year
             return year >= todayYear
         }

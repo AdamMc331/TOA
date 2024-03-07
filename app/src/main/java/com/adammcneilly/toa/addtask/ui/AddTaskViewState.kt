@@ -12,28 +12,27 @@ sealed class AddTaskViewState(
     open val taskInput: TaskInput,
     val inputsEnabled: Boolean = true,
 ) {
-
     data class Initial(
         val initialDate: LocalDate = LocalDate.now(),
     ) : AddTaskViewState(
-        taskInput = TaskInput(
-            scheduledDate = initialDate,
-        ),
-    )
+            taskInput = TaskInput(
+                scheduledDate = initialDate,
+            ),
+        )
 
     data class Active(
         override val taskInput: TaskInput,
         val descriptionInputErrorMessage: UIText? = null,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-    )
+            taskInput = taskInput,
+        )
 
     data class Submitting(
         override val taskInput: TaskInput,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-        inputsEnabled = false,
-    )
+            taskInput = taskInput,
+            inputsEnabled = false,
+        )
 
     /**
      * @param[allowRetry] If true, this signifies the submission error can be overridden
@@ -46,8 +45,8 @@ sealed class AddTaskViewState(
         val overrideButtonText: UIText? = null,
         val allowRetry: Boolean = false,
     ) : AddTaskViewState(
-        taskInput = taskInput,
-    )
+            taskInput = taskInput,
+        )
 
     object Completed : AddTaskViewState(
         taskInput = TaskInput(),

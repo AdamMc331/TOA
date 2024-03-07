@@ -9,7 +9,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class TaskListViewStateTest {
-
     @Test
     fun parseDateStringForYesterday() {
         val yesterday = LocalDate.now().minusDays(1)

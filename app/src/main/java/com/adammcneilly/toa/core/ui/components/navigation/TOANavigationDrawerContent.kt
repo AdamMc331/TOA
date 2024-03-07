@@ -48,7 +48,7 @@ fun TOANavigationDrawerContent(
                             imageVector = tab.icon,
                             contentDescription = stringResource(id = tab.labelTextRes),
                         )
-                    }
+                    },
                 )
             }
         }

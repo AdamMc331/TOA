@@ -11,7 +11,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class AddTaskContentTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 

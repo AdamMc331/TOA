@@ -20,7 +20,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class UseCaseModule {
-
     @Binds
     abstract fun bindGetAllTasksUseCase(
         getAllTasksUseCase: ProdGetAllTasksUseCase,

@@ -15,7 +15,9 @@ class FakeGetTasksForDateUseCase : GetTasksForDateUseCase {
         resultsForDateMap[date] = result
     }
 
-    override fun invoke(date: LocalDate): Flow<TaskListResult> {
+    override fun invoke(
+        date: LocalDate,
+    ): Flow<TaskListResult> {
         return resultsForDateMap[date]!!
     }
 }

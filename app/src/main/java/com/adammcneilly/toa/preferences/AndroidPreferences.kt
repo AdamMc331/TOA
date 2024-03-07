@@ -10,11 +10,13 @@ import javax.inject.Inject
 class AndroidPreferences @Inject constructor(
     private val sharedPreferences: SharedPreferences,
 ) : Preferences {
-
     /**
      * If a caller passes a null [value], then we will just remove this key from our preferences.
      */
-    override suspend fun storeInt(key: String, value: Int?) {
+    override suspend fun storeInt(
+        key: String,
+        value: Int?,
+    ) {
         if (value != null) {
             sharedPreferences
                 .edit()
@@ -39,14 +41,20 @@ class AndroidPreferences @Inject constructor(
         }
     }
 
-    override suspend fun storeBoolean(key: String, value: Boolean) {
+    override suspend fun storeBoolean(
+        key: String,
+        value: Boolean,
+    ) {
         sharedPreferences
             .edit()
             .putBoolean(key, value)
             .apply()
     }
 
-    override suspend fun getBoolean(key: String, defaultValue: Boolean): Boolean {
+    override suspend fun getBoolean(
+        key: String,
+        defaultValue: Boolean,
+    ): Boolean {
         return sharedPreferences.getBoolean(key, defaultValue)
     }
 }

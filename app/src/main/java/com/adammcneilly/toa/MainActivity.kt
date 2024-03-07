@@ -44,11 +44,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
-
     private val sessionViewModel: SessionViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
 
         keepSplashScreenVisibleWhileInitializing()
@@ -132,7 +133,7 @@ class MainActivity : FragmentActivity() {
                         }
                     },
                 )
-            }
+            },
         )
     }
 
@@ -154,7 +155,7 @@ class MainActivity : FragmentActivity() {
                         true
                     }
                 }
-            }
+            },
         )
     }
 
@@ -166,7 +167,7 @@ class MainActivity : FragmentActivity() {
         SideEffect {
             systemUiController.setSystemBarsColor(
                 color = Color.Transparent,
-                darkIcons = useDarkIcons
+                darkIcons = useDarkIcons,
             )
         }
     }

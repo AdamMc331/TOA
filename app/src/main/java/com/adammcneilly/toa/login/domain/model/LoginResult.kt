@@ -13,7 +13,6 @@ sealed class LoginResult {
      * This is the information about an unsuccessful attempt to login.
      */
     sealed class Failure : LoginResult() {
-
         /**
          * This will be returned if there was no account matching the requested credentials.
          */

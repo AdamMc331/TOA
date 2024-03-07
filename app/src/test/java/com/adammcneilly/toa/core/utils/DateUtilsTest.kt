@@ -6,7 +6,6 @@ import java.time.LocalDate
 import java.time.Month
 
 class DateUtilsTest {
-
     @Test
     fun parseStSuffixes() {
         listOf(1, 21, 31)
