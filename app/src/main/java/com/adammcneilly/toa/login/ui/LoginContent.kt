@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -131,6 +133,7 @@ private fun LogoInputsColumn(
                 ?.passwordInputErrorMessage
                 ?.getString(),
             enabled = viewState.inputsEnabled,
+            onDone = onLoginClicked,
         )
 
         if (viewState is LoginViewState.SubmissionError) {
@@ -190,7 +193,14 @@ fun PasswordInput(
     onTextChanged: (String) -> Unit,
     errorMessage: String?,
     enabled: Boolean,
+    onDone: () -> Unit,
 ) {
+    val keyboardActions = KeyboardActions(
+        onDone = {
+            onDone.invoke()
+        },
+    )
+
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
@@ -200,8 +210,10 @@ fun PasswordInput(
             '-',
         ),
         enabled = enabled,
+        keyboardActions = keyboardActions,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Done,
         ),
     )
 }
@@ -219,6 +231,9 @@ private fun EmailInput(
         labelText = stringResource(R.string.email),
         errorMessage = errorMessage,
         enabled = enabled,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Next,
+        ),
     )
 }
 

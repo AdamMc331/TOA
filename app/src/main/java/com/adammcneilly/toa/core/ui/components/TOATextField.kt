@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -35,7 +35,6 @@ import com.adammcneilly.toa.core.ui.theme.TextFieldShape
  * @param[focusRequester] An optional [FocusRequester] that allows the caller to control the focused
  * state of this text field.
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TOATextField(
     text: String,
@@ -45,6 +44,7 @@ fun TOATextField(
     errorMessage: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     enabled: Boolean = true,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     placeholderText: String? = null,
     focusRequester: FocusRequester = FocusRequester(),
@@ -78,6 +78,7 @@ fun TOATextField(
             isError = (errorMessage != null),
             visualTransformation = visualTransformation,
             enabled = enabled,
+            keyboardActions = keyboardActions,
             keyboardOptions = keyboardOptions,
             placeholder = placeholderComposable,
         )
