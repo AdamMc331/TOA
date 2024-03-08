@@ -10,7 +10,7 @@ buildscript {
         // https://developer.android.com/jetpack/androidx/releases/hilt
         hiltVersion = libs.versions.hilt.get()
 
-        kotlinVersion = "1.9.21"
+        kotlinVersion = "1.9.23"
 
         // https://github.com/ben-manes/gradle-versions-plugin
         versionsPluginVersion = "0.51.0"
