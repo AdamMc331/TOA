@@ -21,43 +21,74 @@ import com.adammcneilly.toa.core.ui.theme.TOATheme
 import java.time.LocalDate
 
 @Composable
-fun ProcrastinateTaskContent() {
+fun ProcrastinateTaskContent(
+    state: ProcrastinateTaskViewState,
+    modifier: Modifier = Modifier,
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),
     ) {
+        TomorrowOption(state)
+
+        NextWeekOption(state)
+
+        FutureOption(state)
+
+        ProcrastinateButton()
+    }
+}
+
+@Composable
+private fun ProcrastinateButton() {
+    PrimaryButton(
+        text = "Procrastinate",
+        onClick = { /*TODO*/ },
+    )
+}
+
+@Composable
+private fun FutureOption(
+    state: ProcrastinateTaskViewState,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        val isSelected = (state.selectedOption is ProcrastinateOption.Future)
         RadioOption(
-            isSelected = true,
-            text = "Tomorrow's Problem",
+            isSelected = isSelected,
+            text = "Future Problem",
         )
 
-        RadioOption(
-            isSelected = false,
-            text = "Next Week's Problem",
-        )
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            RadioOption(
-                isSelected = false,
-                text = "Future Problem",
-            )
-
-            TOADatePickerInput(
-                value = LocalDate.now().plusMonths(1),
-                onValueChanged = {},
-            )
-        }
-
-        PrimaryButton(
-            text = "Procrastinate",
-            onClick = { /*TODO*/ },
+        TOADatePickerInput(
+            value = LocalDate.now().plusMonths(1),
+            onValueChanged = {},
+            enabled = isSelected,
         )
     }
+}
+
+@Composable
+private fun NextWeekOption(
+    state: ProcrastinateTaskViewState,
+) {
+    RadioOption(
+        isSelected = (state.selectedOption == ProcrastinateOption.NextWeek),
+        text = "Next Week's Problem",
+    )
+}
+
+@Composable
+private fun TomorrowOption(
+    state: ProcrastinateTaskViewState,
+) {
+    RadioOption(
+        isSelected = (state.selectedOption == ProcrastinateOption.Tomorrow),
+        text = "Tomorrow's Problem",
+    )
 }
 
 @Composable
@@ -94,7 +125,11 @@ private fun RadioOption(
 private fun ProcrastinateTaskContentPreview() {
     TOATheme {
         Surface {
-            ProcrastinateTaskContent()
+            ProcrastinateTaskContent(
+                state = ProcrastinateTaskViewState(
+                    selectedOption = ProcrastinateOption.Tomorrow,
+                ),
+            )
         }
     }
 }

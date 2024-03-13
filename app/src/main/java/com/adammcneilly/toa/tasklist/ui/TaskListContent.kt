@@ -47,7 +47,6 @@ import java.time.LocalDate
 
 const val ADD_TASK_BUTTON_TAG = "ADD_TASK_BUTTON"
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
