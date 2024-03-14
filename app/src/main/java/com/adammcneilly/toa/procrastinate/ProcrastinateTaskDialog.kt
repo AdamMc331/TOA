@@ -13,6 +13,7 @@ import com.ramcosta.composedestinations.spec.DestinationStyle
 
 @Destination(
     style = DestinationStyle.Dialog::class,
+    navArgsDelegate = ProcrastinateTaskNavArgs::class,
 )
 @Composable
 fun ProcrastinateTaskDialog(
@@ -32,11 +33,12 @@ fun ProcrastinateTaskDialog(
     ProcrastinateTaskContent(
         state = viewState.value,
         onSelectionChanged = viewModel::optionSelected,
-        onProcrastinateClicked = {
-            // TODO: Get our task and pass it into this callback.
-        },
+        onProcrastinateClicked = viewModel::procrastinateClicked,
         onFutureDateChanged = viewModel::futureDateChanged,
         modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.background),
+            .background(
+                color = MaterialTheme.colorScheme.background,
+                shape = MaterialTheme.shapes.large,
+            ),
     )
 }

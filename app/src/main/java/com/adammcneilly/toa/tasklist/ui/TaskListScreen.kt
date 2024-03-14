@@ -24,9 +24,10 @@ fun TaskListScreen(
 
     TaskListContent(
         viewState = viewState.value,
-        onRescheduleClicked = {
-            // This needs to change to consume the task that we are trying to procrastinate.
-            val destination = ProcrastinateTaskDialogDestination
+        onRescheduleClicked = { task ->
+            val destination = ProcrastinateTaskDialogDestination(
+                task = task,
+            )
             navigator.navigate(destination)
         },
         onDoneClicked = viewModel::onDoneButtonClicked,
