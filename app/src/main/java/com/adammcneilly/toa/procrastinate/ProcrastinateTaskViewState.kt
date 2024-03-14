@@ -7,6 +7,10 @@ import java.time.LocalDate
  * that defines an active state, a submitting state, and a submitted state.
  *
  * To just get this up and running, we're putting selected option and isComplete into a data class.
+ *
+ * @param[futureDate] We store this in our viewmodel state so that it persists. The reason we have this as a separate
+ * field is because the [selectedOption] only needs to use this if we're pushing out into the future.
+ * And we don't want a toggle between tomorrow/next week options to impact this value.
  */
 data class ProcrastinateTaskViewState(
     val selectedOption: ProcrastinateOption = ProcrastinateOption.Tomorrow,
