@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,6 +36,16 @@ class ProcrastinateTaskViewModel @Inject constructor(
             rescheduleTaskUseCase.invoke(
                 task = task,
                 newDate = state.value.selectedOption.date,
+            )
+        }
+    }
+
+    fun futureDateChanged(
+        newDate: LocalDate,
+    ) {
+        mutableState.update { currentState ->
+            currentState.copy(
+                futureDate = newDate,
             )
         }
     }

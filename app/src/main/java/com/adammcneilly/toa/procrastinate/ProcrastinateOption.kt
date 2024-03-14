@@ -2,6 +2,9 @@ package com.adammcneilly.toa.procrastinate
 
 import java.time.LocalDate
 
+/**
+ * Collection of different ways we can procrastinate a task to a new [date].
+ */
 sealed class ProcrastinateOption(
     open val date: LocalDate,
 ) {

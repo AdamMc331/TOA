@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.adammcneilly.toa.addtask.ui.AddTaskNavArguments
 import com.adammcneilly.toa.destinations.AddTaskDialogDestination
 import com.adammcneilly.toa.destinations.AddTaskScreenDestination
+import com.adammcneilly.toa.destinations.ProcrastinateTaskDialogDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -23,7 +24,11 @@ fun TaskListScreen(
 
     TaskListContent(
         viewState = viewState.value,
-        onRescheduleClicked = viewModel::onRescheduleButtonClicked,
+        onRescheduleClicked = {
+            // This needs to change to consume the task that we are trying to procrastinate.
+            val destination = ProcrastinateTaskDialogDestination
+            navigator.navigate(destination)
+        },
         onDoneClicked = viewModel::onDoneButtonClicked,
         onAddButtonClicked = {
             val navArgs = AddTaskNavArguments(

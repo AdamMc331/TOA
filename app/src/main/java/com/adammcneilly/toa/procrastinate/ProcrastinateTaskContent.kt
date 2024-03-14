@@ -4,7 +4,9 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
@@ -23,6 +25,9 @@ import java.time.LocalDate
 @Composable
 fun ProcrastinateTaskContent(
     state: ProcrastinateTaskViewState,
+    onSelectionChanged: (ProcrastinateOption) -> Unit,
+    onProcrastinateClicked: () -> Unit,
+    onFutureDateChanged: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -31,63 +36,92 @@ fun ProcrastinateTaskContent(
             .fillMaxWidth()
             .padding(16.dp),
     ) {
-        TomorrowOption(state)
+        TomorrowOption(state, onSelectionChanged)
 
-        NextWeekOption(state)
+        NextWeekOption(state, onSelectionChanged)
 
-        FutureOption(state)
+        FutureOption(state, onSelectionChanged, onFutureDateChanged)
 
-        ProcrastinateButton()
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ProcrastinateButton(onProcrastinateClicked)
     }
 }
 
 @Composable
-private fun ProcrastinateButton() {
+private fun ProcrastinateButton(
+    onClick: () -> Unit,
+) {
     PrimaryButton(
         text = "Procrastinate",
-        onClick = { /*TODO*/ },
+        onClick = onClick,
     )
 }
 
 @Composable
 private fun FutureOption(
     state: ProcrastinateTaskViewState,
+    onSelectionChanged: (ProcrastinateOption) -> Unit,
+    onFutureDateChanged: (LocalDate) -> Unit,
 ) {
+    val isSelected = (state.selectedOption is ProcrastinateOption.Future)
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        val isSelected = (state.selectedOption is ProcrastinateOption.Future)
-        RadioOption(
-            isSelected = isSelected,
-            text = "Future Problem",
+        RadioButton(
+            selected = isSelected,
+            onClick = {
+                onSelectionChanged.invoke(
+                    ProcrastinateOption.Future(state.futureDate),
+                )
+            },
         )
 
-        TOADatePickerInput(
-            value = LocalDate.now().plusMonths(1),
-            onValueChanged = {},
-            enabled = isSelected,
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = "Future problem",
+            )
+
+            TOADatePickerInput(
+                value = state.futureDate,
+                onValueChanged = { newDate ->
+                    onFutureDateChanged.invoke(newDate)
+                },
+                enabled = isSelected,
+            )
+        }
     }
 }
 
 @Composable
 private fun NextWeekOption(
     state: ProcrastinateTaskViewState,
+    onSelectionChanged: (ProcrastinateOption) -> Unit,
 ) {
     RadioOption(
         isSelected = (state.selectedOption == ProcrastinateOption.NextWeek),
         text = "Next Week's Problem",
+        onClick = {
+            onSelectionChanged.invoke(ProcrastinateOption.NextWeek)
+        },
     )
 }
 
 @Composable
 private fun TomorrowOption(
     state: ProcrastinateTaskViewState,
+    onSelectionChanged: (ProcrastinateOption) -> Unit,
 ) {
     RadioOption(
         isSelected = (state.selectedOption == ProcrastinateOption.Tomorrow),
         text = "Tomorrow's Problem",
+        onClick = {
+            onSelectionChanged.invoke(ProcrastinateOption.Tomorrow)
+        },
     )
 }
 
@@ -95,6 +129,7 @@ private fun TomorrowOption(
 private fun RadioOption(
     isSelected: Boolean,
     text: String,
+    onClick: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -102,7 +137,7 @@ private fun RadioOption(
     ) {
         RadioButton(
             selected = isSelected,
-            onClick = { /*TODO*/ },
+            onClick = onClick,
         )
 
         Text(
@@ -129,6 +164,9 @@ private fun ProcrastinateTaskContentPreview() {
                 state = ProcrastinateTaskViewState(
                     selectedOption = ProcrastinateOption.Tomorrow,
                 ),
+                onSelectionChanged = {},
+                onProcrastinateClicked = {},
+                onFutureDateChanged = {},
             )
         }
     }
