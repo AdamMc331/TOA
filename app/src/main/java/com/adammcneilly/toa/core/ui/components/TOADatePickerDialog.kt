@@ -1,6 +1,8 @@
 package com.adammcneilly.toa.core.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
@@ -10,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import com.adammcneilly.toa.ExcludeFromJacocoGeneratedReport
@@ -41,6 +44,8 @@ fun TOADatePickerDialog(
                 )
             }
         },
+        modifier = Modifier
+            .verticalScroll(rememberScrollState()),
     ) {
         DatePicker(
             state = datePickerState,
