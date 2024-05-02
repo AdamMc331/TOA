@@ -10,8 +10,6 @@ buildscript {
         // https://developer.android.com/jetpack/androidx/releases/hilt
         hiltVersion = libs.versions.hilt.get()
 
-        kotlinVersion = "1.9.21"
-
         // https://github.com/ben-manes/gradle-versions-plugin
         versionsPluginVersion = "0.51.0"
 
@@ -31,7 +29,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:8.3.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$versionsPluginVersion"
@@ -46,6 +44,7 @@ buildscript {
 plugins {
     id "com.mxalbert.gradle.jacoco-android" version "0.2.1" apply false
     id "org.jmailen.kotlinter" version "4.3.0" apply false
+    alias(libs.plugins.compose.compiler).apply(false)
     alias(libs.plugins.ksp).apply(false)
 }
 

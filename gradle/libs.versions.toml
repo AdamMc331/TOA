@@ -15,7 +15,8 @@ espresso = "3.5.1"
 hilt = "2.51.1"
 hiltNavigationCompose = "1.2.0"
 junit = "4.13.2"
-ksp = "1.9.23-1.0.20"
+kotlin = "2.0.0-RC2"
+ksp = "2.0.0-RC2-1.0.20"
 lifecycle = "2.7.0"
 lint = "27.1.2"
 material = "1.11.0"
@@ -73,4 +74,5 @@ accompanist = [
 ]
 
 [plugins]
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
