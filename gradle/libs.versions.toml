@@ -1,7 +1,7 @@
 [versions]
 accompanist = "0.34.0"
 activityCompose = "1.9.0"
-androidxTestJunit = "1.1.5"
+androidxTestJunit = "1.2.1"
 appCompat = "1.7.0"
 compileSdk = "34"
 composeBom = "2024.06.00"
