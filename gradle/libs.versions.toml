@@ -1,5 +1,5 @@
 [versions]
-accompanist = "0.34.0"
+accompanist = "0.36.0"
 activityCompose = "1.9.2"
 androidxTestJunit = "1.2.1"
 appCompat = "1.7.0"
