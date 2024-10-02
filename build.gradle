@@ -5,7 +5,7 @@ buildscript {
         compose_version = "1.1.1"
 
         // https://github.com/detekt/detekt/releases
-        detektVersion = "1.23.6"
+        detektVersion = "1.23.7"
 
         // https://developer.android.com/jetpack/androidx/releases/hilt
         hiltVersion = libs.versions.hilt.get()
