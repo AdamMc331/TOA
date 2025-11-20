@@ -42,9 +42,18 @@ data class TaskListViewState(
             val isTomorrow = (selectedDate == today.plusDays(1))
 
             return when {
-                isYesterday -> UIText.ResourceText(R.string.yesterday)
-                isToday -> UIText.ResourceText(R.string.today)
-                isTomorrow -> UIText.ResourceText(R.string.tomorrow)
+                isYesterday -> {
+                    UIText.ResourceText(R.string.yesterday)
+                }
+
+                isToday -> {
+                    UIText.ResourceText(R.string.today)
+                }
+
+                isTomorrow -> {
+                    UIText.ResourceText(R.string.tomorrow)
+                }
+
                 else -> {
                     val suffix = selectedDate.getSuffixForDayOfMonth()
 

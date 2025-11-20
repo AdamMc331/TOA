@@ -43,7 +43,8 @@ class AddTaskViewModelTest {
         val expectedViewState = AddTaskViewState.Active(
             taskInput = TaskInput(
                 description = taskToSubmit.description,
-                scheduledDate = Instant.ofEpochMilli(taskToSubmit.scheduledDateMillis)
+                scheduledDate = Instant
+                    .ofEpochMilli(taskToSubmit.scheduledDateMillis)
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate(),
             ),

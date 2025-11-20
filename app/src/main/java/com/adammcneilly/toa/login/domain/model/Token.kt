@@ -1,10 +1,14 @@
 package com.adammcneilly.toa.login.domain.model
 
 @JvmInline
-value class AuthToken(val value: String)
+value class AuthToken(
+    val value: String,
+)
 
 @JvmInline
-value class RefreshToken(val value: String)
+value class RefreshToken(
+    val value: String,
+)
 
 /**
  * Contains the information necessary for authenticating network requests.

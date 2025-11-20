@@ -38,8 +38,7 @@ class TaskListViewModel @Inject constructor(
         _viewState
             .map { viewState ->
                 viewState.selectedDate
-            }
-            .distinctUntilChanged()
+            }.distinctUntilChanged()
             .flatMapLatest { selectedDate ->
                 _viewState.update {
                     it.copy(
@@ -52,19 +51,17 @@ class TaskListViewModel @Inject constructor(
                 getTasksForDateUseCase.invoke(
                     date = selectedDate,
                 )
-            }
-            .onEach { result ->
+            }.onEach { result ->
                 _viewState.update {
                     getViewStateForTaskListResult(result)
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     private fun getViewStateForTaskListResult(
         result: Result<List<Task>>,
-    ): TaskListViewState {
-        return result.fold(
+    ): TaskListViewState =
+        result.fold(
             onSuccess = { taskList ->
                 val (complete, incomplete) = taskList.partition { task ->
                     task.completed
@@ -83,7 +80,6 @@ class TaskListViewModel @Inject constructor(
                 )
             },
         )
-    }
 
     /**
      * When the done button is clicked, we will render an alert message that states a task has

@@ -43,11 +43,12 @@ fun LoginScreen(
         onPasswordChanged = viewModel::passwordChanged,
         onLoginClicked = viewModel::loginButtonClicked,
         onSignUpClicked = {
-            Toast.makeText(
-                context,
-                "Not supported.",
-                Toast.LENGTH_SHORT,
-            ).show()
+            Toast
+                .makeText(
+                    context,
+                    "Not supported.",
+                    Toast.LENGTH_SHORT,
+                ).show()
         },
         modifier = Modifier
             .testTag(LoginScreen.TEST_TAG),

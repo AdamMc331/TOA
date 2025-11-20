@@ -21,7 +21,8 @@ class TaskListContentTest {
     private val testTask = Task(
         id = "Test ID",
         description = "Test Task",
-        scheduledDateMillis = ZonedDateTime.now()
+        scheduledDateMillis = ZonedDateTime
+            .now()
             .toInstant()
             .toEpochMilli(),
         completed = false,

@@ -12,11 +12,10 @@ import javax.inject.Inject
 class IsUserLoggedInUseCase @Inject constructor(
     private val tokenRepository: TokenRepository,
 ) {
-    fun isUserLoggedIn(): Flow<Boolean> {
-        return tokenRepository
+    fun isUserLoggedIn(): Flow<Boolean> =
+        tokenRepository
             .observeToken()
             .map { token ->
                 token != null
             }
-    }
 }

@@ -42,12 +42,14 @@ fun TOANavigationContainer(
                     modifier,
                 )
             }
+
             NavigationType.NAVIGATION_RAIL -> {
                 TOANavigationRail(
                     navigationConfig,
                     modifier,
                 )
             }
+
             NavigationType.PERMANENT_NAVIGATION_DRAWER -> {
                 TOANavigationDrawerContent(
                     navigationConfig,

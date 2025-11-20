@@ -20,9 +20,7 @@ class FakePreferences : Preferences {
     override suspend fun getInt(
         key: String,
         defaultValue: Int?,
-    ): Int? {
-        return storedInts[key] ?: defaultValue
-    }
+    ): Int? = storedInts[key] ?: defaultValue
 
     override suspend fun storeBoolean(
         key: String,
@@ -34,7 +32,5 @@ class FakePreferences : Preferences {
     override suspend fun getBoolean(
         key: String,
         defaultValue: Boolean,
-    ): Boolean {
-        return storedBooleans[key] ?: defaultValue
-    }
+    ): Boolean = storedBooleans[key] ?: defaultValue
 }

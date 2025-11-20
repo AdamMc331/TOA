@@ -127,12 +127,12 @@ class AddTaskViewModel @Inject constructor(
 
 private fun AddTaskResult.Failure.InvalidInput.toViewState(
     taskInput: TaskInput,
-): AddTaskViewState {
-    return AddTaskViewState.Active(
+): AddTaskViewState =
+    AddTaskViewState.Active(
         taskInput = taskInput,
-        descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description)
+        descriptionInputErrorMessage = UIText
+            .ResourceText(R.string.err_empty_task_description)
             .takeIf {
                 this.emptyDescription
             },
     )
-}

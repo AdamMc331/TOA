@@ -27,7 +27,5 @@ class FakeTokenRepository @Inject constructor() : TokenRepository {
      * NOTE: At initial usage, [tokenFlow] doesn't have a value, and one
      * won't be received until [storeToken] is called.
      */
-    override fun observeToken(): Flow<Token?> {
-        return tokenFlow
-    }
+    override fun observeToken(): Flow<Token?> = tokenFlow
 }

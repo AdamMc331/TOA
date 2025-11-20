@@ -39,8 +39,7 @@ class DateUtilsTest {
             (4..9),
             (10..20),
             (24..30),
-        )
-            .flatten()
+        ).flatten()
             .convertToSuffixes()
             .forEach { suffix ->
                 assertThat(suffix).isEqualTo("th")
@@ -48,9 +47,8 @@ class DateUtilsTest {
     }
 }
 
-private fun List<Int>.convertToSuffixes(): List<String> {
-    return this
+private fun List<Int>.convertToSuffixes(): List<String> =
+    this
         .map { day ->
             LocalDate.of(2020, Month.JANUARY, day).getSuffixForDayOfMonth()
         }
-}

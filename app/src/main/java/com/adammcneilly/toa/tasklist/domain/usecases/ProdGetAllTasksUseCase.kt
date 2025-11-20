@@ -8,7 +8,5 @@ import javax.inject.Inject
 class ProdGetAllTasksUseCase @Inject constructor(
     private val taskRepository: TaskRepository,
 ) : GetAllTasksUseCase {
-    override fun invoke(): Flow<Result<List<Task>>> {
-        return taskRepository.fetchAllTasks()
-    }
+    override fun invoke(): Flow<Result<List<Task>>> = taskRepository.fetchAllTasks()
 }

@@ -19,9 +19,7 @@ class FakeTaskRepository : TaskRepository {
 
     val updateTaskResults: MutableMap<Task, Result<Unit>> = mutableMapOf()
 
-    override fun fetchAllTasks(): Flow<TaskListResult> {
-        return allTasksResult
-    }
+    override fun fetchAllTasks(): Flow<TaskListResult> = allTasksResult
 
     override fun fetchTasksForDate(
         dateMillis: Long,
@@ -34,9 +32,7 @@ class FakeTaskRepository : TaskRepository {
 
     override suspend fun addTask(
         task: Task,
-    ): Result<Unit> {
-        return addTaskResults[task]!!
-    }
+    ): Result<Unit> = addTaskResults[task]!!
 
     override suspend fun deleteTask(
         task: Task,
@@ -46,7 +42,5 @@ class FakeTaskRepository : TaskRepository {
 
     override suspend fun updateTask(
         task: Task,
-    ): Result<Unit> {
-        return updateTaskResults[task]!!
-    }
+    ): Result<Unit> = updateTaskResults[task]!!
 }

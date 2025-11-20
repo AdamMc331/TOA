@@ -60,14 +60,14 @@ class ProdCredentialsLoginUseCase @Inject constructor(
      */
     private fun loginResultForError(
         error: Throwable,
-    ): LoginResult.Failure {
-        return when (error) {
+    ): LoginResult.Failure =
+        when (error) {
             is InvalidCredentialsException -> {
                 LoginResult.Failure.InvalidCredentials
             }
+
             else -> {
                 LoginResult.Failure.Unknown
             }
         }
-    }
 }

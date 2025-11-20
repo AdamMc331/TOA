@@ -62,7 +62,8 @@ class AddTaskViewModelRobot {
     fun selectDate(
         newScheduledDate: Long,
     ) = apply {
-        val scheduledDate = Instant.ofEpochMilli(newScheduledDate)
+        val scheduledDate = Instant
+            .ofEpochMilli(newScheduledDate)
             .atZone(ZoneId.systemDefault())
             .toLocalDate()
 

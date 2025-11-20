@@ -14,13 +14,12 @@ import javax.inject.Inject
 class RoomTaskRepository @Inject constructor(
     private val taskDAO: TaskDAO,
 ) : TaskRepository {
-    override fun fetchAllTasks(): Flow<Result<List<Task>>> {
-        return taskDAO
+    override fun fetchAllTasks(): Flow<Result<List<Task>>> =
+        taskDAO
             .fetchAllTasks()
             .map { taskList ->
                 Result.success(taskList.toDomainTaskList())
             }
-    }
 
     override fun fetchTasksForDate(
         dateMillis: Long,
@@ -35,8 +34,7 @@ class RoomTaskRepository @Inject constructor(
             .fetchTasksForDate(
                 localDate.toPersistableDateString(),
                 completed,
-            )
-            .map { taskList ->
+            ).map { taskList ->
                 Result.success(taskList.toDomainTaskList())
             }
     }
@@ -64,32 +62,29 @@ class RoomTaskRepository @Inject constructor(
     }
 }
 
-private fun List<PersistableTask>.toDomainTaskList(): List<Task> {
-    return this.map(PersistableTask::toTask)
-}
+private fun List<PersistableTask>.toDomainTaskList(): List<Task> = this.map(PersistableTask::toTask)
 
 private const val PERSISTED_DATE_FORMAT = "yyyy-MM-dd"
 private val persistedDateFormatter = DateTimeFormatter.ofPattern(PERSISTED_DATE_FORMAT)
 
-private fun LocalDate.toPersistableDateString(): String {
-    return persistedDateFormatter.format(this)
-}
+private fun LocalDate.toPersistableDateString(): String = persistedDateFormatter.format(this)
 
-private fun PersistableTask.toTask(): Task {
-    return Task(
+private fun PersistableTask.toTask(): Task =
+    Task(
         id = this.id,
         description = this.description,
-        scheduledDateMillis = LocalDate.parse(this.scheduledDate, persistedDateFormatter)
+        scheduledDateMillis = LocalDate
+            .parse(this.scheduledDate, persistedDateFormatter)
             .atStartOfDay()
             .atZone(ZoneId.systemDefault())
             .toInstant()
             .toEpochMilli(),
         completed = this.completed,
     )
-}
 
 private fun Task.toPersistableTask(): PersistableTask {
-    val scheduledDate = Instant.ofEpochMilli(this.scheduledDateMillis)
+    val scheduledDate = Instant
+        .ofEpochMilli(this.scheduledDateMillis)
         .atZone(ZoneId.systemDefault())
         .toLocalDate()
 
