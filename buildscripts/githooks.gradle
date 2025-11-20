@@ -1,0 +1,85 @@
+// https://emmanuelkehinde.io/setting-up-git-pre-commit-pre-push-hook-for-ktlint-check/
+
+import org.apache.tools.ant.taskdefs.condition.Os
+
+static def osSuffix() {
+    def suffix = "macos"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        suffix = "windows"
+    }
+    return suffix
+}
+
+tasks.register('copyPreCommitHook', Copy) {
+    group 'git hooks'
+
+    def suffix = osSuffix()
+
+    from new File(rootProject.rootDir, "git-hooks/pre-commit-${suffix}.sh")
+    into { new File(rootProject.rootDir, '.git/hooks') }
+    rename("pre-commit-${suffix}.sh", 'pre-commit')
+    filePermissions {
+        user {
+            read = true
+            write = true
+            execute = true
+        }
+        group {
+            read = true
+            write = true
+            execute = true
+        }
+        other {
+            read = true
+            write = false
+            execute = true
+        }
+    }
+}
+
+tasks.register('copyPrePushHook', Copy) {
+    group 'git hooks'
+
+    def suffix = osSuffix()
+
+    from new File(rootProject.rootDir, "git-hooks/pre-push-${suffix}.sh")
+    into { new File(rootProject.rootDir, '.git/hooks') }
+    rename("pre-push-${suffix}.sh", 'pre-push')
+    filePermissions {
+        user {
+            read = true
+            write = true
+            execute = true
+        }
+        group {
+            read = true
+            write = true
+            execute = true
+        }
+        other {
+            read = true
+            write = false
+            execute = true
+        }
+    }
+}
+
+tasks.register('copyGitHooks', Copy) {
+    description 'Copies the git hooks from /git-hooks to the .git folder.'
+    group 'git hooks'
+
+    dependsOn copyPreCommitHook
+    dependsOn copyPrePushHook
+}
+
+tasks.register('installGitHooks', Exec) {
+    description 'Installs the pre-commit git hooks from /git-hooks.'
+    group 'git hooks'
+    workingDir rootDir
+    commandLine 'chmod'
+    args '-R', '+x', '.git/hooks/'
+    dependsOn copyGitHooks
+    doLast {
+        logger.info('Git hook installed successfully.')
+    }
+}

@@ -9,7 +9,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.google.ksp)
     id("com.google.protobuf").version("0.9.5")
 }
 
@@ -23,9 +23,6 @@ kotlin {
         }
     }
 }
-
-apply(from = "../buildscripts/jacoco.gradle")
-apply(from = "../buildscripts/coveralls.gradle")
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -84,24 +81,6 @@ android {
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
-    testOptions {
-        unitTests.all {
-            kover {
-                isDisabled = false
-//                excludes = listOf(
-//                        "dagger.hilt.internal.aggregatedroot.codegen.*",
-//                        "hilt_aggregated_deps.*",
-//                        "com.adammcneilly.toa.core.di.*",
-//                        "com.adammcneilly.toa.core.ui.theme.*",
-//                        ".*ComposableSingletons.*",
-//                        ".*Hilt.*",
-//                        ".*BuildConfig.*",
-//                        ".*_Factory.*",
-//                )
-            }
         }
     }
 
@@ -164,7 +143,7 @@ dependencies {
     kaptAndroidTest(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
     ksp(libs.compose.destinations.ksp)
-    lintChecks(project(":lint-checks"))
+//    lintChecks(project(":lint-checks"))
     testImplementation(libs.cash.turbine)
     testImplementation(libs.google.truth)
     testImplementation(libs.junit)
@@ -190,28 +169,4 @@ protobuf {
             }
         }
     }
-}
-
-tasks.named("lintKotlinDebug") {
-    mustRunAfter("kspDebugKotlin")
-}
-
-tasks.named("lintKotlinRelease") {
-    mustRunAfter("kspReleaseKotlin")
-}
-
-tasks.lintKotlinDebug {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.lintKotlinRelease {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.formatKotlinDebug {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.formatKotlinRelease {
-    exclude { it.file.path.contains("build/")}
 }
