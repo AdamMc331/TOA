@@ -12,7 +12,7 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
-    id("com.google.protobuf").version("0.9.5")
+    alias(libs.plugins.protobuf)
 }
 
 kotlin {
