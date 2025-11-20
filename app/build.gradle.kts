@@ -5,11 +5,13 @@ import com.google.protobuf.gradle.protobuf
 // import com.google.protobuf.gradle.protoc
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.cash.paparazzi)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.dagger.hilt)
     alias(libs.plugins.google.ksp)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
     id("com.google.protobuf").version("0.9.5")
 }
 
@@ -139,8 +141,8 @@ dependencies {
     implementation(project(":core-data"))
     implementation(project(":core-models"))
     implementation(project(":task-api"))
-    kapt(libs.hilt.compiler)
-    kaptAndroidTest(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
+    kspAndroidTest(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
     ksp(libs.compose.destinations.ksp)
 //    lintChecks(project(":lint-checks"))

@@ -5,6 +5,7 @@ import org.jmailen.gradle.kotlinter.tasks.LintTask
 
 plugins {
     alias(libs.plugins.android.application).apply(false)
+    alias(libs.plugins.android.library).apply(false)
     alias(libs.plugins.benmanes.versions).apply(false)
     alias(libs.plugins.cash.paparazzi).apply(false)
     alias(libs.plugins.compose.compiler).apply(false)
@@ -12,6 +13,7 @@ plugins {
     alias(libs.plugins.google.dagger.hilt).apply(false)
     alias(libs.plugins.google.ksp).apply(false)
     alias(libs.plugins.kotlin.android).apply(false)
+    alias(libs.plugins.kotlin.multiplatform).apply(false)
     alias(libs.plugins.kotlin.parcelize).apply(false)
     alias(libs.plugins.kotlinter).apply(false)
 }
