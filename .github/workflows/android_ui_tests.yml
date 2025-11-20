@@ -1,0 +1,28 @@
+name: Android UI Tests
+
+# This will cancel any in progress workflows for the same PR, if
+# multiple pushes happen in quick succession.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+
+jobs:
+  android-test:
+    # At this moment in time, the emulator runner
+    # does not work on macos-14: https://github.com/ReactiveCircus/android-emulator-runner/issues/392#issuecomment-2106167725
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup
+        uses: ./.github/actions/workflow_setup
+
+      - name: Run Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew app:connectedCheck

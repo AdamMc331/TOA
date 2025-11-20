@@ -1,25 +1,31 @@
 name: Android Build
 
-on: push
+# This will cancel any in progress workflows for the same PR, if
+# multiple pushes happen in quick succession.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Set Up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: Setup
+        uses: ./.github/actions/workflow_setup
 
       - name: Build Project
         run: ./gradlew assemble
 
-      - name: Static Analysis
-        run: ./gradlew lintKotlin detekt
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Lint Checks
+        run: ./gradlew detektAll lintKotlin lint
