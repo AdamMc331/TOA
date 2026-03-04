@@ -14,17 +14,6 @@ plugins {
     alias(libs.plugins.protobuf)
 }
 
-kotlin {
-    sourceSets {
-        debug {
-            kotlin.srcDir("build/generated/ksp/debug/kotlin")
-        }
-        release {
-            kotlin.srcDir("build/generated/ksp/release/kotlin")
-        }
-    }
-}
-
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
@@ -51,7 +40,7 @@ android {
             )
         }
         debug {
-            isTestCoverageEnabled = true
+            enableUnitTestCoverage = true
         }
     }
 
@@ -59,16 +48,6 @@ android {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
-
-        freeCompilerArgs += listOf(
-            "-Xopt-in=kotlin.time.ExperimentalTime",
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-Xcontext-receivers",
-        )
     }
 
     buildFeatures {
@@ -79,7 +58,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -92,10 +71,8 @@ android {
     }
 
     applicationVariants.forEach { variant ->
-        kotlin.sourceSets {
-            getByName(variant.name) {
-                kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
-            }
+        variant.sourceSets.forEach { sourceSet ->
+            sourceSet.javaDirectories += files("build/generated/ksp/${variant.name}/kotlin")
         }
     }
 
@@ -141,7 +118,7 @@ dependencies {
     implementation(project(":core-models"))
     implementation(project(":task-api"))
     ksp(libs.hilt.compiler)
-    kspAndroidTest(libs.hilt.android.compiler)
+    // add("kspAndroidTest", libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
     ksp(libs.compose.destinations.ksp)
 //    lintChecks(project(":lint-checks"))

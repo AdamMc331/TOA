@@ -15,6 +15,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform).apply(false)
     alias(libs.plugins.kotlin.parcelize).apply(false)
     alias(libs.plugins.kotlinter).apply(false)
+    alias(libs.plugins.protobuf).apply(false)
 }
 
 apply(from = "buildscripts/githooks.gradle")
@@ -22,15 +23,15 @@ apply(from = "buildscripts/versionsplugin.gradle")
 
 subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
-    apply(plugin = "org.jmailen.kotlinter")
+    // apply(plugin = "org.jmailen.kotlinter")
 
-    tasks.withType<FormatTask> {
-        exclude { it.file.path.contains("build/") }
-    }
+    // tasks.withType<FormatTask> {
+    //     exclude { it.file.path.contains("build/") }
+    // }
 
-    tasks.withType<LintTask> {
-        exclude { it.file.path.contains("build/") }
-    }
+    // tasks.withType<LintTask> {
+    //     exclude { it.file.path.contains("build/") }
+    // }
 }
 
 tasks.register("clean", Delete::class) {
