@@ -32,7 +32,6 @@ fun AddTaskDialog(
             .background(
                 color = MaterialTheme.colorScheme.background,
                 shape = MaterialTheme.shapes.large,
-            )
-            .padding(dimensionResource(id = R.dimen.screen_padding)),
+            ).padding(dimensionResource(id = R.dimen.screen_padding)),
     )
 }

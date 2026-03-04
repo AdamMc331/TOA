@@ -14,7 +14,8 @@ class ProdGetTasksForDateUseCase @Inject constructor(
     override fun invoke(
         date: LocalDate,
     ): Flow<TaskListResult> {
-        val dateMillis = date.atStartOfDay()
+        val dateMillis = date
+            .atStartOfDay()
             .atZone(ZoneId.systemDefault())
             .toInstant()
             .toEpochMilli()

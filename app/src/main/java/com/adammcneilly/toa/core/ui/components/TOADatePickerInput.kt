@@ -85,8 +85,7 @@ fun TOADatePickerInput(
                     width = borderWidth,
                     color = contentColor,
                     shape = ButtonShape,
-                )
-                .clip(ButtonShape)
+                ).clip(ButtonShape)
                 .clickable {
                     showDatePicker.value = true
                 },

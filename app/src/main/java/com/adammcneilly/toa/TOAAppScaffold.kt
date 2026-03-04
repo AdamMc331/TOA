@@ -21,12 +21,14 @@ fun TOAAppScaffold(
                 appContent = appContent,
             )
         }
+
         NavigationType.NAVIGATION_RAIL -> {
             HorizontalAppScaffold(
                 navigationContent = navigationContent,
                 appContent = appContent,
             )
         }
+
         NavigationType.PERMANENT_NAVIGATION_DRAWER -> {
             PermanentNavigationScaffold(
                 navigationContent = navigationContent,

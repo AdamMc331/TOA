@@ -1,5 +1,11 @@
 name: Danger Checks
 
+# This will cancel any in progress workflows for the same PR, if
+# multiple pushes happen in quick succession.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 on: pull_request
 
 jobs:
@@ -7,28 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Set Up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
+      - name: Setup
+        uses: ./.github/actions/workflow_setup
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-
-      - name: Set Up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.0
+      - name: Dependency Updates
+        run: ./gradlew dependencyUpdates --no-parallel
 
       - name: Danger Checks
-        run: |
-          ./gradlew dependencyUpdates
-          gem install bundler
-          bundle install
-          bundle exec danger
-
+        uses: danger/kotlin@1.3.4
         env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

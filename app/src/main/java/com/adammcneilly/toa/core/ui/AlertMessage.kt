@@ -26,12 +26,11 @@ data class AlertMessage(
 
     override fun equals(
         other: Any?,
-    ): Boolean {
-        return other is AlertMessage &&
+    ): Boolean =
+        other is AlertMessage &&
             other.message == this.message &&
             other.actionText == this.actionText &&
             other.duration == this.duration
-    }
 
     override fun hashCode(): Int {
         var result = message.hashCode()

@@ -17,7 +17,5 @@ object DataStoreModule {
     fun provideTokenDataStore(
         @ApplicationContext
         applicationContext: Context,
-    ): DataStore<DataStoreToken> {
-        return applicationContext.tokenDataStore
-    }
+    ): DataStore<DataStoreToken> = applicationContext.tokenDataStore
 }

@@ -35,17 +35,16 @@ class DataStoreTokenRepository @Inject constructor(
         }
     }
 
-    override fun observeToken(): Flow<Token?> {
-        return tokenDataStore.data
+    override fun observeToken(): Flow<Token?> =
+        tokenDataStore.data
             .map { dataStoreToken ->
                 Log.d("TokenRepository", "Mapped token: ${dataStoreToken.toToken()}")
                 dataStoreToken.toToken()
             }
-    }
 }
 
-private fun DataStoreToken.toToken(): Token? {
-    return if (this == DataStoreToken.getDefaultInstance()) {
+private fun DataStoreToken.toToken(): Token? =
+    if (this == DataStoreToken.getDefaultInstance()) {
         null
     } else {
         Token(
@@ -53,4 +52,3 @@ private fun DataStoreToken.toToken(): Token? {
             refreshToken = RefreshToken(this.refreshToken),
         )
     }
-}

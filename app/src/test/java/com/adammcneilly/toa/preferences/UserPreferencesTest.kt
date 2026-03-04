@@ -6,7 +6,8 @@ import org.junit.Before
 import org.junit.Test
 
 class UserPreferencesTest {
-    private val fakePreferences = com.adammcneilly.toa.fakes.FakePreferences()
+    private val fakePreferences = com.adammcneilly.toa.fakes
+        .FakePreferences()
     private lateinit var userPreferences: UserPreferences
 
     @Before

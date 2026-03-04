@@ -27,7 +27,8 @@ class AddTaskUseCaseTest {
             val taskToSubmit = Task(
                 id = "Testing",
                 description = "",
-                scheduledDateMillis = ZonedDateTime.now()
+                scheduledDateMillis = ZonedDateTime
+                    .now()
                     .toInstant()
                     .toEpochMilli(),
                 completed = false,
@@ -53,7 +54,8 @@ class AddTaskUseCaseTest {
             val taskToSubmit = Task(
                 id = "Testing",
                 description = "         ",
-                scheduledDateMillis = ZonedDateTime.now()
+                scheduledDateMillis = ZonedDateTime
+                    .now()
                     .toInstant()
                     .toEpochMilli(),
                 completed = false,
@@ -79,7 +81,9 @@ class AddTaskUseCaseTest {
             val taskToSubmit = Task(
                 id = "Testing",
                 description = "Some description",
-                scheduledDateMillis = LocalDate.now().minusDays(1)
+                scheduledDateMillis = LocalDate
+                    .now()
+                    .minusDays(1)
                     .atStartOfDay()
                     .atZone(ZoneId.systemDefault())
                     .toInstant()
@@ -107,7 +111,8 @@ class AddTaskUseCaseTest {
             val inputTask = Task(
                 id = "Some ID",
                 description = "   Testing      ",
-                scheduledDateMillis = ZonedDateTime.now()
+                scheduledDateMillis = ZonedDateTime
+                    .now()
                     .toInstant()
                     .toEpochMilli(),
                 completed = false,
@@ -135,7 +140,8 @@ class AddTaskUseCaseTest {
             val inputTask = Task(
                 id = "Some ID",
                 description = "   Testing",
-                scheduledDateMillis = ZonedDateTime.now()
+                scheduledDateMillis = ZonedDateTime
+                    .now()
                     .toInstant()
                     .toEpochMilli(),
                 completed = false,
@@ -160,7 +166,8 @@ class AddTaskUseCaseTest {
     @Test
     fun submitWithPreferenceLimit() =
         runTest {
-            val today = ZonedDateTime.now()
+            val today = ZonedDateTime
+                .now()
                 .toInstant()
                 .toEpochMilli()
 
@@ -193,7 +200,8 @@ class AddTaskUseCaseTest {
     @Test
     fun submitWithIgnoringPreferenceLimit() =
         runTest {
-            val today = ZonedDateTime.now()
+            val today = ZonedDateTime
+                .now()
                 .toInstant()
                 .toEpochMilli()
 
@@ -240,7 +248,8 @@ class AddTaskUseCaseTest {
             val taskToSubmit = Task(
                 id = "Testing",
                 description = "Test",
-                scheduledDateMillis = ZonedDateTime.now()
+                scheduledDateMillis = ZonedDateTime
+                    .now()
                     .toInstant()
                     .toEpochMilli(),
                 completed = false,

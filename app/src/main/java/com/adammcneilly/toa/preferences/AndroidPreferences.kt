@@ -33,13 +33,12 @@ class AndroidPreferences @Inject constructor(
     override suspend fun getInt(
         key: String,
         defaultValue: Int?,
-    ): Int? {
-        return if (sharedPreferences.contains(key)) {
+    ): Int? =
+        if (sharedPreferences.contains(key)) {
             sharedPreferences.getInt(key, 0)
         } else {
             defaultValue
         }
-    }
 
     override suspend fun storeBoolean(
         key: String,
@@ -54,7 +53,5 @@ class AndroidPreferences @Inject constructor(
     override suspend fun getBoolean(
         key: String,
         defaultValue: Boolean,
-    ): Boolean {
-        return sharedPreferences.getBoolean(key, defaultValue)
-    }
+    ): Boolean = sharedPreferences.getBoolean(key, defaultValue)
 }

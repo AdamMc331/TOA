@@ -174,11 +174,10 @@ class MainActivity : FragmentActivity() {
 
     private fun getNavigationType(
         widthSizeClass: WindowWidthSizeClass,
-    ): NavigationType {
-        return when (widthSizeClass) {
+    ): NavigationType =
+        when (widthSizeClass) {
             WindowWidthSizeClass.Expanded -> NavigationType.PERMANENT_NAVIGATION_DRAWER
             WindowWidthSizeClass.Medium -> NavigationType.NAVIGATION_RAIL
             else -> NavigationType.BOTTOM_NAVIGATION
         }
-    }
 }

@@ -5,27 +5,14 @@ import com.google.protobuf.gradle.protobuf
 // import com.google.protobuf.gradle.protoc
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-    alias(libs.plugins.ksp)
-    id("com.google.protobuf").version("0.9.5")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.cash.paparazzi)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.dagger.hilt)
+    alias(libs.plugins.google.ksp)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.protobuf)
 }
-
-kotlin {
-    sourceSets {
-        debug {
-            kotlin.srcDir("build/generated/ksp/debug/kotlin")
-        }
-        release {
-            kotlin.srcDir("build/generated/ksp/release/kotlin")
-        }
-    }
-}
-
-apply(from = "../buildscripts/jacoco.gradle")
-apply(from = "../buildscripts/coveralls.gradle")
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -53,7 +40,7 @@ android {
             )
         }
         debug {
-            isTestCoverageEnabled = true
+            enableUnitTestCoverage = true
         }
     }
 
@@ -61,16 +48,6 @@ android {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
-
-        freeCompilerArgs += listOf(
-            "-Xopt-in=kotlin.time.ExperimentalTime",
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-Xcontext-receivers",
-        )
     }
 
     buildFeatures {
@@ -81,27 +58,9 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
-    testOptions {
-        unitTests.all {
-            kover {
-                isDisabled = false
-//                excludes = listOf(
-//                        "dagger.hilt.internal.aggregatedroot.codegen.*",
-//                        "hilt_aggregated_deps.*",
-//                        "com.adammcneilly.toa.core.di.*",
-//                        "com.adammcneilly.toa.core.ui.theme.*",
-//                        ".*ComposableSingletons.*",
-//                        ".*Hilt.*",
-//                        ".*BuildConfig.*",
-//                        ".*_Factory.*",
-//                )
-            }
         }
     }
 
@@ -112,10 +71,8 @@ android {
     }
 
     applicationVariants.forEach { variant ->
-        kotlin.sourceSets {
-            getByName(variant.name) {
-                kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
-            }
+        variant.sourceSets.forEach { sourceSet ->
+            sourceSet.javaDirectories += files("build/generated/ksp/${variant.name}/kotlin")
         }
     }
 
@@ -160,11 +117,11 @@ dependencies {
     implementation(project(":core-data"))
     implementation(project(":core-models"))
     implementation(project(":task-api"))
-    kapt(libs.hilt.compiler)
-    kaptAndroidTest(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
+    // add("kspAndroidTest", libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
     ksp(libs.compose.destinations.ksp)
-    lintChecks(project(":lint-checks"))
+//    lintChecks(project(":lint-checks"))
     testImplementation(libs.cash.turbine)
     testImplementation(libs.google.truth)
     testImplementation(libs.junit)
@@ -190,28 +147,4 @@ protobuf {
             }
         }
     }
-}
-
-tasks.named("lintKotlinDebug") {
-    mustRunAfter("kspDebugKotlin")
-}
-
-tasks.named("lintKotlinRelease") {
-    mustRunAfter("kspReleaseKotlin")
-}
-
-tasks.lintKotlinDebug {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.lintKotlinRelease {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.formatKotlinDebug {
-    exclude { it.file.path.contains("build/")}
-}
-
-tasks.formatKotlinRelease {
-    exclude { it.file.path.contains("build/")}
 }

@@ -75,15 +75,18 @@ class LoginViewModel @Inject constructor(
                     errorMessage = UIText.ResourceText(R.string.err_invalid_credentials),
                 )
             }
+
             is LoginResult.Failure.Unknown -> {
                 LoginViewState.SubmissionError(
                     credentials = currentCredentials,
                     errorMessage = UIText.ResourceText(R.string.err_login_failure),
                 )
             }
+
             is LoginResult.Failure.EmptyCredentials -> {
                 loginResult.toLoginViewState(currentCredentials)
             }
+
             is LoginResult.Success -> {
                 LoginViewState.Completed
             }
@@ -97,20 +100,16 @@ class LoginViewModel @Inject constructor(
 
 private fun Credentials.withUpdatedEmail(
     email: String,
-): Credentials {
-    return this.copy(email = Email(email))
-}
+): Credentials = this.copy(email = Email(email))
 
 private fun Credentials.withUpdatedPassword(
     password: String,
-): Credentials {
-    return this.copy(password = Password(password))
-}
+): Credentials = this.copy(password = Password(password))
 
 private fun LoginResult.Failure.EmptyCredentials.toLoginViewState(
     credentials: Credentials,
-): LoginViewState {
-    return LoginViewState.Active(
+): LoginViewState =
+    LoginViewState.Active(
         credentials = credentials,
         emailInputErrorMessage = UIText.ResourceText(R.string.err_empty_email).takeIf {
             this.emptyEmail
@@ -119,4 +118,3 @@ private fun LoginResult.Failure.EmptyCredentials.toLoginViewState(
             this.emptyPassword
         },
     )
-}

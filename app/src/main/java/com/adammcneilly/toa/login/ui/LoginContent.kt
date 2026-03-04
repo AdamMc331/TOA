@@ -104,8 +104,7 @@ private fun LogoInputsColumn(
             .padding(
                 start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
                 end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
-            )
-            .verticalScroll(rememberScrollState()),
+            ).verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         VerticalSpacer(height = contentPadding.calculateTopPadding())

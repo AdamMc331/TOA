@@ -18,29 +18,26 @@ object DataModule {
     fun provideTOADatabase(
         @ApplicationContext
         applicationContext: Context,
-    ): TOADatabase {
-        return Room.databaseBuilder(
-            applicationContext,
-            TOADatabase::class.java,
-            "toa-database.db",
-        ).build()
-    }
+    ): TOADatabase =
+        Room
+            .databaseBuilder(
+                applicationContext,
+                TOADatabase::class.java,
+                "toa-database.db",
+            ).build()
 
     @Provides
     fun provideTaskDAO(
         database: TOADatabase,
-    ): TaskDAO {
-        return database.taskDao()
-    }
+    ): TaskDAO = database.taskDao()
 
     @Provides
     fun provideSharedPreferences(
         @ApplicationContext
         applicationContext: Context,
-    ): SharedPreferences {
-        return applicationContext.getSharedPreferences(
+    ): SharedPreferences =
+        applicationContext.getSharedPreferences(
             "toa_preferences",
             Context.MODE_PRIVATE,
         )
-    }
 }

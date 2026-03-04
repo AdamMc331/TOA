@@ -96,8 +96,7 @@ class LoginViewModelTest {
                 .mockLoginResultForCredentials(
                     credentials = completedCredentials,
                     result = Result.failure(InvalidCredentialsException()),
-                )
-                .expectViewStates(
+                ).expectViewStates(
                     action = {
                         enterEmail(testEmail)
                         enterPassword(testPassword)
@@ -147,8 +146,7 @@ class LoginViewModelTest {
                     result = Result.failure(
                         Throwable("Failed."),
                     ),
-                )
-                .expectViewStates(
+                ).expectViewStates(
                     action = {
                         enterEmail(testEmail)
                         enterPassword(testPassword)

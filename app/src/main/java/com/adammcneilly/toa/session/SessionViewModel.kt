@@ -39,7 +39,6 @@ class SessionViewModel @Inject constructor(
                 _sessionState.update {
                     newSessionState
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 }
