@@ -155,6 +155,8 @@ dependencies {
     implementation(libs.androidx.window)
     implementation(libs.bundles.accompanist)
     implementation(libs.compose.destinations.animations.core)
+    implementation(libs.compose.material.icons.extended)
+    implementation(libs.dejavu)
     implementation(libs.google.protobuf.javalite)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)

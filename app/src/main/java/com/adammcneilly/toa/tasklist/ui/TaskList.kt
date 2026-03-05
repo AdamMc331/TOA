@@ -66,8 +66,8 @@ fun TaskList(
                                 onDoneClicked(task)
                             },
                             modifier = Modifier
-                                .testTag("INCOMPLETE_TASK_${task.id}")
-                                .animateItemPlacement(),
+                                .testTag("INCOMPLETE_TASK_${task.id}"),
+//                                .animateItemPlacement(),
                         )
 
                         if (index != incompleteTasks.lastIndex) {
@@ -104,8 +104,8 @@ fun TaskList(
                                 onDoneClicked(task)
                             },
                             modifier = Modifier
-                                .testTag("COMPLETED_TASK_${task.id}")
-                                .animateItemPlacement(),
+                                .testTag("COMPLETED_TASK_${task.id}"),
+//                                .animateItemPlacement(),
                         )
 
                         if (index != completedTasks.lastIndex) {

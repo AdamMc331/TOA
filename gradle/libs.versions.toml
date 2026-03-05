@@ -3,7 +3,7 @@ accompanist = "0.36.0"
 activityCompose = "1.9.2"
 androidxTestJunit = "1.2.1"
 appCompat = "1.7.1"
-compileSdk = "34"
+compileSdk = "36"
 composeBom = "2024.12.01"
 composeCompiler = "1.5.7"
 composeDestinations = "1.10.2"
@@ -56,6 +56,7 @@ androidx-window = { module = "androidx.window:window", version.ref = "windowMana
 cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 compose-destinations-animations-core = { module = "io.github.raamcosta.compose-destinations:animations-core", version.ref = "composeDestinations" }
 compose-destinations-ksp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "composeDestinations" }
+compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 dejavu = { module = "me.mmckenna.dejavu:dejavu", version.ref = "dejavu" }
 google-protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobuf" }
 google-truth = { module = "com.google.truth:truth", version.ref = "truth" }
