@@ -1,7 +1,6 @@
 package com.adammcneilly.toa.tasklist.ui
 
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import com.adammcneilly.toa.destinations.AddTaskDialogDestination
@@ -10,6 +9,7 @@ import com.adammcneilly.toa.fakes.FakeDestinationsNavigator
 import com.adammcneilly.toa.fakes.FakeGetTasksForDateUseCase
 import com.adammcneilly.toa.fakes.FakeRescheduleTaskUseCase
 import com.adammcneilly.toa.fakes.FakeTaskRepository
+import dejavu.createRecompositionTrackingRule
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -17,7 +17,7 @@ import java.time.LocalDate
 
 class TaskListScreenTest {
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createRecompositionTrackingRule()
 
     @Test
     fun navigateToAddTaskForCompactWindowSize() {

@@ -131,6 +131,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.dejavu)
     androidTestImplementation(libs.google.truth)
     androidTestImplementation(libs.hilt.android.testing)
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
