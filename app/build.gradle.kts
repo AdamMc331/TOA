@@ -2,6 +2,8 @@
 // import com.google.protobuf.gradle.generateProtoTasks
 import com.google.protobuf.gradle.id
 import com.google.protobuf.gradle.protobuf
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 // import com.google.protobuf.gradle.protoc
 
 plugins {
@@ -9,6 +11,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     id("com.google.protobuf").version("0.9.5")
 }
@@ -49,7 +52,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
@@ -63,22 +66,20 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin.compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
 
-        freeCompilerArgs += listOf(
-            "-Xopt-in=kotlin.time.ExperimentalTime",
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-Xcontext-receivers",
+        freeCompilerArgs.addAll(
+            listOf(
+                "-Xopt-in=kotlin.time.ExperimentalTime",
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xcontext-receivers",
+            ),
         )
     }
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
     packagingOptions {
@@ -131,6 +132,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.dejavu)
     androidTestImplementation(libs.google.truth)
     androidTestImplementation(libs.hilt.android.testing)
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
@@ -154,6 +156,8 @@ dependencies {
     implementation(libs.androidx.window)
     implementation(libs.bundles.accompanist)
     implementation(libs.compose.destinations.animations.core)
+    implementation(libs.compose.material.icons.extended)
+    implementation(libs.dejavu)
     implementation(libs.google.protobuf.javalite)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
@@ -201,17 +205,17 @@ tasks.named("lintKotlinRelease") {
 }
 
 tasks.lintKotlinDebug {
-    exclude { it.file.path.contains("build/")}
+    exclude { it.file.path.contains("build/") }
 }
 
 tasks.lintKotlinRelease {
-    exclude { it.file.path.contains("build/")}
+    exclude { it.file.path.contains("build/") }
 }
 
 tasks.formatKotlinDebug {
-    exclude { it.file.path.contains("build/")}
+    exclude { it.file.path.contains("build/") }
 }
 
 tasks.formatKotlinRelease {
-    exclude { it.file.path.contains("build/")}
+    exclude { it.file.path.contains("build/") }
 }

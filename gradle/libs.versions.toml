@@ -3,23 +3,24 @@ accompanist = "0.36.0"
 activityCompose = "1.9.2"
 androidxTestJunit = "1.2.1"
 appCompat = "1.7.1"
-compileSdk = "34"
-composeBom = "2024.12.01"
-composeCompiler = "1.5.7"
+compileSdk = "36"
+composeBom = "2026.02.01"
 composeDestinations = "1.10.2"
 composeNavigation = "2.8.8"
 coreKtx = "1.13.1"
 coroutines = "1.8.1"
 dataStore = "1.1.7"
+dejavu = "0.1.1"
 espresso = "3.6.1"
 hilt = "2.52"
 hiltNavigationCompose = "1.2.0"
 junit = "4.13.2"
+kotlin = "2.3.0"
 ksp = "1.9.23-1.0.20"
 lifecycle = "2.8.7"
 lint = "27.1.2"
 material = "1.12.0"
-minSdk = "21"
+minSdk = "24"
 mockk = "1.13.17"
 protobuf = "3.25.8"
 room = "2.6.1"
@@ -55,6 +56,8 @@ androidx-window = { module = "androidx.window:window", version.ref = "windowMana
 cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 compose-destinations-animations-core = { module = "io.github.raamcosta.compose-destinations:animations-core", version.ref = "composeDestinations" }
 compose-destinations-ksp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "composeDestinations" }
+compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+dejavu = { module = "me.mmckenna.dejavu:dejavu", version.ref = "dejavu" }
 google-protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobuf" }
 google-truth = { module = "com.google.truth:truth", version.ref = "truth" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
@@ -73,4 +76,5 @@ accompanist = [
 ]
 
 [plugins]
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

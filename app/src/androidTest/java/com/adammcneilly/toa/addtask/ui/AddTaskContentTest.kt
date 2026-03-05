@@ -2,17 +2,18 @@ package com.adammcneilly.toa.addtask.ui
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.adammcneilly.toa.addtask.domain.model.TaskInput
 import com.adammcneilly.toa.core.ui.UIText
+import dejavu.assertRecompositions
+import dejavu.createRecompositionTrackingRule
 import org.junit.Rule
 import org.junit.Test
 
 class AddTaskContentTest {
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createRecompositionTrackingRule()
 
     @Test
     fun renderInitialViewState() {
@@ -30,6 +31,7 @@ class AddTaskContentTest {
         composeTestRule
             .onNodeWithTag(ADD_TASK_DESCRIPTION_INPUT_TAG)
             .assertIsFocused()
+            .assertRecompositions(exactly = 1)
     }
 
     @Test
@@ -49,6 +51,11 @@ class AddTaskContentTest {
                 onSubmitClicked = {},
             )
         }
+
+        composeTestRule
+            .onNodeWithTag(ADD_TASK_DESCRIPTION_INPUT_TAG)
+            .assertIsFocused()
+            .assertRecompositions(exactly = 1)
 
         composeTestRule.onNodeWithText(descriptionError).assertIsDisplayed()
     }
